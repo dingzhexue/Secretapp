@@ -1,0 +1,20 @@
+//
+// Prefix header for all source files of the 'iSpeechSample' target in the 'iSpeechSample' project
+//
+
+#import <Availability.h>
+
+#ifndef __IPHONE_4_0
+#warning "This project uses features only available in iOS SDK 4.0 and later."
+#endif
+
+#ifdef __OBJC__
+	#import <UIKit/UIKit.h>
+	#import <Foundation/Foundation.h>
+    #import "TestFlight.h"
+#import "GlobalFunctions.h"
+#define SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
+#endif
+
+#define kGADBannerUnitID        @"ca-app-pub-4708720696924183/7868346159"
+#define kGADinterstitialUnitID  @"ca-app-pub-4708720696924183/9345079350"
