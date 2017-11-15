@@ -72,6 +72,14 @@
 	<string>1.0</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>App requires your camera usage.</string>
+	<key>NSContactsUsageDescription</key>
+	<string>App requires user contact information.</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>App requires your microphone usage.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>App requires your photo library usage.</string>
 	<key>Pushwoosh_APPID</key>
 	<string>44E52-3A701</string>
 	<key>UIFileSharingEnabled</key>

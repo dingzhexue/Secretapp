@@ -116,7 +116,7 @@
         {
             NSLog(@"Login From iphone 5");
             self.backgroundImg.image = [UIImage imageNamed:@"iphone-n-back@2x.png"];
-            self.backgroundImg.frame = CGRectMake(0, -10, 320, 540);
+//            self.backgroundImg.frame = CGRectMake(0, -10, 320, 540);
         }
         
         

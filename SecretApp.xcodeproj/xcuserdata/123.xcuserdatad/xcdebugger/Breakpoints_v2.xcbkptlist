@@ -9,13 +9,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "iSpeechSample/UserLoginView.m"
-            timestampString = "532458496.423252"
+            filePath = "iSpeechSample/ZoomViewController.m"
+            timestampString = "532478573.43258"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "662"
-            endingLineNumber = "662"
-            landmarkName = "-alertView:clickedButtonAtIndex:"
+            startingLineNumber = "67"
+            endingLineNumber = "67"
+            landmarkName = "-centeredFrameForScrollView:andUIView:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

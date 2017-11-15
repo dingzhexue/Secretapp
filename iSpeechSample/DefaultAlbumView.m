@@ -1097,7 +1097,6 @@ UIBarButtonItem *addButton;
                     [img1 setImage:[UIImage imageWithContentsOfFile:defAlObj.imgPath ]forState:UIControlStateNormal];
                     [img1 addTarget:self action:@selector(imgVideoSelectActivity:) forControlEvents:(UIControlEventTouchUpInside)];
                     img1.tag = i-1;
-                    
                     [playImagesArr addObject:defAlObj.imgPath];
                     
                     isImgFlag=true;
@@ -1316,7 +1315,6 @@ UIBarButtonItem *addButton;
         }else {
             strReturn =@"nil";
         }
-        sqlite3_finalize(query_stmt);
     }
     sqlite3_close(dbSecret);
     return strReturn;

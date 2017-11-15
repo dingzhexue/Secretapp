@@ -41,6 +41,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    contactsTable.delegate = self;
+    contactsTable.dataSource = self;
+    
     if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0"))
     {
         self.edgesForExtendedLayout = UIRectEdgeNone;
@@ -157,8 +161,7 @@
             CFRelease(addressBook);
             CFRelease(thePeople);
             
-            contactsTable.delegate = self;
-            contactsTable.dataSource = self;
+            
             
             [contactsTable reloadData];
         });

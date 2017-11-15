@@ -5459,6 +5459,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution: sublime applications pty limited  (75GGG7SP74)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: sublime applications pty limited  (75GGG7SP74)";
 				COPY_PHASE_STRIP = NO;
+				ENABLE_BITCODE = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = NO;
 				ENABLE_TESTABILITY = YES;
 				EXCLUDED_SOURCE_FILE_NAMES = "";
@@ -5511,6 +5512,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution: sublime applications pty limited  (75GGG7SP74)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: sublime applications pty limited  (75GGG7SP74)";
 				COPY_PHASE_STRIP = YES;
+				ENABLE_BITCODE = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = NO;
 				EXCLUDED_SOURCE_FILE_NAMES = "*libTestFlight.a";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -5624,6 +5626,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution: sublime applications pty limited  (75GGG7SP74)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: sublime applications pty limited  (75GGG7SP74)";
 				COPY_PHASE_STRIP = YES;
+				ENABLE_BITCODE = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = NO;
 				EXCLUDED_SOURCE_FILE_NAMES = "";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
