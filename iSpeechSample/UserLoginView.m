@@ -608,13 +608,16 @@ if([txtUserNm.text isEqualToString:@""])
         {
             if (sqlite3_step(query_stmt) == SQLITE_ROW) 
             {
-                loggedinUserID = [[NSString alloc] initWithUTF8String:(const char *) sqlite3_column_text(query_stmt, 0)];
+                loggedinUserID = [[NSString alloc] initWithUTF8String:(const char *)sqlite3_column_text(query_stmt, 0)];
                 
                 NSLog(@"User id=== %@",loggedinUserID);
                 
                 app.LoginUserID=loggedinUserID;
-                UIAlertView *alert = [[UIAlertView alloc]
-                                      initWithTitle:@"Message" message:@"You are logged into System Successfully.." delegate:self cancelButtonTitle:@"Logout" otherButtonTitles:@"Continue" ,nil];
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Message"
+                                                                message:@"You are logged into System Successfully.."
+                                                               delegate:self
+                                                      cancelButtonTitle:@"Logout"
+                                                      otherButtonTitles:@"Continue" ,nil];
                    [alert show];
                    [alert release];
               
@@ -638,12 +641,14 @@ if([txtUserNm.text isEqualToString:@""])
             [self getUSerID];
             [self addProperty];
             [self addAuthenticaStyle];
-                        UIAlertView *alert = [[UIAlertView alloc]
-                                              initWithTitle:@"Message" message:@"You are logged into System Successfully.." delegate:self cancelButtonTitle:@"Logout" otherButtonTitles:@"Continue" ,nil];
+                        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Message"
+                                                                        message:@"You are logged into System Successfully.."
+                                                                       delegate:self
+                                                              cancelButtonTitle:@"Logout"
+                                                              otherButtonTitles:@"Continue" ,nil];
                         [alert show];
                         [alert release];
         }
-        
     }
     else if ([title isEqualToString:@"Cancel"]) {
         loggedinUserID=@"";
@@ -657,13 +662,16 @@ if([txtUserNm.text isEqualToString:@""])
         RootViewController *root;
         if(UI_USER_INTERFACE_IDIOM()==UIUserInterfaceIdiomPad)
         {
-            root = [[RootViewController alloc] initWithNibName:@"RootViewcontroller_Ipad" bundle:nil];
+            root = [[RootViewController alloc] initWithNibName:@"RootViewcontroller_Ipad"
+                                                        bundle:nil];
         }
         else {
-            root = [[RootViewController alloc] initWithNibName:@"RootViewController" bundle:nil];
+            root = [[RootViewController alloc] initWithNibName:@"RootViewController"
+                                                        bundle:nil];
         }
         
-        [self.navigationController pushViewController:root animated:YES];
+        [self.navigationController pushViewController:root
+                                             animated:YES];
         [root release];
     }
     else if([title isEqualToString:@"OK"])
@@ -709,8 +717,11 @@ if([txtUserNm.text isEqualToString:@""])
         else
         { 
             returnValue=false;
-            UIAlertView *alert = [[UIAlertView alloc]
-                                  initWithTitle:@"Sorry" message:@"Failed To Register.." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Sorry"
+                                                            message:@"Failed To Register.."
+                                                           delegate:nil
+                                                  cancelButtonTitle:@"OK"
+                                                  otherButtonTitles:nil];
             [alert show];
             [alert release];
         }
@@ -719,6 +730,7 @@ if([txtUserNm.text isEqualToString:@""])
     }
     return returnValue;
 }
+
 -(Boolean) getUserName
 {
     Boolean returnValue;

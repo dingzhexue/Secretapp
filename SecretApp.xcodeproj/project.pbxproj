@@ -5459,7 +5459,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution: sublime applications pty limited  (75GGG7SP74)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: sublime applications pty limited  (75GGG7SP74)";
 				COPY_PHASE_STRIP = NO;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = NO;
 				ENABLE_TESTABILITY = YES;
 				EXCLUDED_SOURCE_FILE_NAMES = "";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -5479,7 +5479,10 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				ONLY_ACTIVE_ARCH = YES;
-				OTHER_LDFLAGS = "-fobjc-arc";
+				OTHER_LDFLAGS = (
+					"-fobjc-arc",
+					"-ObjC",
+				);
 				PROVISIONING_PROFILE = "26345460-7327-4F0A-A381-2DABA483FC01";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "26345460-7327-4F0A-A381-2DABA483FC01";
 				SDKROOT = iphoneos;
@@ -5508,7 +5511,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution: sublime applications pty limited  (75GGG7SP74)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: sublime applications pty limited  (75GGG7SP74)";
 				COPY_PHASE_STRIP = YES;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = NO;
 				EXCLUDED_SOURCE_FILE_NAMES = "*libTestFlight.a";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -5525,7 +5528,10 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
-				OTHER_LDFLAGS = "-fobjc-arc";
+				OTHER_LDFLAGS = (
+					"-fobjc-arc",
+					"-ObjC",
+				);
 				PROVISIONING_PROFILE = "26345460-7327-4F0A-A381-2DABA483FC01";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "26345460-7327-4F0A-A381-2DABA483FC01";
 				SDKROOT = iphoneos;
@@ -5618,7 +5624,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution: sublime applications pty limited  (75GGG7SP74)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: sublime applications pty limited  (75GGG7SP74)";
 				COPY_PHASE_STRIP = YES;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = NO;
 				EXCLUDED_SOURCE_FILE_NAMES = "";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -5636,7 +5642,10 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
-				OTHER_LDFLAGS = "-fobjc-arc";
+				OTHER_LDFLAGS = (
+					"-fobjc-arc",
+					"-ObjC",
+				);
 				PROVISIONING_PROFILE = "26345460-7327-4F0A-A381-2DABA483FC01";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "26345460-7327-4F0A-A381-2DABA483FC01";
 				SDKROOT = iphoneos;

@@ -22,7 +22,7 @@
     
     
     // SPECIAL ERROR //
-//    objc_msgSend(self, @selector(authorizeWithFBAppAuth:safariAuth:), NO, NO);
+    objc_msgSend(self, @selector(authorizeWithFBAppAuth:safariAuth:), NO, NO);
 }
 
 @end
