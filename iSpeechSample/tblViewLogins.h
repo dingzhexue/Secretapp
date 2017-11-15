@@ -7,18 +7,21 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "AppDelegate.h"
-#import  <sqlite3.h>
 @protocol tblViewLoginsDelegate
  
 @end
+
+@class AppDelegate;
+
 @interface tblViewLogins : UITableViewController
 {
     id<tblViewLoginsDelegate> _delegate;
     NSMutableArray *listOfItems;
     NSString *databasepath;
     sqlite3 *dbSecret;
- NSString *strIMgPath,*strTime,*strDate,*imgId;    
+    NSString *strIMgPath,*strTime,*strDate,*imgId;
+    AppDelegate *app;
+
 }
 
 @property (nonatomic, retain)     NSString *strIMgPath,*strTime,*strDate,*imgId;  

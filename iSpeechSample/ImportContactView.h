@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import <AddressBook/AddressBook.h>
-#import <sqlite3.h>
 #import "GADHelper.h"
 
 @interface ImportContactView : GADBannerViewController<UITableViewDelegate,UITableViewDataSource>
@@ -18,6 +17,8 @@
     UITableView *contactsTable;
     sqlite3 *dbSecret;
     NSString *databasepath;
+    AppDelegate *app;
+
 }
 @property(nonatomic,retain) IBOutlet UITableView *contactsTable;
 

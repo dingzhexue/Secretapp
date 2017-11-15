@@ -16,7 +16,7 @@
 @synthesize delegate = _delegate;
 @synthesize listOfItems;
 
-- (id)initWithStyle:(UITableViewStyle)style
+- (instancetype)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
     if (self) {
@@ -35,12 +35,12 @@
     self.clearsSelectionOnViewWillAppear = NO;
     self.contentSizeForViewInPopover = CGSizeMake(320.0, 600.0);
     
-     self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageWithContentsOfFile:[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"main-bg.png"]]];
+     self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle].resourcePath stringByAppendingPathComponent:@"main-bg.png"]]];
     
     
     listOfItems = [[NSMutableArray alloc] init];
-    NSArray *itemsArray1 =[NSArray arrayWithObjects:@"Off ",@"1 Minute",@"2 Minute",@"5 Minute",@"10Minute",nil];
-    NSDictionary *itemsDict1 = [NSDictionary dictionaryWithObject:itemsArray1 forKey:@"0"];
+    NSArray *itemsArray1 =@[@"Off ",@"1 Minute",@"2 Minute",@"5 Minute",@"10Minute"];
+    NSDictionary *itemsDict1 = @{@"0": itemsArray1};
     
     
     [listOfItems addObject:itemsDict1];
@@ -63,17 +63,17 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     
-    return [listOfItems count];
+    return listOfItems.count;
     //return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     
-    NSDictionary *objdict = [listOfItems objectAtIndex:section];
-    NSString *str = [NSString stringWithFormat:@"%i",section];
-    NSArray *objarray = [objdict objectForKey:str];
-    return [objarray count];
+    NSDictionary *objdict = listOfItems[section];
+    NSString *str = [NSString stringWithFormat:@"%li",(long)section];
+    NSArray *objarray = objdict[str];
+    return objarray.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -87,17 +87,17 @@
         
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        NSDictionary *objdict = [listOfItems objectAtIndex:indexPath.section];
-        NSString *str = [NSString stringWithFormat:@"%i",indexPath.section];
-        NSArray *objarray = [objdict objectForKey:str];
+        NSDictionary *objdict = listOfItems[indexPath.section];
+        NSString *str = [NSString stringWithFormat:@"%li",(long)indexPath.section];
+        NSArray *objarray = objdict[str];
         
         if(indexPath.section == 0 && indexPath.row == 1)
         {
             cell.textLabel.textColor = [UIColor  blackColor];
-            cell.textLabel.text = [objarray objectAtIndex:indexPath.row];
+            cell.textLabel.text = objarray[indexPath.row];
         } else      {
             cell.textLabel.textColor = [UIColor  blackColor];
-            cell.textLabel.text = [objarray objectAtIndex:indexPath.row];
+            cell.textLabel.text = objarray[indexPath.row];
             
         }
         
@@ -112,7 +112,7 @@
 
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-	
+    
     if(section == 0)
     {
         return @"AutoLog Off";

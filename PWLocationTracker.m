@@ -35,7 +35,7 @@ static NSTimeInterval const kMinUpdateTime = 10.f;
 
 #pragma mark - Setup
 
-- (id)init {
+- (instancetype)init {
     if (self = [super init]) {
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidBecomeActive) name:UIApplicationDidBecomeActiveNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidEnterBackground) name:UIApplicationDidEnterBackgroundNotification object:nil];
@@ -47,7 +47,7 @@ static NSTimeInterval const kMinUpdateTime = 10.f;
         NSArray * bgModes = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"UIBackgroundModes"];
         _locationServiceEnabledInBG = NO;
         
-        if ([bgModes count]) {
+        if (bgModes.count) {
             for (NSString *value in bgModes) {
                 if (value && [value isKindOfClass:[NSString class]]) {
                     if ([value isEqualToString:@"location"]) {
@@ -66,11 +66,11 @@ static NSTimeInterval const kMinUpdateTime = 10.f;
 #pragma mark - Notification handlers
 
 - (void)applicationDidBecomeActive {
-	[self updateLocationTrackingMode];
+    [self updateLocationTrackingMode];
 }
 
 - (void)applicationDidEnterBackground {
-	[self updateLocationTrackingMode];
+    [self updateLocationTrackingMode];
 }
 
 #pragma mark -
@@ -91,7 +91,7 @@ static NSTimeInterval const kMinUpdateTime = 10.f;
         accuracy = kCLLocationAccuracyBest;
     }
     
-    [self.locationManager setDesiredAccuracy:accuracy];
+    (self.locationManager).desiredAccuracy = accuracy;
 }
 
 - (void)setEnabled:(BOOL)enabled {
@@ -108,9 +108,9 @@ static NSTimeInterval const kMinUpdateTime = 10.f;
 
 - (void)updateLocationTrackingMode {
     [self stopUpdatingLocation];
-	
-	if(!_enabled)
-		return;
+    
+    if(!_enabled)
+        return;
     
     if ([self isInBackground]) {
         if (_locationServiceEnabledInBG) {
@@ -118,10 +118,10 @@ static NSTimeInterval const kMinUpdateTime = 10.f;
         }
         
         [self startApproximateGeoTracking];
-	}
-	else {
+    }
+    else {
         [self startPreciseGeoTracking];
-	}
+    }
 }
 
 - (void)startPreciseGeoTracking {
@@ -151,8 +151,8 @@ static NSTimeInterval const kMinUpdateTime = 10.f;
     BOOL geoFencingEnabled = NO;
     
     if (NSFoundationVersionNumber > NSFoundationVersionNumber_iOS_6_1) {
-		//OK, Marmalade SDK does not want to link to CLCircularRegion directly. This is a workaround.
-		Class circularRegion = NSClassFromString(@"CLCircularRegion");
+        //OK, Marmalade SDK does not want to link to CLCircularRegion directly. This is a workaround.
+        Class circularRegion = NSClassFromString(@"CLCircularRegion");
         if ([CLLocationManager isMonitoringAvailableForClass:circularRegion]) {
             geoFencingEnabled = YES;
         }
@@ -164,7 +164,7 @@ static NSTimeInterval const kMinUpdateTime = 10.f;
     }
     
     if (geoFencingEnabled) {
-        CLLocation *location = [_locationManager location];
+        CLLocation *location = _locationManager.location;
         
         if (!location) {
             location = self.previosLocation;
@@ -184,7 +184,7 @@ static NSTimeInterval const kMinUpdateTime = 10.f;
         CLRegion *region = nil;
         
         if (NSFoundationVersionNumber > NSFoundationVersionNumber_iOS_6_1) {
-			Class circularRegion = NSClassFromString(@"CLCircularRegion");
+            Class circularRegion = NSClassFromString(@"CLCircularRegion");
             region = [[circularRegion alloc] initWithCenter:center
                                                        radius:regionRadius
                                                    identifier:kRegionIdentifier];
@@ -220,7 +220,7 @@ static NSTimeInterval const kMinUpdateTime = 10.f;
 }
 
 - (void)stopRegionMonitoring {
-    NSSet *regions = [_locationManager monitoredRegions];
+    NSSet *regions = _locationManager.monitoredRegions;
     
     for (CLRegion *region in regions) {
         if ([region.identifier isEqualToString:kRegionIdentifier]) {
@@ -255,14 +255,14 @@ static NSTimeInterval const kMinUpdateTime = 10.f;
     }
     
     NSArray *paths = NSSearchPathForDirectoriesInDomains (NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *documentsDirectory = paths[0];
     NSString *path = [NSString stringWithFormat:@"%@/%@.%@", documentsDirectory, LOCATIONS_FILE, LOCATIONS_FILE_TYPE];
     
     if (![[NSFileManager defaultManager] fileExistsAtPath:path]) {
         NSLog(@"Creating locations log file");
         NSDate *date = [NSDate date];
         NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-        [dateFormat setDateFormat:@"yyyy/MM/dd hh:mm aaa"];
+        dateFormat.dateFormat = @"yyyy/MM/dd hh:mm aaa";
         NSString *content = [NSString stringWithFormat:@"Location Tracker Log (%@)\n------------------------------------------------------------------\n", [dateFormat stringFromDate:date]];
         [content writeToFile:path
                   atomically:NO
@@ -282,7 +282,7 @@ static NSTimeInterval const kMinUpdateTime = 10.f;
 
 - (void)reportLocation:(CLLocation *)location withMessage:(NSString *)message {
     NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-    [dateFormat setDateFormat:@"hh:mmaa"];
+    dateFormat.dateFormat = @"hh:mmaa";
     
     NSString *msg = [NSString stringWithFormat:@"%@: %@ <%+.6f, %+.6f> (+/-%.0fm) %.1fkm/h",
                      message,
@@ -336,25 +336,25 @@ static NSTimeInterval const kMinUpdateTime = 10.f;
     
     if ([self isInBackground]) {
         if (self.locationUpdatedInBackground) {
-			dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0ul), ^{
-				UIBackgroundTaskIdentifier __block bgTask = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler: ^{
-					[[UIApplication sharedApplication] endBackgroundTask:bgTask];
-					bgTask = UIBackgroundTaskInvalid;
-				}];
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0ul), ^{
+                UIBackgroundTaskIdentifier __block bgTask = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler: ^{
+                    [[UIApplication sharedApplication] endBackgroundTask:bgTask];
+                    bgTask = UIBackgroundTaskInvalid;
+                }];
                 
-				self.locationUpdatedInBackground(newLocation);
+                self.locationUpdatedInBackground(newLocation);
                 
-				if (bgTask != UIBackgroundTaskInvalid) {
-					[[UIApplication sharedApplication] endBackgroundTask:bgTask];
-					bgTask = UIBackgroundTaskInvalid;
-				}
-			});
+                if (bgTask != UIBackgroundTaskInvalid) {
+                    [[UIApplication sharedApplication] endBackgroundTask:bgTask];
+                    bgTask = UIBackgroundTaskInvalid;
+                }
+            });
         }
     } else {
         if (self.locationUpdatedInForeground) {
-			dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0ul), ^{
-				self.locationUpdatedInForeground(newLocation);
-			});
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0ul), ^{
+                self.locationUpdatedInForeground(newLocation);
+            });
         }
     }
 }
@@ -366,7 +366,7 @@ static NSTimeInterval const kMinUpdateTime = 10.f;
 - (void)locationManager:(CLLocationManager *)manager didExitRegion:(CLRegion *)region {
     CLLocation *location = [[CLLocation alloc] initWithLatitude:region.center.latitude longitude:region.center.longitude];
     [self reportLocation:location withMessage:@"Exit region"];
-    [self sendLocation:[manager location]];
+    [self sendLocation:manager.location];
     [self startApproximateGeoTracking];
 }
 
@@ -375,8 +375,8 @@ static NSTimeInterval const kMinUpdateTime = 10.f;
 }
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
-    if ([locations count]) {
-        [self updateLocation:[locations lastObject]];
+    if (locations.count) {
+        [self updateLocation:locations.lastObject];
     }
 }
 
@@ -384,10 +384,10 @@ static NSTimeInterval const kMinUpdateTime = 10.f;
 #pragma mark - Teardown
 
 - (void)dealloc {
-	[[NSNotificationCenter defaultCenter] removeObserver:self];
-	[self stopUpdatingLocation];
-	self.locationManager.delegate = nil;
-	self.locationManager = nil;
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [self stopUpdatingLocation];
+    self.locationManager.delegate = nil;
+    self.locationManager = nil;
 }
 
 @end

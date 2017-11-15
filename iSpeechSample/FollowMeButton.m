@@ -29,7 +29,7 @@
 
 @synthesize imageView, twitterAccount, isSmall;
 
--(id)initWithTwitterAccount:(NSString*)account atOrigin:(CGPoint)origin isSmallButton:(BOOL)isSmallButton
+-(instancetype)initWithTwitterAccount:(NSString*)account atOrigin:(CGPoint)origin isSmallButton:(BOOL)isSmallButton
 {
     CGSize buttonSize;
     self.isSmall = isSmallButton;
@@ -56,8 +56,7 @@
 -(void)buttonTapped
 {
     self.twitterAccount = @"Sublime_App";
-    NSArray *urls = [NSArray arrayWithObjects:
-                     @"twitter://user?screen_name={handle}", // Twitter
+    NSArray *urls = @[@"twitter://user?screen_name={handle}", // Twitter
                      @"tweetbot:///user_profile/{handle}", // TweetBot
                      @"echofon:///user_timeline?{handle}", // Echofon              
                      @"twit:///user?screen_name={handle}", // Twittelator Pro
@@ -67,8 +66,7 @@
                      @"simplytweet:?link=http://twitter.com/{handle}", // SimplyTweet
                      @"icebird://user?screen_name={handle}", // IceBird
                      @"fluttr://user/{handle}", // Fluttr
-                     @"http://twitter.com/{handle}",
-                     nil];
+                     @"http://twitter.com/{handle}"];
     
     UIApplication *application = [UIApplication sharedApplication];
     
@@ -101,7 +99,7 @@
     
     CGRect buttonFrame = CGRectMake(self.frame.origin.x, self.frame.origin.y, buttonSize.width, buttonSize.height);
     
-    [self setFrame:buttonFrame];
+    self.frame = buttonFrame;
 }
 
 -(void)awakeFromNib
@@ -109,7 +107,7 @@
     [super awakeFromNib];
     if(self)
     {
-        [self setFrame:CGRectMake(self.frame.origin.x, self.frame.origin.y, 122, 40)];
+        self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, 122, 40);
         [self setBackgroundImage:[UIImage imageNamed:@"follow-me"] forState:UIControlStateNormal];
         [self addTarget:self action:@selector(buttonTapped) forControlEvents:UIControlEventTouchUpInside];
     }

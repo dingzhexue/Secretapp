@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import <AVFoundation/AVFoundation.h>
-#import <sqlite3.h>
 #import "GADHelper.h"
 
 @class AddAudioView;
@@ -52,6 +51,9 @@
     UITextField *titletxt;
     UILabel *timeLbl;
     NSTimer	*updateTimer;
+    
+    AppDelegate *app;
+
 }
 
 @property(nonatomic,retain) NSString *timeStr,*DateStr;

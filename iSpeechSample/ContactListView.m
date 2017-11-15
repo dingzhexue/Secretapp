@@ -9,7 +9,6 @@
 #import "ContactListView.h"
 #import "ContactCustomCell.h"
 #import "Add_ImportContactView.h"
-#import "AppDelegate.h"
 #import "ImportContactView.h"
 #import "GADBannerView.h"
 #import "GADBannerViewDelegate.h"
@@ -29,10 +28,9 @@
 @synthesize interstitial;
 @synthesize backgroundImg;
 
-AppDelegate *app;
-UIView *popView;
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+
+- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
@@ -62,12 +60,12 @@ UIView *popView;
     if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0"))
     {
         self.edgesForExtendedLayout = UIRectEdgeNone;
-        [toolbar setBarTintColor:[UIColor blackColor]];
+        toolbar.barTintColor = [UIColor blackColor];
         //[self moveAllSubviewsDown];
     }
 
     [self.navigationController setNavigationBarHidden:NO];
-    app=(AppDelegate *)[[UIApplication sharedApplication]delegate];
+    app=(AppDelegate *)[UIApplication sharedApplication].delegate;
     
     self.title=@"Contacts";
     contactsArr=[[NSMutableArray alloc] init];
@@ -109,7 +107,7 @@ UIView *popView;
         // Tap For Tap Adview Ends Here
 #else
 #endif
-        CGSize result = [[UIScreen mainScreen] bounds].size;
+        CGSize result = [UIScreen mainScreen].bounds.size;
         if (result.height < 568){
             NSLog(@"Login From iphone 4");
             self.backgroundImg.image = [UIImage imageNamed:@"iphone-n-back.png"];
@@ -136,11 +134,11 @@ UIView *popView;
     addButton.style = UIBarButtonItemStyleBordered;
     if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0"))
     {
-        [addButton setTintColor:[UIColor whiteColor]];
+        addButton.tintColor = [UIColor whiteColor];
     }
     [buttons addObject:addButton];
     [addButton release];
-    [toolbar setItems:buttons];
+    toolbar.items = buttons;
     [buttons release];
     
     [self dispAllContacts];
@@ -204,7 +202,7 @@ UIView *popView;
     }
     else
     {
-        CGSize result = [[UIScreen mainScreen] bounds].size;
+        CGSize result = [UIScreen mainScreen].bounds.size;
         if (result.height < 568){
             NSLog(@"Login From iphone 4");
             popView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 320, 480)];
@@ -417,7 +415,7 @@ UIView *popView;
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [contactsArr count];
+    return contactsArr.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -442,9 +440,9 @@ UIView *popView;
                 cell = (ContactCustomCell *)oneObject;
     }
     
-    [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
-    ContactListView *contObj=[contactsArr objectAtIndex:indexPath.row];
+    ContactListView *contObj=contactsArr[indexPath.row];
   
     cell.contNameLbl.text=contObj.contName;
     cell.ContactNumLbl.text = contObj.contNum;
@@ -465,7 +463,7 @@ UIView *popView;
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath 
 {
     app.EditContactFlag=YES;
-    ContactListView *contObj=[contactsArr objectAtIndex:indexPath.row];
+    ContactListView *contObj=contactsArr[indexPath.row];
     app.conid=contObj.contID;
     app.conNm=contObj.contName;
     app.conPhone=contObj.contNum;
@@ -506,22 +504,22 @@ UIView *popView;
 #pragma mark Row Rearrange
 
 - (IBAction) EditTable:(id)sender{
-	if(self.editing)
-	{
-		[super setEditing:NO animated:NO]; 
-		[contactTbl setEditing:NO animated:NO];
-		[contactTbl reloadData];
-		[self.navigationItem.rightBarButtonItem setTitle:@"Edit"];
-		[self.navigationItem.rightBarButtonItem setStyle:UIBarButtonItemStylePlain];
-	}
-	else
-	{
-		[super setEditing:YES animated:YES]; 
-		[contactTbl setEditing:YES animated:YES];
-		[contactTbl reloadData];
-		[self.navigationItem.rightBarButtonItem setTitle:@"Done"];
-		[self.navigationItem.rightBarButtonItem setStyle:UIBarButtonItemStyleDone];
-	}
+    if(self.editing)
+    {
+        [super setEditing:NO animated:NO]; 
+        [contactTbl setEditing:NO animated:NO];
+        [contactTbl reloadData];
+        (self.navigationItem.rightBarButtonItem).title = @"Edit";
+        (self.navigationItem.rightBarButtonItem).style = UIBarButtonItemStylePlain;
+    }
+    else
+    {
+        [super setEditing:YES animated:YES]; 
+        [contactTbl setEditing:YES animated:YES];
+        [contactTbl reloadData];
+        (self.navigationItem.rightBarButtonItem).title = @"Done";
+        (self.navigationItem.rightBarButtonItem).style = UIBarButtonItemStyleDone;
+    }
 }
 
 - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -532,7 +530,7 @@ UIView *popView;
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath
       toIndexPath:(NSIndexPath *)toIndexPath
 {
-    NSString *item = [[contactsArr objectAtIndex:fromIndexPath.row] retain];
+    NSString *item = [contactsArr[fromIndexPath.row] retain];
     [contactsArr removeObject:item];
     [contactsArr insertObject:item atIndex:toIndexPath.row];
     [item release];
@@ -541,11 +539,11 @@ UIView *popView;
 #pragma mark - Delete row
 
 - (void)tableView:(UITableView *)aTableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-	
+    
     if (editingStyle == UITableViewCellEditingStyleDelete)
     {
-        ContactListView *conObj=[contactsArr objectAtIndex:indexPath.row];
-        conid=[conObj.contID intValue];
+        ContactListView *conObj=contactsArr[indexPath.row];
+        conid=(conObj.contID).intValue;
         NSLog(@"Cont id=== %d",conid);
         UIAlertView *alert =[[UIAlertView alloc] initWithTitle:@"Alert!!" message:@"Are you sure you want to delete the contact?" delegate:self cancelButtonTitle:@"NO" otherButtonTitles:nil];
         
@@ -572,25 +570,25 @@ UIView *popView;
     [contactsArr removeAllObjects];
     databasepath = [app getDBPathNew];
     
-    if (sqlite3_open([databasepath UTF8String], &dbSecret) == SQLITE_OK) {
+    if (sqlite3_open(databasepath.UTF8String, &dbSecret) == SQLITE_OK) {
         
-        NSString *sql =[NSString stringWithFormat:@"select * from ContactTbl where UserID=%d",[app.LoginUserID intValue]];
+        NSString *sql =[NSString stringWithFormat:@"select * from ContactTbl where UserID=%d",(app.LoginUserID).intValue];
             
         sqlite3_stmt *selectstmt;
-        const char *sel_query=[sql UTF8String];
+        const char *sel_query=sql.UTF8String;
         if(sqlite3_prepare(dbSecret, sel_query, -1, &selectstmt, NULL) == SQLITE_OK) {
             
             while(sqlite3_step(selectstmt) == SQLITE_ROW)
             {
                 ContactListView *contObj = [[ContactListView alloc] init];
                 
-                contObj.contID =[NSString stringWithUTF8String:(char *)sqlite3_column_text(selectstmt, 0)];
+                contObj.contID =@((char *)sqlite3_column_text(selectstmt, 0));
                 
-                contObj.uid=[NSString stringWithUTF8String:(char *)sqlite3_column_text(selectstmt, 1)];
+                contObj.uid=@((char *)sqlite3_column_text(selectstmt, 1));
                 
-                contObj.contName=  [NSString stringWithUTF8String:(char *)sqlite3_column_text(selectstmt, 2)]; 
+                contObj.contName=  @((char *)sqlite3_column_text(selectstmt, 2)); 
                 
-                contObj.contNum=  [NSString stringWithUTF8String:(char *)sqlite3_column_text(selectstmt, 3)]; 
+                contObj.contNum=  @((char *)sqlite3_column_text(selectstmt, 3)); 
                 
                 contObj.conEmail=[NSString stringWithFormat:@"%s",sqlite3_column_text(selectstmt, 4)]; 
                 
@@ -609,7 +607,7 @@ UIView *popView;
     else
         sqlite3_close(dbSecret);
     
-    NSLog(@"contacts count::: %d",[contactsArr count]);
+    NSLog(@"contacts count::: %lu",(unsigned long)contactsArr.count);
     [contactTbl reloadData];
 }
 
@@ -618,12 +616,12 @@ UIView *popView;
 - (IBAction) deleteContact
 {
     databasepath=[app getDBPathNew];
-    if (sqlite3_open([databasepath UTF8String], &dbSecret) == SQLITE_OK) 
+    if (sqlite3_open(databasepath.UTF8String, &dbSecret) == SQLITE_OK) 
     {
         NSString *DeleteQuery = [NSString stringWithFormat:@"Delete from ContactTbl Where ContactID=%d",conid];
         
          NSLog(@"Query : %@",DeleteQuery);
-        const char *deleteStmt = [DeleteQuery UTF8String];
+        const char *deleteStmt = DeleteQuery.UTF8String;
         sqlite3_stmt *query_stmt;
         
         if(sqlite3_prepare_v2(dbSecret, deleteStmt, -1, &query_stmt, NULL) == SQLITE_OK)

@@ -7,10 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <sqlite3.h>
 @protocol tblViewAttemptsDelegate
 //- (void)keyPadSelected:(NSString *)color;
 @end
+
+
+@class AppDelegate;
 
 @interface tblViewAttempts : UITableViewController
 {
@@ -19,6 +21,7 @@
     sqlite3 *dbSecret;
     id<tblViewAttemptsDelegate> _delegate;
     
+    AppDelegate *app;
 
 
 }

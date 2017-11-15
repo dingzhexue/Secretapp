@@ -7,11 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <sqlite3.h>
 
 @interface WelcomeScreen : UIViewController
 {
     sqlite3 *dbSecret;
+    AppDelegate *app;
 }
 @property(nonatomic,retain) IBOutlet UIButton *btnNext;
 -(IBAction)btnNextClicked:(id)sender;

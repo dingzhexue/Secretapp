@@ -22,8 +22,8 @@ static NSString* kDialogBaseURL = @"https://m.facebook.com/dialog/";
 static NSString* kGraphBaseURL = @"https://graph.facebook.com/";
 static NSString* kRestserverBaseURL = @"https://api.facebook.com/method/";
 
-static NSString* kFBAppAuthURLScheme = @"fbauth";
-static NSString* kFBAppAuthURLPath = @"authorize";
+//static NSString* kFBAppAuthURLScheme = @"fbauth";
+//static NSString* kFBAppAuthURLPath = @"authorize";
 static NSString* kRedirectURL = @"fbconnect://success";
 
 static NSString* kLogin = @"oauth";
@@ -63,7 +63,7 @@ static void *finishedContext = @"finishedContext";
 // private
 
 
-- (id)initWithAppId:(NSString *)appId
+- (instancetype)initWithAppId:(NSString *)appId
         andDelegate:(id<FBSessionDelegate>)delegate {
   self = [self initWithAppId:appId urlSchemeSuffix:nil andDelegate:delegate];
   return self;
@@ -94,7 +94,7 @@ static void *finishedContext = @"finishedContext";
  *   and redirect the user to Safari.
  * @param delegate the FBSessionDelegate
  */
-- (id)initWithAppId:(NSString *)appId
+- (instancetype)initWithAppId:(NSString *)appId
     urlSchemeSuffix:(NSString *)urlSchemeSuffix
         andDelegate:(id<FBSessionDelegate>)delegate {
 
@@ -181,7 +181,7 @@ static void *finishedContext = @"finishedContext";
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
   if (context == finishedContext) {
     FBRequest* _request = (FBRequest*)object;
-    FBRequestState requestState = [_request state];
+    FBRequestState requestState = _request.state;
     if (requestState == kFBRequestStateError) {
       [self invalidateSession];
       if ([self.sessionDelegate respondsToSelector:@selector(fbSessionInvalidated)]) {
@@ -274,16 +274,16 @@ static void *finishedContext = @"finishedContext";
  * A function for parsing URL parameters.
  */
 - (NSDictionary*)parseURLParams:(NSString *)query {
-	NSArray *pairs = [query componentsSeparatedByString:@"&"];
-	NSMutableDictionary *params = [[[NSMutableDictionary alloc] init] autorelease];
-	for (NSString *pair in pairs) {
-		NSArray *kv = [pair componentsSeparatedByString:@"="];
-		NSString *val =
-    [[kv objectAtIndex:1]
+    NSArray *pairs = [query componentsSeparatedByString:@"&"];
+    NSMutableDictionary *params = [[[NSMutableDictionary alloc] init] autorelease];
+    for (NSString *pair in pairs) {
+        NSArray *kv = [pair componentsSeparatedByString:@"="];
+        NSString *val =
+    [kv[1]
      stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 
-		[params setObject:val forKey:[kv objectAtIndex:0]];
-	}
+        params[kv[0]] = val;
+    }
   return params;
 }
 
@@ -395,18 +395,18 @@ static void *finishedContext = @"finishedContext";
  */
 - (BOOL)handleOpenURL:(NSURL *)url {
   // If the URL's structure doesn't match the structure used for Facebook authorization, abort.
-  if (![[url absoluteString] hasPrefix:[self getOwnBaseUrl]]) {
+  if (![url.absoluteString hasPrefix:[self getOwnBaseUrl]]) {
     return NO;
   }
 
-  NSString *query = [url fragment];
+  NSString *query = url.fragment;
 
   // Version 3.2.3 of the Facebook app encodes the parameters in the query but
   // version 3.3 and above encode the parameters in the fragment. To support
   // both versions of the Facebook app, we try to parse the query if
   // the fragment is missing.
   if (!query) {
-    query = [url query];
+    query = url.query;
   }
 
   NSDictionary *params = [self parseURLParams:query];
@@ -445,7 +445,7 @@ static void *finishedContext = @"finishedContext";
   NSString *expTime = [params valueForKey:@"expires_in"];
   NSDate *expirationDate = [NSDate distantFuture];
   if (expTime != nil) {
-    int expVal = [expTime intValue];
+    int expVal = expTime.intValue;
     if (expVal != 0) {
       expirationDate = [NSDate dateWithTimeIntervalSinceNow:expVal];
     }
@@ -490,12 +490,12 @@ static void *finishedContext = @"finishedContext";
  */
 - (FBRequest*)requestWithParams:(NSMutableDictionary *)params
                     andDelegate:(id <FBRequestDelegate>)delegate {
-  if ([params objectForKey:@"method"] == nil) {
+  if (params[@"method"] == nil) {
     NSLog(@"API Method must be specified");
     return nil;
   }
 
-  NSString * methodName = [params objectForKey:@"method"];
+  NSString * methodName = params[@"method"];
   [params removeObjectForKey:@"method"];
 
   return [self requestWithMethodName:methodName
@@ -669,15 +669,15 @@ static void *finishedContext = @"finishedContext";
   [_fbDialog release];
 
   NSString *dialogURL = [kDialogBaseURL stringByAppendingString:action];
-  [params setObject:@"touch" forKey:@"display"];
-  [params setObject:kSDKVersion forKey:@"sdk"];
-  [params setObject:kRedirectURL forKey:@"redirect_uri"];
+  params[@"display"] = @"touch";
+  params[@"sdk"] = kSDKVersion;
+  params[@"redirect_uri"] = kRedirectURL;
 
   if (action == kLogin) {
-    [params setObject:@"user_agent" forKey:@"type"];
+    params[@"type"] = @"user_agent";
     _fbDialog = [[FBLoginDialog alloc] initWithURL:dialogURL loginParams:params delegate:self];
   } else {
-    [params setObject:_appId forKey:@"app_id"];
+    params[@"app_id"] = _appId;
     if ([self isSessionValid]) {
       [params setValue:[self.accessToken stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]
                 forKey:@"access_token"];
@@ -734,8 +734,8 @@ static void *finishedContext = @"finishedContext";
 
 - (void)request:(FBRequest *)request didLoad:(id)result {
   _isExtendingAccessToken = NO;
-  NSString* accessToken = [result objectForKey:@"access_token"];
-  NSString* expTime = [result objectForKey:@"expires_at"];
+  NSString* accessToken = result[@"access_token"];
+  NSString* expTime = result[@"expires_at"];
 
   if (accessToken == nil || expTime == nil) {
    return;
@@ -743,7 +743,7 @@ static void *finishedContext = @"finishedContext";
 
   self.accessToken = accessToken;
 
-  NSTimeInterval timeInterval = [expTime doubleValue];
+  NSTimeInterval timeInterval = expTime.doubleValue;
   NSDate *expirationDate = [NSDate distantFuture];
   if (timeInterval != 0) {
     expirationDate = [NSDate dateWithTimeIntervalSince1970:timeInterval];

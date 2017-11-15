@@ -7,7 +7,6 @@
 //
 
 #import "AudioRecorder.h"
-#import "AppDelegate.h"
 #import "AudioCustomCell.h"
 #import "AddAudioView.h"
 #import "GADBannerView.h"
@@ -27,14 +26,9 @@
 @synthesize toolbar,audioTbl,transView,transViewBG,DurationLbl,TimeLbl,playpauseBtn;
 
 @synthesize audioID,audioFilePath,audioTitle,audiotime,audioDate,updateTimer;
-
-AppDelegate *app;
 int cnt =0 ;
-UILabel *lbl;
-UIButton *btn;
-UIBarButtonItem *editdoneButton;
-NSInteger count;
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+
+- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
@@ -85,10 +79,10 @@ NSInteger count;
     if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0"))
     {
         self.edgesForExtendedLayout = UIRectEdgeNone;
-        [toolbar setBarTintColor:[UIColor blackColor]];
+        toolbar.barTintColor = [UIColor blackColor];
     }
 
-    app=(AppDelegate *)[[UIApplication sharedApplication] delegate];
+    app=(AppDelegate *)[UIApplication sharedApplication].delegate;
     allAudioArr=[[NSMutableArray alloc] init];
     flagPlay=NO;
     self.title=@"Audio";
@@ -160,11 +154,11 @@ NSInteger count;
     addButton.style = UIBarButtonItemStyleBordered;
     if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0"))
     {
-        [addButton setTintColor:[UIColor whiteColor]];
+        addButton.tintColor = [UIColor whiteColor];
     }
     [buttons addObject:addButton];
     [addButton release];
-    [toolbar setItems:buttons];
+    toolbar.items = buttons;
     [buttons release];
     
     [self AllAudioToDisplay];
@@ -201,27 +195,27 @@ NSInteger count;
     [allAudioArr removeAllObjects];
     databasepath = [app getDBPathNew];
     
-    if (sqlite3_open([databasepath UTF8String], &dbSecret) == SQLITE_OK) {
+    if (sqlite3_open(databasepath.UTF8String, &dbSecret) == SQLITE_OK) {
         
-        NSString *sql =[NSString stringWithFormat:@"select * from AudioTbl where UserID=%d",[app.LoginUserID intValue]];
+        NSString *sql =[NSString stringWithFormat:@"select * from AudioTbl where UserID=%d",(app.LoginUserID).intValue];
         
         sqlite3_stmt *selectstmt;
-        const char *sel_query=[sql UTF8String];
+        const char *sel_query=sql.UTF8String;
         if(sqlite3_prepare(dbSecret, sel_query, -1, &selectstmt, NULL) == SQLITE_OK) {
             
             while(sqlite3_step(selectstmt) == SQLITE_ROW)
             {
                 AudioRecorder *audioObj = [[AudioRecorder alloc] init];
                 
-                audioObj.audioID =[NSString stringWithUTF8String:(char *)sqlite3_column_text(selectstmt, 0)];
+                audioObj.audioID =@((char *)sqlite3_column_text(selectstmt, 0));
                 
-                audioObj.audioTitle=[NSString stringWithUTF8String:(char *)sqlite3_column_text(selectstmt, 2)];
+                audioObj.audioTitle=@((char *)sqlite3_column_text(selectstmt, 2));
                 
-                audioObj.audioFilePath = [NSString stringWithUTF8String:(char *)sqlite3_column_text(selectstmt, 3)];
+                audioObj.audioFilePath = @((char *)sqlite3_column_text(selectstmt, 3));
                 
-                audioObj.audiotime=[NSString stringWithUTF8String:(char *)sqlite3_column_text(selectstmt, 4)];
+                audioObj.audiotime=@((char *)sqlite3_column_text(selectstmt, 4));
                 
-                audioObj.audioDate= [NSString stringWithUTF8String:(char *)sqlite3_column_text(selectstmt, 5)];
+                audioObj.audioDate= @((char *)sqlite3_column_text(selectstmt, 5));
                 
                 [allAudioArr addObject:audioObj];
                 //[contObj release];
@@ -232,7 +226,7 @@ NSInteger count;
     else
         sqlite3_close(dbSecret);
     
-    NSLog(@"audios count::: %d",[allAudioArr count]);
+    NSLog(@"audios count::: %lu",(unsigned long)allAudioArr.count);
     //  NSLog(@"Note Array:::: %@",);
     [audioTbl reloadData];
 }
@@ -258,8 +252,8 @@ NSInteger count;
     
    
     count++;
-    int i= [allAudioArr count ];
-    NSLog(@" count %d and i is %d",count,i);
+    int i= allAudioArr.count ;
+    NSLog(@" count %ld and i is %d",(long)count, i);
 
     if(count <i )
     {
@@ -280,7 +274,7 @@ NSInteger count;
         AVAudioSession *audioSession = [AVAudioSession sharedInstance];
         [audioSession setCategory:AVAudioSessionCategoryPlayback error:nil];
         
-        AudioRecorder *obj = [allAudioArr objectAtIndex:count];
+        AudioRecorder *obj = allAudioArr[count];
         DurationLbl.text=obj.audiotime;
         lblTitle.text=obj.audioTitle;
         //  currTime=[NSString stringWithFormat:@"%@",TimeLbl.text];
@@ -298,8 +292,8 @@ NSInteger count;
 -(IBAction)btnbackwardClick:(id)sender
 {
     count--;
-    int i= [allAudioArr count ];
-    NSLog(@" count %d and i is %d",count,i);
+    int i= allAudioArr.count ;
+    NSLog(@" count %ld and i is %d",(long)count,i);
     
     if( count>=0 )
     {
@@ -317,7 +311,7 @@ NSInteger count;
         AVAudioSession *audioSession = [AVAudioSession sharedInstance];
         [audioSession setCategory:AVAudioSessionCategoryPlayback error:nil];
         
-        AudioRecorder *obj = [allAudioArr objectAtIndex:count];
+        AudioRecorder *obj = allAudioArr[count];
         DurationLbl.text=obj.audiotime;
         lblTitle.text=obj.audioTitle;
         //  currTime=[NSString stringWithFormat:@"%@",TimeLbl.text];
@@ -376,8 +370,8 @@ NSInteger count;
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    NSLog(@"audio data count:::: %d",[allAudioArr count]);
-    return [allAudioArr count];
+    NSLog(@"audio data count:::: %lu",(unsigned long)allAudioArr.count);
+    return allAudioArr.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -406,19 +400,19 @@ NSInteger count;
                 cell = (AudioCustomCell *)oneObject;
     }
     
-    [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
         
     cell.textLabel.textColor=[UIColor whiteColor];
     cell.textLabel.font= [UIFont fontWithName:@"Arial Rounded MT Bold" size:15.0];
         
-    AudioRecorder *obj = [allAudioArr objectAtIndex:indexPath.row];
+    AudioRecorder *obj = allAudioArr[indexPath.row];
     cell.titleLbl.text= obj.audioTitle;
     cell.DateLbl.text=obj.audioDate; 
     cell.timeLbl.text=obj.audiotime;
     
     [cell.mailBtn addTarget:self action:@selector(getAudioToEmail:) forControlEvents:UIControlEventTouchUpInside];
-    [cell.mailBtn setTag:indexPath.row + 500];
+    (cell.mailBtn).tag = indexPath.row + 500;
     
     return cell;
 }
@@ -426,7 +420,7 @@ NSInteger count;
 -(IBAction)getAudioToEmail:(id)sender
 {
     int index=[sender tag]-500;
-    AudioRecorder *obj = [allAudioArr objectAtIndex:index];
+    AudioRecorder *obj = allAudioArr[index];
     NSLog(@"audio === %@",obj.audioFilePath);
     
     audioToEmail=obj.audioFilePath;
@@ -474,7 +468,7 @@ NSInteger count;
     AVAudioSession *audioSession = [AVAudioSession sharedInstance];
     [audioSession setCategory:AVAudioSessionCategoryPlayback error:nil];
     int i=indexPath.row;
-    AudioRecorder *obj = [allAudioArr objectAtIndex:i];
+    AudioRecorder *obj = allAudioArr[i];
     DurationLbl.text=obj.audiotime;
   
     lblTitle.text=obj.audioTitle;
@@ -505,22 +499,22 @@ NSInteger count;
 #pragma mark Row Rearrange
 
 - (IBAction) EditTableVideos:(id)sender{
-	if(self.editing)
-	{
-		[super setEditing:NO animated:NO]; 
-		[audioTbl setEditing:NO animated:NO];
-		[audioTbl reloadData];
-		[self.navigationItem.rightBarButtonItem setTitle:@"Edit"];
-		[self.navigationItem.rightBarButtonItem setStyle:UIBarButtonItemStylePlain];
-	}
-	else
-	{
-		[super setEditing:YES animated:YES]; 
-		[audioTbl setEditing:YES animated:YES];
-		[audioTbl reloadData];
-		[self.navigationItem.rightBarButtonItem setTitle:@"Done"];
-		[self.navigationItem.rightBarButtonItem setStyle:UIBarButtonItemStyleDone];
-	}
+    if(self.editing)
+    {
+        [super setEditing:NO animated:NO]; 
+        [audioTbl setEditing:NO animated:NO];
+        [audioTbl reloadData];
+        (self.navigationItem.rightBarButtonItem).title = @"Edit";
+        (self.navigationItem.rightBarButtonItem).style = UIBarButtonItemStylePlain;
+    }
+    else
+    {
+        [super setEditing:YES animated:YES]; 
+        [audioTbl setEditing:YES animated:YES];
+        [audioTbl reloadData];
+        (self.navigationItem.rightBarButtonItem).title = @"Done";
+        (self.navigationItem.rightBarButtonItem).style = UIBarButtonItemStyleDone;
+    }
 }
 
 - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -531,7 +525,7 @@ NSInteger count;
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath
       toIndexPath:(NSIndexPath *)toIndexPath
 {
-    NSString *item = [[allAudioArr objectAtIndex:fromIndexPath.row] retain];
+    NSString *item = [allAudioArr[fromIndexPath.row] retain];
     [allAudioArr removeObject:item];
     [allAudioArr insertObject:item atIndex:toIndexPath.row];
     [item release];
@@ -540,12 +534,12 @@ NSInteger count;
 #pragma mark - Delete audio
 
 - (void)tableView:(UITableView *)aTableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-	
+    
     if (editingStyle == UITableViewCellEditingStyleDelete)
     {
-        AudioRecorder *adObj=[allAudioArr objectAtIndex:indexPath.row];
+        AudioRecorder *adObj=allAudioArr[indexPath.row];
         selaudioId=adObj.audioID ;
-        NSLog(@"Audio id=== %d",[selaudioId intValue]);
+        NSLog(@"Audio id=== %d",selaudioId.intValue);
         
         UIAlertView *alert =[[UIAlertView alloc] initWithTitle:@"Alert!!" message:@"Are you sure you want to delete the Audio?" delegate:self cancelButtonTitle:@"NO" otherButtonTitles:nil];
         
@@ -567,14 +561,14 @@ NSInteger count;
 
 -(void)deleteAudio{
     
-    NSLog(@"audioID TO Delete==== %d",[selaudioId intValue]);
+    NSLog(@"audioID TO Delete==== %d",selaudioId.intValue);
     databasepath=[app getDBPathNew];
-    if (sqlite3_open([databasepath UTF8String], &dbSecret) == SQLITE_OK) 
+    if (sqlite3_open(databasepath.UTF8String, &dbSecret) == SQLITE_OK) 
     {
-        NSString *DeleteQuery = [NSString stringWithFormat:@"Delete from AudioTbl Where AudioID=%d",[selaudioId intValue]];
+        NSString *DeleteQuery = [NSString stringWithFormat:@"Delete from AudioTbl Where AudioID=%d",selaudioId.intValue];
         
         NSLog(@"Query : %@",DeleteQuery);
-        const char *deleteStmt = [DeleteQuery UTF8String];
+        const char *deleteStmt = DeleteQuery.UTF8String;
         sqlite3_stmt *query_stmt;
         
         if(sqlite3_prepare_v2(dbSecret, deleteStmt, -1, &query_stmt, NULL) == SQLITE_OK)
@@ -689,8 +683,8 @@ NSInteger count;
 }
 - (IBAction)progressSliderMoved:(UISlider *)sender
 {
-	//audioPlayer.currentTime = sender.value;
-	[self updateCurrentTimeForPlayer:audioPlayer];
+    //audioPlayer.currentTime = sender.value;
+    [self updateCurrentTimeForPlayer:audioPlayer];
 }
 
 -(void)updateCurrentTimeForPlayer:(AVAudioPlayer *)p
@@ -743,9 +737,9 @@ NSInteger count;
     [picker setSubject:@"Audio from Secret Vault Pro"];
 #endif
     
-    [picker setToRecipients:[NSArray arrayWithObjects:@"", nil]];
-    [picker setCcRecipients:[NSArray arrayWithObject:@""]];	
-    [picker setBccRecipients:[NSArray arrayWithObject:@""]];
+    [picker setToRecipients:@[@""]];
+    [picker setCcRecipients:@[@""]];    
+    [picker setBccRecipients:@[@""]];
     
     NSString *emailBody = @"I have shared the media,just check it out.";
     
@@ -782,7 +776,7 @@ NSInteger count;
             break;
         default:
             alert.message = @"Message Not Sent";
-            break;	
+            break;    
     }
     [self dismissViewControllerAnimated:YES completion:nil];
     

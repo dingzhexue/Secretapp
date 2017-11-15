@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import "RateView.h"
-#import <sqlite3.h>
 #import <MessageUI/MFMessageComposeViewController.h>
 #import <MessageUI/MFMailComposeViewController.h>
 #import "GADHelper.h"
@@ -32,7 +31,9 @@
 //    UITextView *txtAddress;
 //    UITextField *txtConName, *txtConPhone, *txtEmail;
     
+    float rate;
     
+    AppDelegate *app;
 }
 
 @property(nonatomic,retain) IBOutlet UIImageView *imgHeader;

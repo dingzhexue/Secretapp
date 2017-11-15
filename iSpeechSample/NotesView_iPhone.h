@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <sqlite3.h>
 #import "GADHelper.h"
 
 @interface NotesView_iPhone : GADBannerViewController<UITextViewDelegate>
@@ -24,6 +23,11 @@
     sqlite3 *dbSecret;
     NSMutableArray *notesArr;
     int selectedNoteId;
+    
+    AppDelegate *app;
+    
+    UIBarButtonItem *addButton;
+    UIButton *delButton;
 }
 
 @property(nonatomic,retain) NSMutableArray *notesArr;

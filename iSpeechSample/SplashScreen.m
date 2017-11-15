@@ -8,17 +8,15 @@
 
 #import "SplashScreen.h"
 #import "DrawPatternLockViewController.h"
-#import "UserLoginView.h"
-#import "AppDelegate.h"
 
 
 @interface SplashScreen ()
 
 @end
-AppDelegate *app;
+
 @implementation SplashScreen
 @synthesize img;
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
@@ -43,7 +41,7 @@ AppDelegate *app;
     }
 
     self.navigationController.navigationBarHidden=YES;
-    app=(AppDelegate *)[[UIApplication sharedApplication]delegate];
+    app=(AppDelegate *)[UIApplication sharedApplication].delegate;
     if (app.isFirstRun)
     {
         [self performSelector:@selector(splashOver) withObject:self afterDelay:3];
@@ -88,17 +86,17 @@ AppDelegate *app;
 {
     NSString *strReturn=@"false";
     NSString *databasepath=[app getDBPathNew];
-    if (sqlite3_open([databasepath UTF8String], &dbSecret) == SQLITE_OK)
+    if (sqlite3_open(databasepath.UTF8String, &dbSecret) == SQLITE_OK)
     {
         NSString *selectSql = [NSString stringWithFormat:@"select VoiceAuth from AuthentictionCheckTbl where UserID = %@",app.LoginUserID];
         NSLog(@"Query : %@",selectSql);
-        const char *sqlStatement = [selectSql UTF8String];
+        const char *sqlStatement = selectSql.UTF8String;
         sqlite3_stmt *query_stmt;
         if(sqlite3_prepare_v2(dbSecret, sqlStatement, -1, &query_stmt, NULL) == SQLITE_OK)
         {
             if (sqlite3_step(query_stmt) == SQLITE_ROW)
             {
-                NSString *checkValue = [[NSString alloc] initWithUTF8String:(const char *) sqlite3_column_text(query_stmt, 0)];
+                NSString *checkValue = @((const char *) sqlite3_column_text(query_stmt, 0));
                 NSLog(@"User id=== %@",checkValue);
                 if([ checkValue isEqualToString: @"true"])
                 {

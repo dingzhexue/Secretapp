@@ -7,7 +7,6 @@
 //
 
 #import "DefaultAlbumView.h"
-#import "AppDelegate.h"
 #import "AlbumProcessView.h"
 #import "ZoomViewController.h"
 #import "MenuCustomCell_iPhone.h"
@@ -36,12 +35,12 @@
 
 @synthesize backgroundImg;
 
-AppDelegate *app;
+
 
 int imgnum=0;
 UIBarButtonItem *addButton;
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
@@ -80,7 +79,7 @@ UIBarButtonItem *addButton;
 
 -(IBAction)BookmarkClicked:(id)sender{
     
-    NSLog(@"Tag::: %d",[sender tag]);
+    NSLog(@"Tag::: %ld",(long)[sender tag]);
     
     BookmarkView *bookvw;
     if(UI_USER_INTERFACE_IDIOM()==UIUserInterfaceIdiomPad)
@@ -96,7 +95,7 @@ UIBarButtonItem *addButton;
 }
 
 -(IBAction)NotesClicked:(id)sender{
-    NSLog(@"Tag::: %d",[sender tag]);
+    NSLog(@"Tag::: %ld",(long)[sender tag]);
     NSLog(@"Notes...");
     
     NotesView_iPhone *notesvw;
@@ -113,7 +112,7 @@ UIBarButtonItem *addButton;
 }
 
 -(IBAction)AudioRecordClicked:(id)sender{
-    NSLog(@"Tag::: %d",[sender tag]);
+    NSLog(@"Tag::: %ld",(long)[sender tag]);
     
     
     
@@ -133,7 +132,7 @@ UIBarButtonItem *addButton;
 }
 
 -(IBAction)ContactsClicked:(id)sender{
-    NSLog(@"Tag::: %d",[sender tag]);
+    NSLog(@"Tag::: %ld",(long)[sender tag]);
     
     ContactListView *contvw;
     if(UI_USER_INTERFACE_IDIOM()==UIUserInterfaceIdiomPad)
@@ -151,7 +150,7 @@ UIBarButtonItem *addButton;
 }
 
 -(IBAction)VideoClicked:(id)sender{
-    NSLog(@"Tag::: %d",[sender tag]);
+    NSLog(@"Tag::: %ld",(long)[sender tag]);
     
     VideoView *videoVW;
     if(UI_USER_INTERFACE_IDIOM()==UIUserInterfaceIdiomPad)
@@ -171,7 +170,7 @@ UIBarButtonItem *addButton;
 
 -(IBAction)MusicClicked:(id)sender{
     
-    NSLog(@"Tag::: %d",[sender tag]);
+    NSLog(@"Tag::: %ld",(long)[sender tag]);
     
     MusicView *musicVW;
     if(UI_USER_INTERFACE_IDIOM()==UIUserInterfaceIdiomPad)
@@ -197,10 +196,10 @@ UIBarButtonItem *addButton;
         self.edgesForExtendedLayout = UIRectEdgeNone;
         self.navigationItem.backBarButtonItem.tintColor = [UIColor redColor];
         self.navigationController.navigationBar.tintColor=[UIColor whiteColor];
-        [toolbar setBarTintColor:[UIColor blackColor]];
+        toolbar.barTintColor = [UIColor blackColor];
     }
     [self.navigationController setNavigationBarHidden:NO];
-    app=(AppDelegate *)[[UIApplication sharedApplication]delegate];
+    app=(AppDelegate *)[UIApplication sharedApplication].delegate;
     imgArray=[[NSMutableArray alloc] init];
     UIImagetypeArr=[[NSMutableArray alloc] init];
     
@@ -241,8 +240,8 @@ UIBarButtonItem *addButton;
         [buttons addObject:addButton];
         [addButton release];
         UIBarButtonItem *flexibaleSpaceBarButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
-        [flexibaleSpaceBarButton setWidth:130];
-        [flexibaleSpaceBarButton setTintColor:[UIColor whiteColor]];
+        flexibaleSpaceBarButton.width = 130;
+        flexibaleSpaceBarButton.tintColor = [UIColor whiteColor];
         [buttons addObject:flexibaleSpaceBarButton];
         [flexibaleSpaceBarButton release];
         
@@ -259,8 +258,8 @@ UIBarButtonItem *addButton;
         [doneButton release];
         
         UIBarButtonItem *flexibaleSpaceBarButton1 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
-        [flexibaleSpaceBarButton1 setWidth:130];
-        [flexibaleSpaceBarButton1 setTintColor:[UIColor whiteColor]];
+        flexibaleSpaceBarButton1.width = 130;
+        flexibaleSpaceBarButton1.tintColor = [UIColor whiteColor];
         [buttons addObject:flexibaleSpaceBarButton1];
         [flexibaleSpaceBarButton1 release];
         
@@ -276,8 +275,8 @@ UIBarButtonItem *addButton;
         [wwwlayerbtn release];
         
         UIBarButtonItem *flexibaleSpaceBarButton2 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
-        [flexibaleSpaceBarButton2 setWidth:130];
-        [flexibaleSpaceBarButton2 setTintColor:[UIColor whiteColor]];
+        flexibaleSpaceBarButton2.width = 130;
+        flexibaleSpaceBarButton2.tintColor = [UIColor whiteColor];
         [buttons addObject:flexibaleSpaceBarButton2];
         [flexibaleSpaceBarButton2 release];
         
@@ -293,8 +292,8 @@ UIBarButtonItem *addButton;
         [sslayerbtn release];
         
         UIBarButtonItem *flexibaleSpaceBarButton3 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
-        [flexibaleSpaceBarButton3 setWidth:140];
-        [flexibaleSpaceBarButton3 setTintColor:[UIColor whiteColor]];
+        flexibaleSpaceBarButton3.width = 140;
+        flexibaleSpaceBarButton3.tintColor = [UIColor whiteColor];
         [buttons addObject:flexibaleSpaceBarButton3];
         [flexibaleSpaceBarButton3 release];
         
@@ -309,12 +308,12 @@ UIBarButtonItem *addButton;
         [buttons addObject:cmlayerbtn];
         [cmlayerbtn release];
         
-        [toolbar setItems:buttons];
+        toolbar.items = buttons;
         [buttons release];
     }else
     {
         
-        CGSize result = [[UIScreen mainScreen] bounds].size;
+        CGSize result = [UIScreen mainScreen].bounds.size;
         if (result.height < 568){
             NSLog(@"Login From iphone 4");
             self.backgroundImg.image = [UIImage imageNamed:@"iphone-n-back.png"];
@@ -357,8 +356,8 @@ UIBarButtonItem *addButton;
         [addButton release];
         
         UIBarButtonItem *flexibaleSpaceBarButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
-        [flexibaleSpaceBarButton setWidth:25];
-        [flexibaleSpaceBarButton setTintColor:[UIColor whiteColor]];
+        flexibaleSpaceBarButton.width = 25;
+        flexibaleSpaceBarButton.tintColor = [UIColor whiteColor];
         [buttons addObject:flexibaleSpaceBarButton];
         [flexibaleSpaceBarButton release];
         
@@ -375,7 +374,7 @@ UIBarButtonItem *addButton;
         [doneButton release];
         
         UIBarButtonItem *flexibaleSpaceBarButton1 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
-        [flexibaleSpaceBarButton1 setWidth:25];
+        flexibaleSpaceBarButton1.width = 25;
         [buttons addObject:flexibaleSpaceBarButton1];
         [flexibaleSpaceBarButton1 release];
         
@@ -391,7 +390,7 @@ UIBarButtonItem *addButton;
         [wwwlayerbtn release];
         
         UIBarButtonItem *flexibaleSpaceBarButton2 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
-        [flexibaleSpaceBarButton2 setWidth:25];
+        flexibaleSpaceBarButton2.width = 25;
         [buttons addObject:flexibaleSpaceBarButton2];
         [flexibaleSpaceBarButton2 release];
         
@@ -407,7 +406,7 @@ UIBarButtonItem *addButton;
         [sslayerbtn release];
         
         UIBarButtonItem *flexibaleSpaceBarButton3 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
-        [flexibaleSpaceBarButton3 setWidth:25];
+        flexibaleSpaceBarButton3.width = 25;
         [buttons addObject:flexibaleSpaceBarButton3];
         [flexibaleSpaceBarButton3 release];
         
@@ -422,7 +421,7 @@ UIBarButtonItem *addButton;
         [buttons addObject:cmlayerbtn];
         [cmlayerbtn release];
         
-        [toolbar setItems:buttons];
+        toolbar.items = buttons;
         [buttons release];
     }
     [self getImages];
@@ -558,11 +557,11 @@ UIBarButtonItem *addButton;
         [subView.layer setMasksToBounds:YES];
         subView.backgroundColor = [UIColor blackColor];
         
-        [subView.layer setCornerRadius:10.0];
+        (subView.layer).cornerRadius = 10.0;
         subView.backgroundColor = [UIColor blackColor];
-        [subView.layer setCornerRadius:10.0];
-        [subView.layer setBorderColor:[[UIColor whiteColor]CGColor]];
-        [subView.layer setBorderWidth:3.0];
+        (subView.layer).cornerRadius = 10.0;
+        (subView.layer).borderColor = [UIColor whiteColor].CGColor;
+        (subView.layer).borderWidth = 3.0;
         
         //[self.view addSubview:btnCancel];
         [self.view addSubview:view];
@@ -575,7 +574,7 @@ UIBarButtonItem *addButton;
         {
             view.frame=CGRectMake(0,0,self.view.bounds.size.width,self.view.bounds.size.height);
         }
-        CGSize result = [[UIScreen mainScreen] bounds].size;
+        CGSize result = [UIScreen mainScreen].bounds.size;
         UIView *subView;
         if(result.height < 568)
         {
@@ -648,11 +647,11 @@ UIBarButtonItem *addButton;
         [subView.layer setMasksToBounds:YES];
         subView.backgroundColor = [UIColor blackColor];
         
-        [subView.layer setCornerRadius:10.0];
+        (subView.layer).cornerRadius = 10.0;
         subView.backgroundColor = [UIColor blackColor];
-        [subView.layer setCornerRadius:10.0];
-        [subView.layer setBorderColor:[[UIColor whiteColor]CGColor]];
-        [subView.layer setBorderWidth:3.0];
+        (subView.layer).cornerRadius = 10.0;
+        (subView.layer).borderColor = [UIColor whiteColor].CGColor;
+        (subView.layer).borderWidth = 3.0;
         
         //[self.view addSubview:btnCancel];
         [self.view addSubview:view];
@@ -692,7 +691,7 @@ UIBarButtonItem *addButton;
         //[controller presentModalViewController: mediaUI animated: YES];
         
         app.objPopOverController = [[UIPopoverController alloc] initWithContentViewController:mediaUI];
-        [app.objPopOverController setDelegate:self];
+        (app.objPopOverController).delegate = self;
         [app.objPopOverController presentPopoverFromRect:CGRectMake(205,920, 1,1) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionDown animated:YES];
     }
     else
@@ -721,22 +720,22 @@ UIBarButtonItem *addButton;
     if(insertVideoFlag)
     {
         insertVideoFlag=false;
-        NSString *type = [info objectForKey:UIImagePickerControllerMediaType];
+        NSString *type = info[UIImagePickerControllerMediaType];
         
         if ([type isEqualToString:(NSString *)kUTTypeVideo] ||
             [type isEqualToString:(NSString *)kUTTypeMovie])
         {
-            videoURL = [info objectForKey:UIImagePickerControllerMediaURL];
+            videoURL = info[UIImagePickerControllerMediaURL];
             NSLog(@"found a video");
             
             // Code To give Name to video and store to DocumentDirectory //
             
             NSData *videoData = [NSData dataWithContentsOfURL:videoURL];
             NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-            NSString *documentsDirectory = [paths objectAtIndex:0];
+            NSString *documentsDirectory = paths[0];
             
             NSDateFormatter *dateFormat = [[[NSDateFormatter alloc] init] autorelease];
-            [dateFormat setDateFormat:@"dd-MM-yyyy||HH:mm:SS"];
+            dateFormat.dateFormat = @"dd-MM-yyyy||HH:mm:SS";
             NSDate *now = [[[NSDate alloc] init] autorelease];
             theDate = [dateFormat stringFromDate:now];
             
@@ -779,7 +778,7 @@ UIBarButtonItem *addButton;
         NSData * imageData = UIImageJPEGRepresentation(thumbImage, 1.0);
         
         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-        NSString *documentsDirectory = [paths objectAtIndex:0]; // Get documents folder
+        NSString *documentsDirectory = paths[0]; // Get documents folder
         NSString *dataPath = [documentsDirectory stringByAppendingPathComponent:@"Thumbnails"];
         if (![[NSFileManager defaultManager] fileExistsAtPath:dataPath])
             [[NSFileManager defaultManager] createDirectoryAtPath:dataPath withIntermediateDirectories:NO attributes:nil error:nil];
@@ -795,19 +794,17 @@ UIBarButtonItem *addButton;
         }
         
         // ***********************//
-        NSString *mediaType = [info objectForKey: UIImagePickerControllerMediaType];
+        NSString *mediaType = info[UIImagePickerControllerMediaType];
         
         // Handle a movie capture
-        if (CFStringCompare ((__bridge_retained CFStringRef)mediaType, kUTTypeMovie, 0)
+        if (CFStringCompare ((CFStringRef)mediaType, kUTTypeMovie, 0)
             == kCFCompareEqualTo) {
             
-            NSString *moviePath = [[info objectForKey:
-                                    UIImagePickerControllerMediaURL] path];
+            NSString *moviePath = [info[UIImagePickerControllerMediaURL] path];
             
             NSLog(@"Movie Path== %@",moviePath);
             MPMoviePlayerViewController* theMovie =
-            [[MPMoviePlayerViewController alloc] initWithContentURL: [info objectForKey:
-                                                                      UIImagePickerControllerMediaURL]];
+            [[MPMoviePlayerViewController alloc] initWithContentURL: info[UIImagePickerControllerMediaURL]];
             [self presentMoviePlayerViewControllerAnimated:theMovie];
             
             // Register for the playback finished notification
@@ -825,22 +822,22 @@ UIBarButtonItem *addButton;
         insertVideoFlag=false;
         [picker dismissViewControllerAnimated:YES completion:nil];
         
-        NSData *dataImage = UIImageJPEGRepresentation([info objectForKey:@"UIImagePickerControllerOriginalImage"],1);
+        NSData *dataImage = UIImageJPEGRepresentation(info[@"UIImagePickerControllerOriginalImage"],1);
         
         //  UIImage *attachimage = [[UIImage alloc] initWithData:dataImage];
         
         UIImage *attachimage = [self scaleImage:[[UIImage alloc] initWithData:dataImage] toSize:CGSizeMake(320.0f,460.0f)];
         
-        NSURL *assetURL = [info objectForKey:UIImagePickerControllerReferenceURL];
+        NSURL *assetURL = info[UIImagePickerControllerReferenceURL];
         NSLog(@"img url::: %@",assetURL);
         
         NSDateFormatter *dateFormat = [[[NSDateFormatter alloc] init] autorelease];
-        [dateFormat setDateFormat:@"dd-MM-yyyy||HH:mm:SS"];
+        dateFormat.dateFormat = @"dd-MM-yyyy||HH:mm:SS";
         NSDate *now = [[[NSDate alloc] init] autorelease];
         theDate = [dateFormat stringFromDate:now];
         
         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-        NSString *documentsDirectory = [paths objectAtIndex:0]; // Get documents folder
+        NSString *documentsDirectory = paths[0]; // Get documents folder
         //    NSString *dataPath = [documentsDirectory stringByAppendingPathComponent:@"Images"];
         
         NSString *newFilePath = [NSString stringWithFormat:[documentsDirectory stringByAppendingPathComponent: @"/%@.png"],theDate];
@@ -855,7 +852,7 @@ UIBarButtonItem *addButton;
         {
             [imgData writeToFile:newFilePath atomically:YES];
             [imgArray addObject:docImgPath];
-            NSLog(@"Img arr count== %d",[imgArray count]);
+            NSLog(@"Img arr count== %lu",(unsigned long)imgArray.count);
             NSLog(@"Image taken=== %@",imgArray);
             [self insertImage];
         }
@@ -864,7 +861,7 @@ UIBarButtonItem *addButton;
 }
 - (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated
 {
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
 }
 
 -(UIImage *)scaleImage:(UIImage *)image toSize:(CGSize)newSize {
@@ -886,7 +883,7 @@ UIBarButtonItem *addButton;
 {
     [self dismissMoviePlayerViewControllerAnimated];
     
-    MPMoviePlayerController* theMovie = [aNotification object];
+    MPMoviePlayerController* theMovie = aNotification.object;
     
     [[NSNotificationCenter defaultCenter]
      removeObserver: self
@@ -905,7 +902,7 @@ UIBarButtonItem *addButton;
     {
         UIImagePickerController *UserPhotoPicker = [[UIImagePickerController alloc]init];
         UserPhotoPicker.sourceType=UIImagePickerControllerSourceTypePhotoLibrary;
-        [UserPhotoPicker setDelegate:self];
+        UserPhotoPicker.delegate = self;
         //    if(SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0"))
         //    {
         //        UserPhotoPicker.navigationBar.barStyle=UIBarStyleBlack;
@@ -913,7 +910,7 @@ UIBarButtonItem *addButton;
         UserPhotoPicker.navigationBar.tintColor = [UIColor blackColor];
         
         app.objPopOverController = [[UIPopoverController alloc] initWithContentViewController:UserPhotoPicker];
-        [app.objPopOverController setDelegate:self];
+        (app.objPopOverController).delegate = self;
         [app.objPopOverController presentPopoverFromRect:CGRectMake(370,920, 1,1) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionDown animated:YES];
     }else {
         
@@ -964,15 +961,15 @@ UIBarButtonItem *addButton;
     
     sqlite3_stmt *stmt;
     databasepath=[app getDBPathNew];
-    const char *dbpath=[databasepath UTF8String];
+    const char *dbpath=databasepath.UTF8String;
     
     if(sqlite3_open(dbpath, &dbSecret) == SQLITE_OK)
     {
-        NSString *insertquery=[NSString stringWithFormat:@"Insert into AlbumTbl(UserID,ImagePath,VideoPath) VALUES(%d,\"%@\",\"%@\")",[app.LoginUserID intValue],docImgPath,videopath];
+        NSString *insertquery=[NSString stringWithFormat:@"Insert into AlbumTbl(UserID,ImagePath,VideoPath) VALUES(%d,\"%@\",\"%@\")",(app.LoginUserID).intValue,docImgPath,videopath];
         
         NSLog(@"insert query== %@",insertquery);
         
-        const char *insert_query=[insertquery UTF8String];
+        const char *insert_query=insertquery.UTF8String;
         sqlite3_prepare(dbSecret, insert_query, -1, &stmt, NULL);
         
         if(sqlite3_step(stmt)== SQLITE_DONE)
@@ -1012,13 +1009,13 @@ UIBarButtonItem *addButton;
             view1 = nil;
         }
     }
-    if([imgArray count]== 0 )
+    if(imgArray.count== 0 )
     {
         NSLog(@"no img");
     }
     else
     {
-        NSLog(@"num of Images :::: %d",[imgArray count]);
+        NSLog(@"num of Images :::: %ld",(long)imgArray.count);
         
         if(UI_USER_INTERFACE_IDIOM()==UIUserInterfaceIdiomPad){
             
@@ -1030,9 +1027,9 @@ UIBarButtonItem *addButton;
             
             [playImagesArr removeAllObjects];
             
-            for(int i=1;i<=[imgArray count];i++)
+            for(int i=1;i<=imgArray.count;i++)
             {
-                DefaultAlbumView *defAlObj=[imgArray objectAtIndex:i-1];
+                DefaultAlbumView *defAlObj=imgArray[i-1];
                 NSLog(@"video path== %@",defAlObj.videopathAll);
                 
                 if([defAlObj.videopathAll isEqualToString:@"(null)"] || [defAlObj.videopathAll isEqualToString:@""])
@@ -1044,7 +1041,7 @@ UIBarButtonItem *addButton;
                     img1.frame=CGRectMake(x,y,width,height);
                     [img1 setImage:[UIImage imageWithContentsOfFile:defAlObj.imgPath ]forState:UIControlStateNormal];
                     [img1 addTarget:self action:@selector(imgVideoSelectActivity:) forControlEvents:(UIControlEventTouchUpInside)];
-                    [img1 setTag:i-1];
+                    img1.tag = i-1;
                     
                     [playImagesArr addObject:defAlObj.imgPath];
                     
@@ -1060,7 +1057,7 @@ UIBarButtonItem *addButton;
                     img1.frame=CGRectMake(x,y,width,height);
                     [img1 setImage:[UIImage imageWithContentsOfFile:defAlObj.imgPath ]forState:UIControlStateNormal];
                     [img1 addTarget:self action:@selector(imgVideoSelectActivity:) forControlEvents:(UIControlEventTouchUpInside)];
-                    [img1 setTag:i-1];
+                    img1.tag = i-1;
                     
                     UIImageView *img = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"movie.png"]];
                     img.frame = CGRectMake(0,200, 60, 60);
@@ -1085,9 +1082,9 @@ UIBarButtonItem *addButton;
             
             [playImagesArr removeAllObjects];
             
-            for(int i=1;i<=[imgArray count];i++)
+            for(int i=1;i<=imgArray.count;i++)
             {
-                DefaultAlbumView *defAlObj=[imgArray objectAtIndex:i-1];
+                DefaultAlbumView *defAlObj=imgArray[i-1];
                 NSLog(@"video path== %@",defAlObj.videopathAll);
                 
                 if([defAlObj.videopathAll isEqualToString:@"(null)"] || [defAlObj.videopathAll isEqualToString:@""])
@@ -1099,7 +1096,7 @@ UIBarButtonItem *addButton;
                     img1.frame=CGRectMake(x,y,width,height);
                     [img1 setImage:[UIImage imageWithContentsOfFile:defAlObj.imgPath ]forState:UIControlStateNormal];
                     [img1 addTarget:self action:@selector(imgVideoSelectActivity:) forControlEvents:(UIControlEventTouchUpInside)];
-                    [img1 setTag:i-1];
+                    img1.tag = i-1;
                     
                     [playImagesArr addObject:defAlObj.imgPath];
                     
@@ -1115,7 +1112,7 @@ UIBarButtonItem *addButton;
                     img1.frame=CGRectMake(x,y,width,height);
                     [img1 setImage:[UIImage imageWithContentsOfFile:defAlObj.imgPath ]forState:UIControlStateNormal];
                     [img1 addTarget:self action:@selector(imgVideoSelectActivity:) forControlEvents:(UIControlEventTouchUpInside)];
-                    [img1 setTag:i-1];
+                    img1.tag = i-1;
                     
                     UIImageView *img = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"movie.png"]];
                     img.frame = CGRectMake(0,70, 40, 40);
@@ -1139,9 +1136,9 @@ UIBarButtonItem *addButton;
 
 -(IBAction)imgVideoSelectActivity:(id)sender{
     
-    NSLog(@"btn tag== %d",[sender tag]);
+    NSLog(@"btn tag== %ld",(long)[sender tag]);
     
-    DefaultAlbumView *defAlObj=[imgArray objectAtIndex:[sender tag]];
+    DefaultAlbumView *defAlObj=imgArray[[sender tag]];
     app.ZoomImage=defAlObj.imgPath;
     NSLog(@"app img== %@",app.ZoomImage);
     
@@ -1243,14 +1240,14 @@ UIBarButtonItem *addButton;
     [imgArray removeAllObjects];
     databasepath = [app getDBPathNew];
     
-    if (sqlite3_open([databasepath UTF8String], &dbSecret) == SQLITE_OK) {
+    if (sqlite3_open(databasepath.UTF8String, &dbSecret) == SQLITE_OK) {
         
-        NSString *sql = [NSString stringWithFormat:@"select * from AlbumTbl where UserID=%d ORDER BY ImageID ASC",[app.LoginUserID intValue]];
+        NSString *sql = [NSString stringWithFormat:@"select * from AlbumTbl where UserID=%d ORDER BY ImageID ASC",(app.LoginUserID).intValue];
         
         //NSString *sql = [NSString stringWithFormat:@"select * from ViewImageLogtbl where UserID=%@ ",app.LoginUserID];
         NSLog(@"query is %@",sql);
         sqlite3_stmt *selectstmt;
-        const char *sel_query=[sql UTF8String];
+        const char *sel_query=sql.UTF8String;
         
         if(sqlite3_prepare(dbSecret, sel_query, -1, &selectstmt, NULL) == SQLITE_OK) {
             
@@ -1258,9 +1255,9 @@ UIBarButtonItem *addButton;
             {
                 DefaultAlbumView *albumObj = [[DefaultAlbumView alloc] init];
                 
-                albumObj.imgId =[NSString stringWithUTF8String:(char *)sqlite3_column_text(selectstmt, 0)];
+                albumObj.imgId =@((char *)sqlite3_column_text(selectstmt, 0));
                 
-                albumObj.imgPath = [NSString stringWithUTF8String:(char *)sqlite3_column_text(selectstmt, 2)];
+                albumObj.imgPath = @((char *)sqlite3_column_text(selectstmt, 2));
                 
                 albumObj.videopathAll=[NSString stringWithFormat:@"%s", sqlite3_column_text(selectstmt, 3)];
                 
@@ -1274,7 +1271,7 @@ UIBarButtonItem *addButton;
     else
         sqlite3_close(dbSecret);
     
-    NSLog(@"img count::: %d",[imgArray count]);
+    NSLog(@"img count::: %lu",(unsigned long)imgArray.count);
     addButton.enabled=true;
     if(imgArray.count == 0)
         addButton.enabled=false;
@@ -1285,8 +1282,8 @@ UIBarButtonItem *addButton;
 {
     NSString *strReturn=@"false";
     databasepath=[app getDBPathNew];
-    NSString *selectSql;
-    if (sqlite3_open([databasepath UTF8String], &dbSecret) == SQLITE_OK)
+    NSString *selectSql = nil;
+    if (sqlite3_open(databasepath.UTF8String, &dbSecret) == SQLITE_OK)
     {
         
         if([strProperty isEqualToString:@"Duration"])
@@ -1301,7 +1298,7 @@ UIBarButtonItem *addButton;
         }
         
         NSLog(@"Query : %@",selectSql);
-        const char *sqlStatement = [selectSql UTF8String];
+        const char *sqlStatement = selectSql.UTF8String;
         sqlite3_stmt *query_stmt;
         
         if(sqlite3_prepare_v2(dbSecret, sqlStatement, -1, &query_stmt, NULL) == SQLITE_OK)
@@ -1330,10 +1327,10 @@ UIBarButtonItem *addButton;
     NSString *strReturnedShuffle=[self getProperties:@"Shuffle"];
     NSString *strReturnedRepeat=[self getProperties:@"Repeat"];
     NSString *strReturned=[self getProperties:@"Duration"];
-    NSInteger intAnimationTime=[strReturned integerValue];
+    NSInteger intAnimationTime=strReturned.integerValue;
     
     NSString *strReturnedForAni=[self getProperties:@"Transition"];
-    NSInteger intAnimationType=[strReturnedForAni integerValue];
+    NSInteger intAnimationType=strReturnedForAni.integerValue;
     
     if(UI_USER_INTERFACE_IDIOM()==UIUserInterfaceIdiomPad){
         
@@ -1342,7 +1339,7 @@ UIBarButtonItem *addButton;
         
         if(![strReturnedRepeat isEqualToString:@"true"])
         {
-            if(imgnum ==[playImagesArr count])
+            if(imgnum ==playImagesArr.count)
             {
                 [self.playImgsVw removeFromSuperview];
                 playImgsVw.hidden=true;
@@ -1369,7 +1366,7 @@ UIBarButtonItem *addButton;
                 }else {
                     
                     NSInteger randNo=  arc4random()%3;
-                    NSLog(@"%d",randNo);
+                    NSLog(@"%ld",(long)randNo);
                     if(randNo==1)
                     {
                         [UIView setAnimationTransition:UIViewAnimationTransitionFlipFromRight forView:playImgsVw cache:YES];
@@ -1383,11 +1380,11 @@ UIBarButtonItem *addButton;
                 
                 if([strReturnedShuffle isEqualToString:@"true"])
                 {
-                    NSInteger randShuffle=   arc4random()% [playImagesArr count] ;
-                    slideImage.image= [UIImage imageWithContentsOfFile:[playImagesArr objectAtIndex:randShuffle]];
+                    NSInteger randShuffle=   arc4random()% playImagesArr.count ;
+                    slideImage.image= [UIImage imageWithContentsOfFile:playImagesArr[randShuffle]];
                 }
                 else {
-                    slideImage.image= [UIImage imageWithContentsOfFile:[playImagesArr objectAtIndex:imgnum]];
+                    slideImage.image= [UIImage imageWithContentsOfFile:playImagesArr[imgnum]];
                 }
                 
                 [UIView setAnimationCurve:UIViewAnimationCurveLinear];
@@ -1402,7 +1399,7 @@ UIBarButtonItem *addButton;
         }
         else
         {
-            if(imgnum ==[playImagesArr count])
+            if(imgnum ==playImagesArr.count)
             {
                 imgnum=0;
             }
@@ -1425,7 +1422,7 @@ UIBarButtonItem *addButton;
             }else {
                 
                 NSInteger randNo=  arc4random()%3;
-                NSLog(@"%d",randNo);
+                NSLog(@"%ld",(long)randNo);
                 if(randNo==1)
                 {
                     [UIView setAnimationTransition:UIViewAnimationTransitionFlipFromRight forView:playImgsVw cache:YES];
@@ -1439,11 +1436,11 @@ UIBarButtonItem *addButton;
             
             if([strReturnedShuffle isEqualToString:@"true"])
             {
-                NSInteger randShuffle=   arc4random()% [playImagesArr count] ;
-                slideImage.image= [UIImage imageWithContentsOfFile:[playImagesArr objectAtIndex:randShuffle]];
+                NSInteger randShuffle=   arc4random()% playImagesArr.count ;
+                slideImage.image= [UIImage imageWithContentsOfFile:playImagesArr[randShuffle]];
             }
             else {
-                slideImage.image= [UIImage imageWithContentsOfFile:[playImagesArr objectAtIndex:imgnum]];
+                slideImage.image= [UIImage imageWithContentsOfFile:playImagesArr[imgnum]];
             }
             
             [UIView setAnimationCurve:UIViewAnimationCurveLinear];
@@ -1463,7 +1460,7 @@ UIBarButtonItem *addButton;
         
         if(![strReturnedRepeat isEqualToString:@"true"])
         {
-            if(imgnum ==[playImagesArr count])
+            if(imgnum ==playImagesArr.count)
             {
                 [self.playImgsVw removeFromSuperview];
                 playImgsVw.hidden=true;
@@ -1494,7 +1491,7 @@ UIBarButtonItem *addButton;
                 }else {
                     
                     NSInteger randNo=  arc4random()%3;
-                    NSLog(@"%d",randNo);
+                    NSLog(@"%ld",(long)randNo);
                     if(randNo==1)
                     {
                         [UIView setAnimationTransition:UIViewAnimationTransitionFlipFromRight forView:playImgsVw cache:YES];
@@ -1508,11 +1505,11 @@ UIBarButtonItem *addButton;
                 
                 if([strReturnedShuffle isEqualToString:@"true"])
                 {
-                    NSInteger randShuffle=   arc4random()% [playImagesArr count] ;
-                    slideImage.image= [UIImage imageWithContentsOfFile:[playImagesArr objectAtIndex:randShuffle]];
+                    NSInteger randShuffle=   arc4random()% playImagesArr.count ;
+                    slideImage.image= [UIImage imageWithContentsOfFile:playImagesArr[randShuffle]];
                 }
                 else {
-                    slideImage.image= [UIImage imageWithContentsOfFile:[playImagesArr objectAtIndex:imgnum]];
+                    slideImage.image= [UIImage imageWithContentsOfFile:playImagesArr[imgnum]];
                 }
                 [UIView setAnimationCurve:UIViewAnimationCurveLinear];
                 [UIView commitAnimations];
@@ -1526,7 +1523,7 @@ UIBarButtonItem *addButton;
         }
         else
         {
-            if(imgnum ==[playImagesArr count])
+            if(imgnum ==playImagesArr.count)
             {
                 imgnum=0;
             }
@@ -1554,7 +1551,7 @@ UIBarButtonItem *addButton;
             }else {
                 
                 NSInteger randNo=  arc4random()%3;
-                NSLog(@"%d",randNo);
+                NSLog(@"%ld",(long)randNo);
                 if(randNo==1)
                 {
                     [UIView setAnimationTransition:UIViewAnimationTransitionFlipFromRight forView:playImgsVw cache:YES];
@@ -1568,11 +1565,11 @@ UIBarButtonItem *addButton;
             
             if([strReturnedShuffle isEqualToString:@"true"])
             {
-                NSInteger randShuffle=   arc4random()% [playImagesArr count] ;
-                slideImage.image= [UIImage imageWithContentsOfFile:[playImagesArr objectAtIndex:randShuffle]];
+                NSInteger randShuffle=   arc4random()% playImagesArr.count ;
+                slideImage.image= [UIImage imageWithContentsOfFile:playImagesArr[randShuffle]];
             }
             else {
-                slideImage.image= [UIImage imageWithContentsOfFile:[playImagesArr objectAtIndex:imgnum]];
+                slideImage.image= [UIImage imageWithContentsOfFile:playImagesArr[imgnum]];
             }
             [UIView setAnimationCurve:UIViewAnimationCurveLinear];
             [UIView commitAnimations];

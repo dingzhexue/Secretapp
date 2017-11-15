@@ -14,33 +14,33 @@
 @implementation PWRegisterDeviceRequest
 
 - (NSString *) methodName {
-	return @"registerDevice";
+    return @"registerDevice";
 }
 
 - (NSDictionary *) requestDictionary {
-	NSMutableDictionary *dict = [self baseDictionary];
-	
-	[dict setObject:[NSNumber numberWithInt:1] forKey:@"device_type"];
-	[dict setObject:_pushToken forKey:@"push_token"];
-	[dict setObject:_language forKey:@"language"];
-	[dict setObject:_timeZone forKey:@"timezone"];
+    NSMutableDictionary *dict = [self baseDictionary];
+    
+    dict[@"device_type"] = @1;
+    dict[@"push_token"] = _pushToken;
+    dict[@"language"] = _language;
+    dict[@"timezone"] = _timeZone;
     
     if (_appVersion)
-        [dict setObject:_appVersion forKey:@"app_version"];
+        dict[@"app_version"] = _appVersion;
     
     if (_isJailBroken)
-         [dict setObject:@(YES) forKey:@"black"];
+         dict[@"black"] = @(YES);
     
-	BOOL sandbox = ![PushNotificationManager getAPSProductionStatus];
-	if(sandbox)
-		[dict setObject:@"sandbox" forKey:@"gateway"];
-	else
-		[dict setObject:@"production" forKey:@"gateway"];
+    BOOL sandbox = ![PushNotificationManager getAPSProductionStatus];
+    if(sandbox)
+        dict[@"gateway"] = @"sandbox";
+    else
+        dict[@"gateway"] = @"production";
 
-	NSString * package = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleIdentifier"];
-	[dict setObject:package forKey:@"package"];
-	
-	return dict;
+    NSString * package = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleIdentifier"];
+    dict[@"package"] = package;
+    
+    return dict;
 }
 
 

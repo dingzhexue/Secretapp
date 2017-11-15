@@ -25,7 +25,7 @@
 }
 - (void)DOMLoaded_;
 - (void)cleanup_;
-- (BOOL)doRetry_;
+@property (NS_NONATOMIC_IOSONLY, readonly) BOOL doRetry_;
 @end
 
 @implementation PSYouTubeExtractor
@@ -42,20 +42,20 @@
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 #pragma mark - NSObject
-- (id)init {
+- (instancetype)init {
     if ((self = [super init])) {
         selfReference_ = self;
     }
     return self;
 }
-- (id)initWithNSNotificationName:(NSString *)s {
+- (instancetype)initWithNSNotificationName:(NSString *)s {
     if ((self = [super init])) {
         notification_ = s;
         selfReference_ = self;
     }
     return self;
 }
-- (id)initWithNSNotificationName:(NSString *)s youTubeLink:(NSURL *)u
+- (instancetype)initWithNSNotificationName:(NSString *)s youTubeLink:(NSURL *)u
 {
     if ((self = [super init]))
     {
@@ -64,7 +64,7 @@
 
     return self;
 }
-- (id)initWithYouTubeURL:(NSURL *)youTubeURL success:(void(^)(NSURL *URL))success failure:(void(^)(NSError *error))failure {
+- (instancetype)initWithYouTubeURL:(NSURL *)youTubeURL success:(void(^)(NSURL *URL))success failure:(void(^)(NSError *error))failure {
     if ((self = [super init])) {
         successBlock_ = success;
         failureBlock_ = failure;
@@ -165,7 +165,7 @@
         }
         
         if (![self doRetry_]) {
-            NSError *error = [NSError errorWithDomain:@"com.petersteinberger.betteryoutube" code:100 userInfo:[NSDictionary dictionaryWithObject:@"MP4 URL could not be found." forKey:NSLocalizedDescriptionKey]];
+            NSError *error = [NSError errorWithDomain:@"com.petersteinberger.betteryoutube" code:100 userInfo:@{NSLocalizedDescriptionKey: @"MP4 URL could not be found."}];
             if (failureBlock_) {
                 failureBlock_(error);
             }
@@ -175,52 +175,52 @@
 }
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)aRequest navigationType:(UIWebViewNavigationType)navigationType {
-	BOOL should = YES;
-	NSURL *url = [aRequest URL];
-	NSString *scheme = [url scheme];
+    BOOL should = YES;
+    NSURL *url = aRequest.URL;
+    NSString *scheme = url.scheme;
     
-	// Check for DOM load message
-	if ([scheme isEqualToString:@"x-sswebview"]) {
-		NSString *host = [url host];
-		if ([host isEqualToString:@"dom-loaded"]) {
+    // Check for DOM load message
+    if ([scheme isEqualToString:@"x-sswebview"]) {
+        NSString *host = url.host;
+        if ([host isEqualToString:@"dom-loaded"]) {
             PSLog(@"DOM load detected!");
-			[self DOMLoaded_];
-		}
-		return NO;
-	}
+            [self DOMLoaded_];
+        }
+        return NO;
+    }
     
-	// Only load http or http requests if delegate doesn't care
-	else {
-		should = [scheme isEqualToString:@"http"] || [scheme isEqualToString:@"https"];
-	}
+    // Only load http or http requests if delegate doesn't care
+    else {
+        should = [scheme isEqualToString:@"http"] || [scheme isEqualToString:@"https"];
+    }
     
-	// Stop if we shouldn't load it
-	if (should == NO) {
-		return NO;
-	}
+    // Stop if we shouldn't load it
+    if (should == NO) {
+        return NO;
+    }
     
-	// Starting a new request
-	if ([[aRequest mainDocumentURL] isEqual:[lastRequest_ mainDocumentURL]] == NO) {
-		lastRequest_ = [aRequest retain];
-		testedDOM_ = NO;
-	}
+    // Starting a new request
+    if ([aRequest.mainDocumentURL isEqual:lastRequest_.mainDocumentURL] == NO) {
+        lastRequest_ = [aRequest retain];
+        testedDOM_ = NO;
+    }
     
-	return should;
+    return should;
 }
 
 // With some guidance of SSToolKit this was pretty easy. Thanks Sam!
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
      PSLog(@"webViewDidFinishLoad");
     
-	// Check DOM
-	if (testedDOM_ == NO) {
-		testedDOM_ = YES;
+    // Check DOM
+    if (testedDOM_ == NO) {
+        testedDOM_ = YES;
         
         // The internal delegate will intercept this load and forward the event to the real delegate
         // Crazy javascript from http://dean.edwards.name/weblog/2006/06/again
-		static NSString *testDOM = @"var _SSWebViewDOMLoadTimer=setInterval(function(){if(/loaded|complete/.test(document.readyState)){clearInterval(_SSWebViewDOMLoadTimer);location.href='x-sswebview://dom-loaded'}},10);";
-		[webView_ stringByEvaluatingJavaScriptFromString:testDOM];        
-	}
+        static NSString *testDOM = @"var _SSWebViewDOMLoadTimer=setInterval(function(){if(/loaded|complete/.test(document.readyState)){clearInterval(_SSWebViewDOMLoadTimer);location.href='x-sswebview://dom-loaded'}},10);";
+        [webView_ stringByEvaluatingJavaScriptFromString:testDOM];        
+    }
     
     // add watchdog in case DOM never get initialized
     [self performSelector:@selector(DOMLoaded_) withObject:nil afterDelay:kWatchdogDelay];

@@ -7,9 +7,7 @@
 //
 
 #import "VideoView.h"
-#import "AppDelegate.h"
 #import "VideoCustomView.h"
-#import "RootViewController.h"
 #import "GADBannerView.h"
 #import "GADBannerViewDelegate.h"
 #import "GADInterstitial.h"
@@ -27,9 +25,8 @@
 @synthesize videoID,videoPath,videoDate,videoTitle;
 @synthesize selvideoID,selvideoTitle,selvideoPath,selvideoDate;
 
-UIBarButtonItem *editdoneButton;
-AppDelegate *app;
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+
+- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
@@ -64,9 +61,9 @@ AppDelegate *app;
     if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0"))
     {
         self.edgesForExtendedLayout = UIRectEdgeNone;
-        [toolbar setBarTintColor:[UIColor blackColor]];
+        toolbar.barTintColor = [UIColor blackColor];
     }
-    app=(AppDelegate *)[[UIApplication sharedApplication]delegate];
+    app=(AppDelegate *)[UIApplication sharedApplication].delegate;
     videoArr=[[NSMutableArray alloc] init];
     self.titleView.hidden=true;
     self.title=@"Video";
@@ -128,7 +125,7 @@ AppDelegate *app;
     }
     [buttons addObject:addButton];
     [addButton release];
-    [toolbar setItems:buttons];
+    toolbar.items = buttons;
     [buttons release];
     
     [self dispVideo];
@@ -158,19 +155,19 @@ AppDelegate *app;
     [videoArr removeAllObjects];
     databasepath = [app getDBPathNew];
     
-    if (sqlite3_open([databasepath UTF8String], &dbSecret) == SQLITE_OK) {
+    if (sqlite3_open(databasepath.UTF8String, &dbSecret) == SQLITE_OK) {
         
-        NSString *sql =[NSString stringWithFormat:@"select * from VideoTbl where UserID=%d",[app.LoginUserID intValue]];
+        NSString *sql =[NSString stringWithFormat:@"select * from VideoTbl where UserID=%d",(app.LoginUserID).intValue];
         
         sqlite3_stmt *selectstmt;
-        const char *sel_query=[sql UTF8String];
+        const char *sel_query=sql.UTF8String;
         if(sqlite3_prepare(dbSecret, sel_query, -1, &selectstmt, NULL) == SQLITE_OK) {
             
             while(sqlite3_step(selectstmt) == SQLITE_ROW)
             {
                 VideoView *videoObj = [[VideoView alloc] init];
                 
-                videoObj.videoID =[NSString stringWithUTF8String:(char *)sqlite3_column_text(selectstmt, 0)];
+                videoObj.videoID =@((char *)sqlite3_column_text(selectstmt, 0));
                 
                 videoObj.videoPath=[NSString stringWithFormat:@"%s",sqlite3_column_text(selectstmt, 2)]; 
                 
@@ -186,7 +183,7 @@ AppDelegate *app;
     else
         sqlite3_close(dbSecret);
     
-    NSLog(@"Videos count::: %d",[videoArr count]);
+    NSLog(@"Videos count::: %lu",(unsigned long)videoArr.count);
     [videosTbl reloadData];
 }
 
@@ -199,8 +196,8 @@ AppDelegate *app;
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    NSLog(@"video data count:::: %d",[videoArr count]);
-    return [videoArr count];
+    NSLog(@"video data count:::: %lu",(unsigned long)videoArr.count);
+    return videoArr.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -222,9 +219,9 @@ AppDelegate *app;
                 cell = (VideoCustomView *)oneObject;
     }
     
-    [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
-    VideoView *videoObj=[videoArr objectAtIndex:indexPath.row];
+    VideoView *videoObj=videoArr[indexPath.row];
     cell.vtitleLbl.text=videoObj.videoTitle;
     cell.vDateLbl.text=videoObj.videoDate;
    
@@ -241,7 +238,7 @@ AppDelegate *app;
    // editdoneButton.enabled=FALSE;
     [self.navigationItem setRightBarButtonItem:nil animated:NO];
     
-    VideoView *videoObj=[videoArr objectAtIndex:indexPath.row];
+    VideoView *videoObj=videoArr[indexPath.row];
     selvideoPath=videoObj.videoPath;
     selvideoID=videoObj.videoID;
     selvideoDate=videoObj.videoDate;
@@ -284,22 +281,22 @@ AppDelegate *app;
 #pragma mark Row Rearrange
 
 - (IBAction) EditTableVideos:(id)sender{
-	if(self.editing)
-	{
-		[super setEditing:NO animated:NO]; 
-		[videosTbl setEditing:NO animated:NO];
-		[videosTbl reloadData];
-		[self.navigationItem.rightBarButtonItem setTitle:@"Edit"];
-		[self.navigationItem.rightBarButtonItem setStyle:UIBarButtonItemStylePlain];
-	}
-	else
-	{
-		[super setEditing:YES animated:YES]; 
-		[videosTbl setEditing:YES animated:YES];
-		[videosTbl reloadData];
-		[self.navigationItem.rightBarButtonItem setTitle:@"Done"];
-		[self.navigationItem.rightBarButtonItem setStyle:UIBarButtonItemStyleDone];
-	}
+    if(self.editing)
+    {
+        [super setEditing:NO animated:NO]; 
+        [videosTbl setEditing:NO animated:NO];
+        [videosTbl reloadData];
+        (self.navigationItem.rightBarButtonItem).title = @"Edit";
+        (self.navigationItem.rightBarButtonItem).style = UIBarButtonItemStylePlain;
+    }
+    else
+    {
+        [super setEditing:YES animated:YES]; 
+        [videosTbl setEditing:YES animated:YES];
+        [videosTbl reloadData];
+        (self.navigationItem.rightBarButtonItem).title = @"Done";
+        (self.navigationItem.rightBarButtonItem).style = UIBarButtonItemStyleDone;
+    }
 }
 
 - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -310,7 +307,7 @@ AppDelegate *app;
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath
       toIndexPath:(NSIndexPath *)toIndexPath
 {
-    NSString *item = [[videoArr objectAtIndex:fromIndexPath.row] retain];
+    NSString *item = [videoArr[fromIndexPath.row] retain];
     [videoArr removeObject:item];
     [videoArr insertObject:item atIndex:toIndexPath.row];
     [item release];
@@ -319,12 +316,12 @@ AppDelegate *app;
 #pragma mark - Delete Video
 
 - (void)tableView:(UITableView *)aTableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-	
+    
     if (editingStyle == UITableViewCellEditingStyleDelete)
     {
-        VideoView *vdObj=[videoArr objectAtIndex:indexPath.row];
+        VideoView *vdObj=videoArr[indexPath.row];
         selvideoID=vdObj.videoID ;
-        NSLog(@"Cont id=== %d",[selvideoID intValue]);
+        NSLog(@"Cont id=== %d",selvideoID.intValue);
         
         UIAlertView *alert =[[UIAlertView alloc] initWithTitle:@"Alert!!" message:@"Are you sure you want to delete the video?" delegate:self cancelButtonTitle:@"NO" otherButtonTitles:nil];
         
@@ -345,15 +342,15 @@ AppDelegate *app;
 }
 
 -(void)deleteVideo{
-    NSLog(@"ID==== %d",[selvideoID intValue]);
+    NSLog(@"ID==== %d",selvideoID.intValue);
     
     databasepath=[app getDBPathNew];
-    if (sqlite3_open([databasepath UTF8String], &dbSecret) == SQLITE_OK) 
+    if (sqlite3_open(databasepath.UTF8String, &dbSecret) == SQLITE_OK) 
     {
-        NSString *DeleteQuery = [NSString stringWithFormat:@"Delete from VideoTbl Where VideoID=%d",[selvideoID intValue]];
+        NSString *DeleteQuery = [NSString stringWithFormat:@"Delete from VideoTbl Where VideoID=%d",selvideoID.intValue];
         
         NSLog(@"Query : %@",DeleteQuery);
-        const char *deleteStmt = [DeleteQuery UTF8String];
+        const char *deleteStmt = DeleteQuery.UTF8String;
         sqlite3_stmt *query_stmt;
         
         if(sqlite3_prepare_v2(dbSecret, deleteStmt, -1, &query_stmt, NULL) == SQLITE_OK)
@@ -424,7 +421,7 @@ AppDelegate *app;
                 return;
             }
             videoRecorder.sourceType = UIImagePickerControllerSourceTypeCamera;
-            videoRecorder.mediaTypes = [NSArray arrayWithObject:(NSString*)kUTTypeMovie];           
+            videoRecorder.mediaTypes = @[(NSString*)kUTTypeMovie];           
             videoRecorder.videoQuality = UIImagePickerControllerQualityTypeLow;
             videoRecorder.videoMaximumDuration=120;
             videoRecorder.delegate = self;
@@ -442,20 +439,20 @@ AppDelegate *app;
 - (void) imagePickerController: (UIImagePickerController *) picker
  didFinishPickingMediaWithInfo: (NSDictionary *) info {
 
-    NSString *type = [info objectForKey:UIImagePickerControllerMediaType];
+    NSString *type = info[UIImagePickerControllerMediaType];
     if ([type isEqualToString:(NSString *)kUTTypeVideo] || 
         [type isEqualToString:(NSString *)kUTTypeMovie]) 
     {
-        NSURL *videoURL = [info objectForKey:UIImagePickerControllerMediaURL];
+        NSURL *videoURL = info[UIImagePickerControllerMediaURL];
         
         // Code To give Name to video and store to DocumentDirectory //
         
         NSData *videoData = [NSData dataWithContentsOfURL:videoURL];
         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-        NSString *documentsDirectory = [paths objectAtIndex:0];
+        NSString *documentsDirectory = paths[0];
         
         NSDateFormatter *dateFormat = [[[NSDateFormatter alloc] init] autorelease];
-        [dateFormat setDateFormat:@"dd-MM-yyyy||HH:mm:SS"];
+        dateFormat.dateFormat = @"dd-MM-yyyy||HH:mm:SS";
         NSDate *now = [[[NSDate alloc] init] autorelease];
         theDate = [dateFormat stringFromDate:now];
         
@@ -486,7 +483,7 @@ AppDelegate *app;
 {
     NSDate* date = [NSDate date];    
     NSDateFormatter* formatter = [[[NSDateFormatter alloc] init] autorelease];
-    [formatter setDateFormat:@"yyyy-MM-dd HH:MM:SS"];
+    formatter.dateFormat = @"yyyy-MM-dd HH:MM:SS";
     DateStr = [[NSString alloc]initWithFormat:@"%@",[formatter stringFromDate:date]];
     NSLog(@"Date::: %@",DateStr);
 }
@@ -497,14 +494,14 @@ AppDelegate *app;
     NSLog(@"video path from save method:: %@",tempPath);
     sqlite3_stmt *stmt;
     databasepath=[app getDBPathNew];
-    const char *dbpath=[databasepath UTF8String];
+    const char *dbpath=databasepath.UTF8String;
     if(sqlite3_open(dbpath, &dbSecret) == SQLITE_OK)
     {
-        NSString *insertquery=[NSString stringWithFormat:@"Insert into VideoTbl(UserID,VideoPath,VideoTitle,VideoDate) VALUES(%d,\"%@\",\"%@\",\"%@\");",[app.LoginUserID intValue],tempPath,titletxt.text,DateStr];
+        NSString *insertquery=[NSString stringWithFormat:@"Insert into VideoTbl(UserID,VideoPath,VideoTitle,VideoDate) VALUES(%d,\"%@\",\"%@\",\"%@\");",(app.LoginUserID).intValue,tempPath,titletxt.text,DateStr];
         
         NSLog(@"Query:: %@",insertquery);
         
-        const char *insert_query=[insertquery UTF8String];
+        const char *insert_query=insertquery.UTF8String;
         
         sqlite3_prepare_v2(dbSecret, insert_query, -1, &stmt, NULL);
         

@@ -6,7 +6,6 @@
 //
 
 #import "AlbumProcessView.h"
-#import "AppDelegate.h"
 #import <QuartzCore/Quartzcore.h>
 #import "viewImageViewController.h"
 
@@ -23,13 +22,8 @@
 
 @synthesize imgId,imgPath,checkedImgArr,lastImg,totalImgLbl,CustomLibraryVw,actIndicator,videoIcon;
 
-static NSString* kAppId = @"145792598897737";
-int videos;
 
-AppDelegate *app;
-UIButton *pasteBtn;
-UIBarButtonItem *selectAllBtn ;
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
@@ -66,10 +60,10 @@ UIBarButtonItem *selectAllBtn ;
     if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0"))
     {
         self.edgesForExtendedLayout = UIRectEdgeNone;
-        [toolbar setBarTintColor:[UIColor blackColor]];
+        toolbar.barTintColor = [UIColor blackColor];
     }
     // Do any additional setup after loading the view from its nib.
-    app=(AppDelegate *)[[UIApplication sharedApplication]delegate];
+    app=(AppDelegate *)[UIApplication sharedApplication].delegate;
     
     //self.library = [[ALAssetsLibrary alloc] init];
     
@@ -102,7 +96,7 @@ UIBarButtonItem *selectAllBtn ;
         [selectAllBtn release];
         NSMutableArray* buttons = [[NSMutableArray alloc] initWithCapacity:4];
         UIBarButtonItem *flexibaleSpaceBarButton0 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
-        [flexibaleSpaceBarButton0 setWidth:200];
+        flexibaleSpaceBarButton0.width = 200;
         [buttons addObject:flexibaleSpaceBarButton0];
         [flexibaleSpaceBarButton0 release];
         //Set Buttons in Toolbar //
@@ -123,7 +117,7 @@ UIBarButtonItem *selectAllBtn ;
         [contlayerbtn release];
         
         UIBarButtonItem *flexibaleSpaceBarButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
-        [flexibaleSpaceBarButton setWidth:10 ];
+        flexibaleSpaceBarButton.width = 10 ;
         [buttons addObject:flexibaleSpaceBarButton];
         [flexibaleSpaceBarButton release];
         
@@ -160,7 +154,7 @@ UIBarButtonItem *selectAllBtn ;
         [wwwlayerbtn release];
         
         UIBarButtonItem *flexibaleSpaceBarButton2 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
-        [flexibaleSpaceBarButton2 setWidth:10];
+        flexibaleSpaceBarButton2.width = 10;
         [buttons addObject:flexibaleSpaceBarButton2];
         [flexibaleSpaceBarButton2 release];
         
@@ -178,7 +172,7 @@ UIBarButtonItem *selectAllBtn ;
         [sslayerbtn release];
         
         UIBarButtonItem *flexibaleSpaceBarButton3 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
-        [flexibaleSpaceBarButton3 setWidth:10];
+        flexibaleSpaceBarButton3.width = 10;
         [buttons addObject:flexibaleSpaceBarButton3];
         [flexibaleSpaceBarButton3 release];
         
@@ -196,7 +190,7 @@ UIBarButtonItem *selectAllBtn ;
         [buttons addObject:cmlayerbtn];
         [cmlayerbtn release];
         
-        [toolbar setItems:buttons];
+        toolbar.items = buttons;
         
         [buttons release];
         
@@ -238,7 +232,7 @@ UIBarButtonItem *selectAllBtn ;
         [contlayerbtn release];
         
         UIBarButtonItem *flexibaleSpaceBarButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
-        [flexibaleSpaceBarButton setWidth:10];
+        flexibaleSpaceBarButton.width = 10;
         [buttons addObject:flexibaleSpaceBarButton];
         [flexibaleSpaceBarButton release];
         
@@ -275,7 +269,7 @@ UIBarButtonItem *selectAllBtn ;
         [wwwlayerbtn release];
         
         UIBarButtonItem *flexibaleSpaceBarButton2 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
-        [flexibaleSpaceBarButton2 setWidth:10];
+        flexibaleSpaceBarButton2.width = 10;
         [buttons addObject:flexibaleSpaceBarButton2];
         [flexibaleSpaceBarButton2 release];
         
@@ -293,7 +287,7 @@ UIBarButtonItem *selectAllBtn ;
         [sslayerbtn release];
         
         UIBarButtonItem *flexibaleSpaceBarButton3 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
-        [flexibaleSpaceBarButton3 setWidth:10];
+        flexibaleSpaceBarButton3.width = 10;
         [buttons addObject:flexibaleSpaceBarButton3];
         [flexibaleSpaceBarButton3 release];
         
@@ -311,7 +305,7 @@ UIBarButtonItem *selectAllBtn ;
         [buttons addObject:cmlayerbtn];
         [cmlayerbtn release];
         
-        [toolbar setItems:buttons];
+        toolbar.items = buttons;
         
         [buttons release];
         
@@ -355,12 +349,12 @@ UIBarButtonItem *selectAllBtn ;
     [imgArray removeAllObjects];
     databasepath = [app getDBPathNew];
     
-    if (sqlite3_open([databasepath UTF8String], &dbSecret) == SQLITE_OK) {
+    if (sqlite3_open(databasepath.UTF8String, &dbSecret) == SQLITE_OK) {
         
-        NSString *sql = [NSString stringWithFormat:@"select * from AlbumTbl where UserID=%d ORDER BY ImageID ASC",[app.LoginUserID intValue]];
+        NSString *sql = [NSString stringWithFormat:@"select * from AlbumTbl where UserID=%d ORDER BY ImageID ASC",(app.LoginUserID).intValue];
         
         sqlite3_stmt *selectstmt;
-        const char *sel_query=[sql UTF8String];
+        const char *sel_query=sql.UTF8String;
         
         if(sqlite3_prepare(dbSecret, sel_query, -1, &selectstmt, NULL) == SQLITE_OK) {
             
@@ -368,9 +362,9 @@ UIBarButtonItem *selectAllBtn ;
             {
                 AlbumProcessView *albumObj = [[AlbumProcessView alloc] init];
                 
-                albumObj.imgId =[NSString stringWithUTF8String:(char *)sqlite3_column_text(selectstmt, 0)];
+                albumObj.imgId =@((char *)sqlite3_column_text(selectstmt, 0));
                 
-                albumObj.imgPath = [NSString stringWithUTF8String:(char *)sqlite3_column_text(selectstmt, 2)];
+                albumObj.imgPath = @((char *)sqlite3_column_text(selectstmt, 2));
                 
                 albumObj.videopathAll=[NSString stringWithFormat:@"%s",sqlite3_column_text(selectstmt, 3)];
                 
@@ -383,7 +377,7 @@ UIBarButtonItem *selectAllBtn ;
     else
         sqlite3_close(dbSecret);
     
-    NSLog(@"img count::: %d",[imgArray count]);
+    NSLog(@"img count::: %lu",(unsigned long)imgArray.count);
     [self dispImages];
 }
 
@@ -397,7 +391,7 @@ UIBarButtonItem *selectAllBtn ;
             view = nil;
         }
     }
-    NSLog(@"num of Images :::: %d",[imgArray count]);
+    NSLog(@"num of Images :::: %lu",(unsigned long)imgArray.count);
     
     if(UI_USER_INTERFACE_IDIOM()==UIUserInterfaceIdiomPhone){
         
@@ -407,9 +401,9 @@ UIBarButtonItem *selectAllBtn ;
         int y=5;
         videos=0;
         
-        for (int i = 1 ; i<=[imgArray count] ; i++)
+        for (int i = 1 ; i<=imgArray.count ; i++)
         {
-            AlbumProcessView *alObj=[imgArray objectAtIndex:i-1];
+            AlbumProcessView *alObj=imgArray[i-1];
             
             if([alObj.videopathAll isEqualToString:@""] || [alObj.videopathAll isEqualToString:@"(null)"])
             {
@@ -420,7 +414,7 @@ UIBarButtonItem *selectAllBtn ;
                 img1.frame=CGRectMake(x,y,width,height);
                 [img1 setImage:[UIImage imageWithContentsOfFile:alObj.imgPath ]forState:UIControlStateNormal];
                 [img1 addTarget:self action:@selector(checkImgAction:) forControlEvents:(UIControlEventTouchUpInside)];
-                [img1 setTag:i-1];
+                img1.tag = i-1;
                 //  app.ZoomImage=defAlObj.imgPath;
                 isImgFlag=true;
             }
@@ -433,7 +427,7 @@ UIBarButtonItem *selectAllBtn ;
                 img1.frame=CGRectMake(x,y,width,height);
                 [img1 setImage:[UIImage imageWithContentsOfFile:alObj.imgPath ]forState:UIControlStateNormal];
                 [img1 addTarget:self action:@selector(checkImgAction:) forControlEvents:(UIControlEventTouchUpInside)];
-                [img1 setTag:i-1];
+                img1.tag = i-1;
                 
                 UIImageView *img = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"movie.png"]];
                 img.frame = CGRectMake(0,70,40,40);
@@ -455,9 +449,9 @@ UIBarButtonItem *selectAllBtn ;
         int y=10;
         videos=0;
         
-        for (int i = 1 ; i<=[imgArray count] ; i++)
+        for (int i = 1 ; i<=imgArray.count ; i++)
         {
-            AlbumProcessView *alObj=[imgArray objectAtIndex:i-1];
+            AlbumProcessView *alObj=imgArray[i-1];
             
             if([alObj.videopathAll isEqualToString:@""] || [alObj.videopathAll isEqualToString:@"(null)"])
             {
@@ -468,7 +462,7 @@ UIBarButtonItem *selectAllBtn ;
                 img1.frame=CGRectMake(x,y,width,height);
                 [img1 setImage:[UIImage imageWithContentsOfFile:alObj.imgPath ]forState:UIControlStateNormal];
                 [img1 addTarget:self action:@selector(checkImgAction:) forControlEvents:(UIControlEventTouchUpInside)];
-                [img1 setTag:i-1];
+                img1.tag = i-1;
                 //  app.ZoomImage=defAlObj.imgPath;
                 isImgFlag=true;
             }
@@ -481,7 +475,7 @@ UIBarButtonItem *selectAllBtn ;
                 img1.frame=CGRectMake(x,y,width,height);
                 [img1 setImage:[UIImage imageWithContentsOfFile:alObj.imgPath ]forState:UIControlStateNormal];
                 [img1 addTarget:self action:@selector(checkImgAction:) forControlEvents:(UIControlEventTouchUpInside)];
-                [img1 setTag:i-1];
+                img1.tag = i-1;
                 
                 UIImageView *img = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"movie.png"]];
                 img.frame = CGRectMake(0,200,40,40);
@@ -507,7 +501,7 @@ UIBarButtonItem *selectAllBtn ;
     UIButton *btn = (UIButton *)sender;
     int k=[sender tag];
     
-    AlbumProcessView *alObj=[imgArray objectAtIndex:k];
+    AlbumProcessView *alObj=imgArray[k];
     selImgID=alObj.imgId;
     selVideoPath=alObj.videopathAll;
     
@@ -523,7 +517,7 @@ UIBarButtonItem *selectAllBtn ;
         UIControl *view  =[[UIControl alloc]initWithFrame:CGRectMake(0, 0, 100, 100)];
         [view addTarget:self action:@selector(checkImgAction:) forControlEvents:UIControlEventTouchUpInside];
         // view.backgroundColor  = [UIColor colorWithWhite:1.0 alpha:0.5];
-        [view setTag:[btn tag]];
+        view.tag = btn.tag;
         
         UIImageView *img = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"checked_new.png"]];
         img.frame = CGRectMake(5,5, 20, 20);
@@ -553,14 +547,14 @@ UIBarButtonItem *selectAllBtn ;
             int height=240;
             int x=15;
             int y=10;            
-            for (int i = 1 ; i<=[imgArray count] ; i++)
+            for (int i = 1 ; i<=imgArray.count ; i++)
             {
-                AlbumProcessView *albmObj=[imgArray objectAtIndex:i-1];
+                AlbumProcessView *albmObj=imgArray[i-1];
                 UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
                 [btn setImage:[UIImage imageWithContentsOfFile:albmObj.imgPath] forState:UIControlStateNormal];
-                [btn setFrame:CGRectMake(x,y, width, height)];
+                btn.frame = CGRectMake(x,y, width, height);
                 [btn addTarget:self action:@selector(checkImgAction:) forControlEvents:(UIControlEventTouchUpInside)];
-                [btn setTag:i-1];
+                btn.tag = i-1;
                 [scrollVw addSubview:btn];
                 
                 (i%3)==0 ? (y=y+250) : (y=y);
@@ -568,7 +562,7 @@ UIBarButtonItem *selectAllBtn ;
                 
                 UIControl *view  =[[UIControl alloc]initWithFrame:CGRectMake(0, 0, 100, 100)];
                 [view addTarget:self action:@selector(checkImgAction:) forControlEvents:UIControlEventTouchUpInside];
-                [view setTag:i-1];
+                view.tag = i-1;
                 
                 UIImageView *img = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"checked_new.png"]];
                 img.frame = CGRectMake(5,5, 20, 20);
@@ -605,14 +599,14 @@ UIBarButtonItem *selectAllBtn ;
             int x=5;
             int y=5;
             
-            for (int i = 1 ; i<=[imgArray count] ; i++)
+            for (int i = 1 ; i<=imgArray.count ; i++)
             {
-                AlbumProcessView *albmObj=[imgArray objectAtIndex:i-1];
+                AlbumProcessView *albmObj=imgArray[i-1];
                 UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
                 [btn setImage:[UIImage imageWithContentsOfFile:albmObj.imgPath] forState:UIControlStateNormal];
-                [btn setFrame:CGRectMake(x,y, width, height)];
+                btn.frame = CGRectMake(x,y, width, height);
                 [btn addTarget:self action:@selector(checkImgAction:) forControlEvents:(UIControlEventTouchUpInside)];
-                [btn setTag:i-1];
+                btn.tag = i-1;
                 [scrollVw addSubview:btn];
                 
                 (i%3)==0 ? (y=y+105) : (y=y);
@@ -620,7 +614,7 @@ UIBarButtonItem *selectAllBtn ;
                 
                 UIControl *view  =[[UIControl alloc]initWithFrame:CGRectMake(0, 0, 100, 100)];
                 [view addTarget:self action:@selector(checkImgAction:) forControlEvents:UIControlEventTouchUpInside];
-                [view setTag:i-1];
+                view.tag = i-1;
                 
                 UIImageView *img = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"checked_new.png"]];
                 img.frame = CGRectMake(5,5, 20, 20);
@@ -649,7 +643,7 @@ UIBarButtonItem *selectAllBtn ;
 
 -(void)btnCopyImagePressed
 {
-    if([checkedImgArr count] == 0)
+    if(checkedImgArr.count == 0)
     {
         UIAlertView *alert = [[UIAlertView alloc]
                               initWithTitle:@"Message" message:@"Please Select Image To Be Copied." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
@@ -660,7 +654,7 @@ UIBarButtonItem *selectAllBtn ;
     {
         NSLog(@"image to be copied === %@",checkedImgPathArr);
         
-        [pasteBtn setTitle:[NSString stringWithFormat:@"Paste (%d)",[checkedImgArr count]] forState:UIControlStateNormal];
+        [pasteBtn setTitle:[NSString stringWithFormat:@"Paste (%lu)",(unsigned long)checkedImgArr.count] forState:UIControlStateNormal];
         pasteBtn.enabled=true;
     }
 }
@@ -672,21 +666,21 @@ UIBarButtonItem *selectAllBtn ;
     sqlite3_stmt *stmt;
     databasepath=[app getDBPathNew];
     
-    for(int p=0;p<[checkedImgArr count];p++)
+    for(int p=0;p<checkedImgArr.count;p++)
     {
-        const char *dbpath=[databasepath UTF8String];
+        const char *dbpath=databasepath.UTF8String;
         if(sqlite3_open(dbpath, &dbSecret) == SQLITE_OK)
         {
-            NSString *insertquery=[NSString stringWithFormat:@"Insert into AlbumTbl(UserID,ImagePath,VideoPath) VALUES(%d,\"%@\",\"%@\")",[app.LoginUserID intValue],[checkedImgPathArr objectAtIndex:p],[checkedVideoArr objectAtIndex:p]];
+            NSString *insertquery=[NSString stringWithFormat:@"Insert into AlbumTbl(UserID,ImagePath,VideoPath) VALUES(%d,\"%@\",\"%@\")",(app.LoginUserID).intValue,checkedImgPathArr[p],checkedVideoArr[p]];
             
             NSLog(@"insert query== %@",insertquery);
             
-            const char *insert_query=[insertquery UTF8String];
+            const char *insert_query=insertquery.UTF8String;
             sqlite3_prepare(dbSecret, insert_query, -1, &stmt, NULL);
             
             if(sqlite3_step(stmt)== SQLITE_DONE)
             {
-                NSLog(@"img path=== %@ pasted..",[checkedImgPathArr objectAtIndex:p]);
+                NSLog(@"img path=== %@ pasted..",checkedImgPathArr[p]);
                 [pasteBtn setTitle:@"Paste" forState:UIControlStateNormal];
                 
             }
@@ -713,7 +707,7 @@ UIBarButtonItem *selectAllBtn ;
 #pragma mark - Delete Image Actionsheet Methods
 
 -(void)confirmDeleteImg{
-    if([checkedImgArr count] == 0)
+    if(checkedImgArr.count == 0)
     {
         UIAlertView *alert = [[UIAlertView alloc]
                               initWithTitle:@"Message" message:@"Please Select Image To Be Deleted." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
@@ -731,21 +725,21 @@ UIBarButtonItem *selectAllBtn ;
             UIButton *btnDelete = [[UIButton alloc]initWithFrame:CGRectMake(35,60,220,40)];
             //[btnDelete setTitle:@"Delete" forState:UIControlStateNormal];
             btnDelete.titleLabel.textColor = [UIColor whiteColor];
-            [btnDelete.titleLabel setFont:[UIFont fontWithName:@"Helvetica" size:25.0]];
+            (btnDelete.titleLabel).font = [UIFont fontWithName:@"Helvetica" size:25.0];
             [btnDelete setBackgroundImage:[UIImage imageNamed:@"delete.png"] forState:UIControlStateNormal];
             
             //[btnDelete setBackgroundColor:[UIColor redColor]];
             [btnDelete addTarget:self action:@selector(selectEvent:) forControlEvents:UIControlEventTouchUpInside];
-            [btnDelete setTag:0];
+            btnDelete.tag = 0;
             
             UIButton *btnCancel = [[UIButton alloc]initWithFrame:CGRectMake(35,120,220,40)];
             //[btnCancel setTitle:@"Cancel" forState:UIControlStateNormal];
             btnCancel.titleLabel.textColor = [UIColor whiteColor];
-            [btnCancel.titleLabel setFont:[UIFont fontWithName:@"Helvetica" size:25.0]];
+            (btnCancel.titleLabel).font = [UIFont fontWithName:@"Helvetica" size:25.0];
             [btnCancel setBackgroundImage:[UIImage imageNamed:@"cancel.png"] forState:UIControlStateNormal];
             //[btnCancel setBackgroundColor:[UIColor redColor]];
             [btnCancel addTarget:self action:@selector(selectEvent:) forControlEvents:UIControlEventTouchUpInside];
-            [btnCancel setTag:1];
+            btnCancel.tag = 1;
             
             [dialog addSubview:btnDelete];
             [dialog addSubview:btnCancel];
@@ -791,24 +785,24 @@ UIBarButtonItem *selectAllBtn ;
 -(void)delImage{
     
     databasepath=[app getDBPathNew];
-    for(int p=0;p<[checkedImgArr count];p++)
+    for(int p=0;p<checkedImgArr.count;p++)
     {
-        NSString *imgid=[checkedImgArr objectAtIndex:p];
+        NSString *imgid=checkedImgArr[p];
         
-        if (sqlite3_open([databasepath UTF8String], &dbSecret) == SQLITE_OK) 
+        if (sqlite3_open(databasepath.UTF8String, &dbSecret) == SQLITE_OK) 
         {
-            NSString *selectSql = [NSString stringWithFormat:@"Delete from AlbumTbl Where ImageID=%d",[imgid intValue]];
+            NSString *selectSql = [NSString stringWithFormat:@"Delete from AlbumTbl Where ImageID=%d",imgid.intValue];
             
             NSLog(@"Query : %@",selectSql);
             
-            const char *deleteStmt = [selectSql UTF8String];
+            const char *deleteStmt = selectSql.UTF8String;
             sqlite3_stmt *query_stmt;
             
             if(sqlite3_prepare_v2(dbSecret, deleteStmt, -1, &query_stmt, NULL) == SQLITE_OK)
             {
                 if(sqlite3_step(query_stmt)== SQLITE_DONE)
                 {
-                    NSLog(@"img id === [ %d ] Deleted...",[imgid intValue]);
+                    NSLog(@"img id === [ %d ] Deleted...",imgid.intValue);
                 }
                 else
                 {
@@ -832,7 +826,7 @@ UIBarButtonItem *selectAllBtn ;
 
 -(IBAction)btnMoveImage:(id)sender{
     
-    if([checkedImgArr count] == 0)
+    if(checkedImgArr.count == 0)
     {
         UIAlertView *alert = [[UIAlertView alloc]
                               initWithTitle:@"Message" message:@"Please Select Image To Be Moved." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
@@ -841,7 +835,7 @@ UIBarButtonItem *selectAllBtn ;
     }
     else
     {
-        AlbumProcessView *alObj=[imgArray objectAtIndex:0];
+        AlbumProcessView *alObj=imgArray[0];
         
         self.title=@"";
         self.navigationItem.rightBarButtonItem=nil;
@@ -863,7 +857,7 @@ UIBarButtonItem *selectAllBtn ;
         
         [self.view addSubview:CustomLibraryVw];
         
-        totalImgLbl.text=[NSString stringWithFormat:@"%d",[imgArray count]-videos];
+        totalImgLbl.text=[NSString stringWithFormat:@"%lu",imgArray.count-videos];
         if(videos>0)
         {
             totalVideoLbl.hidden=false;
@@ -947,7 +941,7 @@ UIBarButtonItem *selectAllBtn ;
                                    nil];
     
 #endif
-    [ [self facebook ]dialog:@"feed" andParams:params andDelegate:self];
+    [ self.facebook dialog:@"feed" andParams:params andDelegate:self];
     
 }
 
@@ -960,7 +954,7 @@ UIBarButtonItem *selectAllBtn ;
     
     if([title isEqualToString:@"Facebook"])
     {
-        if([checkedImgArr count]==0)
+        if(checkedImgArr.count==0)
         {
             UIAlertView *alert = [[UIAlertView alloc]
                                   initWithTitle:@"Message" message:@"Please Select Image To Be Shared." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
@@ -974,7 +968,7 @@ UIBarButtonItem *selectAllBtn ;
     }
     else if([title isEqualToString:@"SMS"])
     {
-        if([checkedImgArr count] == 0)
+        if(checkedImgArr.count == 0)
         {
             UIAlertView *alert = [[UIAlertView alloc]
                                   initWithTitle:@"Message" message:@"Please Select Image To Be Shared." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
@@ -1009,11 +1003,11 @@ UIBarButtonItem *selectAllBtn ;
 //#endif
             
             
-            NSLog(@"checkedImgPathArr count== %d",[checkedImgPathArr count]);
+            NSLog(@"checkedImgPathArr count== %lu",(unsigned long)checkedImgPathArr.count);
             
-            for(int i=0;i<[checkedImgPathArr count];i++)
+            for(int i=0;i<checkedImgPathArr.count;i++)
             {
-                UIImage *attachimage = [UIImage imageWithContentsOfFile:[checkedImgPathArr objectAtIndex:i]];
+                UIImage *attachimage = [UIImage imageWithContentsOfFile:checkedImgPathArr[i]];
                 NSData *data = UIImagePNGRepresentation(attachimage);
                 if(SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0"))
                 {
@@ -1056,13 +1050,13 @@ UIBarButtonItem *selectAllBtn ;
 //        int maxFileSize = 150*224;
  
         @try {
-            if([checkedImgArr count]==0)
+            if(checkedImgArr.count==0)
             {
                 UIAlertView *alert = [[UIAlertView alloc]
                                       initWithTitle:@"Message" message:@"Please Select Image To Be Shared." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
                 [alert show];
                 [alert release];
-            }else if([checkedImgArr count]>1)
+            }else if(checkedImgArr.count>1)
             {
                 UIAlertView *alert = [[UIAlertView alloc]
                                       initWithTitle:@"Message" message:@"You can share only one image on Twitter." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
@@ -1075,8 +1069,8 @@ UIBarButtonItem *selectAllBtn ;
 
             [actIndicator startAnimating];
             actIndicator.hidden=false;
-            NSLog(@"Count>>>>>%d",[checkedImgArr count]);
-            NSString *strImgPath=[checkedImgPathArr objectAtIndex:0];
+                NSLog(@"Count>>>>>%lu",(unsigned long)checkedImgArr.count);
+            NSString *strImgPath=checkedImgPathArr[0];
             NSLog(@"image path %@",strImgPath);
            // UIImage *img2=[UIImage imageNamed:@"audio-recording.png"];
             UIImage *img=[UIImage imageWithContentsOfFile:strImgPath];
@@ -1085,7 +1079,7 @@ UIBarButtonItem *selectAllBtn ;
            // [tweetViewController addImage:img2];
             [tweetViewController addImage:img];
 
-            [tweetViewController setCompletionHandler:^(TWTweetComposeViewControllerResult result) {
+            tweetViewController.completionHandler = ^(TWTweetComposeViewControllerResult result) {
                 NSString *output;
                 
                 switch (result) {
@@ -1118,7 +1112,7 @@ UIBarButtonItem *selectAllBtn ;
                // [self performSelectorOnMainThread:@selector(displayText:) withObject:output waitUntilDone:NO];
                 
             [self dismissViewControllerAnimated:YES completion:nil];
-            }];
+            };
             
                 [self presentViewController:tweetViewController animated:YES completion:nil];
             
@@ -1182,7 +1176,7 @@ UIBarButtonItem *selectAllBtn ;
 }
 - (void)EmailImagesClicked
 {
-    if([checkedImgArr count] == 0)
+    if(checkedImgArr.count == 0)
     {
         UIAlertView *alert = [[UIAlertView alloc]
                               initWithTitle:@"Message" message:@"Please Select Image To Be Shared." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
@@ -1207,10 +1201,10 @@ UIBarButtonItem *selectAllBtn ;
 #endif
         
         // Add email addresses
-        // Notice three sections: "to" "cc" and "bcc"	
-        [picker setToRecipients:[NSArray arrayWithObjects:@"", nil]];
-        [picker setCcRecipients:[NSArray arrayWithObject:@""]];	
-        [picker setBccRecipients:[NSArray arrayWithObject:@""]];
+        // Notice three sections: "to" "cc" and "bcc"    
+        [picker setToRecipients:@[@""]];
+        [picker setCcRecipients:@[@""]];    
+        [picker setBccRecipients:@[@""]];
         
         // Fill out the email body text
         NSString *emailBody = @"I have shared the picture,just check it out.";
@@ -1218,11 +1212,11 @@ UIBarButtonItem *selectAllBtn ;
         // This is not an HTML formatted email
         [picker setMessageBody:emailBody isHTML:NO];
         
-        NSLog(@"checkedImgPathArr count== %d",[checkedImgPathArr count]);
+        NSLog(@"checkedImgPathArr count== %lu",(unsigned long)checkedImgPathArr.count);
         
-        for(int i=0;i<[checkedImgPathArr count];i++)
+        for(int i=0;i<checkedImgPathArr.count;i++)
         {
-            UIImage *attachimage = [UIImage imageWithContentsOfFile:[checkedImgPathArr objectAtIndex:i]];
+            UIImage *attachimage = [UIImage imageWithContentsOfFile:checkedImgPathArr[i]];
             
             //  UIImage *small = [UIImage imageWithCGImage:attachimage.CGImage scale:0.25 orientation:attachimage.imageOrientation];
             
@@ -1308,7 +1302,7 @@ UIBarButtonItem *selectAllBtn ;
  display.tag = NOTIFICATION_DISPLAY_TAG;
  [display setNotificationText:@"Posting Photo..."];
  [display displayInView:self.view atCenter:CGPointMake(self.view.center.x, self.view.center.y-100.0) withInterval:0.0];
- [display release];		
+ [display release];        
  }
  
  - (void) failedToPublishPost:(FBFeedPost*) _post {
@@ -1382,27 +1376,26 @@ UIBarButtonItem *selectAllBtn ;
 
 - (void)request:(FBRequest *)request didLoad:(id)result {
     if ([result isKindOfClass:[NSArray class]] && ([result count] > 0)) {
-        result = [result objectAtIndex:0];
+        result = result[0];
     }
     switch (currentAPICall) {
         case kAPIGraphUserPermissionsDelete:
         {
             [self showMessage:@"User uninstalled app"];
-            AppDelegate *delegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+//            AppDelegate *delegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
             // Nil out the session variables to prevent
             // the app from thinking there is a valid session
-            [delegate facebook].accessToken = nil;
-            [delegate facebook].expirationDate = nil;
-            
+//            delegate.facebook.accessToken = nil;
+//            delegate.facebook.expirationDate = nil;
             // Notify the root view about the logout.
             
             break;
         }
         case kAPIFriendsForDialogFeed:
         {
-            NSArray *resultData = [result objectForKey: @"data"];
+            NSArray *resultData = result[@"data"];
             // Check that the user has friends
-            if ([resultData count] > 0) {
+            if (resultData.count > 0) {
                 // Pick a random friend to post the feed to
                 //   int randomNumber = arc4random() % [resultData count];
                 //                [self apiDialogFeedFriend: 
@@ -1434,11 +1427,11 @@ UIBarButtonItem *selectAllBtn ;
             
         case kAPIFriendsForTargetDialogRequests:
         {
-            NSArray *resultData = [result objectForKey: @"data"];
+            NSArray *resultData = result[@"data"];
             // got friends?
-            if ([resultData count] > 0) { 
+            if (resultData.count > 0) { 
                 // pick a random one to send a request to
-                //    int randomIndex = arc4random() % [resultData count];	
+                //    int randomIndex = arc4random() % [resultData count];    
                 //                NSString* randomFriend = 
                 //                [[resultData objectAtIndex: randomIndex] objectForKey: @"id"];
                 //                [self apiDialogRequestsSendTarget:randomFriend];
@@ -1450,14 +1443,12 @@ UIBarButtonItem *selectAllBtn ;
         case kAPIGraphMe:
         {
             NSString *nameID = [[NSString alloc] initWithFormat: @"%@ (%@)", 
-                                [result objectForKey:@"name"], 
-                                [result objectForKey:@"id"]];
+                                result[@"name"], 
+                                result[@"id"]];
             NSMutableArray *userData = [[NSMutableArray alloc] initWithObjects:
-                                        [NSDictionary dictionaryWithObjectsAndKeys:
-                                         [result objectForKey:@"id"], @"id",
-                                         nameID, @"name",
-                                         [result objectForKey:@"picture"], @"details",
-                                         nil], nil];
+                                        @{@"id": result[@"id"],
+                                         @"name": nameID,
+                                         @"details": result[@"picture"]}, nil];
             // Show the basic user information in a new view controller
             //            APIResultsViewController *controller = [[APIResultsViewController alloc]
             //                                                    initWithTitle:@"Your Information"
@@ -1493,17 +1484,15 @@ UIBarButtonItem *selectAllBtn ;
         case kAPIGraphUserCheckins:
         {
             NSMutableArray *places = [[NSMutableArray alloc] initWithCapacity:1];
-            NSArray *resultData = [result objectForKey:@"data"];
-            for (NSUInteger i=0; i<[resultData count] && i < 5; i++) {
-                NSString *placeID = [[[resultData objectAtIndex:i] objectForKey:@"place"] objectForKey:@"id"];
-                NSString *placeName = [[[resultData objectAtIndex:i] objectForKey:@"place"] objectForKey:@"name"];
-                NSString *checkinMessage = [[resultData objectAtIndex:i] objectForKey:@"message"] ?
-                [[resultData objectAtIndex:i] objectForKey:@"message"] : @"";
-                [places addObject:[NSDictionary dictionaryWithObjectsAndKeys:
-                                   placeID,@"id",
-                                   placeName,@"name",
-                                   checkinMessage,@"details",
-                                   nil]];
+            NSArray *resultData = result[@"data"];
+            for (NSUInteger i=0; i<resultData.count && i < 5; i++) {
+                NSString *placeID = resultData[i][@"place"][@"id"];
+                NSString *placeName = resultData[i][@"place"][@"name"];
+                NSString *checkinMessage = resultData[i][@"message"] ?
+                resultData[i][@"message"] : @"";
+                [places addObject:@{@"id": placeID,
+                                   @"name": placeName,
+                                   @"details": checkinMessage}];
             }
             // Show the user's recent check-ins a new view controller
             //            APIResultsViewController *controller = [[APIResultsViewController alloc]
@@ -1518,9 +1507,9 @@ UIBarButtonItem *selectAllBtn ;
         case kAPIGraphSearchPlace:
         {
             NSMutableArray *places = [[NSMutableArray alloc] initWithCapacity:1];
-            NSArray *resultData = [result objectForKey:@"data"];
-            for (NSUInteger i=0; i<[resultData count] && i < 5; i++) {
-                [places addObject:[resultData objectAtIndex:i]];
+            NSArray *resultData = result[@"data"];
+            for (NSUInteger i=0; i<resultData.count && i < 5; i++) {
+                [places addObject:resultData[i]];
             }
             // Show the places nearby in a new view controller
             //            APIResultsViewController *controller = [[APIResultsViewController alloc]
@@ -1566,12 +1555,12 @@ UIBarButtonItem *selectAllBtn ;
  * that return ID data back.
  */
 - (void)dialogCompleteWithUrl:(NSURL *)url {
-    if (![url query]) {
+    if (!url.query) {
         NSLog(@"User canceled dialog or there was an error");
         return;
     }
     
-    NSDictionary *params = [self parseURLParams:[url query]];
+    NSDictionary *params = [self parseURLParams:url.query];
     switch (currentAPICall) {
         case kDialogFeedUser:
         case kDialogFeedFriend:
@@ -1593,10 +1582,10 @@ UIBarButtonItem *selectAllBtn ;
             NSMutableArray *requestIDs = [[[NSMutableArray alloc] init] autorelease];
             for (NSString *paramKey in params) {
                 if ([paramKey hasPrefix:@"request_ids"]) {
-                    [requestIDs addObject:[params objectForKey:paramKey]];
+                    [requestIDs addObject:params[paramKey]];
                 }
             }
-            if ([requestIDs count] > 0) {
+            if (requestIDs.count > 0) {
                 [self showMessage:@"Sent request successfully."];
                 NSLog(@"Request ID(s): %@", requestIDs);
             }
@@ -1660,16 +1649,16 @@ UIBarButtonItem *selectAllBtn ;
     [self showMessage:@"Extended permissions not granted."];
 }
 - (NSDictionary *)parseURLParams:(NSString *)query {
-	NSArray *pairs = [query componentsSeparatedByString:@"&"];
-	NSMutableDictionary *params = [[[NSMutableDictionary alloc] init] autorelease];
-	for (NSString *pair in pairs) {
-		NSArray *kv = [pair componentsSeparatedByString:@"="];
-		NSString *val =
-        [[kv objectAtIndex:1]
+    NSArray *pairs = [query componentsSeparatedByString:@"&"];
+    NSMutableDictionary *params = [[[NSMutableDictionary alloc] init] autorelease];
+    for (NSString *pair in pairs) {
+        NSArray *kv = [pair componentsSeparatedByString:@"="];
+        NSString *val =
+        [kv[1]
          stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
         
-		[params setObject:val forKey:[kv objectAtIndex:0]];
-	}
+        params[kv[0]] = val;
+    }
     return params;
 }
 
@@ -1696,7 +1685,7 @@ UIBarButtonItem *selectAllBtn ;
         NSArray *permissions = [[NSArray alloc]initWithObjects:@"publish_stream", nil];
         [facebook authorize:permissions];
     }else{
-        if([checkedImgArr count]==0)
+        if(checkedImgArr.count==0)
         {
             UIAlertView *alert = [[UIAlertView alloc]
                                   initWithTitle:@"Message" message:@"Please Select Image To Be Share." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
@@ -1709,8 +1698,8 @@ UIBarButtonItem *selectAllBtn ;
             {
                 [actIndicator startAnimating];
                 actIndicator.hidden=false;
-                NSLog(@"Count>>>>>%d",[checkedImgArr count]);
-                            NSString *strImgPath=[checkedImgPathArr objectAtIndex:i];
+                NSLog(@"Count>>>>>%lu",(unsigned long)checkedImgArr.count);
+                            NSString *strImgPath=checkedImgPathArr[i];
                           NSLog(@"image path %@",strImgPath);
             
             UIImage *img=[UIImage imageWithContentsOfFile:strImgPath];
@@ -1785,6 +1774,50 @@ UIBarButtonItem *selectAllBtn ;
 }
 
 
+
+- (void)fbDialogLogin:(NSString *)token expirationDate:(NSDate *)expirationDate {
+    return;
+}
+
+- (void)fbDialogNotLogin:(BOOL)cancelled {
+    return;
+}
+
+- (void)encodeWithCoder:(nonnull NSCoder *)aCoder {
+    return;
+}
+
+- (void)traitCollectionDidChange:(nullable UITraitCollection *)previousTraitCollection {
+    return;
+}
+
+- (void)preferredContentSizeDidChangeForChildContentContainer:(nonnull id<UIContentContainer>)container {
+    return;
+}
+
+- (void)systemLayoutFittingSizeDidChangeForChildContentContainer:(nonnull id<UIContentContainer>)container {
+    return;
+}
+
+- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(nonnull id<UIViewControllerTransitionCoordinator>)coordinator {
+    return;
+}
+
+- (void)willTransitionToTraitCollection:(nonnull UITraitCollection *)newCollection withTransitionCoordinator:(nonnull id<UIViewControllerTransitionCoordinator>)coordinator {
+    return;
+}
+
+- (void)didUpdateFocusInContext:(nonnull UIFocusUpdateContext *)context withAnimationCoordinator:(nonnull UIFocusAnimationCoordinator *)coordinator {
+    return;
+}
+
+- (void)setNeedsFocusUpdate {
+    return;
+}
+
+- (void)updateFocusIfNeeded {
+    return;
+}
 
 @end
 

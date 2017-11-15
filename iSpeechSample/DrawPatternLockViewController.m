@@ -8,8 +8,6 @@
 
 #import "DrawPatternLockViewController.h"
 #import "DrawPatternLockView.h"
-#import "AppDelegate.h"
-#import "RootViewController.h"
 #import "PinCodeLoginViewController.h"
 #import "PinCodeViewController.h"
 #include <AudioToolbox/AudioToolbox.h>
@@ -19,17 +17,7 @@
 @implementation DrawPatternLockViewController
 @synthesize nav,loggedinNm,loggedinPass;
 
-AppDelegate *app;
-NSInteger passwordCounter;
-UIView *camBtnvw;
-UIButton *capture_btn;
-UIButton *backbtn;
-UILabel *lbl;
-UITextField  *txtName;
-NSInteger intTickCount;
-NSTimer *tmrLock;
-Boolean timerFlag;
-UIImage *image;
+
 
 - (void)didReceiveMemoryWarning
 {
@@ -66,7 +54,7 @@ UIImage *image;
     {
         self.edgesForExtendedLayout = UIRectEdgeNone;
     }
-    app=(AppDelegate *)[[UIApplication sharedApplication]delegate];
+    app=(AppDelegate *)[UIApplication sharedApplication].delegate;
     isUserRegistered=false;
     
     
@@ -187,7 +175,7 @@ UIImage *image;
             }
             else
             {
-                CGSize result = [[UIScreen mainScreen] bounds].size;
+                CGSize result = [UIScreen mainScreen].bounds.size;
                 
                 if (result.height < 568){
                     
@@ -278,7 +266,7 @@ UIImage *image;
 
 -(void)onTick:(NSTimer *)timer {
     //   intTickCount ++;
-    NSLog(@"Tick Count %d...",intTickCount);
+    NSLog(@"Tick Count %ld...",(long)intTickCount);
     
     //if(intTickCount >=15)
     //  {
@@ -304,7 +292,7 @@ UIImage *image;
                                                      userInfo: nil repeats:NO];
         }
     }else {
-        NSLog(@"counter Value %d",passwordCounter);
+        NSLog(@"counter Value %ld",(long)passwordCounter);
         
         CGPoint pt = [[touches anyObject] locationInView:self.view];
         UIView *touched = [self.view hitTest:pt withEvent:event];
@@ -313,7 +301,7 @@ UIImage *image;
      //   [v drawLineFromLastDotTo:pt];
         
         if (touched!=self.view) {
-            NSLog(@"touched view tag: %d ", touched.tag);
+            NSLog(@"touched view tag: %ld ", (long)touched.tag);
             
             BOOL found = NO;
             for (NSNumber *tag in _paths) {
@@ -358,7 +346,7 @@ UIImage *image;
 }
 - (UIImage *)captureView:(UIView *)view
 {
-    CGRect screenRect = [[UIScreen mainScreen] bounds];
+    CGRect screenRect = [UIScreen mainScreen].bounds;
     
     UIGraphicsBeginImageContext(screenRect.size);
     
@@ -374,8 +362,7 @@ UIImage *image;
     
     return newImage;
 }
-AVCaptureConnection *videoConnection;
-AVCaptureStillImageOutput *output;
+
 // get key from the pattern drawn
 // replace this method with your own key-generation algorithm
 - (NSString *) getKey {
@@ -387,7 +374,7 @@ AVCaptureStillImageOutput *output;
     
     for (NSNumber *tag in _paths)
     {
-        [key appendFormat:@"%02d", tag.integerValue];
+        [key appendFormat:@"%02ld", (long)tag.integerValue];
     }
     loggedinPass=key;
     
@@ -483,7 +470,7 @@ AVCaptureStillImageOutput *output;
                             
                             // Find the frontal camera.
                             for ( int i = 0; i < allCameras.count; i++ ) {
-                                AVCaptureDevice *camera = [allCameras objectAtIndex:i];
+                                AVCaptureDevice *camera = allCameras[i];
                                 
                                 if ( camera.position == AVCaptureDevicePositionFront ) {
                                     frontalCamera = camera;
@@ -510,8 +497,7 @@ AVCaptureStillImageOutput *output;
                                     output = [[AVCaptureStillImageOutput alloc] init];
                                     
                                     // Captured image. settings.
-                                    [output setOutputSettings:
-                                     [[NSDictionary alloc] initWithObjectsAndKeys:AVVideoCodecJPEG,AVVideoCodecKey,nil]];
+                                    output.outputSettings = @{AVVideoCodecKey: AVVideoCodecJPEG};
                                     
                                     if ( [session canAddOutput:output] ) {
                                         [session addOutput:output];
@@ -520,8 +506,8 @@ AVCaptureStillImageOutput *output;
                                         
                                         videoConnection = nil;
                                         for (AVCaptureConnection *connection in output.connections) {
-                                            for (AVCaptureInputPort *port in [connection inputPorts]) {
-                                                if ([[port mediaType] isEqual:AVMediaTypeVideo] ) {
+                                            for (AVCaptureInputPort *port in connection.inputPorts) {
+                                                if ([port.mediaType isEqual:AVMediaTypeVideo] ) {
                                                     videoConnection = connection;
                                                     break;
                                                 }
@@ -574,7 +560,7 @@ AVCaptureStillImageOutput *output;
                             
                             // Find the frontal camera.
                             for ( int i = 0; i < allCameras.count; i++ ) {
-                                AVCaptureDevice *camera = [allCameras objectAtIndex:i];
+                                AVCaptureDevice *camera = allCameras[i];
                                 
                                 if ( camera.position == AVCaptureDevicePositionFront ) {
                                     frontalCamera = camera;
@@ -602,16 +588,15 @@ AVCaptureStillImageOutput *output;
                                     output = [[AVCaptureStillImageOutput alloc] init];
                                     
                                     // Captured image. settings.
-                                    [output setOutputSettings:
-                                     [[NSDictionary alloc] initWithObjectsAndKeys:AVVideoCodecJPEG,AVVideoCodecKey,nil]];
+                                    output.outputSettings = @{AVVideoCodecKey: AVVideoCodecJPEG};
                                     
                                     if ( [session canAddOutput:output] ) {
                                         [session addOutput:output];
                                         
                                         videoConnection = nil;
                                         for (AVCaptureConnection *connection in output.connections) {
-                                            for (AVCaptureInputPort *port in [connection inputPorts]) {
-                                                if ([[port mediaType] isEqual:AVMediaTypeVideo] ) {
+                                            for (AVCaptureInputPort *port in connection.inputPorts) {
+                                                if ([port.mediaType isEqual:AVMediaTypeVideo] ) {
                                                     videoConnection = connection;
                                                     break;
                                                 }
@@ -674,13 +659,13 @@ AVCaptureStillImageOutput *output;
             app.capImg=photo;
             
             
-            NSString *docDir = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+            NSString *docDir = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
             // If you go to the folder below, you will find those pictures
             NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init] ;
-            [dateFormat setDateFormat:@"yyyy-MM-dd"];
+            dateFormat.dateFormat = @"yyyy-MM-dd";
             
             NSDateFormatter *timeFormat = [[NSDateFormatter alloc] init];
-            [timeFormat setDateFormat:@"HH.mm.SS"];
+            timeFormat.dateFormat = @"HH.mm.SS";
             
             NSDate *now = [[NSDate alloc] init] ;
             
@@ -716,13 +701,13 @@ AVCaptureStillImageOutput *output;
             app.capImg=photo;
             
             
-            NSString *docDir = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+            NSString *docDir = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
             // If you go to the folder below, you will find those pictures
             NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init] ;
-            [dateFormat setDateFormat:@"yyyy-MM-dd"];
+            dateFormat.dateFormat = @"yyyy-MM-dd";
             
             NSDateFormatter *timeFormat = [[NSDateFormatter alloc] init];
-            [timeFormat setDateFormat:@"HH.mm.SS"];
+            timeFormat.dateFormat = @"HH.mm.SS";
             
             NSDate *now = [[NSDate alloc] init] ;
             
@@ -768,7 +753,7 @@ AVCaptureStillImageOutput *output;
     NSString *strReturn=@"false";
     databasepath=[app getDBPathNew];
     NSString *selectSql;
-    if (sqlite3_open([databasepath UTF8String], &dbSecret) == SQLITE_OK)
+    if (sqlite3_open(databasepath.UTF8String, &dbSecret) == SQLITE_OK)
     {
         
         if([strProperty isEqualToString:@"BrekIn"]){
@@ -777,14 +762,14 @@ AVCaptureStillImageOutput *output;
             selectSql = [NSString stringWithFormat:@"select LoginPhoto from AutoLogOffTbl where UserID=%@",app.LoginUserID];
         }
         NSLog(@"Query : %@",selectSql);
-        const char *sqlStatement = [selectSql UTF8String];
+        const char *sqlStatement = selectSql.UTF8String;
         sqlite3_stmt *query_stmt;
         
         if(sqlite3_prepare_v2(dbSecret, sqlStatement, -1, &query_stmt, NULL) == SQLITE_OK)
         {
             if (sqlite3_step(query_stmt) == SQLITE_ROW)
             {
-                NSString *checkValue = [[NSString alloc] initWithUTF8String:(const char *) sqlite3_column_text(query_stmt, 0)];
+                NSString *checkValue = @((const char *) sqlite3_column_text(query_stmt, 0));
                 
                 NSLog(@"Value == %@",checkValue);
                 
@@ -821,7 +806,7 @@ AVCaptureStillImageOutput *output;
     {
         loggedinNm=txtName.text;
         databasepath=[app getDBPathNew];
-        if (sqlite3_open([databasepath UTF8String], &dbSecret) == SQLITE_OK)
+        if (sqlite3_open(databasepath.UTF8String, &dbSecret) == SQLITE_OK)
         {
             NSLog(@"unm==%@ ",loggedinNm);
             NSLog(@"pass=== %@",loggedinPass);
@@ -829,14 +814,14 @@ AVCaptureStillImageOutput *output;
             NSString *selectSql = [NSString stringWithFormat:@"select * from VerifyUserTbl Where UserName=\"%@\" AND PatternCode=\"%@\" ",loggedinNm,loggedinPass];
             
             NSLog(@"Query : %@",selectSql);
-            const char *sqlStatement = [selectSql UTF8String];
+            const char *sqlStatement = selectSql.UTF8String;
             sqlite3_stmt *query_stmt;
             
             if(sqlite3_prepare_v2(dbSecret, sqlStatement, -1, &query_stmt, NULL) == SQLITE_OK)
             {
                 if (sqlite3_step(query_stmt) == SQLITE_ROW)
                 {
-                    loggedinUserID = [[NSString alloc] initWithUTF8String:(const char *) sqlite3_column_text(query_stmt, 0)];
+                    loggedinUserID = @((const char *) sqlite3_column_text(query_stmt, 0));
                     
                     NSLog(@"User id=== %@",loggedinUserID);
                     
@@ -903,7 +888,7 @@ AVCaptureStillImageOutput *output;
             
             self.title=@"Enter Current Pattern";
             
-            self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageWithContentsOfFile:[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"ip-main-bg.png"]]];
+            self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle].resourcePath stringByAppendingPathComponent:@"ip-main-bg.png"]]];
             
             
             if(app.isReEnterPattern)//New Pattenr
@@ -922,22 +907,22 @@ AVCaptureStillImageOutput *output;
         }else {
             
             [self.navigationController setNavigationBarHidden:YES];
-            self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageWithContentsOfFile:[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"ipad-background.png"]]];
+            self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle].resourcePath stringByAppendingPathComponent:@"ipad-background.png"]]];
             
             UIView *subView = [[UIView alloc]initWithFrame:CGRectMake(0, -15, 768,1024)];
             UIImage *subImage = [UIImage imageNamed:@"ipad-steel-bg.png"];
-            [subView setBackgroundColor:[UIColor colorWithPatternImage:subImage]];
+            subView.backgroundColor = [UIColor colorWithPatternImage:subImage];
             subView.userInteractionEnabled = NO;
             [self.view addSubview:subView];
             
             UIView *subViewBox = [[UIView alloc]initWithFrame:CGRectMake(100, 275, 564,643)];
             UIImage *subImageBox = [UIImage imageNamed:@"ipad-l-bg.png"];
-            [subViewBox setBackgroundColor:[UIColor colorWithPatternImage:subImageBox]];
+            subViewBox.backgroundColor = [UIColor colorWithPatternImage:subImageBox];
             subViewBox.userInteractionEnabled = NO;
             
             UIView *openLock = [[UIView alloc]initWithFrame:CGRectMake(155, 67, 464, 59)];
             UIImage *openLockImg = [UIImage imageNamed:@"ipad-open-lock.png"];
-            [openLock setBackgroundColor:[UIColor colorWithPatternImage:openLockImg]];
+            openLock.backgroundColor = [UIColor colorWithPatternImage:openLockImg];
             openLock.userInteractionEnabled = NO;
             
             UITextField *name = [[UITextField alloc]initWithFrame:CGRectMake(100, 200, 100, 25)];
@@ -951,7 +936,7 @@ AVCaptureStillImageOutput *output;
                 
             txtName = [[UITextField alloc]init];
             txtName.frame = CGRectMake(212, 160, 453, 63);
-            [txtName setTextColor:[UIColor whiteColor]];
+            txtName.textColor = [UIColor whiteColor];
             txtName.font = [UIFont fontWithName:@"Helvitica" size:26.0];
             
             txtName.placeholder=@" Enter User Name";
@@ -992,7 +977,7 @@ AVCaptureStillImageOutput *output;
         
         if(app.chngePWD)
         {
-            self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageWithContentsOfFile:[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"main-bg.png"]]];
+            self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle].resourcePath stringByAppendingPathComponent:@"main-bg.png"]]];
             
             
             
@@ -1016,28 +1001,28 @@ AVCaptureStillImageOutput *output;
             
         }else {
             
-            CGSize result = [[UIScreen mainScreen] bounds].size;
+            CGSize result = [UIScreen mainScreen].bounds.size;
             
             if (result.height < 568){
                 
                 NSLog(@"Load iPhone 4");
                 
-                self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageWithContentsOfFile:[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"iphone-n-back.png"]]];
+                self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle].resourcePath stringByAppendingPathComponent:@"iphone-n-back.png"]]];
                 
                 UIView *subView = [[UIView alloc]initWithFrame:CGRectMake(0, -15, 320,480)];
                 UIImage *subImage = [UIImage imageNamed:@"iphone-n-steel-bg.png"];
-                [subView setBackgroundColor:[UIColor colorWithPatternImage:subImage]];
+                subView.backgroundColor = [UIColor colorWithPatternImage:subImage];
                 subView.userInteractionEnabled = NO;
                 [self.view addSubview:subView];
                 
                 UIView *subViewBox = [[UIView alloc]initWithFrame:CGRectMake(40, 125, 244,314)];
                 UIImage *subImageBox = [UIImage imageNamed:@"iphone-n-subview.png"];
-                [subViewBox setBackgroundColor:[UIColor colorWithPatternImage:subImageBox]];
+                subViewBox.backgroundColor = [UIColor colorWithPatternImage:subImageBox];
                 subViewBox.userInteractionEnabled = NO;
                 
                 UIView *openLock = [[UIView alloc]initWithFrame:CGRectMake(60, 30, 200, 26)];
                 UIImage *openLockImg = [UIImage imageNamed:@"iphone-n-open-lock.png"];
-                [openLock setBackgroundColor:[UIColor colorWithPatternImage:openLockImg]];
+                openLock.backgroundColor = [UIColor colorWithPatternImage:openLockImg];
                 openLock.userInteractionEnabled = NO;
                 
                 UITextField *name = [[UITextField alloc]initWithFrame:CGRectMake(40, 90, 100, 25)];
@@ -1051,8 +1036,8 @@ AVCaptureStillImageOutput *output;
                 
                 self.navigationController.navigationBar.hidden =YES;
                 txtName=[[UITextField alloc]init];
-                [txtName setFont:[UIFont fontWithName:@"Helvitica" size:50.0]];
-                [txtName setTextColor:[UIColor whiteColor]];
+                txtName.font = [UIFont fontWithName:@"Helvitica" size:50.0];
+                txtName.textColor = [UIColor whiteColor];
                 txtName.frame=CGRectMake(90, 70,190,27);
                 txtName.placeholder=@" Enter User Name";
                 txtName.delegate=self;
@@ -1064,22 +1049,22 @@ AVCaptureStillImageOutput *output;
                 
                 NSLog(@"Load iPhone 5");
                                 
-                self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageWithContentsOfFile:[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"iphone-b-back-iPhone5.png"]]];
+                self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle].resourcePath stringByAppendingPathComponent:@"iphone-b-back-iPhone5.png"]]];
                 
                 UIView *subView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 320,560)];
                 UIImage *subImage = [UIImage imageNamed:@"iphone-n-steelbg-iphone5.png"];
-                [subView setBackgroundColor:[UIColor colorWithPatternImage:subImage]];
+                subView.backgroundColor = [UIColor colorWithPatternImage:subImage];
                 subView.userInteractionEnabled = NO;
                 [self.view addSubview:subView];
                 
                 UIView *subViewBox = [[UIView alloc]initWithFrame:CGRectMake(40, 160, 244,314)];
                 UIImage *subImageBox = [UIImage imageNamed:@"iphone-n-subview.png"];
-                [subViewBox setBackgroundColor:[UIColor colorWithPatternImage:subImageBox]];
+                subViewBox.backgroundColor = [UIColor colorWithPatternImage:subImageBox];
                 subViewBox.userInteractionEnabled = NO;
                 
                 UIView *openLock = [[UIView alloc]initWithFrame:CGRectMake(60, 30, 200, 26)];
                 UIImage *openLockImg = [UIImage imageNamed:@"iphone-n-open-lock.png"];
-                [openLock setBackgroundColor:[UIColor colorWithPatternImage:openLockImg]];
+                openLock.backgroundColor = [UIColor colorWithPatternImage:openLockImg];
                 openLock.userInteractionEnabled = NO;
                 
                 UITextField *name = [[UITextField alloc]initWithFrame:CGRectMake(40, 113, 100, 25)];
@@ -1093,8 +1078,8 @@ AVCaptureStillImageOutput *output;
                 
                 self.navigationController.navigationBar.hidden =YES;
                 txtName=[[UITextField alloc]init];
-                [txtName setFont:[UIFont fontWithName:@"Helvitica" size:50.0]];
-                [txtName setTextColor:[UIColor whiteColor]];
+                txtName.font = [UIFont fontWithName:@"Helvitica" size:50.0];
+                txtName.textColor = [UIColor whiteColor];
                 txtName.frame=CGRectMake(90, 110,190,27);
                 txtName.placeholder=@" Enter User Name";
                 txtName.delegate=self;
@@ -1161,7 +1146,7 @@ AVCaptureStillImageOutput *output;
 }
 -(Boolean) MatchPattern
 {
-    Boolean valueReturn;
+    Boolean valueReturn = '\0';
     if([txtName.text isEqualToString:@""])
     {
         UIAlertView *alert = [[UIAlertView alloc]
@@ -1173,7 +1158,7 @@ AVCaptureStillImageOutput *output;
     {
         loggedinNm=txtName.text;
         databasepath=[app getDBPathNew];
-        if (sqlite3_open([databasepath UTF8String], &dbSecret) == SQLITE_OK)
+        if (sqlite3_open(databasepath.UTF8String, &dbSecret) == SQLITE_OK)
         {
             NSLog(@"unm==%@ ",loggedinNm);
             NSLog(@"pass=== %@",loggedinPass);
@@ -1181,14 +1166,14 @@ AVCaptureStillImageOutput *output;
             NSString *selectSql = [NSString stringWithFormat:@"select * from VerifyUserTbl Where UserName=\"%@\" AND PatternCode=\"%@\" ",loggedinNm,loggedinPass];
             
             NSLog(@"Query : %@",selectSql);
-            const char *sqlStatement = [selectSql UTF8String];
+            const char *sqlStatement = selectSql.UTF8String;
             sqlite3_stmt *query_stmt;
             
             if(sqlite3_prepare_v2(dbSecret, sqlStatement, -1, &query_stmt, NULL) == SQLITE_OK)
             {
                 if (sqlite3_step(query_stmt) == SQLITE_ROW)
                 {
-                    loggedinUserID = [[NSString alloc] initWithUTF8String:(const char *) sqlite3_column_text(query_stmt, 0)];
+                    loggedinUserID = @((const char *) sqlite3_column_text(query_stmt, 0));
                     
                     NSLog(@"User id=== %@",loggedinUserID);
                     
@@ -1329,20 +1314,20 @@ AVCaptureStillImageOutput *output;
 {
     loggedinNm=txtName.text;
     databasepath=[app getDBPathNew];
-    if (sqlite3_open([databasepath UTF8String], &dbSecret) == SQLITE_OK)
+    if (sqlite3_open(databasepath.UTF8String, &dbSecret) == SQLITE_OK)
     {
         NSLog(@"unm==%@ ",loggedinNm);
         NSLog(@"pass=== %@",loggedinPass);
         NSString *selectSql = [NSString stringWithFormat:@"select * from VerifyUserTbl Where UserName=\"%@\" ",loggedinNm];
         
         NSLog(@"Query : %@",selectSql);
-        const char *sqlStatement = [selectSql UTF8String];
+        const char *sqlStatement = selectSql.UTF8String;
         sqlite3_stmt *query_stmt;
         if(sqlite3_prepare_v2(dbSecret, sqlStatement, -1, &query_stmt, NULL) == SQLITE_OK)
         {
             if (sqlite3_step(query_stmt) == SQLITE_ROW)
             {
-                loggedinUserID = [[NSString alloc] initWithUTF8String:(const char *) sqlite3_column_text(query_stmt, 0)];
+                loggedinUserID = @((const char *) sqlite3_column_text(query_stmt, 0));
                 
                 NSLog(@"User id=== %@",loggedinUserID);
                 
@@ -1366,20 +1351,20 @@ AVCaptureStillImageOutput *output;
     
     
     databasepath=[app getDBPathNew];
-    if (sqlite3_open([databasepath UTF8String], &dbSecret) == SQLITE_OK)
+    if (sqlite3_open(databasepath.UTF8String, &dbSecret) == SQLITE_OK)
     {
         NSLog(@"unm==%@ ",loggedinNm);
         NSLog(@"pass=== %@",loggedinPass);
         NSString *selectSql = [NSString stringWithFormat:@"select * from VerifyUserTbl Where UserName=\"%@\" ",loggedinNm];
         
         NSLog(@"Query : %@",selectSql);
-        const char *sqlStatement = [selectSql UTF8String];
+        const char *sqlStatement = selectSql.UTF8String;
         sqlite3_stmt *query_stmt;
         if(sqlite3_prepare_v2(dbSecret, sqlStatement, -1, &query_stmt, NULL) == SQLITE_OK)
         {
             if (sqlite3_step(query_stmt) == SQLITE_ROW)
             {
-                UserName = [[NSString alloc] initWithUTF8String:(const char *) sqlite3_column_text(query_stmt, 1)];
+                UserName = @((const char *) sqlite3_column_text(query_stmt, 1));
                 
                 NSLog(@"User Name is === %@",UserName);
                 
@@ -1413,14 +1398,14 @@ AVCaptureStillImageOutput *output;
 {
     Boolean returnValue;
     databasepath=[app getDBPathNew];
-    if (sqlite3_open([databasepath UTF8String], &dbSecret) == SQLITE_OK)
+    if (sqlite3_open(databasepath.UTF8String, &dbSecret) == SQLITE_OK)
     {
         NSLog(@"unm==%@ ",loggedinNm);
         NSLog(@"pass=== %@",loggedinPass);
         NSString *selectSql = [NSString stringWithFormat:@"select PatternCode from VerifyUserTbl Where UserID = %@ ",app.LoginUserID];
         
         NSLog(@"Query : %@",selectSql);
-        const char *sqlStatement = [selectSql UTF8String];
+        const char *sqlStatement = selectSql.UTF8String;
         sqlite3_stmt *query_stmt;
         @try {
             
@@ -1428,7 +1413,7 @@ AVCaptureStillImageOutput *output;
             {
                 if (sqlite3_step(query_stmt) == SQLITE_ROW)
                 {
-                    NSString *strPatternCode = [[NSString alloc] initWithUTF8String:(const char *) sqlite3_column_text(query_stmt, 0)];
+                    NSString *strPatternCode = @((const char *) sqlite3_column_text(query_stmt, 0));
                     
                     NSLog(@"Pattertn code is === %@",strPatternCode);
                     
@@ -1469,14 +1454,14 @@ AVCaptureStillImageOutput *output;
     
     sqlite3_stmt *stmt;
     databasepath=[app getDBPathNew];
-    const char *dbpath=[databasepath UTF8String];
+    const char *dbpath=databasepath.UTF8String;
     if(sqlite3_open(dbpath, &dbSecret) == SQLITE_OK)
     {
         NSString *insertquery=[NSString stringWithFormat:@"Insert into VerifyUserTbl(UserName,PatternCode) VALUES(\"%@\",\"%@\")",loggedinNm,loggedinPass];
         
         NSLog(@"insert query== %@",insertquery);
         
-        const char *insert_query=[insertquery UTF8String];
+        const char *insert_query=insertquery.UTF8String;
         sqlite3_prepare(dbSecret, insert_query, -1, &stmt, NULL);
         
         if(sqlite3_step(stmt)== SQLITE_DONE)
@@ -1517,7 +1502,7 @@ AVCaptureStillImageOutput *output;
     
     sqlite3_stmt *stmt;
     databasepath=[app getDBPathNew];
-    const char *dbpath=[databasepath UTF8String];
+    const char *dbpath=databasepath.UTF8String;
     
     if(sqlite3_open(dbpath, &dbSecret) == SQLITE_OK)
     {
@@ -1526,7 +1511,7 @@ AVCaptureStillImageOutput *output;
         
         NSLog(@"insert query== %@",insertquery);
         
-        const char *insert_query=[insertquery UTF8String];
+        const char *insert_query=insertquery.UTF8String;
         sqlite3_prepare(dbSecret, insert_query, -1, &stmt, NULL);
         
         if(sqlite3_step(stmt)== SQLITE_DONE)
@@ -1549,7 +1534,7 @@ AVCaptureStillImageOutput *output;
     
     sqlite3_stmt *stmt;
     databasepath=[app getDBPathNew];
-    const char *dbpath=[databasepath UTF8String];
+    const char *dbpath=databasepath.UTF8String;
     
     if(sqlite3_open(dbpath, &dbSecret) == SQLITE_OK)
     {
@@ -1558,7 +1543,7 @@ AVCaptureStillImageOutput *output;
         
         NSLog(@"insert query== %@",insertquery);
         
-        const char *insert_query=[insertquery UTF8String];
+        const char *insert_query=insertquery.UTF8String;
         sqlite3_prepare(dbSecret, insert_query, -1, &stmt, NULL);
         
         if(sqlite3_step(stmt)== SQLITE_DONE)
@@ -1583,7 +1568,7 @@ AVCaptureStillImageOutput *output;
     NSLog(@"Log in id is %@ ",app.LoginUserID);
     sqlite3_stmt *stmt;
     databasepath=[app getDBPathNew];
-    const char *dbpath=[databasepath UTF8String];
+    const char *dbpath=databasepath.UTF8String;
     if(sqlite3_open(dbpath, &dbSecret) == SQLITE_OK)
     {
         //(UserID integer,"Time" text,BrekinPhoto boolean,LoginPhoto boolean,HighQuality boolean,Duration text,Transition text,Repeat boolean,Shuffle boolean,UseDeskAgent boolean, Facebook boolean)
@@ -1592,7 +1577,7 @@ AVCaptureStillImageOutput *output;
         
         NSLog(@"insert query== %@",insertquery);
         
-        const char *insert_query=[insertquery UTF8String];
+        const char *insert_query=insertquery.UTF8String;
         sqlite3_prepare(dbSecret, insert_query, -1, &stmt, NULL);
         
         if(sqlite3_step(stmt)== SQLITE_DONE)
@@ -1615,7 +1600,7 @@ AVCaptureStillImageOutput *output;
     NSLog(@"Log in id is %@ ",app.LoginUserID);
     sqlite3_stmt *stmt;
     databasepath=[app getDBPathNew];
-    const char *dbpath=[databasepath UTF8String];
+    const char *dbpath=databasepath.UTF8String;
     if(sqlite3_open(dbpath, &dbSecret) == SQLITE_OK)
     {
         //(UserID integer,"Time" text,BrekinPhoto boolean,LoginPhoto boolean,HighQuality boolean,Duration text,Transition text,Repeat boolean,Shuffle boolean,UseDeskAgent boolean, Facebook boolean)
@@ -1624,7 +1609,7 @@ AVCaptureStillImageOutput *output;
         
         NSLog(@"insert query== %@",insertquery);
         
-        const char *insert_query=[insertquery UTF8String];
+        const char *insert_query=insertquery.UTF8String;
         sqlite3_prepare(dbSecret, insert_query, -1, &stmt, NULL);
         
         if(sqlite3_step(stmt)== SQLITE_DONE)
@@ -1643,14 +1628,14 @@ AVCaptureStillImageOutput *output;
 
 -(Boolean) updatePassword :(NSString *)strValue :(NSString * )UserID
 {
-    sqlite3_stmt *statement;
+    sqlite3_stmt *statement = NULL;
     
-    if(sqlite3_open([[app getDBPathNew] UTF8String],&dbSecret)== SQLITE_OK)
+    if(sqlite3_open([app getDBPathNew].UTF8String,&dbSecret)== SQLITE_OK)
     {
         NSString *insertquery;
         insertquery=[NSString stringWithFormat:@"UPDATE VerifyUserTbl SET PatternCode =\"%@\" where UserID=%@",strValue,UserID];
         NSLog(@"Query::::%@",insertquery);
-        const char *insert_query=[insertquery UTF8String];
+        const char *insert_query=insertquery.UTF8String;
         sqlite3_prepare(dbSecret,insert_query,-1,&statement,NULL);
         if(sqlite3_step(statement) == SQLITE_DONE){
             NSLog(@"record updated");
@@ -1675,14 +1660,14 @@ AVCaptureStillImageOutput *output;
 
 -(Boolean) updateLockStyle :(NSString * )UserID
 {
-    sqlite3_stmt *statement;
+    sqlite3_stmt *statement = NULL;
     
-    if(sqlite3_open([[app getDBPathNew] UTF8String],&dbSecret)== SQLITE_OK)
+    if(sqlite3_open([app getDBPathNew].UTF8String,&dbSecret)== SQLITE_OK)
     {
         NSString *insertquery;
         insertquery=[NSString stringWithFormat:@"UPDATE AuthentictionCheckTbl SET VoiceAuth =\"%@\" ,PatternAuth =\"%@\",PinCodeAuth =\"%@\"  where UserID=%@",@"false",@"true",@"false",UserID];
         NSLog(@"Query::::%@",insertquery);
-        const char *insert_query=[insertquery UTF8String];
+        const char *insert_query=insertquery.UTF8String;
         sqlite3_prepare(dbSecret,insert_query,-1,&statement,NULL);
         if(sqlite3_step(statement) == SQLITE_DONE){
             NSLog(@"record updated");
@@ -1781,7 +1766,7 @@ AVCaptureStillImageOutput *output;
         [mfViewController addAttachmentData:data  mimeType:@"image/jpeg" fileName:@"screenshot.jpg"];
          app.flagTapForTap = false;
         [self presentViewController:mfViewController animated:YES completion:nil];
-	}
+    }
 #else
     if ([MFMailComposeViewController canSendMail])
     {
@@ -1805,13 +1790,13 @@ AVCaptureStillImageOutput *output;
         [mfViewController addAttachmentData:data  mimeType:@"image/jpeg" fileName:@"screenshot.jpg"];
         
         [self presentViewController:mfViewController animated:YES completion:nil];
-	}
+    }
 
 #endif
     else {
-		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Status:" message:@"Email is not configured." delegate:nil cancelButtonTitle:@"ok" otherButtonTitles:nil];
-		[alert show];
-	}
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Status:" message:@"Email is not configured." delegate:nil cancelButtonTitle:@"ok" otherButtonTitles:nil];
+        [alert show];
+    }
 }
 
 - (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error
@@ -1899,7 +1884,7 @@ AVCaptureStillImageOutput *output;
 //    _hud.labelText = @"Timeout!";
 //    _hud.detailsLabelText = @"Please try again later.";
 //    _hud.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"37x-Checkmark.png"]];
-//	_hud.mode = MBProgressHUDModeCustomView;
+//    _hud.mode = MBProgressHUDModeCustomView;
 //    [self performSelector:@selector(dismissHUD:) withObject:nil afterDelay:3.0];
 ////    if (isFree==NO) {
 ////        [self FreeCard:@"Birthday"];
@@ -1980,12 +1965,12 @@ AVCaptureStillImageOutput *output;
     
     NSString *pass = [[NSString alloc]init];
     
-    if (sqlite3_open([[app getDBPathNew] UTF8String],&dbSecret)== SQLITE_OK)
+    if (sqlite3_open([app getDBPathNew].UTF8String,&dbSecret)== SQLITE_OK)
     {
         NSString *selectSql = [NSString stringWithFormat:@"select UserName from VerifyUserTbl where UserID=%@",UserID];
         
         NSLog(@"Query : %@",selectSql);
-        const char *sqlStatement = [selectSql UTF8String];
+        const char *sqlStatement = selectSql.UTF8String;
         sqlite3_stmt *query_stmt;
         @try {
             
@@ -2000,7 +1985,7 @@ AVCaptureStillImageOutput *output;
                     }
                     else
                     {
-                        pass = [NSString stringWithUTF8String:(char *)sqlite3_column_text(query_stmt, 0)];
+                        pass = @((char *)sqlite3_column_text(query_stmt, 0));
                         NSLog(@"Password is === %@",pass);
                     }
                     
@@ -2025,5 +2010,45 @@ AVCaptureStillImageOutput *output;
     return  pass;
 }
 
+
+- (void)messageComposeViewController:(nonnull MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult)result { 
+    return;
+}
+
+- (void)encodeWithCoder:(nonnull NSCoder *)aCoder { 
+    return;
+}
+
+- (void)traitCollectionDidChange:(nullable UITraitCollection *)previousTraitCollection { 
+    return;
+}
+
+- (void)preferredContentSizeDidChangeForChildContentContainer:(nonnull id<UIContentContainer>)container { 
+    return;
+}
+
+- (void)systemLayoutFittingSizeDidChangeForChildContentContainer:(nonnull id<UIContentContainer>)container { 
+    return;
+}
+
+- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(nonnull id<UIViewControllerTransitionCoordinator>)coordinator { 
+    return;
+}
+
+- (void)willTransitionToTraitCollection:(nonnull UITraitCollection *)newCollection withTransitionCoordinator:(nonnull id<UIViewControllerTransitionCoordinator>)coordinator { 
+    return;
+}
+
+- (void)didUpdateFocusInContext:(nonnull UIFocusUpdateContext *)context withAnimationCoordinator:(nonnull UIFocusAnimationCoordinator *)coordinator { 
+    return;
+}
+
+- (void)setNeedsFocusUpdate { 
+    return;
+}
+
+- (void)updateFocusIfNeeded { 
+    return;
+}
 
 @end

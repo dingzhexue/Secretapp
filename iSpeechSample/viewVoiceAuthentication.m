@@ -7,7 +7,6 @@
 //
 
 #import "viewVoiceAuthentication.h"
-#import "AppDelegate.h"
 
 @interface viewVoiceAuthentication ()
 
@@ -16,8 +15,7 @@
 @implementation viewVoiceAuthentication
 @synthesize lblTextChange,isNewPassword,isReEnterPassword,strMail;
 @synthesize btnSpeak;
-AppDelegate *app;
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
@@ -54,8 +52,9 @@ AppDelegate *app;
     {
         NSLog(@"ERROR: %@", err);
     }
-    }
+   }
 }
+    
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -63,7 +62,7 @@ AppDelegate *app;
     {
         self.edgesForExtendedLayout = UIRectEdgeNone;
     }
-    app=(AppDelegate *)[[UIApplication sharedApplication]delegate];
+    app=(AppDelegate *)[UIApplication sharedApplication].delegate;
 
     strMail=@"";
     self.contentSizeForViewInPopover = CGSizeMake(320.0, 600.0);
@@ -88,11 +87,11 @@ AppDelegate *app;
 - (IBAction)btnSpeakClicked:(id)sender 
 {
     ISSpeechRecognition *recognition = [[ISSpeechRecognition alloc] init];
-	
+
     NSError *err;
-	
+
     [recognition setDelegate:self];
-	
+
     if(![recognition listen:&err])
     {
         NSLog(@"ERROR: %@", err);
@@ -102,16 +101,16 @@ AppDelegate *app;
 
 
 - (void)recognition:(ISSpeechRecognition *)speechRecognition didGetRecognitionResult:(ISSpeechRecognitionResult *)result {
-	//NSLog(@"Method: %@", NSStringFromSelector(_cmd));
-	NSLog(@"Result: %@", result.text);
-	
-	//[lblPassword setText:result.text];
-    
+    //NSLog(@"Method: %@", NSStringFromSelector(_cmd));
+    NSLog(@"Result: %@", result.text);
+
+    //[lblPassword setText:result.text];
+
     loggedinPass = [[NSString alloc]initWithFormat:@"%@",result.text];
-    
-	[speechRecognition release];
-  
-    
+
+    [speechRecognition release];
+
+
     //[self searchUser];
     if(isReEnterPassword)
     {
@@ -123,7 +122,7 @@ AppDelegate *app;
             [alert show];
             [alert release];
         }
-        else 
+        else
         {
             strConfirmPass=loggedinPass;
             if([strConfirmPass isEqualToString:strNewPass ] )
@@ -131,7 +130,7 @@ AppDelegate *app;
                 UIAlertView *alert = [[UIAlertView alloc]
                                       initWithTitle:@"Alert Message" message:@"Your Password is matched. Do you want to set New Pasword??" delegate:self cancelButtonTitle:@"Clsoe" otherButtonTitles:@"Confirm" ,nil];
                 [alert show];
-                [alert release];   
+                [alert release];
             }else {
                 UIAlertView *alert = [[UIAlertView alloc]
                                       initWithTitle:@"Alert Message" message:@"Your Password is not matched. Do you want to try it again??" delegate:self cancelButtonTitle:@"Close" otherButtonTitles:@"Try Again" ,nil];
@@ -139,12 +138,12 @@ AppDelegate *app;
                 [alert release];
 
             }
-            
+
         }
-        
+
     }else if(isNewPassword)
     {
-        
+
         if([loggedinPass isEqualToString:@""])
         {
             UIAlertView *alert = [[UIAlertView alloc]
@@ -152,9 +151,9 @@ AppDelegate *app;
             [alert show];
             [alert release];
         }
-        else 
+        else
        {
-            
+
          strNewPass =loggedinPass;
         UIAlertView *alert = [[UIAlertView alloc]
                                   initWithTitle:@"Alert Message" message:@"" delegate:self cancelButtonTitle:@"Close" otherButtonTitles:@"Try Again",@"Re Enter",nil];
@@ -163,7 +162,7 @@ AppDelegate *app;
             [alert release];
             //  [self searchUser];
         }
-        
+
     }else
     {
         if([loggedinPass isEqualToString:@""])
@@ -173,7 +172,7 @@ AppDelegate *app;
                 [alert show];
                 [alert release];
         }
-        else 
+        else
         {
             if([self checkPattern:loggedinPass])
             {
@@ -193,25 +192,25 @@ AppDelegate *app;
 }
 
 - (void)recognition:(ISSpeechRecognition *)speechRecognition didFailWithError:(NSError *)error {
-    //	NSLog(@"Method: %@", NSStringFromSelector(_cmd));
-	NSLog(@"Error: %@", error);
-	
-	[speechRecognition release];
+    //    NSLog(@"Method: %@", NSStringFromSelector(_cmd));
+    NSLog(@"Error: %@", error);
+
+    [speechRecognition release];
 }
 
 - (void)recognitionCancelledByUser:(ISSpeechRecognition *)speechRecognition {
-	//NSLog(@"Method: %@", NSStringFromSelector(_cmd));
-	
-	[speechRecognition release];
+    //NSLog(@"Method: %@", NSStringFromSelector(_cmd));
+
+    [speechRecognition release];
 }
 
 - (void)recognitionDidBeginRecording:(ISSpeechRecognition *)speechRecognition {
-	//NSLog(@"Method: %@", NSStringFromSelector(_cmd));
-    
+    //NSLog(@"Method: %@", NSStringFromSelector(_cmd));
+
 }
 
 - (void)recognitionDidFinishRecording:(ISSpeechRecognition *)speechRecognition {
-	//NSLog(@"Method: %@", NSStringFromSelector(_cmd));
+    //NSLog(@"Method: %@", NSStringFromSelector(_cmd));
 }
 
 
@@ -225,14 +224,14 @@ AppDelegate *app;
 {
     Boolean returnValue;
     databasepath=[app getDBPathNew];
-    if (sqlite3_open([databasepath UTF8String], &dbSecret) == SQLITE_OK) 
+    if (sqlite3_open(databasepath.UTF8String, &dbSecret) == SQLITE_OK) 
     {
      //   NSLog(@"unm==%@ ",loggedinNm);
         NSLog(@"pass=== %@",loggedinPass);
         NSString *selectSql = [NSString stringWithFormat:@"select UserPasswordTxt from VerifyUserTbl Where UserID = %@ ",app.LoginUserID];
         
         NSLog(@"Query : %@",selectSql);
-        const char *sqlStatement = [selectSql UTF8String];
+        const char *sqlStatement = selectSql.UTF8String;
         sqlite3_stmt *query_stmt;
         @try {
             
@@ -278,14 +277,14 @@ AppDelegate *app;
 {
     Boolean returnValue;
     databasepath=[app getDBPathNew];
-    if (sqlite3_open([databasepath UTF8String], &dbSecret) == SQLITE_OK) 
+    if (sqlite3_open(databasepath.UTF8String, &dbSecret) == SQLITE_OK) 
     {
      //   NSLog(@"unm==%@ ",loggedinNm);
         NSLog(@"pass=== %@",loggedinPass);
         NSString *selectSql = [NSString stringWithFormat:@"select PatternCode from VerifyUserTbl Where UserID = %@ ",app.LoginUserID];
         
         NSLog(@"Query : %@",selectSql);
-        const char *sqlStatement = [selectSql UTF8String];
+        const char *sqlStatement = selectSql.UTF8String;
         sqlite3_stmt *query_stmt;
         @try {
             
@@ -338,16 +337,16 @@ AppDelegate *app;
         self.navigationController.title=@"Enter New Password";
         lblTextChange.text=@"Enter New Password";
         ISSpeechRecognition *recognition = [[ISSpeechRecognition alloc] init];
-        
+
         NSError *err;
-        
+
         [recognition setDelegate:self];
-        
+
         if(![recognition listen:&err])
         {
             NSLog(@"ERROR: %@", err);
         }
-        //[self recognize:nil];
+        [self recognize:nil];
     }
     else if([title isEqualToString:@"Re Enter"])
     {
@@ -357,11 +356,11 @@ AppDelegate *app;
         self.navigationController.title=@"Re Enter New Password";
         lblTextChange.text=@"Re Enter New Password";
         ISSpeechRecognition *recognition = [[ISSpeechRecognition alloc] init];
-        
+
         NSError *err;
-        
+
         [recognition setDelegate:self];
-        
+
         if(![recognition listen:&err])
         {
             NSLog(@"ERROR: %@", err);
@@ -384,7 +383,7 @@ AppDelegate *app;
         {
             NSLog(@"ERROR: %@", err);
         }
-       // [recognition release];
+        [recognition release];
         
     }
     else if([title isEqualToString:@"Confirm"])
@@ -433,14 +432,14 @@ AppDelegate *app;
 }
 -(Boolean) updatePassword :(NSString *)strValue :(NSString * )UserID 
 {  
-    sqlite3_stmt *statement;
+    sqlite3_stmt *statement = NULL;
     
-    if(sqlite3_open([[app getDBPathNew] UTF8String],&dbSecret)== SQLITE_OK)
+    if(sqlite3_open([app getDBPathNew].UTF8String,&dbSecret)== SQLITE_OK)
     {
         NSString *insertquery;
         insertquery=[NSString stringWithFormat:@"UPDATE VerifyUserTbl SET UserPasswordTxt =\"%@\" where UserID=%@",strValue,UserID];
         NSLog(@"Query::::%@",insertquery);
-        const char *insert_query=[insertquery UTF8String];
+        const char *insert_query=insertquery.UTF8String;
         sqlite3_prepare(dbSecret,insert_query,-1,&statement,NULL);
         if(sqlite3_step(statement) == SQLITE_DONE){
             NSLog(@"record updated");
@@ -465,14 +464,14 @@ AppDelegate *app;
 
 -(Boolean) updateLockStyle :(NSString * )UserID 
 {  
-    sqlite3_stmt *statement;
+    sqlite3_stmt *statement = NULL;
     
-    if(sqlite3_open([[app getDBPathNew] UTF8String],&dbSecret)== SQLITE_OK)
+    if(sqlite3_open([app getDBPathNew].UTF8String,&dbSecret)== SQLITE_OK)
     {
         NSString *insertquery;
         insertquery=[NSString stringWithFormat:@"UPDATE AuthentictionCheckTbl SET VoiceAuth =\"%@\" ,PatternAuth =\"%@\", PinCodeAuth =\"%@\" where UserID=%@",@"true",@"false",@"false",UserID];
         NSLog(@"Query::::%@",insertquery);
-        const char *insert_query=[insertquery UTF8String];
+        const char *insert_query=insertquery.UTF8String;
         sqlite3_prepare(dbSecret,insert_query,-1,&statement,NULL);
         if(sqlite3_step(statement) == SQLITE_DONE){
             NSLog(@"record updated");
@@ -519,7 +518,7 @@ AppDelegate *app;
         [mfViewController setMessageBody:someString isHTML:YES];
         strMail=@"Mail";
         [self presentViewController:mfViewController animated:YES completion:nil];
-	}
+    }
 #else
     //GoProLink
     if ([MFMailComposeViewController canSendMail])
@@ -535,12 +534,12 @@ AppDelegate *app;
         [mfViewController setMessageBody:someString isHTML:YES];
         strMail=@"Mail";
         [self presentModalViewController:mfViewController animated:YES];
-	}
+    }
 #endif
     else {
-		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Status:" message:@"Email is not configured." delegate:nil cancelButtonTitle:@"ok" otherButtonTitles:nil];
-		[alert show];
-	}
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Status:" message:@"Email is not configured." delegate:nil cancelButtonTitle:@"ok" otherButtonTitles:nil];
+        [alert show];
+    }
 }
 
 - (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error
@@ -577,12 +576,12 @@ AppDelegate *app;
     
     NSString *pass = [[NSString alloc]init];
     
-    if (sqlite3_open([[app getDBPathNew] UTF8String],&dbSecret)== SQLITE_OK)
+    if (sqlite3_open([app getDBPathNew].UTF8String,&dbSecret)== SQLITE_OK)
     {
         NSString *selectSql = [NSString stringWithFormat:@"select UserName from VerifyUserTbl where UserID=%@",UserID];
         
         NSLog(@"Query : %@",selectSql);
-        const char *sqlStatement = [selectSql UTF8String];
+        const char *sqlStatement = selectSql.UTF8String;
         sqlite3_stmt *query_stmt;
         @try {
             
@@ -597,7 +596,7 @@ AppDelegate *app;
                     }
                     else
                     {
-                        pass = [NSString stringWithUTF8String:(char *)sqlite3_column_text(query_stmt, 0)];
+                        pass = @((char *)sqlite3_column_text(query_stmt, 0));
                         NSLog(@"Password is === %@",pass);
                     }
                     

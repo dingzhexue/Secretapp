@@ -7,9 +7,7 @@
 //
 
 #import "BookmarkView.h"
-#import "AppDelegate.h"
 #import "WebViewController.h"
-#import "GlobalFunctions.h"
 #import "BookmarkCustomCell.h"
 #import "EditBookmarkView.h"
 #import "GADBannerView.h"
@@ -30,9 +28,8 @@
 
 @synthesize interstitial;
 
-AppDelegate *app;
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
@@ -59,10 +56,10 @@ AppDelegate *app;
     if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0"))
     {
         self.edgesForExtendedLayout = UIRectEdgeNone;
-        [toolbar setBarTintColor:[UIColor blackColor]];
+        toolbar.barTintColor = [UIColor blackColor];
     }
 
-    app=(AppDelegate *)[[UIApplication sharedApplication] delegate];
+    app=(AppDelegate *)[UIApplication sharedApplication].delegate;
     bookmarkArr=[[NSMutableArray alloc] init];
     
     if(UI_USER_INTERFACE_IDIOM()==UIUserInterfaceIdiomPad)
@@ -130,7 +127,7 @@ AppDelegate *app;
     [buttons addObject:doneButton];
     [doneButton release];
     
-    [toolbar setItems:buttons];
+    toolbar.items = buttons;
     [buttons release];
     
     [self BookmarkToDisplay];
@@ -173,8 +170,8 @@ AppDelegate *app;
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    NSLog(@"bookmark data count:::: %d",[bookmarkArr count]);
-    return [bookmarkArr count];
+    NSLog(@"bookmark data count:::: %lu",(unsigned long)bookmarkArr.count);
+    return bookmarkArr.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -201,12 +198,12 @@ AppDelegate *app;
                 cell = (BookmarkCustomCell *)oneObject;
     }
     
-    [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
-    BookmarkView *bookObj=[bookmarkArr objectAtIndex:indexPath.row];
+    BookmarkView *bookObj=bookmarkArr[indexPath.row];
     
     [cell.bookmarkTitleBtn addTarget:self action:@selector(btnBMPressed:) forControlEvents:UIControlEventTouchUpInside];
-    [cell.bookmarkTitleBtn setTag:indexPath.row];
+    (cell.bookmarkTitleBtn).tag = indexPath.row;
     
     NSLog(@"Title=== %@",bookObj.bookmarkTitle);
     [cell.bookmarkTitleBtn setTitle:bookObj.bookmarkTitle forState:UIControlStateNormal];
@@ -218,7 +215,7 @@ AppDelegate *app;
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath 
 {
-    BookmarkView *bookObj=[bookmarkArr objectAtIndex:indexPath.row];
+    BookmarkView *bookObj=bookmarkArr[indexPath.row];
     [GlobalFunctions urlSaveToUserDefaults:bookObj.bookmarkURL];
     NSLog(@"Global url=== %@",[GlobalFunctions urlRetrieveFromUserDefaults]);
     
@@ -253,28 +250,28 @@ AppDelegate *app;
 #pragma mark Row Rearrange
 
 - (IBAction) EditTableVideos:(id)sender{
-	if(self.editing)
-	{
-		[super setEditing:NO animated:NO]; 
-		[bookmarkTbl setEditing:NO animated:NO];
-		[bookmarkTbl reloadData];
-		[self.navigationItem.rightBarButtonItem setTitle:@"Edit"];
-		[self.navigationItem.rightBarButtonItem setStyle:UIBarButtonItemStylePlain];
-	}
-	else
-	{
-		[super setEditing:YES animated:YES]; 
-		[bookmarkTbl setEditing:YES animated:YES];
-		[bookmarkTbl reloadData];
+    if(self.editing)
+    {
+        [super setEditing:NO animated:NO]; 
+        [bookmarkTbl setEditing:NO animated:NO];
+        [bookmarkTbl reloadData];
+        (self.navigationItem.rightBarButtonItem).title = @"Edit";
+        (self.navigationItem.rightBarButtonItem).style = UIBarButtonItemStylePlain;
+    }
+    else
+    {
+        [super setEditing:YES animated:YES]; 
+        [bookmarkTbl setEditing:YES animated:YES];
+        [bookmarkTbl reloadData];
         editBookmarkflag=YES;
-		[self.navigationItem.rightBarButtonItem setTitle:@"Done"];
-		[self.navigationItem.rightBarButtonItem setStyle:UIBarButtonItemStyleDone];
-	}
+        (self.navigationItem.rightBarButtonItem).title = @"Done";
+        (self.navigationItem.rightBarButtonItem).style = UIBarButtonItemStyleDone;
+    }
 }
 
 -(IBAction)btnBMPressed:(id)sender{
-    NSLog(@"tag= %d",[sender tag]);
-    BookmarkView *bookObj=[bookmarkArr objectAtIndex:[sender tag]];
+    NSLog(@"tag= %ld",(long)[sender tag]);
+    BookmarkView *bookObj=bookmarkArr[[sender tag]];
     [GlobalFunctions urlSaveToUserDefaults:bookObj.bookmarkURL];
     NSLog(@"Global url=== %@",[GlobalFunctions urlRetrieveFromUserDefaults]);
     
@@ -328,7 +325,7 @@ AppDelegate *app;
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath
       toIndexPath:(NSIndexPath *)toIndexPath
 {
-    NSString *item = [[bookmarkArr objectAtIndex:fromIndexPath.row] retain];
+    NSString *item = [bookmarkArr[fromIndexPath.row] retain];
     [bookmarkArr removeObject:item];
     [bookmarkArr insertObject:item atIndex:toIndexPath.row];
     [item release];
@@ -337,13 +334,13 @@ AppDelegate *app;
 #pragma mark - Delete Video
 
 - (void)tableView:(UITableView *)aTableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-	
+    
     if (editingStyle == UITableViewCellEditingStyleDelete)
     {
-        BookmarkView *bookObj=[bookmarkArr objectAtIndex:indexPath.row];
+        BookmarkView *bookObj=bookmarkArr[indexPath.row];
         selBookID=bookObj.bookmarkID ;
         
-        NSLog(@"Cont id=== %d",[selBookID intValue]);
+        NSLog(@"Cont id=== %d",selBookID.intValue);
         
         UIAlertView *alert =[[UIAlertView alloc] initWithTitle:@"Alert!!" message:@"Are you sure you want to delete the selected bookmark?" delegate:self cancelButtonTitle:@"NO" otherButtonTitles:nil];
         
@@ -365,15 +362,15 @@ AppDelegate *app;
 
 -(void)deleteBookmark
 {    
-    NSLog(@"ID==== %d",[selBookID intValue]);
+    NSLog(@"ID==== %d",selBookID.intValue);
     
     databasepath=[app getDBPathNew];
-    if (sqlite3_open([databasepath UTF8String], &dbSecret) == SQLITE_OK) 
+    if (sqlite3_open(databasepath.UTF8String, &dbSecret) == SQLITE_OK) 
     {
-        NSString *DeleteQuery = [NSString stringWithFormat:@"Delete from BookmarkTbl Where BookmarkID=%d",[selBookID intValue]];
+        NSString *DeleteQuery = [NSString stringWithFormat:@"Delete from BookmarkTbl Where BookmarkID=%d",selBookID.intValue];
         
         NSLog(@"Query : %@",DeleteQuery);
-        const char *deleteStmt = [DeleteQuery UTF8String];
+        const char *deleteStmt = DeleteQuery.UTF8String;
         sqlite3_stmt *query_stmt;
         
         if(sqlite3_prepare_v2(dbSecret, deleteStmt, -1, &query_stmt, NULL) == SQLITE_OK)
@@ -406,13 +403,13 @@ AppDelegate *app;
     [bookmarkArr removeAllObjects];
     databasepath = [app getDBPathNew];
     
-    if (sqlite3_open([databasepath UTF8String], &dbSecret) == SQLITE_OK) {
+    if (sqlite3_open(databasepath.UTF8String, &dbSecret) == SQLITE_OK) {
       //SELECT * FROM BookmarkTbl WHERE UserID =  '2' ORDER BY BookmarkID DESC
-        NSString *sqlQuery = [NSString stringWithFormat:@"SELECT * FROM BookmarkTbl WHERE UserID = '%d'  ORDER BY BookmarkID DESC",[app.LoginUserID intValue]];
+        NSString *sqlQuery = [NSString stringWithFormat:@"SELECT * FROM BookmarkTbl WHERE UserID = '%d'  ORDER BY BookmarkID DESC",(app.LoginUserID).intValue];
         
         NSLog(@"iS Query  %@ ",sqlQuery);
         sqlite3_stmt *selectstmt;
-        const char *sql=[sqlQuery UTF8String];
+        const char *sql=sqlQuery.UTF8String;
        // const char *sql = "Select * from BookmarkTbl;";
        
         if(sqlite3_prepare(dbSecret, sql, -1, &selectstmt, NULL) == SQLITE_OK) {
@@ -421,7 +418,7 @@ AppDelegate *app;
             {
                 BookmarkView *bookObj = [[BookmarkView alloc] init];
                 
-                bookObj.bookmarkID =[NSString stringWithUTF8String:(char *)sqlite3_column_text(selectstmt, 0)];
+                bookObj.bookmarkID =@((char *)sqlite3_column_text(selectstmt, 0));
                 
                 bookObj.bookmarkTitle = [NSString stringWithFormat:@"%s", sqlite3_column_text(selectstmt, 2)];
                 
@@ -435,7 +432,7 @@ AppDelegate *app;
     else
         sqlite3_close(dbSecret);
     
-    NSLog(@"Notes count::: %d",[bookmarkArr count]);
+    NSLog(@"Notes count::: %lu",(unsigned long)bookmarkArr.count);
     [bookmarkTbl reloadData];
 }
 

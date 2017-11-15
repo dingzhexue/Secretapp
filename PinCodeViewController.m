@@ -7,8 +7,6 @@
 //
 
 #import "PinCodeViewController.h"
-#import "AppDelegate.h"
-#import "RootViewController.h"
 
 @interface PinCodeViewController ()
 
@@ -18,7 +16,6 @@
 
 @implementation PinCodeViewController
 
-AppDelegate *app;
 
 @synthesize userName,pinDigit1,pinDigit2,pinDigit3,pinDigit4;
 
@@ -34,7 +31,7 @@ AppDelegate *app;
     
 }
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
@@ -46,7 +43,7 @@ AppDelegate *app;
 - (void)viewDidLoad
 {
     self.navigationController.navigationBarHidden = YES;
-    app= (AppDelegate *)[[UIApplication sharedApplication]delegate];
+    app= (AppDelegate *)[UIApplication sharedApplication].delegate;
     
     userName.tag = 0;
     [userName becomeFirstResponder];
@@ -107,8 +104,7 @@ AppDelegate *app;
     
     return YES;
 }
-AVCaptureConnection *videoConnection;
-AVCaptureStillImageOutput *output;
+
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
 {
     if (textField.tag>0) {
@@ -129,7 +125,7 @@ AVCaptureStillImageOutput *output;
             
             NSLog(@"View :: %@ Image :: %@",view,image);
             
-            [view setImage:image];
+            view.image = image;
         }else if(self.code.length>=textField.tag)
         {
             NSRange range = NSMakeRange(textField.tag-1, 1);
@@ -154,7 +150,7 @@ AVCaptureStillImageOutput *output;
                         
                         // Find the frontal camera.
                         for ( int i = 0; i < allCameras.count; i++ ) {
-                            AVCaptureDevice *camera = [allCameras objectAtIndex:i];
+                            AVCaptureDevice *camera = allCameras[i];
                             
                             if ( camera.position == AVCaptureDevicePositionFront ) {
                                 frontalCamera = camera;
@@ -181,8 +177,7 @@ AVCaptureStillImageOutput *output;
                                 output = [[AVCaptureStillImageOutput alloc] init];
                                 
                                 // Captured image. settings.
-                                [output setOutputSettings:
-                                 [[NSDictionary alloc] initWithObjectsAndKeys:AVVideoCodecJPEG,AVVideoCodecKey,nil]];
+                                output.outputSettings = [[NSDictionary alloc] initWithObjectsAndKeys:AVVideoCodecJPEG,AVVideoCodecKey,nil];
                                 
                                 if ( [session canAddOutput:output] ) {
                                     [session addOutput:output];
@@ -191,8 +186,8 @@ AVCaptureStillImageOutput *output;
                                     
                                     videoConnection = nil;
                                     for (AVCaptureConnection *connection in output.connections) {
-                                        for (AVCaptureInputPort *port in [connection inputPorts]) {
-                                            if ([[port mediaType] isEqual:AVMediaTypeVideo] ) {
+                                        for (AVCaptureInputPort *port in connection.inputPorts) {
+                                            if ([port.mediaType isEqual:AVMediaTypeVideo] ) {
                                                 videoConnection = connection;
                                                 break;
                                             }
@@ -248,7 +243,7 @@ AVCaptureStillImageOutput *output;
                         // Find the frontal camera.
                         for ( int i = 0; i < allCameras.count; i++ )
                         {
-                            AVCaptureDevice *camera = [allCameras objectAtIndex:i];
+                            AVCaptureDevice *camera = allCameras[i];
                             if ( camera.position == AVCaptureDevicePositionFront )
                             {
                                 frontalCamera = camera;
@@ -277,8 +272,7 @@ AVCaptureStillImageOutput *output;
                                 output = [[AVCaptureStillImageOutput alloc] init];
                                 
                                 // Captured image. settings.
-                                [output setOutputSettings:
-                                 [[NSDictionary alloc] initWithObjectsAndKeys:AVVideoCodecJPEG,AVVideoCodecKey,nil]];
+                                output.outputSettings = [[NSDictionary alloc] initWithObjectsAndKeys:AVVideoCodecJPEG,AVVideoCodecKey,nil];
                                 
                                 if ( [session canAddOutput:output] )
                                 {
@@ -293,9 +287,9 @@ AVCaptureStillImageOutput *output;
                                     
                                     for (AVCaptureConnection *connection in output.connections)
                                     {
-                                        for (AVCaptureInputPort *port in [connection inputPorts])
+                                        for (AVCaptureInputPort *port in connection.inputPorts)
                                         {
-                                            if ([[port mediaType] isEqual:AVMediaTypeVideo] )
+                                            if ([port.mediaType isEqual:AVMediaTypeVideo] )
                                             {
                                                 videoConnection = connection;
                                                 break;
@@ -340,12 +334,12 @@ AVCaptureStillImageOutput *output;
         
         if (nextResponder) {
             // Found next responder, so set it.
-            [textField setText:string];
+            textField.text = string;
             [nextResponder becomeFirstResponder];
         } else {
             // Not found, so remove keyboard.
             if (![self.code isEqualToString:@""]) {
-                [textField setText:string];
+                textField.text = string;
             }
             [textField resignFirstResponder];
         }
@@ -367,13 +361,13 @@ AVCaptureStillImageOutput *output;
             app.capImg=photo;
             
             
-            NSString *docDir = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+            NSString *docDir = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
             // If you go to the folder below, you will find those pictures
             NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init] ;
-            [dateFormat setDateFormat:@"yyyy-MM-dd"];
+            dateFormat.dateFormat = @"yyyy-MM-dd";
             
             NSDateFormatter *timeFormat = [[NSDateFormatter alloc] init];
-            [timeFormat setDateFormat:@"HH.mm.SS"];
+            timeFormat.dateFormat = @"HH.mm.SS";
             
             NSDate *now = [[NSDate alloc] init] ;
             
@@ -409,13 +403,13 @@ AVCaptureStillImageOutput *output;
             app.capImg=photo;
             
             
-            NSString *docDir = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+            NSString *docDir = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
             // If you go to the folder below, you will find those pictures
             NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init] ;
-            [dateFormat setDateFormat:@"yyyy-MM-dd"];
+            dateFormat.dateFormat = @"yyyy-MM-dd";
             
             NSDateFormatter *timeFormat = [[NSDateFormatter alloc] init];
-            [timeFormat setDateFormat:@"HH.mm.SS"];
+            timeFormat.dateFormat = @"HH.mm.SS";
             
             NSDate *now = [[NSDate alloc] init] ;
             
@@ -459,7 +453,7 @@ AVCaptureStillImageOutput *output;
     
     sqlite3_stmt *stmt;
     databasepath=[app getDBPathNew];
-    const char *dbpath=[databasepath UTF8String];
+    const char *dbpath=databasepath.UTF8String;
     
     if(sqlite3_open(dbpath, &dbSecret) == SQLITE_OK)
     {
@@ -468,7 +462,7 @@ AVCaptureStillImageOutput *output;
         
         NSLog(@"insert query== %@",insertquery);
         
-        const char *insert_query=[insertquery UTF8String];
+        const char *insert_query=insertquery.UTF8String;
         sqlite3_prepare(dbSecret, insert_query, -1, &stmt, NULL);
         
         if(sqlite3_step(stmt)== SQLITE_DONE)
@@ -491,7 +485,7 @@ AVCaptureStillImageOutput *output;
     
     sqlite3_stmt *stmt;
     databasepath=[app getDBPathNew];
-    const char *dbpath=[databasepath UTF8String];
+    const char *dbpath=databasepath.UTF8String;
     
     if(sqlite3_open(dbpath, &dbSecret) == SQLITE_OK)
     {
@@ -500,7 +494,7 @@ AVCaptureStillImageOutput *output;
         
         NSLog(@"insert query== %@",insertquery);
         
-        const char *insert_query=[insertquery UTF8String];
+        const char *insert_query=insertquery.UTF8String;
         sqlite3_prepare(dbSecret, insert_query, -1, &stmt, NULL);
         
         if(sqlite3_step(stmt)== SQLITE_DONE)
@@ -522,8 +516,8 @@ AVCaptureStillImageOutput *output;
 {
     NSString *strReturn=@"false";
     databasepath=[app getDBPathNew];
-    NSString *selectSql;
-    if (sqlite3_open([databasepath UTF8String], &dbSecret) == SQLITE_OK)
+    NSString *selectSql = nil;
+    if (sqlite3_open(databasepath.UTF8String, &dbSecret) == SQLITE_OK)
     {
         
         if([strProperty isEqualToString:@"BrekIn"]){
@@ -532,7 +526,7 @@ AVCaptureStillImageOutput *output;
             selectSql = [NSString stringWithFormat:@"select LoginPhoto from AutoLogOffTbl where UserID=%@",app.LoginUserID];
         }
         NSLog(@"Query : %@",selectSql);
-        const char *sqlStatement = [selectSql UTF8String];
+        const char *sqlStatement = selectSql.UTF8String;
         sqlite3_stmt *query_stmt;
         
         if(sqlite3_prepare_v2(dbSecret, sqlStatement, -1, &query_stmt, NULL) == SQLITE_OK)
@@ -560,7 +554,7 @@ AVCaptureStillImageOutput *output;
     NSInteger nextTag = textField.tag + 1;
     // Try to find next responder
     UIResponder* nextResponder = [textField.superview viewWithTag:nextTag];
-    NSLog(@"TextField Tag :: %d Next Responder :: %@ Text Fileld :: %@",nextTag,nextResponder,textField);
+    NSLog(@"TextField Tag :: %ld Next Responder :: %@ Text Fileld :: %@",(long)nextTag,nextResponder,textField);
     if (nextResponder) {
         // Found next responder, so set it.
         [nextResponder becomeFirstResponder];
@@ -622,7 +616,7 @@ AVCaptureStillImageOutput *output;
 
 -(BOOL)checkLogin
 {
-Boolean valueReturn;
+    Boolean valueReturn = '\0';
 if([userName.text isEqualToString:@""])
 {
     UIAlertView *alert = [[UIAlertView alloc]
@@ -639,7 +633,7 @@ else
     
     loggedinNm = userName.text;
     databasepath=[app getDBPathNew];
-    if (sqlite3_open([databasepath UTF8String], &dbSecret) == SQLITE_OK)
+    if (sqlite3_open(databasepath.UTF8String, &dbSecret) == SQLITE_OK)
     {
         loggedinPass = self.code;
         NSLog(@"unm==%@ ",loggedinNm);
@@ -648,7 +642,7 @@ else
         NSString *selectSql = [NSString stringWithFormat:@"select * from VerifyUserTbl Where UserName=\"%@\" AND UserPinCodeText=\"%@\" ",loggedinNm,loggedinPass];
         
         NSLog(@"Query : %@",selectSql);
-        const char *sqlStatement = [selectSql UTF8String];
+        const char *sqlStatement = selectSql.UTF8String;
         sqlite3_stmt *query_stmt;
         
         if(sqlite3_prepare_v2(dbSecret, sqlStatement, -1, &query_stmt, NULL) == SQLITE_OK)
@@ -709,7 +703,7 @@ return valueReturn;
             
             NSLog(@"View :: %@ Image :: %@",view,image);
             
-            [view setImage:image];
+            view.image = image;
         }
         self.code = @"";
         [userName becomeFirstResponder];
@@ -742,7 +736,7 @@ return valueReturn;
             
             NSLog(@"View :: %@ Image :: %@",view,image);
             
-            [view setImage:image];
+            view.image = image;
         }
         self.code = @"";
         [userName becomeFirstResponder];

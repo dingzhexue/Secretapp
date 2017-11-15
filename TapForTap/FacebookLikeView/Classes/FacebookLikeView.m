@@ -21,14 +21,14 @@
 @synthesize href=_href, layout=_layout, showFaces=_showFaces, action=_action, font=_font, 
     colorScheme=_colorScheme, ref=_ref, delegate=_delegate;
 
-- (id)initWithFrame:(CGRect)frame {
+- (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
         [self initCommon];
     }
     return self;
 }
 
-- (id)initWithCoder:(NSCoder *)aDecoder {
+- (instancetype)initWithCoder:(NSCoder *)aDecoder {
     if (self = [super initWithCoder:aDecoder]) {
         [self initCommon];
     }
@@ -130,10 +130,8 @@
     
     // Block redirects to non-Facebook URLs (e.g., by public wifi access points)
     else if (![request.URL.host hasSuffix:@"facebook.com"] && ![request.URL.host hasSuffix:@"fbcdn.net"]) {
-        NSDictionary *errorInfo = [NSDictionary dictionaryWithObjectsAndKeys:
-                                   @"FacebookLikeView was redirected to a non-Facebook URL.", NSLocalizedDescriptionKey,
-                                   request.URL, NSURLErrorKey,
-                                   nil];
+        NSDictionary *errorInfo = @{NSLocalizedDescriptionKey: @"FacebookLikeView was redirected to a non-Facebook URL.",
+                                   NSURLErrorKey: request.URL};
         NSError *error = [NSError errorWithDomain:@"FacebookLikeViewErrorDomain" 
                                              code:0 
                                          userInfo:errorInfo];

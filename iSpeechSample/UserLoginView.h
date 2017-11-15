@@ -8,10 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import <AVFoundation/AVFoundation.h>
-#import "iSpeechSDK.h"
-#import <sqlite3.h>
 
-@interface UserLoginView : UIViewController<ISSpeechRecognitionDelegate,UIAlertViewDelegate>
+@interface UserLoginView : UIViewController<ISSpeechRecognitionDelegate, UIAlertViewDelegate>
 {
     UITextField *txtUserNm;
     UIButton *btnRecognize;
@@ -21,6 +19,9 @@
     NSString *loggedinUserID;
     AVCaptureSession *session;
     bool isUserRegistered;
+    AppDelegate *app;
+    AVCaptureConnection *videoConnection;
+    AVCaptureStillImageOutput *output;
 }
 
 @property(nonatomic,retain) IBOutlet UILabel *lblPassword;

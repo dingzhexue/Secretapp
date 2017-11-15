@@ -13,16 +13,16 @@
 @implementation PWGetTagsRequest
 
 - (NSString *) methodName {
-	return @"getTags";
+    return @"getTags";
 }
 
 - (NSDictionary *) requestDictionary {
-	NSMutableDictionary *dict = [self baseDictionary];
-	return dict;
+    NSMutableDictionary *dict = [self baseDictionary];
+    return dict;
 }
 
 - (void) parseResponse: (NSDictionary *) response {
-	self.tags = [[response objectForKey:@"response"] objectForKey:@"result"];
+    self.tags = response[@"response"][@"result"];
 }
 
 @end

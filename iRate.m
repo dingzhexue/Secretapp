@@ -107,7 +107,7 @@ static NSString *const iRateMacAppStoreURLFormat = @"macappstore://itunes.apple.
             //manually select the desired lproj folder
             for (NSString *language in [NSLocale preferredLanguages])
             {
-                if ([[bundle localizations] containsObject:language])
+                if ([bundle.localizations containsObject:language])
                 {
                     bundlePath = [bundle pathForResource:language ofType:@"lproj"];
                     bundle = [NSBundle bundleWithPath:bundlePath];
@@ -149,20 +149,20 @@ static NSString *const iRateMacAppStoreURLFormat = @"macappstore://itunes.apple.
         
         //application version (use short version preferentially)
         self.applicationVersion = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
-        if ([self.applicationVersion length] == 0)
+        if ((self.applicationVersion).length == 0)
         {
             self.applicationVersion = [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleVersionKey];
         }
         
         //localised application name
         self.applicationName = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"];
-        if ([self.applicationName length] == 0)
+        if ((self.applicationName).length == 0)
         {
             self.applicationName = [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleNameKey];
         }
         
         //bundle id
-        self.applicationBundleID = [[NSBundle mainBundle] bundleIdentifier];
+        self.applicationBundleID = [NSBundle mainBundle].bundleIdentifier;
         
         //default settings
         self.useAllAvailableLanguages = YES;
@@ -200,7 +200,7 @@ static NSString *const iRateMacAppStoreURLFormat = @"macappstore://itunes.apple.
         
 #ifdef __IPHONE_OS_VERSION_MAX_ALLOWED
         
-        _delegate = (id<iRateDelegate>)[[UIApplication sharedApplication] delegate];
+        _delegate = (id<iRateDelegate>)[UIApplication sharedApplication].delegate;
 #else
         _delegate = (id<iRateDelegate>)[[NSApplication sharedApplication] delegate];
 #endif
@@ -478,11 +478,11 @@ static NSString *const iRateMacAppStoreURLFormat = @"macappstore://itunes.apple.
     if (keyRange.location != NSNotFound)
     {
         NSInteger start = keyRange.location + keyRange.length;
-        NSRange valueStart = [json rangeOfString:@":" options:0 range:NSMakeRange(start, [json length] - start)];
+        NSRange valueStart = [json rangeOfString:@":" options:0 range:NSMakeRange(start, json.length - start)];
         if (valueStart.location != NSNotFound)
         {
             start = valueStart.location + 1;
-            NSRange valueEnd = [json rangeOfString:@"," options:0 range:NSMakeRange(start, [json length] - start)];
+            NSRange valueEnd = [json rangeOfString:@"," options:0 range:NSMakeRange(start, json.length - start)];
             if (valueEnd.location != NSNotFound)
             {
                 NSString *value = [json substringWithRange:NSMakeRange(start, valueEnd.location - start)];
@@ -494,7 +494,7 @@ static NSString *const iRateMacAppStoreURLFormat = @"macappstore://itunes.apple.
                         break;
                     }
                     NSInteger newStart = valueEnd.location + 1;
-                    valueEnd = [json rangeOfString:@"," options:0 range:NSMakeRange(newStart, [json length] - newStart)];
+                    valueEnd = [json rangeOfString:@"," options:0 range:NSMakeRange(newStart, json.length - newStart)];
                     value = [json substringWithRange:NSMakeRange(start, valueEnd.location - start)];
                     value = [value stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
                 }
@@ -547,7 +547,7 @@ static NSString *const iRateMacAppStoreURLFormat = @"macappstore://itunes.apple.
 
 - (void)setAppStoreIDOnMainThread:(NSString *)appStoreIDString
 {
-    self.appStoreID = (NSUInteger)[appStoreIDString longLongValue];
+    self.appStoreID = (NSUInteger)appStoreIDString.longLongValue;
 }
 
 - (void)connectionSucceeded
@@ -580,7 +580,7 @@ static NSString *const iRateMacAppStoreURLFormat = @"macappstore://itunes.apple.
     //log the error
     if (error)
     {
-        NSLog(@"iRate rating process failed because: %@", [error localizedDescription]);
+        NSLog(@"iRate rating process failed because: %@", error.localizedDescription);
     }
     else
     {
@@ -634,7 +634,7 @@ static NSString *const iRateMacAppStoreURLFormat = @"macappstore://itunes.apple.
                         //get genre
                         if (self.appStoreGenreID == 0)
                         {
-                            _appStoreGenreID = [[self valueForKey:@"primaryGenreId" inJSON:json] integerValue];
+                            _appStoreGenreID = [self valueForKey:@"primaryGenreId" inJSON:json].integerValue;
                         }
                         
                         //get app id
@@ -827,7 +827,7 @@ static NSString *const iRateMacAppStoreURLFormat = @"macappstore://itunes.apple.
     {
         if (self.verboseLogging)
         {
-            NSLog(@"iRate will attempt to open the StoreKit in-app product page using the following app store ID: %i", self.appStoreID);
+            NSLog(@"iRate will attempt to open the StoreKit in-app product page using the following app store ID: %lu", (unsigned long)self.appStoreID);
         }
         
         //create store view controller
@@ -835,7 +835,7 @@ static NSString *const iRateMacAppStoreURLFormat = @"macappstore://itunes.apple.
         productController.delegate = (id<SKStoreProductViewControllerDelegate>)self;
         
         //load product details
-        NSDictionary *productParameters = @{SKStoreProductParameterITunesItemIdentifier: [@(_appStoreID) description]};
+        NSDictionary *productParameters = @{SKStoreProductParameterITunesItemIdentifier: (@(_appStoreID)).description};
         [productController loadProductWithParameters:productParameters completionBlock:^(BOOL result, NSError *error) {
             
             if (!result)
@@ -843,7 +843,7 @@ static NSString *const iRateMacAppStoreURLFormat = @"macappstore://itunes.apple.
                 //log the error
                 if (error)
                 {
-                    NSLog(@"iRate rating process failed because: %@", [error localizedDescription]);
+                    NSLog(@"iRate rating process failed because: %@", error.localizedDescription);
                 }
                 else
                 {
@@ -860,7 +860,7 @@ static NSString *const iRateMacAppStoreURLFormat = @"macappstore://itunes.apple.
         
         //get root view controller
         UIViewController *rootViewController = nil;
-        id appDelegate = [[UIApplication sharedApplication] delegate];
+        id appDelegate = [UIApplication sharedApplication].delegate;
         if ([appDelegate respondsToSelector:@selector(viewController)])
         {
             rootViewController = [appDelegate valueForKey:@"viewController"];
@@ -1006,8 +1006,8 @@ static NSString *const iRateMacAppStoreURLFormat = @"macappstore://itunes.apple.
             [self.delegate iRateUserDidDeclineToRateApp];
         }
     }
-    else if (([self.cancelButtonLabel length] && buttonIndex == 2) ||
-             ([self.cancelButtonLabel length] == 0 && buttonIndex == 1))
+    else if (((self.cancelButtonLabel).length && buttonIndex == 2) ||
+             ((self.cancelButtonLabel).length == 0 && buttonIndex == 1))
     {        
         //remind later
         self.lastReminded = [NSDate date];

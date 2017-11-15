@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <sqlite3.h>
+
 #import <AVFoundation/AVFoundation.h>
 #import <MediaPlayer/MediaPlayer.h>
 #import <MobileCoreServices/UTCoreTypes.h>
@@ -37,6 +37,7 @@
     MPMoviePlayerController *moviePlayer;
     
     UIImageView *backgroundImg;
+    AppDelegate *app;
 }
 
 //--------------TapForTap View--------------//

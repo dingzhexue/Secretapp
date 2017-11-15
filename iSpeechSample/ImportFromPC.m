@@ -7,13 +7,11 @@
 //
 
 #import "ImportFromPC.h"
-#import "AppDelegate.h"
 @implementation ImportFromPC
 @synthesize importableDoc,delegate;
 
-AppDelegate *app;
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
@@ -28,12 +26,12 @@ AppDelegate *app;
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    app=(AppDelegate *)[[UIApplication sharedApplication]delegate];
+    app=(AppDelegate *)[UIApplication sharedApplication].delegate;
     
     importableDoc = [NSMutableArray array];
     // Get public docs dir
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *publicDocumentsDir = [paths objectAtIndex:0];   
+    NSString *publicDocumentsDir = paths[0];   
     
     
    
@@ -41,7 +39,7 @@ AppDelegate *app;
     NSError *error;
     NSArray *files = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:publicDocumentsDir error:&error];
     if (files == nil) {
-        NSLog(@"Error reading contents of documents directory: %@", [error localizedDescription]);
+        NSLog(@"Error reading contents of documents directory: %@", error.localizedDescription);
     }
     
     // Add all mp3 files to a list    
@@ -64,7 +62,7 @@ AppDelegate *app;
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     // Return YES for supported orientations
-	return YES;
+    return YES;
 }
 
 #pragma mark Memory management
@@ -97,7 +95,7 @@ AppDelegate *app;
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // Return the number of rows in the section.
-    NSLog(@"Count : %d",importableDoc.count);
+    NSLog(@"Count : %lu",(unsigned long)importableDoc.count);
     return importableDoc.count;
 }
 
@@ -111,15 +109,15 @@ AppDelegate *app;
     }
     
     // Configure the cell...
-    NSString *fullPath = [importableDoc objectAtIndex:indexPath.row];
-    NSString *fileName = [fullPath lastPathComponent];
+    NSString *fullPath = importableDoc[indexPath.row];
+    NSString *fileName = fullPath.lastPathComponent;
     cell.textLabel.text = fileName;
     
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSString *fullPath = [importableDoc objectAtIndex:indexPath.row];
+    NSString *fullPath = importableDoc[indexPath.row];
     
         [delegate importableDocTapped:fullPath];
     

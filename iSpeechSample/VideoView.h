@@ -9,7 +9,6 @@
 #import <UIKit/UIKit.h>
 #import <MobileCoreServices/MobileCoreServices.h>
 #import <AVFoundation/AVFoundation.h>
-#import <sqlite3.h>
 #import <MediaPlayer/MediaPlayer.h>
 #import "GADHelper.h"
 
@@ -35,6 +34,9 @@
     NSString *selvideoID,*selvideoPath,*selvideoTitle,*selvideoDate;
     
     MPMoviePlayerController *moviePlayer;
+    
+    UIBarButtonItem *editdoneButton;
+    AppDelegate *app;
 }
 @property(nonatomic,retain) IBOutlet  MPMoviePlayerController *moviePlayer;
 @property(nonatomic,retain) NSString *selvideoID,*selvideoPath,*selvideoTitle,*selvideoDate;

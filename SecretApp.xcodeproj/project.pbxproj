@@ -13,7 +13,6 @@
 		0F526F201A359ABC00ED4A3E /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F526F1F1A359ABC00ED4A3E /* CoreTelephony.framework */; };
 		0F526F231A359B5100ED4A3E /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F526F211A359B5100ED4A3E /* EventKit.framework */; };
 		0F526F241A359B5100ED4A3E /* EventKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F526F221A359B5100ED4A3E /* EventKitUI.framework */; };
-		1104164315F20E120040E95A /* movie11.png in Resources */ = {isa = PBXBuildFile; fileRef = 1104164215F20E120040E95A /* movie11.png */; };
 		1104164715F20E6F0040E95A /* movie.png in Resources */ = {isa = PBXBuildFile; fileRef = 1104164615F20E6F0040E95A /* movie.png */; };
 		1140887015CFBD4E00AF1728 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 1140886F15CFBD4E00AF1728 /* libsqlite3.0.dylib */; };
 		11714DB215EF642700F929C3 /* UserLoginView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 11714DB115EF642700F929C3 /* UserLoginView.xib */; };
@@ -199,14 +198,12 @@
 		8485CE9D1A36937C00E5B5D9 /* EventKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F526F221A359B5100ED4A3E /* EventKitUI.framework */; };
 		8485CE9E1A3693F400E5B5D9 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F51AD30716BB946300534870 /* AdSupport.framework */; };
 		8485CE9F1A36943800E5B5D9 /* GADHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F526EF91A358EF300ED4A3E /* GADHelper.m */; };
-		84AD93F01A3550B200BC163F /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 84AD93EC1A3550B200BC163F /* libTestFlight.a */; };
 		938E9E191914C94400444EC4 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C31469A014BF9BC500E4135F /* SystemConfiguration.framework */; };
 		93F3738B1629201200BD4A94 /* 57.png in Resources */ = {isa = PBXBuildFile; fileRef = 93F3738A1629201200BD4A94 /* 57.png */; };
 		93F3738D1629201B00BD4A94 /* 114.png in Resources */ = {isa = PBXBuildFile; fileRef = 93F3738C1629201B00BD4A94 /* 114.png */; };
 		93F3738F162920A300BD4A94 /* 74.png in Resources */ = {isa = PBXBuildFile; fileRef = 93F3738E162920A300BD4A94 /* 74.png */; };
 		93F37391162920B300BD4A94 /* 144.png in Resources */ = {isa = PBXBuildFile; fileRef = 93F37390162920B300BD4A94 /* 144.png */; };
 		93F373971629396400BD4A94 /* libz.1.2.5.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 93F373961629396300BD4A94 /* libz.1.2.5.dylib */; };
-		93F3739916293A2100BD4A94 /* empty_profile.png in Resources */ = {isa = PBXBuildFile; fileRef = 93F3739816293A2100BD4A94 /* empty_profile.png */; };
 		A32D89F616D624C200BBF020 /* ihone-n-addimage@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A32D89C916D624C200BBF020 /* ihone-n-addimage@2x.png */; };
 		A32D89F716D624C200BBF020 /* iphone-n-bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A32D89CA16D624C200BBF020 /* iphone-n-bg@2x.png */; };
 		A32D89F816D624C200BBF020 /* iphone-n-addbtn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A32D89CB16D624C200BBF020 /* iphone-n-addbtn@2x.png */; };
@@ -422,9 +419,7 @@
 		B9826C2A18C5DCD300D99C46 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C314699E14BF9BB800E4135F /* AudioToolbox.framework */; };
 		B9826C2B18C5DCD300D99C46 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C314697B14BF954900E4135F /* UIKit.framework */; };
 		B9826C2C18C5DCD300D99C46 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C314697D14BF954900E4135F /* Foundation.framework */; };
-		B9826C2D18C5DCD300D99C46 /* libiSpeechSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C314699814BF95BC00E4135F /* libiSpeechSDK.a */; };
 		B9826C3118C5DCD300D99C46 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C314698414BF954900E4135F /* InfoPlist.strings */; };
-		B9826C3218C5DCD300D99C46 /* iSpeechSDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C31469A414C08AEB00E4135F /* iSpeechSDK.bundle */; };
 		B9826C3318C5DCD300D99C46 /* movie11.png in Resources */ = {isa = PBXBuildFile; fileRef = 11836F8215EF3EBA00948B70 /* movie11.png */; };
 		B9826C3418C5DCD300D99C46 /* trans1.png in Resources */ = {isa = PBXBuildFile; fileRef = 11836F8315EF3EBA00948B70 /* trans1.png */; };
 		B9826C3518C5DCD300D99C46 /* navbarbtn.png in Resources */ = {isa = PBXBuildFile; fileRef = 11836F8515EF3EBA00948B70 /* navbarbtn.png */; };
@@ -545,7 +540,6 @@
 		B9826CA818C5DCD300D99C46 /* book_open2.png in Resources */ = {isa = PBXBuildFile; fileRef = 11B2100715F0E5D20000692D /* book_open2.png */; };
 		B9826CA918C5DCD300D99C46 /* bookmark1.png in Resources */ = {isa = PBXBuildFile; fileRef = 11B2100815F0E5D20000692D /* bookmark1.png */; };
 		B9826CAA18C5DCD300D99C46 /* EditBookmarkView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 11B2100D15F0EAAC0000692D /* EditBookmarkView.xib */; };
-		B9826CAB18C5DCD300D99C46 /* movie11.png in Resources */ = {isa = PBXBuildFile; fileRef = 1104164215F20E120040E95A /* movie11.png */; };
 		B9826CAC18C5DCD300D99C46 /* movie.png in Resources */ = {isa = PBXBuildFile; fileRef = 1104164615F20E6F0040E95A /* movie.png */; };
 		B9826CAD18C5DCD300D99C46 /* nextbtn1.png in Resources */ = {isa = PBXBuildFile; fileRef = 11F3594515F4813B0018DF6C /* nextbtn1.png */; };
 		B9826CAE18C5DCD300D99C46 /* backbtn1.png in Resources */ = {isa = PBXBuildFile; fileRef = 11F3594615F4813B0018DF6C /* backbtn1.png */; };
@@ -976,10 +970,8 @@
 		B9826E5718C5DCD300D99C46 /* send.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B32A70F16EB0A2B0038298F /* send.png */; };
 		B9826E5818C5DCD300D99C46 /* Facebook_iPhone.png in Resources */ = {isa = PBXBuildFile; fileRef = D5A02878178ADCBD004F7E4A /* Facebook_iPhone.png */; };
 		B9826E5918C5DCD300D99C46 /* Facebook_iPad.png in Resources */ = {isa = PBXBuildFile; fileRef = D5A0287A178ADCD1004F7E4A /* Facebook_iPad.png */; };
-		B98D98B018C82CAA0060F792 /* iSpeechSample-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B98D98AF18C82CAA0060F792 /* iSpeechSample-Info.plist */; };
 		B98D98B118C82CAA0060F792 /* iSpeechSample-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B98D98AF18C82CAA0060F792 /* iSpeechSample-Info.plist */; };
 		B98D98B318C82D4B0060F792 /* SecretApp copy2-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B98D98B218C82D4B0060F792 /* SecretApp copy2-Info.plist */; };
-		B98D98B418C82D4B0060F792 /* SecretApp copy2-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B98D98B218C82D4B0060F792 /* SecretApp copy2-Info.plist */; };
 		B99503CC18D96C7200E2FFFD /* iTunesArtwork.png in Resources */ = {isa = PBXBuildFile; fileRef = B99503CA18D96C7200E2FFFD /* iTunesArtwork.png */; };
 		B99503CD18D96C7200E2FFFD /* iTunesArtwork.png in Resources */ = {isa = PBXBuildFile; fileRef = B99503CA18D96C7200E2FFFD /* iTunesArtwork.png */; };
 		B99503CE18D96C7200E2FFFD /* iTunesArtwork@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B99503CB18D96C7200E2FFFD /* iTunesArtwork@2x.png */; };
@@ -1089,10 +1081,8 @@
 		C314698614BF954900E4135F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C314698414BF954900E4135F /* InfoPlist.strings */; };
 		C314698814BF954900E4135F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C314698714BF954900E4135F /* main.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		C314698C14BF954900E4135F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C314698B14BF954900E4135F /* AppDelegate.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		C314699914BF95BC00E4135F /* libiSpeechSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C314699814BF95BC00E4135F /* libiSpeechSDK.a */; };
 		C314699F14BF9BB800E4135F /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C314699E14BF9BB800E4135F /* AudioToolbox.framework */; };
 		C31469A114BF9BC500E4135F /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C31469A014BF9BC500E4135F /* SystemConfiguration.framework */; };
-		C31469A514C08AEB00E4135F /* iSpeechSDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C31469A414C08AEB00E4135F /* iSpeechSDK.bundle */; };
 		C32D9A3B1511046A0060CBDE /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C32D9A3A1511046A0060CBDE /* Security.framework */; };
 		C363228B15A5F26800DE82AA /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C363228A15A5F26800DE82AA /* CFNetwork.framework */; };
 		C3BCFBA6154F450900843693 /* ISTextInputAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = C3BCFBA5154F450900843693 /* ISTextInputAlertView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -1117,6 +1107,11 @@
 		C9B2B1C7161089C5008A0D46 /* DrawPatternLockView.m in Sources */ = {isa = PBXBuildFile; fileRef = C9B2B1C6161089C1008A0D46 /* DrawPatternLockView.m */; };
 		D5A02879178ADCBD004F7E4A /* Facebook_iPhone.png in Resources */ = {isa = PBXBuildFile; fileRef = D5A02878178ADCBD004F7E4A /* Facebook_iPhone.png */; };
 		D5A0287B178ADCD1004F7E4A /* Facebook_iPad.png in Resources */ = {isa = PBXBuildFile; fileRef = D5A0287A178ADCD1004F7E4A /* Facebook_iPad.png */; };
+		EC265D2E1FBBB27B00AB5613 /* libiSpeechSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C314699814BF95BC00E4135F /* libiSpeechSDK.a */; };
+		EC265D2F1FBBB28F00AB5613 /* libiSpeechSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C314699814BF95BC00E4135F /* libiSpeechSDK.a */; };
+		EC265D311FBBB40F00AB5613 /* iSpeechSDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = EC265D301FBBB40E00AB5613 /* iSpeechSDK.bundle */; };
+		EC265D321FBBB40F00AB5613 /* iSpeechSDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = EC265D301FBBB40E00AB5613 /* iSpeechSDK.bundle */; };
+		ECE374601FBB606700DCA231 /* empty_profile.png in Resources */ = {isa = PBXBuildFile; fileRef = ECE3745F1FBB606700DCA231 /* empty_profile.png */; };
 		F1063C9316034AA900827DFE /* TablePopOver.xib in Resources */ = {isa = PBXBuildFile; fileRef = F1063C9216034AA900827DFE /* TablePopOver.xib */; };
 		F10FFF8C15FEF276005A9B6B /* AlbumProcessView_Ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = F10FFF8B15FEF276005A9B6B /* AlbumProcessView_Ipad.xib */; };
 		F110880715FEFF400089BA44 /* WebViewController_ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = F110880615FEFF400089BA44 /* WebViewController_ipad.xib */; };
@@ -1908,15 +1903,8 @@
 		C314699814BF95BC00E4135F /* libiSpeechSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libiSpeechSDK.a; sourceTree = "<group>"; };
 		C314699E14BF9BB800E4135F /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		C31469A014BF9BC500E4135F /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
-		C31469A414C08AEB00E4135F /* iSpeechSDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = iSpeechSDK.bundle; sourceTree = "<group>"; };
 		C32D9A3A1511046A0060CBDE /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		C363228A15A5F26800DE82AA /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
-		C3BCFB91154F3F8100843693 /* iSpeechSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iSpeechSDK.h; sourceTree = "<group>"; };
-		C3BCFB92154F3F8100843693 /* ISSpeechRecognition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISSpeechRecognition.h; sourceTree = "<group>"; };
-		C3BCFB93154F3F8100843693 /* ISSpeechRecognitionLocales.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISSpeechRecognitionLocales.h; sourceTree = "<group>"; };
-		C3BCFB94154F3F8100843693 /* ISSpeechRecognitionResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISSpeechRecognitionResult.h; sourceTree = "<group>"; };
-		C3BCFB95154F3F8100843693 /* ISSpeechSynthesis.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISSpeechSynthesis.h; sourceTree = "<group>"; };
-		C3BCFB96154F3F8100843693 /* ISSpeechSynthesisVoices.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISSpeechSynthesisVoices.h; sourceTree = "<group>"; };
 		C3BCFBA4154F450900843693 /* ISTextInputAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ISTextInputAlertView.h; path = iSpeechSample/ISTextInputAlertView.h; sourceTree = "<group>"; };
 		C3BCFBA5154F450900843693 /* ISTextInputAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ISTextInputAlertView.m; path = iSpeechSample/ISTextInputAlertView.m; sourceTree = "<group>"; };
 		C90A46661627E52F00E3CE2E /* blank_profile_pic_3.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = blank_profile_pic_3.jpeg; path = ../blank_profile_pic_3.jpeg; sourceTree = "<group>"; };
@@ -1955,6 +1943,14 @@
 		C9B2B1C6161089C1008A0D46 /* DrawPatternLockView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DrawPatternLockView.m; path = iSpeechSample/DrawPatternLockView.m; sourceTree = "<group>"; };
 		D5A02878178ADCBD004F7E4A /* Facebook_iPhone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Facebook_iPhone.png; sourceTree = "<group>"; };
 		D5A0287A178ADCD1004F7E4A /* Facebook_iPad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Facebook_iPad.png; sourceTree = "<group>"; };
+		EC265D281FBBAFCF00AB5613 /* ISSpeechSynthesisVoices.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ISSpeechSynthesisVoices.h; path = iSpeechSample/ISSpeechSynthesisVoices.h; sourceTree = "<group>"; };
+		EC265D291FBBAFCF00AB5613 /* ISSpeechRecognitionLocales.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ISSpeechRecognitionLocales.h; path = iSpeechSample/ISSpeechRecognitionLocales.h; sourceTree = "<group>"; };
+		EC265D2A1FBBAFCF00AB5613 /* ISSpeechRecognitionResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ISSpeechRecognitionResult.h; path = iSpeechSample/ISSpeechRecognitionResult.h; sourceTree = "<group>"; };
+		EC265D2B1FBBAFCF00AB5613 /* iSpeechSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = iSpeechSDK.h; path = iSpeechSample/iSpeechSDK.h; sourceTree = "<group>"; };
+		EC265D2C1FBBAFCF00AB5613 /* ISSpeechRecognition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ISSpeechRecognition.h; path = iSpeechSample/ISSpeechRecognition.h; sourceTree = "<group>"; };
+		EC265D2D1FBBAFCF00AB5613 /* ISSpeechSynthesis.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ISSpeechSynthesis.h; path = iSpeechSample/ISSpeechSynthesis.h; sourceTree = "<group>"; };
+		EC265D301FBBB40E00AB5613 /* iSpeechSDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = iSpeechSDK.bundle; sourceTree = "<group>"; };
+		ECE3745F1FBB606700DCA231 /* empty_profile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = empty_profile.png; sourceTree = SOURCE_ROOT; };
 		F1063C9216034AA900827DFE /* TablePopOver.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TablePopOver.xib; path = iSpeechSample/TablePopOver.xib; sourceTree = "<group>"; };
 		F10FFF8B15FEF276005A9B6B /* AlbumProcessView_Ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AlbumProcessView_Ipad.xib; path = iSpeechSample/AlbumProcessView_Ipad.xib; sourceTree = "<group>"; };
 		F110880615FEFF400089BA44 /* WebViewController_ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WebViewController_ipad.xib; path = iSpeechSample/WebViewController_ipad.xib; sourceTree = "<group>"; };
@@ -2351,10 +2347,10 @@
 				B9826C2618C5DCD300D99C46 /* CoreMedia.framework in Frameworks */,
 				B9826C2718C5DCD300D99C46 /* Accounts.framework in Frameworks */,
 				B9826C2818C5DCD300D99C46 /* libsqlite3.0.dylib in Frameworks */,
+				EC265D2F1FBBB28F00AB5613 /* libiSpeechSDK.a in Frameworks */,
 				B9826C2918C5DCD300D99C46 /* CFNetwork.framework in Frameworks */,
 				B9826C2B18C5DCD300D99C46 /* UIKit.framework in Frameworks */,
 				B9826C2C18C5DCD300D99C46 /* Foundation.framework in Frameworks */,
-				B9826C2D18C5DCD300D99C46 /* libiSpeechSDK.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2381,7 +2377,6 @@
 				F110882F15FF32010089BA44 /* QuartzCore.framework in Frameworks */,
 				F110882D15FF31F30089BA44 /* CoreGraphics.framework in Frameworks */,
 				F110882915FF31E10089BA44 /* MediaPlayer.framework in Frameworks */,
-				84AD93F01A3550B200BC163F /* libTestFlight.a in Frameworks */,
 				118370B415EF406800948B70 /* AddressBookUI.framework in Frameworks */,
 				118370B215EF406100948B70 /* AddressBook.framework in Frameworks */,
 				C32D9A3B1511046A0060CBDE /* Security.framework in Frameworks */,
@@ -2390,9 +2385,9 @@
 				1140887015CFBD4E00AF1728 /* libsqlite3.0.dylib in Frameworks */,
 				C363228B15A5F26800DE82AA /* CFNetwork.framework in Frameworks */,
 				C314697C14BF954900E4135F /* UIKit.framework in Frameworks */,
+				EC265D2E1FBBB27B00AB5613 /* libiSpeechSDK.a in Frameworks */,
 				0F526F1D1A358FBB00ED4A3E /* libGoogleAdMobAds.a in Frameworks */,
 				C314697E14BF954900E4135F /* Foundation.framework in Frameworks */,
-				C314699914BF95BC00E4135F /* libiSpeechSDK.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2479,6 +2474,7 @@
 		11836F8015EF3E9100948B70 /* images_iPhone */ = {
 			isa = PBXGroup;
 			children = (
+				ECE3745F1FBB606700DCA231 /* empty_profile.png */,
 				D5A02878178ADCBD004F7E4A /* Facebook_iPhone.png */,
 				F58B028316DCDFED00A0FA3A /* iphone-buynow.png */,
 				F585D25616CA13FF0001C909 /* iphone-buy.png */,
@@ -2775,13 +2771,13 @@
 		B990212A18C47CC000FF3FBD /* Modal */ = {
 			isa = PBXGroup;
 			children = (
+				EC265D271FBBAFBE00AB5613 /* iSpeechHeaders */,
 				0F526EFB1A358FBB00ED4A3E /* GoogleMobileAdsSdkiOS-6.12.2 */,
 				B9966AA218D40942008472F8 /* PushNotification */,
 				B990214618C488B000FF3FBD /* Global Functions */,
 				B990214418C4860700FF3FBD /* CustomCells */,
 				B990214218C4857D00FF3FBD /* YOUTube */,
 				B990213818C4824800FF3FBD /* TextInputAlertView */,
-				C3BCFB97154F3F8400843693 /* iSpeech SDK Headers */,
 				F110881115FF1CBF0089BA44 /* TestFlight */,
 				B990213618C480D100FF3FBD /* IAPHelper */,
 				F592539016C26DB90064A9A8 /* Tweeter */,
@@ -3393,29 +3389,15 @@
 		C314698214BF954900E4135F /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				EC265D301FBBB40E00AB5613 /* iSpeechSDK.bundle */,
 				B98D98B218C82D4B0060F792 /* SecretApp copy2-Info.plist */,
 				B9826BC318C5C8A200D99C46 /* SecretApp copy-Info.plist */,
 				B98D98AF18C82CAA0060F792 /* iSpeechSample-Info.plist */,
-				C31469A414C08AEB00E4135F /* iSpeechSDK.bundle */,
 				C314698414BF954900E4135F /* InfoPlist.strings */,
 				C314698714BF954900E4135F /* main.m */,
 				C314698914BF954900E4135F /* iSpeechSample-Prefix.pch */,
 			);
 			name = "Supporting Files";
-			path = iSpeechSample;
-			sourceTree = "<group>";
-		};
-		C3BCFB97154F3F8400843693 /* iSpeech SDK Headers */ = {
-			isa = PBXGroup;
-			children = (
-				C3BCFB91154F3F8100843693 /* iSpeechSDK.h */,
-				C3BCFB92154F3F8100843693 /* ISSpeechRecognition.h */,
-				C3BCFB93154F3F8100843693 /* ISSpeechRecognitionLocales.h */,
-				C3BCFB94154F3F8100843693 /* ISSpeechRecognitionResult.h */,
-				C3BCFB95154F3F8100843693 /* ISSpeechSynthesis.h */,
-				C3BCFB96154F3F8100843693 /* ISSpeechSynthesisVoices.h */,
-			);
-			name = "iSpeech SDK Headers";
 			path = iSpeechSample;
 			sourceTree = "<group>";
 		};
@@ -3465,6 +3447,19 @@
 				C98FECAE1612B0DC002FA472 /* viewImageViewController.m */,
 			);
 			name = ShareApp;
+			sourceTree = "<group>";
+		};
+		EC265D271FBBAFBE00AB5613 /* iSpeechHeaders */ = {
+			isa = PBXGroup;
+			children = (
+				EC265D2B1FBBAFCF00AB5613 /* iSpeechSDK.h */,
+				EC265D2C1FBBAFCF00AB5613 /* ISSpeechRecognition.h */,
+				EC265D291FBBAFCF00AB5613 /* ISSpeechRecognitionLocales.h */,
+				EC265D2A1FBBAFCF00AB5613 /* ISSpeechRecognitionResult.h */,
+				EC265D2D1FBBAFCF00AB5613 /* ISSpeechSynthesis.h */,
+				EC265D281FBBAFCF00AB5613 /* ISSpeechSynthesisVoices.h */,
+			);
+			name = iSpeechHeaders;
 			sourceTree = "<group>";
 		};
 		F110881115FF1CBF0089BA44 /* TestFlight */ = {
@@ -3856,7 +3851,7 @@
 		C314696E14BF954900E4135F /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0430;
+				LastUpgradeCheck = 0910;
 				TargetAttributes = {
 					B9826BC418C5DCD300D99C46 = {
 						DevelopmentTeam = 75GGG7SP74;
@@ -3890,7 +3885,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				B9826C3118C5DCD300D99C46 /* InfoPlist.strings in Resources */,
-				B9826C3218C5DCD300D99C46 /* iSpeechSDK.bundle in Resources */,
 				B9826C3318C5DCD300D99C46 /* movie11.png in Resources */,
 				B9826C3418C5DCD300D99C46 /* trans1.png in Resources */,
 				B9826C3518C5DCD300D99C46 /* navbarbtn.png in Resources */,
@@ -3947,6 +3941,7 @@
 				B9826C6718C5DCD300D99C46 /* half_star.png in Resources */,
 				B9826C6818C5DCD300D99C46 /* red_aero.png in Resources */,
 				B9826C6918C5DCD300D99C46 /* white-aero.png in Resources */,
+				EC265D321FBBB40F00AB5613 /* iSpeechSDK.bundle in Resources */,
 				B9826C6A18C5DCD300D99C46 /* play.png in Resources */,
 				B9826C6B18C5DCD300D99C46 /* white-music_player.png in Resources */,
 				B9826C6C18C5DCD300D99C46 /* red-button.png in Resources */,
@@ -4017,10 +4012,8 @@
 				B9826CA618C5DCD300D99C46 /* back1.png in Resources */,
 				B9826CA718C5DCD300D99C46 /* BookmarkCustomCell.xib in Resources */,
 				B9826CA818C5DCD300D99C46 /* book_open2.png in Resources */,
-				B98D98B418C82D4B0060F792 /* SecretApp copy2-Info.plist in Resources */,
 				B9826CA918C5DCD300D99C46 /* bookmark1.png in Resources */,
 				B9826CAA18C5DCD300D99C46 /* EditBookmarkView.xib in Resources */,
-				B9826CAB18C5DCD300D99C46 /* movie11.png in Resources */,
 				B9826CAC18C5DCD300D99C46 /* movie.png in Resources */,
 				B9826CAD18C5DCD300D99C46 /* nextbtn1.png in Resources */,
 				B9826CAE18C5DCD300D99C46 /* backbtn1.png in Resources */,
@@ -4490,7 +4483,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				C314698614BF954900E4135F /* InfoPlist.strings in Resources */,
-				C31469A514C08AEB00E4135F /* iSpeechSDK.bundle in Resources */,
 				11836F9515EF3EBA00948B70 /* movie11.png in Resources */,
 				11836F9615EF3EBA00948B70 /* trans1.png in Resources */,
 				11836F9815EF3EBA00948B70 /* navbarbtn.png in Resources */,
@@ -4610,7 +4602,6 @@
 				B9961F8318DBFD8200AAB708 /* ProIcon60x60@2x.png in Resources */,
 				11B20FCB15F099EB0000692D /* toolbar_black.png in Resources */,
 				11B20FEA15F0B8C20000692D /* downloads2.png in Resources */,
-				B98D98B018C82CAA0060F792 /* iSpeechSample-Info.plist in Resources */,
 				11B20FED15F0B8EB0000692D /* download_icon.png in Resources */,
 				11B20FF115F0BAEF0000692D /* back2.png in Resources */,
 				11B20FF315F0BB9A0000692D /* back11.png in Resources */,
@@ -4620,13 +4611,13 @@
 				B98D98B318C82D4B0060F792 /* SecretApp copy2-Info.plist in Resources */,
 				11B2100A15F0E5D20000692D /* bookmark1.png in Resources */,
 				11B2100F15F0EAAD0000692D /* EditBookmarkView.xib in Resources */,
-				1104164315F20E120040E95A /* movie11.png in Resources */,
 				1104164715F20E6F0040E95A /* movie.png in Resources */,
 				11F3594915F4813B0018DF6C /* nextbtn1.png in Resources */,
 				11F3594A15F4813B0018DF6C /* backbtn1.png in Resources */,
 				11F3594B15F4813B0018DF6C /* backBtn.png in Resources */,
 				11F3594F15F4836E0018DF6C /* go-back.png in Resources */,
 				11F3596015F4DDC80018DF6C /* CustomDownloadView.xib in Resources */,
+				ECE374601FBB606700DCA231 /* empty_profile.png in Resources */,
 				118D66FF15F61C2500FAAFE5 /* Circle_Red.png in Resources */,
 				1188C31015F8A1FD00E6A0FE /* Black_Email.png in Resources */,
 				11A094C415F9AF81008CB390 /* iTUnesDataList.xib in Resources */,
@@ -4727,6 +4718,7 @@
 				F1BB6F2D16098E9800A0A708 /* viewTermsAndConditions.xib in Resources */,
 				F1BB6F32160993D300A0A708 /* viewHelp.xib in Resources */,
 				F1BB6F34160993EE00A0A708 /* viewHelp_Ipad.xib in Resources */,
+				EC265D311FBBB40F00AB5613 /* iSpeechSDK.bundle in Resources */,
 				F1C2B7F1160C26830016FCFB /* dot_off3.png in Resources */,
 				F1C2B7F3160C26EA0016FCFB /* ipad_pattern_lock_Screen.jpg in Resources */,
 				F1C2B7F5160C26F90016FCFB /* iphone_pattern_lock_screen.jpg in Resources */,
@@ -4750,7 +4742,6 @@
 				93F3738D1629201B00BD4A94 /* 114.png in Resources */,
 				93F3738F162920A300BD4A94 /* 74.png in Resources */,
 				93F37391162920B300BD4A94 /* 144.png in Resources */,
-				93F3739916293A2100BD4A94 /* empty_profile.png in Resources */,
 				F5951FB316BCD64F00C7682A /* bg.png in Resources */,
 				F5951FB616BCD81500C7682A /* album.png in Resources */,
 				B9961F7D18DBFD8200AAB708 /* ProIcon57x57.png in Resources */,
@@ -5321,10 +5312,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iSpeechSample/iSpeechSample-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = PROVERSION;
-				GCC_THUMB_SUPPORT = YES;
+				GCC_THUMB_SUPPORT = NO;
 				"GCC_THUMB_SUPPORT[arch=armv6]" = YES;
 				INFOPLIST_FILE = "SecretApp copy2-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)",
@@ -5341,9 +5332,11 @@
 					/Users/milangupta/Desktop/Secretapp_22April14,
 					2/TapForTap,
 					"$(PROJECT_DIR)/GoogleMobileAdsSdkiOS-6.12.2",
+					"$(PROJECT_DIR)",
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = "";
+				PRODUCT_BUNDLE_IDENTIFIER = com.sublime.SecretAppPro;
 				PRODUCT_NAME = "Secret Vault Pro";
 				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
@@ -5364,10 +5357,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iSpeechSample/iSpeechSample-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = PROVERSION;
-				GCC_THUMB_SUPPORT = YES;
+				GCC_THUMB_SUPPORT = NO;
 				"GCC_THUMB_SUPPORT[arch=armv6]" = YES;
 				INFOPLIST_FILE = "SecretApp copy2-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)",
@@ -5384,9 +5377,11 @@
 					/Users/milangupta/Desktop/Secretapp_22April14,
 					2/TapForTap,
 					"$(PROJECT_DIR)/GoogleMobileAdsSdkiOS-6.12.2",
+					"$(PROJECT_DIR)",
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = "";
+				PRODUCT_BUNDLE_IDENTIFIER = com.sublime.SecretAppPro;
 				PRODUCT_NAME = "Secret Vault Pro";
 				PROVISIONING_PROFILE = "dc3d0b28-3ea9-40c6-bc41-17e94d6ab7b5";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "dc3d0b28-3ea9-40c6-bc41-17e94d6ab7b5";
@@ -5407,10 +5402,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iSpeechSample/iSpeechSample-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = PROVERSION;
-				GCC_THUMB_SUPPORT = YES;
+				GCC_THUMB_SUPPORT = NO;
 				"GCC_THUMB_SUPPORT[arch=armv6]" = YES;
 				INFOPLIST_FILE = "SecretApp copy2-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)",
@@ -5427,9 +5422,11 @@
 					/Users/milangupta/Desktop/Secretapp_22April14,
 					2/TapForTap,
 					"$(PROJECT_DIR)/GoogleMobileAdsSdkiOS-6.12.2",
+					"$(PROJECT_DIR)",
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = "";
+				PRODUCT_BUNDLE_IDENTIFIER = com.sublime.SecretAppPro;
 				PRODUCT_NAME = "Secret Vault Pro";
 				PROVISIONING_PROFILE = "9C504C91-2206-4ABE-98DC-49B5584A14E3";
 				"PROVISIONING_PROFILE[sdk=*]" = "9C504C91-2206-4ABE-98DC-49B5584A14E3";
@@ -5444,30 +5441,45 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = (
-					armv6,
-					armv7,
-				);
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: sublime applications pty limited  (75GGG7SP74)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: sublime applications pty limited  (75GGG7SP74)";
 				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				EXCLUDED_SOURCE_FILE_NAMES = "";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = "CONFIGURATION_$(CONFIGURATION)";
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				ONLY_ACTIVE_ARCH = YES;
-				OTHER_LDFLAGS = (
-					"-fobjc-arc",
-					"-ObjC",
-				);
+				OTHER_LDFLAGS = "-fobjc-arc";
 				PROVISIONING_PROFILE = "26345460-7327-4F0A-A381-2DABA483FC01";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "26345460-7327-4F0A-A381-2DABA483FC01";
 				SDKROOT = iphoneos;
@@ -5478,28 +5490,42 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = (
-					armv6,
-					armv7,
-				);
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: sublime applications pty limited  (75GGG7SP74)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: sublime applications pty limited  (75GGG7SP74)";
 				COPY_PHASE_STRIP = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				EXCLUDED_SOURCE_FILE_NAMES = "*libTestFlight.a";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = "CONFIGURATION_$(CONFIGURATION)";
 				GCC_THUMB_SUPPORT = "";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
-				OTHER_LDFLAGS = (
-					"-fobjc-arc",
-					"-ObjC",
-				);
+				OTHER_LDFLAGS = "-fobjc-arc";
 				PROVISIONING_PROFILE = "26345460-7327-4F0A-A381-2DABA483FC01";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "26345460-7327-4F0A-A381-2DABA483FC01";
 				SDKROOT = iphoneos;
@@ -5517,10 +5543,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iSpeechSample/iSpeechSample-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = LITEVERSION;
-				GCC_THUMB_SUPPORT = YES;
+				GCC_THUMB_SUPPORT = NO;
 				"GCC_THUMB_SUPPORT[arch=armv6]" = YES;
 				INFOPLIST_FILE = "iSpeechSample/iSpeechSample-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/TapForTap/",
@@ -5528,6 +5554,7 @@
 					"$(PROJECT_DIR)/GoogleMobileAdsSdkiOS-6.12.2",
 				);
 				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sublime.SecretApp;
 				PRODUCT_NAME = "Secret Vault";
 				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
@@ -5548,10 +5575,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iSpeechSample/iSpeechSample-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = LITEVERSION;
-				GCC_THUMB_SUPPORT = YES;
+				GCC_THUMB_SUPPORT = NO;
 				"GCC_THUMB_SUPPORT[arch=armv6]" = YES;
 				INFOPLIST_FILE = "iSpeechSample/iSpeechSample-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/TapForTap/",
@@ -5559,6 +5586,7 @@
 					"$(PROJECT_DIR)/GoogleMobileAdsSdkiOS-6.12.2",
 				);
 				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sublime.SecretApp;
 				PRODUCT_NAME = "Secret Vault";
 				PROVISIONING_PROFILE = "d2220482-764d-4811-821e-2ee99a2a0438";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "d2220482-764d-4811-821e-2ee99a2a0438";
@@ -5572,29 +5600,43 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = (
-					armv6,
-					armv7,
-				);
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: sublime applications pty limited  (75GGG7SP74)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: sublime applications pty limited  (75GGG7SP74)";
 				COPY_PHASE_STRIP = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				EXCLUDED_SOURCE_FILE_NAMES = "";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = "CONFIGURATION_$(CONFIGURATION)";
 				"GCC_PREPROCESSOR_DEFINITIONS[arch=*]" = "";
 				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
-				OTHER_LDFLAGS = (
-					"-fobjc-arc",
-					"-ObjC",
-				);
+				OTHER_LDFLAGS = "-fobjc-arc";
 				PROVISIONING_PROFILE = "26345460-7327-4F0A-A381-2DABA483FC01";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "26345460-7327-4F0A-A381-2DABA483FC01";
 				SDKROOT = iphoneos;
@@ -5613,10 +5655,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iSpeechSample/iSpeechSample-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = LITEVERSION;
-				GCC_THUMB_SUPPORT = YES;
+				GCC_THUMB_SUPPORT = NO;
 				"GCC_THUMB_SUPPORT[arch=armv6]" = YES;
 				INFOPLIST_FILE = "iSpeechSample/iSpeechSample-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/TapForTap/",
@@ -5624,6 +5666,7 @@
 					"$(PROJECT_DIR)/GoogleMobileAdsSdkiOS-6.12.2",
 				);
 				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sublime.SecretApp;
 				PRODUCT_NAME = "Secret Vault";
 				PROVISIONING_PROFILE = "26345460-7327-4F0A-A381-2DABA483FC01";
 				"PROVISIONING_PROFILE[sdk=*]" = "26345460-7327-4F0A-A381-2DABA483FC01";

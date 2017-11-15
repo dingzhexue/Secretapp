@@ -9,10 +9,15 @@
 #endif
 
 #ifdef __OBJC__
-	#import <UIKit/UIKit.h>
+    #import <UIKit/UIKit.h>
 	#import <Foundation/Foundation.h>
     #import "TestFlight.h"
-#import "GlobalFunctions.h"
+    #import <sqlite3.h>
+    #import "GlobalFunctions.h"
+#import "iSpeechSDK.h"
+#import "AppDelegate.h"
+#import "sqlite3.h"
+
 #define SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
 #endif
 

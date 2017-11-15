@@ -10,6 +10,8 @@
 
 @interface ZoomViewController : UIViewController <UIScrollViewDelegate> {
 	UIImageView *image;
+    AppDelegate *app;
+
 }
 
 @end

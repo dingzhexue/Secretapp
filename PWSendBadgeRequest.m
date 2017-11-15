@@ -14,15 +14,15 @@
 @synthesize badge;
 
 - (NSString *) methodName {
-	return @"setBadge";
+    return @"setBadge";
 }
 
 - (NSDictionary *) requestDictionary {
-	NSMutableDictionary *dict = [self baseDictionary];
-	
-	[dict setObject:[NSNumber numberWithInt:badge] forKey:@"badge"];
-	
-	return dict;
+    NSMutableDictionary *dict = [self baseDictionary];
+    
+    dict[@"badge"] = [NSNumber numberWithInt:badge];
+    
+    return dict;
 }
 
 @end

@@ -9,13 +9,10 @@
 #import "AppDelegate.h"
 #import "UIDevice+IdentifierAddition.h"
 #import "UserLoginView.h"
-#import "RootViewController.h"
-#import "iSpeechSDK.h"
 #import "InAppRageIAPHelper.h"
 #import "SplashScreen.h"
 #import "iRate.h"
 #import "DrawPatternLockViewController.h"
-#import "GlobalFunctions.h"
 #import "WelcomeScreen.h"
 
 @implementation AppDelegate
@@ -109,7 +106,7 @@ UINavigationController *navigationController1 ;
      [iRate sharedInstance].applicationBundleID = @"com.sublime.SecretAppPro";
 #endif
    
-	[iRate sharedInstance].onlyPromptIfLatestVersion = NO;
+    [iRate sharedInstance].onlyPromptIfLatestVersion = NO;
     
     //enable preview mode
     [iRate sharedInstance].previewMode = YES;
@@ -119,7 +116,7 @@ UINavigationController *navigationController1 ;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
+    self.window = [[[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds] autorelease];
     lockArray = [[NSMutableArray alloc] init];
     albumArray = [[NSMutableArray alloc] init];
     bookmarkArray = [[NSMutableArray alloc] init];
@@ -148,13 +145,13 @@ UINavigationController *navigationController1 ;
         [application registerForRemoteNotificationTypes:myTypes];
     }
     // Override point for customization after application launch.
-	/*self.viewController = [[[ISViewController alloc] initWithNibName:@"ISViewController" bundle:nil] autorelease];
+    /*self.viewController = [[[ISViewController alloc] initWithNibName:@"ISViewController" bundle:nil] autorelease];
      self.window.rootViewController = self.viewController;
      [self.window makeKeyAndVisible];
      self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];*/
     if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0"))
     {
-        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+        [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
     }
     
     
@@ -208,9 +205,9 @@ UINavigationController *navigationController1 ;
 //        splash=[[SplashScreen alloc]initWithNibName:@"SplashScreen" bundle:nil];
 //    }
     runCount = 0;
-    if([[GlobalFunctions getStringValueFromUserDefaults_ForKey:@"CheckRunCount"] intValue] < 2)
+    if([GlobalFunctions getStringValueFromUserDefaults_ForKey:@"CheckRunCount"].intValue < 2)
     {
-        runCount = [[GlobalFunctions getStringValueFromUserDefaults_ForKey:@"CheckRunCount"] intValue];
+        runCount = [GlobalFunctions getStringValueFromUserDefaults_ForKey:@"CheckRunCount"].intValue;
         WelcomeScreen *welcomeScreen;
         if(UI_USER_INTERFACE_IDIOM()==UIUserInterfaceIdiomPad)
         {
@@ -252,8 +249,8 @@ UINavigationController *navigationController1 ;
     
     [[SKPaymentQueue defaultQueue] addTransactionObserver:[InAppRageIAPHelper sharedHelper]];
     
-	[[iSpeechSDK sharedSDK] setAPIKey:@"developerdemokeydeveloperdemokey"];
-	
+    [[iSpeechSDK sharedSDK] setAPIKey:@"developerdemokeydeveloperdemokey"];
+    
     //TapForTap
 #ifdef LITEVERSION
 //    [TFTTapForTap initializeWithAPIKey:@"E8DB15BE08E53873038C7D6B71235B9E"];
@@ -275,16 +272,16 @@ UINavigationController *navigationController1 ;
 {
     
      NSLog(@"App Exit 1");
-	/*
-	 Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
-	 Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
-	 */
+    /*
+     Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
+     Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
+     */
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
 
-	chngePWD=NO;
+    chngePWD=NO;
     isNewPattern=NO;
     isReEnterPattern=NO;
    // LoginUserID=nil;
@@ -293,31 +290,31 @@ UINavigationController *navigationController1 ;
     
     NSLog(@"App Exit 2");
     /*
-	 Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
-	 If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
-	 */
+     Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
+     If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+     */
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
     if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0"))
     {
-        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+        [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
     }
 
 
     iSBuyCLick=NO;
-	 NSLog(@"App Exit 3");
+     NSLog(@"App Exit 3");
     /*
-	 Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
-	 */
+     Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
+     */
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
-	if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0"))
+    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0"))
     {
-        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+        [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
     }
      NSLog(@"App Exit 4");
     
@@ -356,9 +353,9 @@ UINavigationController *navigationController1 ;
             else
             {
                 runCount = 0;
-                if([[GlobalFunctions getStringValueFromUserDefaults_ForKey:@"CheckRunCount"] intValue] < 2)
+                if([GlobalFunctions getStringValueFromUserDefaults_ForKey:@"CheckRunCount"].intValue < 2)
                 {
-                    runCount = [[GlobalFunctions getStringValueFromUserDefaults_ForKey:@"CheckRunCount"] intValue];
+                    runCount = [GlobalFunctions getStringValueFromUserDefaults_ForKey:@"CheckRunCount"].intValue;
                     WelcomeScreen *welcomeScreen;
                     if(UI_USER_INTERFACE_IDIOM()==UIUserInterfaceIdiomPad)
                     {
@@ -406,7 +403,7 @@ UINavigationController *navigationController1 ;
         BOOL success;
         NSFileManager *fileManager = [NSFileManager defaultManager];
         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-        NSString *documentsDirectory = [paths objectAtIndex:0];
+        NSString *documentsDirectory = paths[0];
         NSString *writableDBPath = [documentsDirectory stringByAppendingPathComponent:@"SecretAppDB.sqlite3"];
         success = [fileManager fileExistsAtPath:writableDBPath];
         if (success)
@@ -418,76 +415,76 @@ UINavigationController *navigationController1 ;
         
     }
     /*
-	 Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-	 */
+     Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+     */
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
 {
-	 NSLog(@"App Exit 5");
+     NSLog(@"App Exit 5");
     
     
     /*
-	 Called when the application is about to terminate.
-	 Save data if appropriate.
-	 See also applicationDidEnterBackground:.
-	 */
+     Called when the application is about to terminate.
+     Save data if appropriate.
+     See also applicationDidEnterBackground:.
+     */
 }
 
 - (void) copyDatabaseIfNeeded
 {
-	NSFileManager *fileManager = [NSFileManager defaultManager];
-	NSError *error;
-	NSString *dbPath = [self getDBPath];
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSError *error;
+    NSString *dbPath = [self getDBPath];
     NSLog(@"Path=== %@",dbPath);
-	BOOL success = [fileManager fileExistsAtPath:dbPath];
-	
-	if(!success)
-	{
-		NSString *defaultDBPath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"SecretAppDB.sqlite3"];
-		success = [fileManager copyItemAtPath:defaultDBPath toPath:dbPath error:&error];
-		if (!success)
-			NSAssert1(0, @"Failed to create writable database file with message '%@'.", [error localizedDescription]);
-	}
+    BOOL success = [fileManager fileExistsAtPath:dbPath];
+    
+    if(!success)
+    {
+        NSString *defaultDBPath = [[NSBundle mainBundle].resourcePath stringByAppendingPathComponent:@"SecretAppDB.sqlite3"];
+        success = [fileManager copyItemAtPath:defaultDBPath toPath:dbPath error:&error];
+        if (!success)
+            NSAssert1(0, @"Failed to create writable database file with message '%@'.", [error localizedDescription]);
+    }
 }
 
 - (NSString *) getDBPath
 {
-	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory , NSUserDomainMask, YES);
-	NSString *documentsDir = [paths objectAtIndex:0];
-	return [documentsDir stringByAppendingPathComponent:@"SecretAppDB.sqlite3"];
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory , NSUserDomainMask, YES);
+    NSString *documentsDir = paths[0];
+    return [documentsDir stringByAppendingPathComponent:@"SecretAppDB.sqlite3"];
 }
 - (void) copyDatabaseIfNeededNew
 {
-	NSFileManager *fileManager = [NSFileManager defaultManager];
-	NSError *error;
-	NSString *dbPath = [self getDBPathNew];
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSError *error;
+    NSString *dbPath = [self getDBPathNew];
     NSLog(@"Path=== %@",dbPath);
-	BOOL success = [fileManager fileExistsAtPath:dbPath];
-	
-	if(!success)
-	{
-		NSString *defaultDBPath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"SecretAppDBNew.sqlite3"];
-		success = [fileManager copyItemAtPath:defaultDBPath toPath:dbPath error:&error];
-		if (!success)
-			NSAssert1(0, @"Failed to create writable database file with message '%@'.", [error localizedDescription]);
-	}
+    BOOL success = [fileManager fileExistsAtPath:dbPath];
+    
+    if(!success)
+    {
+        NSString *defaultDBPath = [[NSBundle mainBundle].resourcePath stringByAppendingPathComponent:@"SecretAppDBNew.sqlite3"];
+        success = [fileManager copyItemAtPath:defaultDBPath toPath:dbPath error:&error];
+        if (!success)
+            NSAssert1(0, @"Failed to create writable database file with message '%@'.", [error localizedDescription]);
+    }
 }
 
 - (NSString *) getDBPathNew
 {
-	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory , NSUserDomainMask, YES);
-	NSString *documentsDir = [paths objectAtIndex:0];
-	return [documentsDir stringByAppendingPathComponent:@"SecretAppDBNew.sqlite3"];
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory , NSUserDomainMask, YES);
+    NSString *documentsDir = paths[0];
+    return [documentsDir stringByAppendingPathComponent:@"SecretAppDBNew.sqlite3"];
 }
 
 +(sqlite3 *) getDBConUserData
 {
     sqlite3 *newDBconnection;
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *documentsDirectory = paths[0];
     NSString *path = [documentsDirectory stringByAppendingPathComponent:@"SecretAppDB.sqlite3"];
-    if (sqlite3_open([path UTF8String], &newDBconnection) == SQLITE_OK)
+    if (sqlite3_open(path.UTF8String, &newDBconnection) == SQLITE_OK)
     {
         // NSLog(@"Database Successfully Opened");
     }
@@ -502,9 +499,9 @@ UINavigationController *navigationController1 ;
 {
     sqlite3 *newDBconnection;
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *documentsDirectory = paths[0];
     NSString *path = [documentsDirectory stringByAppendingPathComponent:@"SecretAppDBNew.sqlite3"];
-    if (sqlite3_open([path UTF8String], &newDBconnection) == SQLITE_OK)
+    if (sqlite3_open(path.UTF8String, &newDBconnection) == SQLITE_OK)
     {
         // NSLog(@"Database Successfully Opened");
     }
@@ -538,9 +535,9 @@ UINavigationController *navigationController1 ;
     NSMutableString *query;
     
     sqlite3_stmt *statement = nil;
-    for (int i = 0; i < [lockArray count] ; i++)
+    for (int i = 0; i < lockArray.count ; i++)
     {
-        AppDelegate *lock = [lockArray objectAtIndex:i];
+        AppDelegate *lock = lockArray[i];
         NSString *uname = [NSString stringWithFormat:@"%@",lock.userName];
         NSString *pwdtxt = [NSString stringWithFormat:@"%@",lock.userPassword];
         NSString *voicetxt = [NSString stringWithFormat:@"%@",lock.userVoiceText];
@@ -549,7 +546,7 @@ UINavigationController *navigationController1 ;
         NSString *pincodetxt = [NSString stringWithFormat:@"%@",lock.userPinCodeText];
         query = [NSMutableString stringWithFormat:@"insert into VerifyUserTbl(UserName,UserPasswordTxt,UserVoiceTxt,PatternCode,DecoyCode,UserPinCodeText) values ('%@','%@','%@','%@','%@','%@')",uname,pwdtxt,voicetxt,patterncode,decoyCode,pincodetxt];
         NSLog(@"%@",query);
-        const char *sql = [query UTF8String];
+        const char *sql = query.UTF8String;
         if(sqlite3_prepare_v2(db,sql, -1, &statement, NULL)!= SQLITE_OK)
             NSAssert1(0,@"error preparing statement in Insert",sqlite3_errmsg(db));
         else
@@ -560,16 +557,16 @@ UINavigationController *navigationController1 ;
             }
         }
     }
-    for (int i = 0; i < [authArray count] ; i++)
+    for (int i = 0; i < authArray.count ; i++)
     {
-        AppDelegate *auth = [authArray objectAtIndex:i];
+        AppDelegate *auth = authArray[i];
         NSString *voiceAuth = [NSString stringWithFormat:@"%@",auth.authVoice];
         NSString *patternAuth = [NSString stringWithFormat:@"%@",auth.authPattern];
         NSString *pinAuth = [NSString stringWithFormat:@"%@",auth.authPincode];
         NSString *uid = [NSString stringWithFormat:@"%@",auth.LoginUserID];
                query = [NSMutableString stringWithFormat:@"insert into AuthentictionCheckTbl(VoiceAuth,PatternAuth,UserID,PinCodeAuth) values ('%@','%@','%@','%@')",voiceAuth,patternAuth,uid,pinAuth];
         NSLog(@"%@",query);
-        const char *sql = [query UTF8String];
+        const char *sql = query.UTF8String;
         if(sqlite3_prepare_v2(db,sql, -1, &statement, NULL)!= SQLITE_OK)
             NSAssert1(0,@"error preparing statement in Insert",sqlite3_errmsg(db));
         else
@@ -581,14 +578,14 @@ UINavigationController *navigationController1 ;
         }
     }
     
-    for (int i = 0; i < [verifyPatternArray count] ; i++)
+    for (int i = 0; i < verifyPatternArray.count ; i++)
     {
-        AppDelegate *pattern = [verifyPatternArray objectAtIndex:i];
+        AppDelegate *pattern = verifyPatternArray[i];
         NSString *patterncode = [NSString stringWithFormat:@"%@",pattern.patternCode];
         NSString *decoypatterncode = [NSString stringWithFormat:@"%@",pattern.decoyPatternCode];
         query = [NSMutableString stringWithFormat:@"insert into VerifyPatternTbl(PatternCode,DecoyPatternCode) values ('%@','%@')",patterncode,decoypatterncode];
         NSLog(@"%@",query);
-        const char *sql = [query UTF8String];
+        const char *sql = query.UTF8String;
         if(sqlite3_prepare_v2(db,sql, -1, &statement, NULL)!= SQLITE_OK)
             NSAssert1(0,@"error preparing statement in Insert",sqlite3_errmsg(db));
         else
@@ -600,15 +597,15 @@ UINavigationController *navigationController1 ;
         }
     }
 
-    for (int i = 0; i < [albumArray count] ; i++)
+    for (int i = 0; i < albumArray.count ; i++)
     {
-        AppDelegate *album = [albumArray objectAtIndex:i];
+        AppDelegate *album = albumArray[i];
         NSString *userID = [NSString stringWithFormat:@"%@",album.LoginUserID];
         NSString *imgpath = [NSString stringWithFormat:@"%@",album.albumImagePath];
         NSString *vdopath = [NSString stringWithFormat:@"%@",album.albumVideoPath];
         query = [NSMutableString stringWithFormat:@"insert into AlbumTbl(UserID,ImagePath,VideoPath) values ('%@','%@','%@')",userID,imgpath,vdopath];
         NSLog(@"%@",query);
-        const char *sql = [query UTF8String];
+        const char *sql = query.UTF8String;
         if(sqlite3_prepare_v2(db,sql, -1, &statement, NULL)!= SQLITE_OK)
             NSAssert1(0,@"error preparing statement in Insert",sqlite3_errmsg(db));
         else
@@ -620,15 +617,15 @@ UINavigationController *navigationController1 ;
         }
     }
 
-    for (int i = 0; i < [bookmarkArray count] ; i++)
+    for (int i = 0; i < bookmarkArray.count ; i++)
     {
-        AppDelegate *bookmark = [bookmarkArray objectAtIndex:i];
+        AppDelegate *bookmark = bookmarkArray[i];
         NSString *userID = [NSString stringWithFormat:@"%@",bookmark.LoginUserID];
         NSString *bookmarkTitle = [NSString stringWithFormat:@"%@",bookmark.bookmarkTblTitle];
         NSString *bookmarkUrl = [NSString stringWithFormat:@"%@",bookmark.bookmarkTblUrl];
         query = [NSMutableString stringWithFormat:@"insert into BookmarkTbl(UserID,BookmarkTitle,BookmarkURL) values ('%@','%@','%@')",userID,bookmarkTitle,bookmarkUrl];
         NSLog(@"%@",query);
-        const char *sql = [query UTF8String];
+        const char *sql = query.UTF8String;
         if(sqlite3_prepare_v2(db,sql, -1, &statement, NULL)!= SQLITE_OK)
             NSAssert1(0,@"error preparing statement in Insert",sqlite3_errmsg(db));
         else
@@ -640,14 +637,14 @@ UINavigationController *navigationController1 ;
         }
     }
 
-    for (int i = 0; i < [notesArray count] ; i++)
+    for (int i = 0; i < notesArray.count ; i++)
     {
-        AppDelegate *notes = [notesArray objectAtIndex:i];
+        AppDelegate *notes = notesArray[i];
         NSString *userID = [NSString stringWithFormat:@"%@",notes.LoginUserID];
         NSString *notetext = [NSString stringWithFormat:@"%@",notes.noteText];
         query = [NSMutableString stringWithFormat:@"insert into NotesTbl(UserID,NoteText) values ('%@','%@')",userID,notetext];
         NSLog(@"%@",query);
-        const char *sql = [query UTF8String];
+        const char *sql = query.UTF8String;
         if(sqlite3_prepare_v2(db,sql, -1, &statement, NULL)!= SQLITE_OK)
             NSAssert1(0,@"error preparing statement in Insert",sqlite3_errmsg(db));
         else
@@ -659,9 +656,9 @@ UINavigationController *navigationController1 ;
         }
     }
 
-    for (int i = 0; i < [contactsArray count] ; i++)
+    for (int i = 0; i < contactsArray.count ; i++)
     {
-        AppDelegate *contacts = [contactsArray objectAtIndex:i];
+        AppDelegate *contacts = contactsArray[i];
         NSString *userID = [NSString stringWithFormat:@"%@",contacts.LoginUserID];
         NSString *conName = [NSString stringWithFormat:@"%@",contacts.contactName];
         NSString *conPhne = [NSString stringWithFormat:@"%@",contacts.contactPhone];
@@ -671,7 +668,7 @@ UINavigationController *navigationController1 ;
         NSString *conPic = [NSString stringWithFormat:@"%@",contacts.contactPic];
         query = [NSMutableString stringWithFormat:@"insert into ContactTbl(UserID,ContName,ContPhone,ContactEmail,ContactRating,ContNote,ContPic) values ('%@','%@','%@','%@','%@','%@','%@')",userID,conName,conPhne,conMail,conRating,conNote,conPic];
         NSLog(@"%@",query);
-        const char *sql = [query UTF8String];
+        const char *sql = query.UTF8String;
         if(sqlite3_prepare_v2(db,sql, -1, &statement, NULL)!= SQLITE_OK)
             NSAssert1(0,@"error preparing statement in Insert",sqlite3_errmsg(db));
         else
@@ -683,9 +680,9 @@ UINavigationController *navigationController1 ;
         }
     }
 
-    for (int i = 0; i < [audioArray count] ; i++)
+    for (int i = 0; i < audioArray.count ; i++)
     {
-        AppDelegate *audio = [audioArray objectAtIndex:i];
+        AppDelegate *audio = audioArray[i];
         NSString *userID = [NSString stringWithFormat:@"%@",audio.LoginUserID];
         NSString *audTitle = [NSString stringWithFormat:@"%@",audio.audioTitle];
         NSString *audPath = [NSString stringWithFormat:@"%@",audio.audioPath];
@@ -693,7 +690,7 @@ UINavigationController *navigationController1 ;
         NSString *audTime = [NSString stringWithFormat:@"%@",audio.audioTime];
         query = [NSMutableString stringWithFormat:@"insert into AudioTbl(UserID,AudioTitle,AudioPath,AudioTime,AudioDate) values ('%@','%@','%@','%@','%@')",userID,audTitle,audPath,audDate,audTime];
         NSLog(@"%@",query);
-        const char *sql = [query UTF8String];
+        const char *sql = query.UTF8String;
         if(sqlite3_prepare_v2(db,sql, -1, &statement, NULL)!= SQLITE_OK)
             NSAssert1(0,@"error preparing statement in Insert",sqlite3_errmsg(db));
         else
@@ -705,9 +702,9 @@ UINavigationController *navigationController1 ;
         }
     }
 
-    for (int i = 0; i < [videoArray count] ; i++)
+    for (int i = 0; i < videoArray.count ; i++)
     {
-        AppDelegate *video = [videoArray objectAtIndex:i];
+        AppDelegate *video = videoArray[i];
         NSString *userID = [NSString stringWithFormat:@"%@",video.LoginUserID];
         NSString *vdoPath = [NSString stringWithFormat:@"%@",video.videoPath];
         NSString *vdoTitle = [NSString stringWithFormat:@"%@",video.videoTitle];
@@ -715,7 +712,7 @@ UINavigationController *navigationController1 ;
         NSString *vdorectime = [NSString stringWithFormat:@"%@",video.videoRecTime];
         query = [NSMutableString stringWithFormat:@"insert into VideoTbl(UserID,VideoPath,VideoTitle,VideoDate,VideoRecTime) values ('%@','%@','%@','%@','%@')",userID,vdoPath,vdoTitle,vdoDate,vdorectime];
         NSLog(@"%@",query);
-        const char *sql = [query UTF8String];
+        const char *sql = query.UTF8String;
         if(sqlite3_prepare_v2(db,sql, -1, &statement, NULL)!= SQLITE_OK)
             NSAssert1(0,@"error preparing statement in Insert",sqlite3_errmsg(db));
         else
@@ -727,16 +724,16 @@ UINavigationController *navigationController1 ;
         }
     }
 
-    for (int i = 0; i < [musicArray count] ; i++)
+    for (int i = 0; i < musicArray.count ; i++)
     {
-        AppDelegate *music = [musicArray objectAtIndex:i];
+        AppDelegate *music = musicArray[i];
         NSString *userID = [NSString stringWithFormat:@"%@",music.LoginUserID];
         NSString *musictitle = [NSString stringWithFormat:@"%@",music.musicTitle];
         NSString *musicpath = [NSString stringWithFormat:@"%@",music.musicPath];
         NSString *musicdate = [NSString stringWithFormat:@"%@",music.musicDate];
         query = [NSMutableString stringWithFormat:@"insert into MusicTbl(UserID,MusicTitle,MuscPath,MusicDate) values ('%@','%@','%@','%@')",userID,musictitle,musicpath,musicdate];
         NSLog(@"%@",query);
-        const char *sql = [query UTF8String];
+        const char *sql = query.UTF8String;
         if(sqlite3_prepare_v2(db,sql, -1, &statement, NULL)!= SQLITE_OK)
             NSAssert1(0,@"error preparing statement in Insert",sqlite3_errmsg(db));
         else
@@ -748,9 +745,9 @@ UINavigationController *navigationController1 ;
         }
     }
     
-    for (int i = 0; i < [autoLogOffArray count] ; i++)
+    for (int i = 0; i < autoLogOffArray.count ; i++)
     {
-        AppDelegate *autoLog = [autoLogOffArray objectAtIndex:i];
+        AppDelegate *autoLog = autoLogOffArray[i];
         NSString *userID = [NSString stringWithFormat:@"%@",autoLog.LoginUserID];
         NSString *time = [NSString stringWithFormat:@"%@",autoLog.logOffTime];
         NSString *breakinphoto = [NSString stringWithFormat:@"%@",autoLog.logOfBrekinPhoto];
@@ -764,7 +761,7 @@ UINavigationController *navigationController1 ;
         NSString *facebook = [NSString stringWithFormat:@"%@",autoLog.logOffFacebook];
         query = [NSMutableString stringWithFormat:@"insert into AutoLogOffTbl(UserID,Time,BrekinPhoto,LoginPhoto,HighQuality,Duration,Transition,Repeat,Shuffle,UseDeskAgent,Facebook) values ('%@','%@','%@','%@','%@','%@','%@','%@','%@','%@','%@')",userID,time,breakinphoto,loginphoto,highquality,duration,transition,repeat,shuffle,userdeskagent,facebook];
         NSLog(@"%@",query);
-        const char *sql = [query UTF8String];
+        const char *sql = query.UTF8String;
         if(sqlite3_prepare_v2(db,sql, -1, &statement, NULL)!= SQLITE_OK)
             NSAssert1(0,@"error preparing statement in Insert",sqlite3_errmsg(db));
         else
@@ -776,9 +773,9 @@ UINavigationController *navigationController1 ;
         }
     }
 
-    for (int i = 0; i < [viewImageLogArray count] ; i++)
+    for (int i = 0; i < viewImageLogArray.count ; i++)
     {
-        AppDelegate *viewImage = [viewImageLogArray objectAtIndex:i];
+        AppDelegate *viewImage = viewImageLogArray[i];
         NSString *userID = [NSString stringWithFormat:@"%@",viewImage.LoginUserID];
         NSString *imgpath = [NSString stringWithFormat:@"%@",viewImage.imgLogImagePath];
         NSString *isbreakin = [NSString stringWithFormat:@"%@",viewImage.imgLogIsBreakin];
@@ -787,7 +784,7 @@ UINavigationController *navigationController1 ;
         NSString *logindate = [NSString stringWithFormat:@"%@",viewImage.imgLogLoginDate];
         query = [NSMutableString stringWithFormat:@"insert into ViewImageLogtbl(UserID,ImagePath,isBreakIn,isLogin,logInTime,loginDate) values ('%@','%@','%@','%@','%@','%@')",userID,imgpath,isbreakin,islogin,logintime,logindate];
         NSLog(@"%@",query);
-        const char *sql = [query UTF8String];
+        const char *sql = query.UTF8String;
         if(sqlite3_prepare_v2(db,sql, -1, &statement, NULL)!= SQLITE_OK)
             NSAssert1(0,@"error preparing statement in Insert",sqlite3_errmsg(db));
         else
@@ -805,7 +802,7 @@ UINavigationController *navigationController1 ;
     
     
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *documentsDirectory = paths[0];
     NSString *DBPath = [documentsDirectory stringByAppendingPathComponent:@"SecretAppDB.sqlite3"];
     NSFileManager *fileManager = [NSFileManager defaultManager];
     [fileManager removeItemAtPath:DBPath error:NULL];
@@ -817,7 +814,7 @@ UINavigationController *navigationController1 ;
     sqlite3 *db = [AppDelegate getDBConUserData];
     NSMutableString *query;
     query = [NSMutableString stringWithFormat:@"select * from VerifyUserTbl"];
-    const char *sql = [query UTF8String];
+    const char *sql = query.UTF8String;
     sqlite3_stmt *statement = nil;
     if(sqlite3_prepare_v2(db,sql, -1, &statement, NULL)!= SQLITE_OK)
         NSAssert1(0,@"error preparing statement in BackUp",sqlite3_errmsg(db));
@@ -826,19 +823,19 @@ UINavigationController *navigationController1 ;
         [lockArray removeAllObjects];
         while(sqlite3_step(statement)==SQLITE_ROW)
         {
-            const char *username = ((const char *) sqlite3_column_text(statement, 1) == NULL) ? [[NSString stringWithFormat:@""] UTF8String] : (const char *) sqlite3_column_text(statement, 1);
-            const char *userpasswordtext = ((const char *) sqlite3_column_text(statement, 2) == NULL) ? [[NSString stringWithFormat:@""] UTF8String] : (const char *) sqlite3_column_text(statement, 2);
-            const char *uservoicetext = ((const char *) sqlite3_column_text(statement, 3) == NULL) ? [[NSString stringWithFormat:@""] UTF8String] : (const char *) sqlite3_column_text(statement, 3);
-            const char *userpatterncode = ((const char *) sqlite3_column_text(statement, 4) == NULL) ? [[NSString stringWithFormat:@""] UTF8String] : (const char *) sqlite3_column_text(statement, 4);
-            const char *decoycode = ((const char *) sqlite3_column_text(statement, 5) == NULL) ? [[NSString stringWithFormat:@""] UTF8String] : (const char *) sqlite3_column_text(statement, 5);
-            const char *userpincodetext = ((const char *) sqlite3_column_text(statement, 6) == NULL) ? [[NSString stringWithFormat:@""] UTF8String] : (const char *) sqlite3_column_text(statement, 6);
+            const char *username = ((const char *) sqlite3_column_text(statement, 1) == NULL) ? [NSString stringWithFormat:@""].UTF8String : (const char *) sqlite3_column_text(statement, 1);
+            const char *userpasswordtext = ((const char *) sqlite3_column_text(statement, 2) == NULL) ? [NSString stringWithFormat:@""].UTF8String : (const char *) sqlite3_column_text(statement, 2);
+            const char *uservoicetext = ((const char *) sqlite3_column_text(statement, 3) == NULL) ? [NSString stringWithFormat:@""].UTF8String : (const char *) sqlite3_column_text(statement, 3);
+            const char *userpatterncode = ((const char *) sqlite3_column_text(statement, 4) == NULL) ? [NSString stringWithFormat:@""].UTF8String : (const char *) sqlite3_column_text(statement, 4);
+            const char *decoycode = ((const char *) sqlite3_column_text(statement, 5) == NULL) ? [NSString stringWithFormat:@""].UTF8String : (const char *) sqlite3_column_text(statement, 5);
+            const char *userpincodetext = ((const char *) sqlite3_column_text(statement, 6) == NULL) ? [NSString stringWithFormat:@""].UTF8String : (const char *) sqlite3_column_text(statement, 6);
             AppDelegate *userObj = [[AppDelegate alloc] init];
-            userObj.userName = [NSString stringWithUTF8String:username];
-            userObj.userPassword = [NSString stringWithUTF8String:userpasswordtext];
-            userObj.userVoiceText = [NSString stringWithUTF8String:uservoicetext];
-            userObj.userPatternCode = [NSString stringWithUTF8String:userpatterncode];
-            userObj.userDecoyCode = [NSString stringWithUTF8String:decoycode];
-            userObj.userPinCodeText = [NSString stringWithUTF8String:userpincodetext];
+            userObj.userName = @(username);
+            userObj.userPassword = @(userpasswordtext);
+            userObj.userVoiceText = @(uservoicetext);
+            userObj.userPatternCode = @(userpatterncode);
+            userObj.userDecoyCode = @(decoycode);
+            userObj.userPinCodeText = @(userpincodetext);
             [lockArray addObject:userObj];
             NSLog(@"Array :::::%@",userObj);
         }
@@ -854,7 +851,7 @@ UINavigationController *navigationController1 ;
     sqlite3 *db = [AppDelegate getDBConUserData];
     NSMutableString *query;
     query = [NSMutableString stringWithFormat:@"select * from VerifyPatternTbl"];
-    const char *sql = [query UTF8String];
+    const char *sql = query.UTF8String;
     sqlite3_stmt *statement = nil;
     if(sqlite3_prepare_v2(db,sql, -1, &statement, NULL)!= SQLITE_OK)
         NSAssert1(0,@"error preparing statement in BackUp",sqlite3_errmsg(db));
@@ -863,12 +860,12 @@ UINavigationController *navigationController1 ;
         [verifyPatternArray removeAllObjects];
         while(sqlite3_step(statement)==SQLITE_ROW)
         {
-            const char *pttrncode = ((const char *) sqlite3_column_text(statement, 0) == NULL) ? [[NSString stringWithFormat:@""] UTF8String] : (const char *) sqlite3_column_text(statement, 0);
-            const char *decoypttrncode = ((const char *) sqlite3_column_text(statement, 1) == NULL) ? [[NSString stringWithFormat:@""] UTF8String] : (const char *) sqlite3_column_text(statement, 1);
+            const char *pttrncode = ((const char *) sqlite3_column_text(statement, 0) == NULL) ? [NSString stringWithFormat:@""].UTF8String : (const char *) sqlite3_column_text(statement, 0);
+            const char *decoypttrncode = ((const char *) sqlite3_column_text(statement, 1) == NULL) ? [NSString stringWithFormat:@""].UTF8String : (const char *) sqlite3_column_text(statement, 1);
             
             AppDelegate *patternObj = [[AppDelegate alloc] init];
-            patternObj.patternCode = [NSString stringWithUTF8String:pttrncode];
-            patternObj.decoyPatternCode = [NSString stringWithUTF8String:decoypttrncode];
+            patternObj.patternCode = @(pttrncode);
+            patternObj.decoyPatternCode = @(decoypttrncode);
             [verifyPatternArray addObject:patternObj];
             NSLog(@"Array :::::%@",patternObj);
         }
@@ -885,7 +882,7 @@ UINavigationController *navigationController1 ;
     sqlite3 *db = [AppDelegate getDBConUserData];
     NSMutableString *query;
     query = [NSMutableString stringWithFormat:@"select * from AuthentictionCheckTbl"];
-    const char *sql = [query UTF8String];
+    const char *sql = query.UTF8String;
     sqlite3_stmt *statement = nil;
     if(sqlite3_prepare_v2(db,sql, -1, &statement, NULL)!= SQLITE_OK)
         NSAssert1(0,@"error preparing statement in BackUp",sqlite3_errmsg(db));
@@ -894,15 +891,15 @@ UINavigationController *navigationController1 ;
         [authArray removeAllObjects];
         while(sqlite3_step(statement)==SQLITE_ROW)
         {
-            const char *authvoice = ((const char *) sqlite3_column_text(statement, 0) == NULL) ? [[NSString stringWithFormat:@""] UTF8String] : (const char *) sqlite3_column_text(statement, 0);
-            const char *authpattern = ((const char *) sqlite3_column_text(statement, 1) == NULL) ? [[NSString stringWithFormat:@""] UTF8String] : (const char *) sqlite3_column_text(statement, 1);
-            const char *userid = ((const char *) sqlite3_column_text(statement, 2) == NULL) ? [[NSString stringWithFormat:@""] UTF8String] : (const char *) sqlite3_column_text(statement, 2);
-            const char *pincodeauth = ((const char *) sqlite3_column_text(statement, 3) == NULL) ? [[NSString stringWithFormat:@""] UTF8String] : (const char *) sqlite3_column_text(statement, 3);
+            const char *authvoice = ((const char *) sqlite3_column_text(statement, 0) == NULL) ? [NSString stringWithFormat:@""].UTF8String : (const char *) sqlite3_column_text(statement, 0);
+            const char *authpattern = ((const char *) sqlite3_column_text(statement, 1) == NULL) ? [NSString stringWithFormat:@""].UTF8String : (const char *) sqlite3_column_text(statement, 1);
+            const char *userid = ((const char *) sqlite3_column_text(statement, 2) == NULL) ? [NSString stringWithFormat:@""].UTF8String : (const char *) sqlite3_column_text(statement, 2);
+            const char *pincodeauth = ((const char *) sqlite3_column_text(statement, 3) == NULL) ? [NSString stringWithFormat:@""].UTF8String : (const char *) sqlite3_column_text(statement, 3);
             AppDelegate *authObj = [[AppDelegate alloc] init];
-            authObj.authVoice = [NSString stringWithUTF8String:authvoice];
-            authObj.authPattern = [NSString stringWithUTF8String:authpattern];
-            authObj.authPincode = [NSString stringWithUTF8String:pincodeauth];
-            authObj.LoginUserID = [NSString stringWithUTF8String:userid];
+            authObj.authVoice = @(authvoice);
+            authObj.authPattern = @(authpattern);
+            authObj.authPincode = @(pincodeauth);
+            authObj.LoginUserID = @(userid);
             [authArray addObject:authObj];
             NSLog(@"Array :::::%@",authObj);
         }
@@ -919,7 +916,7 @@ UINavigationController *navigationController1 ;
     sqlite3 *db = [AppDelegate getDBConUserData];
     NSMutableString *query;
     query = [NSMutableString stringWithFormat:@"select * from AlbumTbl"];
-    const char *sql = [query UTF8String];
+    const char *sql = query.UTF8String;
     sqlite3_stmt *statement = nil;
     if(sqlite3_prepare_v2(db,sql, -1, &statement, NULL)!= SQLITE_OK)
         NSAssert1(0,@"error preparing statement in BackUp",sqlite3_errmsg(db));
@@ -928,14 +925,14 @@ UINavigationController *navigationController1 ;
         [albumArray removeAllObjects];
         while(sqlite3_step(statement)==SQLITE_ROW)
         {
-            const char *userID = ((const char *) sqlite3_column_text(statement, 1) == NULL) ? [[NSString stringWithFormat:@""] UTF8String] : (const char *) sqlite3_column_text(statement, 1);
-            const char *imagePath = ((const char *) sqlite3_column_text(statement, 2) == NULL) ? [[NSString stringWithFormat:@""] UTF8String] : (const char *) sqlite3_column_text(statement, 2);
-            const char *videopath = ((const char *) sqlite3_column_text(statement, 3) == NULL) ? [[NSString stringWithFormat:@""] UTF8String] : (const char *) sqlite3_column_text(statement, 3);
+            const char *userID = ((const char *) sqlite3_column_text(statement, 1) == NULL) ? [NSString stringWithFormat:@""].UTF8String : (const char *) sqlite3_column_text(statement, 1);
+            const char *imagePath = ((const char *) sqlite3_column_text(statement, 2) == NULL) ? [NSString stringWithFormat:@""].UTF8String : (const char *) sqlite3_column_text(statement, 2);
+            const char *videopath = ((const char *) sqlite3_column_text(statement, 3) == NULL) ? [NSString stringWithFormat:@""].UTF8String : (const char *) sqlite3_column_text(statement, 3);
             
             AppDelegate *albumObj = [[AppDelegate alloc] init];
-            albumObj.LoginUserID = [NSString stringWithUTF8String:userID];
-            albumObj.albumImagePath = [NSString stringWithUTF8String:imagePath];
-            albumObj.albumVideoPath = [NSString stringWithUTF8String:videopath];
+            albumObj.LoginUserID = @(userID);
+            albumObj.albumImagePath = @(imagePath);
+            albumObj.albumVideoPath = @(videopath);
             [albumArray addObject:albumObj];
             NSLog(@"Array :::::%@",albumObj);
         }
@@ -951,7 +948,7 @@ UINavigationController *navigationController1 ;
     sqlite3 *db = [AppDelegate getDBConUserData];
     NSMutableString *query;
     query = [NSMutableString stringWithFormat:@"select * from BookmarkTbl"];
-    const char *sql = [query UTF8String];
+    const char *sql = query.UTF8String;
     sqlite3_stmt *statement = nil;
     if(sqlite3_prepare_v2(db,sql, -1, &statement, NULL)!= SQLITE_OK)
         NSAssert1(0,@"error preparing statement in BackUp",sqlite3_errmsg(db));
@@ -960,14 +957,14 @@ UINavigationController *navigationController1 ;
         [bookmarkArray removeAllObjects];
         while(sqlite3_step(statement)==SQLITE_ROW)
         {
-            const char *userID = ((const char *) sqlite3_column_text(statement, 1) == NULL) ? [[NSString stringWithFormat:@""] UTF8String] : (const char *) sqlite3_column_text(statement, 1);
-            const char *bookmarkTitle = ((const char *) sqlite3_column_text(statement, 2) == NULL) ? [[NSString stringWithFormat:@""] UTF8String] : (const char *) sqlite3_column_text(statement, 2);
-            const char *bookmarkUrl = ((const char *) sqlite3_column_text(statement, 3) == NULL) ? [[NSString stringWithFormat:@""] UTF8String] : (const char *) sqlite3_column_text(statement, 3);
+            const char *userID = ((const char *) sqlite3_column_text(statement, 1) == NULL) ? [NSString stringWithFormat:@""].UTF8String : (const char *) sqlite3_column_text(statement, 1);
+            const char *bookmarkTitle = ((const char *) sqlite3_column_text(statement, 2) == NULL) ? [NSString stringWithFormat:@""].UTF8String : (const char *) sqlite3_column_text(statement, 2);
+            const char *bookmarkUrl = ((const char *) sqlite3_column_text(statement, 3) == NULL) ? [NSString stringWithFormat:@""].UTF8String : (const char *) sqlite3_column_text(statement, 3);
             
             AppDelegate *bookmarkObj = [[AppDelegate alloc] init];
-            bookmarkObj.LoginUserID = [NSString stringWithUTF8String:userID];
-            bookmarkObj.bookmarkTblTitle = [NSString stringWithUTF8String:bookmarkTitle];
-            bookmarkObj.bookmarkTblUrl = [NSString stringWithUTF8String:bookmarkUrl];
+            bookmarkObj.LoginUserID = @(userID);
+            bookmarkObj.bookmarkTblTitle = @(bookmarkTitle);
+            bookmarkObj.bookmarkTblUrl = @(bookmarkUrl);
             [bookmarkArray addObject:bookmarkObj];
             NSLog(@"Array :::::%@",bookmarkObj);
         }
@@ -983,7 +980,7 @@ UINavigationController *navigationController1 ;
     sqlite3 *db = [AppDelegate getDBConUserData];
     NSMutableString *query;
     query = [NSMutableString stringWithFormat:@"select * from NotesTbl"];
-    const char *sql = [query UTF8String];
+    const char *sql = query.UTF8String;
     sqlite3_stmt *statement = nil;
     if(sqlite3_prepare_v2(db,sql, -1, &statement, NULL)!= SQLITE_OK)
         NSAssert1(0,@"error preparing statement in BackUp",sqlite3_errmsg(db));
@@ -992,12 +989,12 @@ UINavigationController *navigationController1 ;
         [notesArray removeAllObjects];
         while(sqlite3_step(statement)==SQLITE_ROW)
         {
-            const char *userID = ((const char *) sqlite3_column_text(statement, 1) == NULL) ? [[NSString stringWithFormat:@""] UTF8String] : (const char *) sqlite3_column_text(statement, 1);
-            const char *notesText = ((const char *) sqlite3_column_text(statement, 2) == NULL) ? [[NSString stringWithFormat:@""] UTF8String] : (const char *) sqlite3_column_text(statement, 2);
+            const char *userID = ((const char *) sqlite3_column_text(statement, 1) == NULL) ? [NSString stringWithFormat:@""].UTF8String : (const char *) sqlite3_column_text(statement, 1);
+            const char *notesText = ((const char *) sqlite3_column_text(statement, 2) == NULL) ? [NSString stringWithFormat:@""].UTF8String : (const char *) sqlite3_column_text(statement, 2);
             
             AppDelegate *notesObj = [[AppDelegate alloc] init];
-            notesObj.LoginUserID = [NSString stringWithUTF8String:userID];
-            notesObj.noteText = [NSString stringWithUTF8String:notesText];
+            notesObj.LoginUserID = @(userID);
+            notesObj.noteText = @(notesText);
             [albumArray addObject:notesObj];
             NSLog(@"Array :::::%@",notesObj);
         }
@@ -1013,7 +1010,7 @@ UINavigationController *navigationController1 ;
     sqlite3 *db = [AppDelegate getDBConUserData];
     NSMutableString *query;
     query = [NSMutableString stringWithFormat:@"select * from ContactTbl"];
-    const char *sql = [query UTF8String];
+    const char *sql = query.UTF8String;
     sqlite3_stmt *statement = nil;
     if(sqlite3_prepare_v2(db,sql, -1, &statement, NULL)!= SQLITE_OK)
         NSAssert1(0,@"error preparing statement in BackUp",sqlite3_errmsg(db));
@@ -1022,22 +1019,22 @@ UINavigationController *navigationController1 ;
         [contactsArray removeAllObjects];
         while(sqlite3_step(statement)==SQLITE_ROW)
         {
-            const char *userID = ((const char *) sqlite3_column_text(statement, 1) == NULL) ? [[NSString stringWithFormat:@""] UTF8String] : (const char *) sqlite3_column_text(statement, 1);
-            const char *conName = ((const char *) sqlite3_column_text(statement, 2) == NULL) ? [[NSString stringWithFormat:@""] UTF8String] : (const char *) sqlite3_column_text(statement, 2);
-            const char *conPhne = ((const char *) sqlite3_column_text(statement, 3) == NULL) ? [[NSString stringWithFormat:@""] UTF8String] : (const char *) sqlite3_column_text(statement, 3);
-            const char *conMail = ((const char *) sqlite3_column_text(statement, 4) == NULL) ? [[NSString stringWithFormat:@""] UTF8String] : (const char *) sqlite3_column_text(statement, 4);
-            const char *conRating = ((const char *) sqlite3_column_text(statement, 5) == NULL) ? [[NSString stringWithFormat:@""] UTF8String] : (const char *) sqlite3_column_text(statement, 5);
-            const char *conNote = ((const char *) sqlite3_column_text(statement, 6) == NULL) ? [[NSString stringWithFormat:@""] UTF8String] : (const char *) sqlite3_column_text(statement, 6);
-            const char *conPic = ((const char *) sqlite3_column_text(statement, 7) == NULL) ? [[NSString stringWithFormat:@""] UTF8String] : (const char *) sqlite3_column_text(statement, 7);
+            const char *userID = ((const char *) sqlite3_column_text(statement, 1) == NULL) ? [NSString stringWithFormat:@""].UTF8String : (const char *) sqlite3_column_text(statement, 1);
+            const char *conName = ((const char *) sqlite3_column_text(statement, 2) == NULL) ? [NSString stringWithFormat:@""].UTF8String : (const char *) sqlite3_column_text(statement, 2);
+            const char *conPhne = ((const char *) sqlite3_column_text(statement, 3) == NULL) ? [NSString stringWithFormat:@""].UTF8String : (const char *) sqlite3_column_text(statement, 3);
+            const char *conMail = ((const char *) sqlite3_column_text(statement, 4) == NULL) ? [NSString stringWithFormat:@""].UTF8String : (const char *) sqlite3_column_text(statement, 4);
+            const char *conRating = ((const char *) sqlite3_column_text(statement, 5) == NULL) ? [NSString stringWithFormat:@""].UTF8String : (const char *) sqlite3_column_text(statement, 5);
+            const char *conNote = ((const char *) sqlite3_column_text(statement, 6) == NULL) ? [NSString stringWithFormat:@""].UTF8String : (const char *) sqlite3_column_text(statement, 6);
+            const char *conPic = ((const char *) sqlite3_column_text(statement, 7) == NULL) ? [NSString stringWithFormat:@""].UTF8String : (const char *) sqlite3_column_text(statement, 7);
             
             AppDelegate *contactObj = [[AppDelegate alloc] init];
-            contactObj.LoginUserID = [NSString stringWithUTF8String:userID];
-            contactObj.contactName = [NSString stringWithUTF8String:conName];
-            contactObj.contactPhone = [NSString stringWithUTF8String:conPhne];
-            contactObj.contactEmail = [NSString stringWithUTF8String:conMail];
-            contactObj.contactRating = [NSString stringWithUTF8String:conRating];
-            contactObj.contactNote = [NSString stringWithUTF8String:conNote];
-            contactObj.contactPic = [NSString stringWithUTF8String:conPic];
+            contactObj.LoginUserID = @(userID);
+            contactObj.contactName = @(conName);
+            contactObj.contactPhone = @(conPhne);
+            contactObj.contactEmail = @(conMail);
+            contactObj.contactRating = @(conRating);
+            contactObj.contactNote = @(conNote);
+            contactObj.contactPic = @(conPic);
             [contactsArray addObject:contactObj];
             NSLog(@"Array :::::%@",contactObj);
         }
@@ -1053,7 +1050,7 @@ UINavigationController *navigationController1 ;
     sqlite3 *db = [AppDelegate getDBConUserData];
     NSMutableString *query;
     query = [NSMutableString stringWithFormat:@"select * from AudioTbl"];
-    const char *sql = [query UTF8String];
+    const char *sql = query.UTF8String;
     sqlite3_stmt *statement = nil;
     if(sqlite3_prepare_v2(db,sql, -1, &statement, NULL)!= SQLITE_OK)
         NSAssert1(0,@"error preparing statement in BackUp",sqlite3_errmsg(db));
@@ -1062,18 +1059,18 @@ UINavigationController *navigationController1 ;
         [audioArray removeAllObjects];
         while(sqlite3_step(statement)==SQLITE_ROW)
         {
-            const char *userID = ((const char *) sqlite3_column_text(statement, 1) == NULL) ? [[NSString stringWithFormat:@""] UTF8String] : (const char *) sqlite3_column_text(statement, 1);
-            const char *audTitle = ((const char *) sqlite3_column_text(statement, 2) == NULL) ? [[NSString stringWithFormat:@""] UTF8String] : (const char *) sqlite3_column_text(statement, 2);
-            const char *audPath = ((const char *) sqlite3_column_text(statement, 3) == NULL) ? [[NSString stringWithFormat:@""] UTF8String] : (const char *) sqlite3_column_text(statement, 3);
-            const char *audTime = ((const char *) sqlite3_column_text(statement, 4) == NULL) ? [[NSString stringWithFormat:@""] UTF8String] : (const char *) sqlite3_column_text(statement, 4);
-            const char *audDate = ((const char *) sqlite3_column_text(statement, 5) == NULL) ? [[NSString stringWithFormat:@""] UTF8String] : (const char *) sqlite3_column_text(statement, 5);
+            const char *userID = ((const char *) sqlite3_column_text(statement, 1) == NULL) ? [NSString stringWithFormat:@""].UTF8String : (const char *) sqlite3_column_text(statement, 1);
+            const char *audTitle = ((const char *) sqlite3_column_text(statement, 2) == NULL) ? [NSString stringWithFormat:@""].UTF8String : (const char *) sqlite3_column_text(statement, 2);
+            const char *audPath = ((const char *) sqlite3_column_text(statement, 3) == NULL) ? [NSString stringWithFormat:@""].UTF8String : (const char *) sqlite3_column_text(statement, 3);
+            const char *audTime = ((const char *) sqlite3_column_text(statement, 4) == NULL) ? [NSString stringWithFormat:@""].UTF8String : (const char *) sqlite3_column_text(statement, 4);
+            const char *audDate = ((const char *) sqlite3_column_text(statement, 5) == NULL) ? [NSString stringWithFormat:@""].UTF8String : (const char *) sqlite3_column_text(statement, 5);
 
             AppDelegate *audioObj=[[AppDelegate alloc] init];
-            audioObj.LoginUserID = [NSString stringWithUTF8String:userID];
-            audioObj.audioTitle = [NSString stringWithUTF8String:audTitle];
-            audioObj.audioPath = [NSString stringWithUTF8String:audPath];
-            audioObj.audioTime = [NSString stringWithUTF8String:audTime];
-            audioObj.audioDate = [NSString stringWithUTF8String:audDate];
+            audioObj.LoginUserID = @(userID);
+            audioObj.audioTitle = @(audTitle);
+            audioObj.audioPath = @(audPath);
+            audioObj.audioTime = @(audTime);
+            audioObj.audioDate = @(audDate);
             [audioArray addObject:audioObj];
             NSLog(@"Array :::::%@",audioObj);
         }
@@ -1089,7 +1086,7 @@ UINavigationController *navigationController1 ;
     sqlite3 *db = [AppDelegate getDBConUserData];
     NSMutableString *query;
     query = [NSMutableString stringWithFormat:@"select * from VideoTbl"];
-    const char *sql = [query UTF8String];
+    const char *sql = query.UTF8String;
     sqlite3_stmt *statement = nil;
     if(sqlite3_prepare_v2(db,sql, -1, &statement, NULL)!= SQLITE_OK)
         NSAssert1(0,@"error preparing statement in BackUp",sqlite3_errmsg(db));
@@ -1098,18 +1095,18 @@ UINavigationController *navigationController1 ;
         [videoArray removeAllObjects];
         while(sqlite3_step(statement)==SQLITE_ROW)
         {
-            const char *userID = ((const char *) sqlite3_column_text(statement, 1) == NULL) ? [[NSString stringWithFormat:@""] UTF8String] : (const char *) sqlite3_column_text(statement, 1);
-            const char *vdoPath = ((const char *) sqlite3_column_text(statement, 2) == NULL) ? [[NSString stringWithFormat:@""] UTF8String] : (const char *) sqlite3_column_text(statement, 2);
-            const char *vdoTitle = ((const char *) sqlite3_column_text(statement, 3) == NULL) ? [[NSString stringWithFormat:@""] UTF8String] : (const char *) sqlite3_column_text(statement, 3);
-            const char *vdoDate = ((const char *) sqlite3_column_text(statement, 4) == NULL) ? [[NSString stringWithFormat:@""] UTF8String] : (const char *) sqlite3_column_text(statement, 4);
-            const char *vdoRecTime = ((const char *) sqlite3_column_text(statement, 5) == NULL) ? [[NSString stringWithFormat:@""] UTF8String] : (const char *) sqlite3_column_text(statement, 5);
+            const char *userID = ((const char *) sqlite3_column_text(statement, 1) == NULL) ? [NSString stringWithFormat:@""].UTF8String : (const char *) sqlite3_column_text(statement, 1);
+            const char *vdoPath = ((const char *) sqlite3_column_text(statement, 2) == NULL) ? [NSString stringWithFormat:@""].UTF8String : (const char *) sqlite3_column_text(statement, 2);
+            const char *vdoTitle = ((const char *) sqlite3_column_text(statement, 3) == NULL) ? [NSString stringWithFormat:@""].UTF8String : (const char *) sqlite3_column_text(statement, 3);
+            const char *vdoDate = ((const char *) sqlite3_column_text(statement, 4) == NULL) ? [NSString stringWithFormat:@""].UTF8String : (const char *) sqlite3_column_text(statement, 4);
+            const char *vdoRecTime = ((const char *) sqlite3_column_text(statement, 5) == NULL) ? [NSString stringWithFormat:@""].UTF8String : (const char *) sqlite3_column_text(statement, 5);
             
             AppDelegate *videoObj = [[AppDelegate alloc] init];
-            videoObj.LoginUserID = [NSString stringWithUTF8String:userID];
-            videoObj.videoPath = [NSString stringWithUTF8String:vdoPath];
-            videoObj.videoTitle = [NSString stringWithUTF8String:vdoTitle];
-            videoObj.videoDate = [NSString stringWithUTF8String:vdoDate];
-            videoObj.videoRecTime = [NSString stringWithUTF8String:vdoRecTime];
+            videoObj.LoginUserID = @(userID);
+            videoObj.videoPath = @(vdoPath);
+            videoObj.videoTitle = @(vdoTitle);
+            videoObj.videoDate = @(vdoDate);
+            videoObj.videoRecTime = @(vdoRecTime);
             [videoArray addObject:videoObj];
             NSLog(@"Array :::::%@",videoObj);
         }
@@ -1125,7 +1122,7 @@ UINavigationController *navigationController1 ;
     sqlite3 *db = [AppDelegate getDBConUserData];
     NSMutableString *query;
     query = [NSMutableString stringWithFormat:@"select * from MusicTbl"];
-    const char *sql = [query UTF8String];
+    const char *sql = query.UTF8String;
     sqlite3_stmt *statement = nil;
     if(sqlite3_prepare_v2(db,sql, -1, &statement, NULL)!= SQLITE_OK)
         NSAssert1(0,@"error preparing statement in BackUp",sqlite3_errmsg(db));
@@ -1134,16 +1131,16 @@ UINavigationController *navigationController1 ;
         [musicArray removeAllObjects];
         while(sqlite3_step(statement)==SQLITE_ROW)
         {
-            const char *userID = ((const char *) sqlite3_column_text(statement, 1) == NULL) ? [[NSString stringWithFormat:@""] UTF8String] : (const char *) sqlite3_column_text(statement, 1);
-            const char *musictitle = ((const char *) sqlite3_column_text(statement, 2) == NULL) ? [[NSString stringWithFormat:@""] UTF8String] : (const char *) sqlite3_column_text(statement, 2);
-            const char *musicpath = ((const char *) sqlite3_column_text(statement, 3) == NULL) ? [[NSString stringWithFormat:@""] UTF8String] : (const char *) sqlite3_column_text(statement, 3);
-            const char *musicdate = ((const char *) sqlite3_column_text(statement, 3) == NULL) ? [[NSString stringWithFormat:@""] UTF8String] : (const char *) sqlite3_column_text(statement, 3);
+            const char *userID = ((const char *) sqlite3_column_text(statement, 1) == NULL) ? [NSString stringWithFormat:@""].UTF8String : (const char *) sqlite3_column_text(statement, 1);
+            const char *musictitle = ((const char *) sqlite3_column_text(statement, 2) == NULL) ? [NSString stringWithFormat:@""].UTF8String : (const char *) sqlite3_column_text(statement, 2);
+            const char *musicpath = ((const char *) sqlite3_column_text(statement, 3) == NULL) ? [NSString stringWithFormat:@""].UTF8String : (const char *) sqlite3_column_text(statement, 3);
+            const char *musicdate = ((const char *) sqlite3_column_text(statement, 3) == NULL) ? [NSString stringWithFormat:@""].UTF8String : (const char *) sqlite3_column_text(statement, 3);
             
             AppDelegate *musicObj = [[AppDelegate alloc] init];
-            musicObj.LoginUserID = [NSString stringWithUTF8String:userID];
-            musicObj.musicTitle = [NSString stringWithUTF8String:musictitle];
-            musicObj.musicPath = [NSString stringWithUTF8String:musicpath];
-            musicObj.musicDate = [NSString stringWithUTF8String:musicdate];
+            musicObj.LoginUserID = @(userID);
+            musicObj.musicTitle = @(musictitle);
+            musicObj.musicPath = @(musicpath);
+            musicObj.musicDate = @(musicdate);
             [musicArray addObject:musicObj];
             NSLog(@"Array :::::%@",musicObj);
         }
@@ -1159,7 +1156,7 @@ UINavigationController *navigationController1 ;
     sqlite3 *db = [AppDelegate getDBConUserData];
     NSMutableString *query;
     query = [NSMutableString stringWithFormat:@"select * from AutoLogOffTbl"];
-    const char *sql = [query UTF8String];
+    const char *sql = query.UTF8String;
     sqlite3_stmt *statement = nil;
     if(sqlite3_prepare_v2(db,sql, -1, &statement, NULL)!= SQLITE_OK)
         NSAssert1(0,@"error preparing statement in BackUp",sqlite3_errmsg(db));
@@ -1168,30 +1165,30 @@ UINavigationController *navigationController1 ;
         [autoLogOffArray removeAllObjects];
         while(sqlite3_step(statement)==SQLITE_ROW)
         {
-            const char *userID = ((const char *) sqlite3_column_text(statement, 0) == NULL) ? [[NSString stringWithFormat:@""] UTF8String] : (const char *) sqlite3_column_text(statement, 0);
-            const char *time = ((const char *) sqlite3_column_text(statement, 1) == NULL) ? [[NSString stringWithFormat:@""] UTF8String] : (const char *) sqlite3_column_text(statement, 1);
-            const char *brekinphoto = ((const char *) sqlite3_column_text(statement, 2) == NULL) ? [[NSString stringWithFormat:@""] UTF8String] : (const char *) sqlite3_column_text(statement, 2);
-            const char *loginphoto = ((const char *) sqlite3_column_text(statement, 3) == NULL) ? [[NSString stringWithFormat:@""] UTF8String] : (const char *) sqlite3_column_text(statement, 3);
-            const char *highquality = ((const char *) sqlite3_column_text(statement, 4) == NULL) ? [[NSString stringWithFormat:@""] UTF8String] : (const char *) sqlite3_column_text(statement, 4);
-            const char *duration = ((const char *) sqlite3_column_text(statement, 5) == NULL) ? [[NSString stringWithFormat:@""] UTF8String] : (const char *) sqlite3_column_text(statement, 5);
-            const char *transition = ((const char *) sqlite3_column_text(statement, 6) == NULL) ? [[NSString stringWithFormat:@""] UTF8String] : (const char *) sqlite3_column_text(statement, 6);
-            const char *repeat = ((const char *) sqlite3_column_text(statement, 7) == NULL) ? [[NSString stringWithFormat:@""] UTF8String] : (const char *) sqlite3_column_text(statement, 7);
-            const char *shuffle = ((const char *) sqlite3_column_text(statement, 8) == NULL) ? [[NSString stringWithFormat:@""] UTF8String] : (const char *) sqlite3_column_text(statement,8);
-            const char *usedeskagent = ((const char *) sqlite3_column_text(statement, 9) == NULL) ? [[NSString stringWithFormat:@""] UTF8String] : (const char *) sqlite3_column_text(statement, 9);
-            const char *facebook = ((const char *) sqlite3_column_text(statement, 10) == NULL) ? [[NSString stringWithFormat:@""] UTF8String] : (const char *) sqlite3_column_text(statement, 10);
+            const char *userID = ((const char *) sqlite3_column_text(statement, 0) == NULL) ? [NSString stringWithFormat:@""].UTF8String : (const char *) sqlite3_column_text(statement, 0);
+            const char *time = ((const char *) sqlite3_column_text(statement, 1) == NULL) ? [NSString stringWithFormat:@""].UTF8String : (const char *) sqlite3_column_text(statement, 1);
+            const char *brekinphoto = ((const char *) sqlite3_column_text(statement, 2) == NULL) ? [NSString stringWithFormat:@""].UTF8String : (const char *) sqlite3_column_text(statement, 2);
+            const char *loginphoto = ((const char *) sqlite3_column_text(statement, 3) == NULL) ? [NSString stringWithFormat:@""].UTF8String : (const char *) sqlite3_column_text(statement, 3);
+            const char *highquality = ((const char *) sqlite3_column_text(statement, 4) == NULL) ? [NSString stringWithFormat:@""].UTF8String : (const char *) sqlite3_column_text(statement, 4);
+            const char *duration = ((const char *) sqlite3_column_text(statement, 5) == NULL) ? [NSString stringWithFormat:@""].UTF8String : (const char *) sqlite3_column_text(statement, 5);
+            const char *transition = ((const char *) sqlite3_column_text(statement, 6) == NULL) ? [NSString stringWithFormat:@""].UTF8String : (const char *) sqlite3_column_text(statement, 6);
+            const char *repeat = ((const char *) sqlite3_column_text(statement, 7) == NULL) ? [NSString stringWithFormat:@""].UTF8String : (const char *) sqlite3_column_text(statement, 7);
+            const char *shuffle = ((const char *) sqlite3_column_text(statement, 8) == NULL) ? [NSString stringWithFormat:@""].UTF8String : (const char *) sqlite3_column_text(statement,8);
+            const char *usedeskagent = ((const char *) sqlite3_column_text(statement, 9) == NULL) ? [NSString stringWithFormat:@""].UTF8String : (const char *) sqlite3_column_text(statement, 9);
+            const char *facebook = ((const char *) sqlite3_column_text(statement, 10) == NULL) ? [NSString stringWithFormat:@""].UTF8String : (const char *) sqlite3_column_text(statement, 10);
 
             AppDelegate *autoLogObj = [[AppDelegate alloc] init];
-            autoLogObj.LoginUserID = [NSString stringWithUTF8String:userID];
-            autoLogObj.logOffTime = [NSString stringWithUTF8String:time];
-            autoLogObj.logOfBrekinPhoto = [NSString stringWithUTF8String:brekinphoto];
-            autoLogObj.logOffLoginPhoto = [NSString stringWithUTF8String:loginphoto];
-            autoLogObj.logOffHighQuality = [NSString stringWithUTF8String:highquality];
-            autoLogObj.logOffDuration = [NSString stringWithUTF8String:duration];
-            autoLogObj.logOffTransition = [NSString stringWithUTF8String:transition];
-            autoLogObj.logOffRepeat = [NSString stringWithUTF8String:repeat];
-            autoLogObj.logOffShuffle = [NSString stringWithUTF8String:shuffle];
-            autoLogObj.logOffUseDeskAgent = [NSString stringWithUTF8String:usedeskagent];
-            autoLogObj.logOffFacebook = [NSString stringWithUTF8String:facebook];
+            autoLogObj.LoginUserID = @(userID);
+            autoLogObj.logOffTime = @(time);
+            autoLogObj.logOfBrekinPhoto = @(brekinphoto);
+            autoLogObj.logOffLoginPhoto = @(loginphoto);
+            autoLogObj.logOffHighQuality = @(highquality);
+            autoLogObj.logOffDuration = @(duration);
+            autoLogObj.logOffTransition = @(transition);
+            autoLogObj.logOffRepeat = @(repeat);
+            autoLogObj.logOffShuffle = @(shuffle);
+            autoLogObj.logOffUseDeskAgent = @(usedeskagent);
+            autoLogObj.logOffFacebook = @(facebook);
             [autoLogOffArray addObject:autoLogObj];
             NSLog(@"Array :::::%@",autoLogObj);
         }
@@ -1206,7 +1203,7 @@ UINavigationController *navigationController1 ;
     sqlite3 *db = [AppDelegate getDBConUserData];
     NSMutableString *query;
     query = [NSMutableString stringWithFormat:@"select * from ViewImageLogtbl"];
-    const char *sql = [query UTF8String];
+    const char *sql = query.UTF8String;
     sqlite3_stmt *statement = nil;
     if(sqlite3_prepare_v2(db,sql, -1, &statement, NULL)!= SQLITE_OK)
         NSAssert1(0,@"error preparing statement in BackUp",sqlite3_errmsg(db));
@@ -1215,19 +1212,19 @@ UINavigationController *navigationController1 ;
         [viewImageLogArray removeAllObjects];
         while(sqlite3_step(statement)==SQLITE_ROW)
         {
-            const char *userID = ((const char *) sqlite3_column_text(statement, 1) == NULL) ? [[NSString stringWithFormat:@""] UTF8String] : (const char *) sqlite3_column_text(statement, 1);
-            const char *imgpath = ((const char *) sqlite3_column_text(statement, 2) == NULL) ? [[NSString stringWithFormat:@""] UTF8String] : (const char *) sqlite3_column_text(statement, 2);
-            const char *isbreakin = ((const char *) sqlite3_column_text(statement, 3) == NULL) ? [[NSString stringWithFormat:@""] UTF8String] : (const char *) sqlite3_column_text(statement, 3);
-            const char *islogin = ((const char *) sqlite3_column_text(statement, 4) == NULL) ? [[NSString stringWithFormat:@""] UTF8String] : (const char *) sqlite3_column_text(statement, 4);
-            const char *logintime = ((const char *) sqlite3_column_text(statement, 5) == NULL) ? [[NSString stringWithFormat:@""] UTF8String] : (const char *) sqlite3_column_text(statement, 5);
-            const char *logindate = ((const char *) sqlite3_column_text(statement, 6) == NULL) ? [[NSString stringWithFormat:@""] UTF8String] : (const char *) sqlite3_column_text(statement, 6);
+            const char *userID = ((const char *) sqlite3_column_text(statement, 1) == NULL) ? [NSString stringWithFormat:@""].UTF8String : (const char *) sqlite3_column_text(statement, 1);
+            const char *imgpath = ((const char *) sqlite3_column_text(statement, 2) == NULL) ? [NSString stringWithFormat:@""].UTF8String : (const char *) sqlite3_column_text(statement, 2);
+            const char *isbreakin = ((const char *) sqlite3_column_text(statement, 3) == NULL) ? [NSString stringWithFormat:@""].UTF8String : (const char *) sqlite3_column_text(statement, 3);
+            const char *islogin = ((const char *) sqlite3_column_text(statement, 4) == NULL) ? [NSString stringWithFormat:@""].UTF8String : (const char *) sqlite3_column_text(statement, 4);
+            const char *logintime = ((const char *) sqlite3_column_text(statement, 5) == NULL) ? [NSString stringWithFormat:@""].UTF8String : (const char *) sqlite3_column_text(statement, 5);
+            const char *logindate = ((const char *) sqlite3_column_text(statement, 6) == NULL) ? [NSString stringWithFormat:@""].UTF8String : (const char *) sqlite3_column_text(statement, 6);
             AppDelegate *viewImageLogObj = [[AppDelegate alloc] init];
-            viewImageLogObj.LoginUserID = [NSString stringWithUTF8String:userID];
-            viewImageLogObj.imgLogImagePath = [NSString stringWithUTF8String:imgpath];
-            viewImageLogObj.imgLogIsBreakin = [NSString stringWithUTF8String:isbreakin];
-            viewImageLogObj.imgLogIsLogin = [NSString stringWithUTF8String:islogin];
-            viewImageLogObj.imgLogLoginTime = [NSString stringWithUTF8String:logintime];
-            viewImageLogObj.imgLogLoginDate = [NSString stringWithUTF8String:logindate];
+            viewImageLogObj.LoginUserID = @(userID);
+            viewImageLogObj.imgLogImagePath = @(imgpath);
+            viewImageLogObj.imgLogIsBreakin = @(isbreakin);
+            viewImageLogObj.imgLogIsLogin = @(islogin);
+            viewImageLogObj.imgLogLoginTime = @(logintime);
+            viewImageLogObj.imgLogLoginDate = @(logindate);
             [viewImageLogArray addObject:viewImageLogObj];
             NSLog(@"Array :::::%@",viewImageLogObj);
         }
@@ -1242,12 +1239,12 @@ UINavigationController *navigationController1 ;
 {
     NSString *strReturn=@"false";
       NSString *databasepath=[self getDBPathNew];
-        if (sqlite3_open([databasepath UTF8String], &dbSecret) == SQLITE_OK) 
+        if (sqlite3_open(databasepath.UTF8String, &dbSecret) == SQLITE_OK) 
         {
             NSString *selectSql = [NSString stringWithFormat:@"select VoiceAuth from AuthentictionCheckTbl where UserID = %@",LoginUserID];
             
             NSLog(@"Query : %@",selectSql);
-            const char *sqlStatement = [selectSql UTF8String];
+            const char *sqlStatement = selectSql.UTF8String;
             sqlite3_stmt *query_stmt;
             
             if(sqlite3_prepare_v2(dbSecret, sqlStatement, -1, &query_stmt, NULL) == SQLITE_OK)
@@ -1315,7 +1312,7 @@ UINavigationController *navigationController1 ;
         bannerFrame.origin.y -= toolbar.bounds.size.height;
         
     }
-    [self.bannerView setFrame:bannerFrame];
+    (self.bannerView).frame = bannerFrame;
     
     self.bannerView.hidden = NO;
 #else

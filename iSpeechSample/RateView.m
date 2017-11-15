@@ -36,7 +36,7 @@
     _delegate = nil;
 }
 
-- (id)initWithFrame:(CGRect)frame
+- (instancetype)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
@@ -45,7 +45,7 @@
     return self;
 }
 
-- (id)initWithCoder:(NSCoder *)aDecoder {
+- (instancetype)initWithCoder:(NSCoder *)aDecoder {
     if ((self = [super initWithCoder:aDecoder])) {
         [self baseInit];
     }
@@ -54,7 +54,7 @@
 
 - (void)refresh {
     for(int i = 0; i < self.imageViews.count; ++i) {
-        UIImageView *imageView = [self.imageViews objectAtIndex:i];
+        UIImageView *imageView = (self.imageViews)[i];
         if (self.rating >= i+1) {
             imageView.image = self.fullSelectedImage;
         } else if (self.rating > i) {
@@ -76,7 +76,7 @@
     
     for (int i = 0; i < self.imageViews.count; ++i) {
         
-        UIImageView *imageView = [self.imageViews objectAtIndex:i];
+        UIImageView *imageView = (self.imageViews)[i];
         CGRect imageFrame = CGRectMake(self.leftMargin + i*(self.midMargin+imageWidth), 0, imageWidth, imageHeight);
         imageView.frame = imageFrame;
     }
@@ -87,7 +87,7 @@
     
     // Remove old image views
     for(int i = 0; i < self.imageViews.count; ++i) {
-        UIImageView *imageView = (UIImageView *) [self.imageViews objectAtIndex:i];
+        UIImageView *imageView = (UIImageView *) (self.imageViews)[i];
         [imageView removeFromSuperview];
     }
     [self.imageViews removeAllObjects];
@@ -132,7 +132,7 @@
     
     int newRating = 0;
     for(int i = self.imageViews.count - 1; i >= 0; i--) {
-        UIImageView *imageView = [self.imageViews objectAtIndex:i];        
+        UIImageView *imageView = (self.imageViews)[i];        
         if (touchLocation.x > imageView.frame.origin.x) {
             newRating = i+1;
             break;

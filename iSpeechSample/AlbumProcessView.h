@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <sqlite3.h>
 #import <MessageUI/MFMailComposeViewController.h>
 #import <Accounts/Accounts.h>
 #import "FBConnect.h"
@@ -61,6 +60,13 @@ typedef enum apiCall {
     bool isImgFlag;
     CGSize newSize;
     int currentAPICall;
+    
+    //static NSString* kAppId = @"145792598897737";
+    int videos;
+    
+    AppDelegate *app;
+    UIButton *pasteBtn;
+    UIBarButtonItem *selectAllBtn ;
 }
 
 @property(nonatomic,retain) IBOutlet UIActivityIndicatorView *actIndicator;

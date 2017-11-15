@@ -44,12 +44,12 @@
 @property(nonatomic, assign) id<FBSessionDelegate> sessionDelegate;
 @property(nonatomic, copy) NSString* urlSchemeSuffix;
 
-- (id)initWithAppId:(NSString *)appId
+- (instancetype)initWithAppId:(NSString *)appId
         andDelegate:(id<FBSessionDelegate>)delegate;
 
-- (id)initWithAppId:(NSString *)appId
+- (instancetype)initWithAppId:(NSString *)appId
     urlSchemeSuffix:(NSString *)urlSchemeSuffix
-        andDelegate:(id<FBSessionDelegate>)delegate;
+        andDelegate:(id<FBSessionDelegate>)delegate NS_DESIGNATED_INITIALIZER;
 
 - (void)authorize:(NSArray *)permissions;
 
@@ -57,7 +57,7 @@
 
 - (void)extendAccessTokenIfNeeded;
 
-- (BOOL)shouldExtendAccessToken;
+@property (NS_NONATOMIC_IOSONLY, readonly) BOOL shouldExtendAccessToken;
 
 - (BOOL)handleOpenURL:(NSURL *)url;
 
@@ -90,7 +90,7 @@
      andParams:(NSMutableDictionary *)params
    andDelegate:(id <FBDialogDelegate>)delegate;
 
-- (BOOL)isSessionValid;
+@property (NS_NONATOMIC_IOSONLY, getter=isSessionValid, readonly) BOOL sessionValid;
 
 @end
 

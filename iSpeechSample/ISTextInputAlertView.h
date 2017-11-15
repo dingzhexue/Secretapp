@@ -39,7 +39,7 @@ typedef void(^ISTextInputAlertViewCallback)(NSString *text);
  *
  * @return A new instance of the `ISTextInputAlertView` object.
  */
-- (id)initWithTitle:(NSString *)title okButtonTitle:(NSString *)okButtonTitle callback:(ISTextInputAlertViewCallback)callback;
+- (instancetype)initWithTitle:(NSString *)title okButtonTitle:(NSString *)okButtonTitle callback:(ISTextInputAlertViewCallback)callback NS_DESIGNATED_INITIALIZER;
 
 /**
  * Check to see if the alert view can become first responder.
@@ -48,7 +48,7 @@ typedef void(^ISTextInputAlertViewCallback)(NSString *text);
  *
  * @return Returns `-[UITextView canBecomeFirstResponder]` and `-[ISTextInputAlertView isVisible]`. If one of those doesn't return `YES`, then this is `NO`.
  */
-- (BOOL)canBecomeFirstResponder;
+@property (NS_NONATOMIC_IOSONLY, readonly) BOOL canBecomeFirstResponder;
 
 /**
  * Tells the alert view to become first responsder.
@@ -57,7 +57,7 @@ typedef void(^ISTextInputAlertViewCallback)(NSString *text);
  *
  * @return Returns `-[UITextView becomeFirstResponder]`. In other words, `YES` if the text view became first responder, `NO` if it didn't.
  */
-- (BOOL)becomeFirstResponder;
+@property (NS_NONATOMIC_IOSONLY, readonly) BOOL becomeFirstResponder;
 
 /**
  * Check to see if the alert view can resign first responder.
@@ -66,7 +66,7 @@ typedef void(^ISTextInputAlertViewCallback)(NSString *text);
  *
  * @return Returns `-[UITextView canResignFirstResponder]` and `-[ISTextInputAlertView isVisible]`. If one of those doesn't return `YES`, then this is `NO`.
  */
-- (BOOL)canResignFirstResponder;
+@property (NS_NONATOMIC_IOSONLY, readonly) BOOL canResignFirstResponder;
 
 /**
  * Check to see if the alert view can become first responder.
@@ -75,7 +75,7 @@ typedef void(^ISTextInputAlertViewCallback)(NSString *text);
  *
  * @return Returns `-[UITextView canBecomeFirstResponder]`. In other words, `YES` if the text view resigned first responder, `NO` if it didn't.
  */
-- (BOOL)resignFirstResponder;
+@property (NS_NONATOMIC_IOSONLY, readonly) BOOL resignFirstResponder;
 
 /**
  * Check to see if the alert view is first responder.
@@ -84,6 +84,6 @@ typedef void(^ISTextInputAlertViewCallback)(NSString *text);
  *
  * @return Returns `-[UITextView isFirstResponder]`. In other words, `YES` if the text view is first responder, `NO` if it isn't.
  */
-- (BOOL)isFirstResponder;
+@property (NS_NONATOMIC_IOSONLY, getter=isFirstResponder, readonly) BOOL firstResponder;
 
 @end

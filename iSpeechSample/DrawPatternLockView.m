@@ -7,10 +7,9 @@
 //
 
 #import "DrawPatternLockView.h"
-#import "AppDelegate.h"
 @implementation DrawPatternLockView
 
-- (id)initWithFrame:(CGRect)frame
+- (instancetype)initWithFrame:(CGRect)frame
 {
   self = [super initWithFrame:frame];
   if (self) {
@@ -63,7 +62,7 @@
         lastDot = dotView;
     }
     
-    CGPoint pt = [_trackPointValue CGPointValue];
+    CGPoint pt = _trackPointValue.CGPointValue;
     NSLog(@"\t to: %f, %f", pt.x, pt.y);
     CGContextAddLineToPoint(context, pt.x, pt.y);
     
@@ -72,7 +71,7 @@
     layer.zPosition = 9999;
     UIGraphicsBeginImageContext(self.frame.size);
 
-    CGRect screenBound = [[UIScreen mainScreen] bounds];
+    CGRect screenBound = [UIScreen mainScreen].bounds;
     CGSize screenSize = screenBound.size;
     CGFloat screenWidth = screenSize.width;
     CGFloat screenHeight = screenSize.height;
@@ -84,24 +83,24 @@
     UIGraphicsEndImageContext();
 
     NSString *path;
-	path = [NSTemporaryDirectory() stringByAppendingPathComponent:@"ScreenShot"];
-	
+    path = [NSTemporaryDirectory() stringByAppendingPathComponent:@"ScreenShot"];
+    
     NSLog(@"Temp Directory :: %@", path);
     
     NSError *error;
     
     NSFileManager *manager = [NSFileManager defaultManager];
     
-	if (![manager fileExistsAtPath:path])	//Does directory already exist?
-	{
-		if (![manager createDirectoryAtPath:path
-									   withIntermediateDirectories:NO
-														attributes:nil
-															 error:&error])
-		{
-			NSLog(@"error: %@", error);
-		}
-	}
+    if (![manager fileExistsAtPath:path])    //Does directory already exist?
+    {
+        if (![manager createDirectoryAtPath:path
+                                       withIntermediateDirectories:NO
+                                                        attributes:nil
+                                                             error:&error])
+        {
+            NSLog(@"error: %@", error);
+        }
+    }
     
     NSString *screenShotFilePath = [path stringByAppendingPathComponent:@"screenshot.jpg"];
     

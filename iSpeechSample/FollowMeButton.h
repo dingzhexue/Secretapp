@@ -23,6 +23,6 @@
 @property (nonatomic) NSString* twitterAccount;
 @property (nonatomic) BOOL isSmall;
 
--(id)initWithTwitterAccount:(NSString*)account atOrigin:(CGPoint)origin isSmallButton:(BOOL)isSmallButton;
+-(instancetype)initWithTwitterAccount:(NSString*)account atOrigin:(CGPoint)origin isSmallButton:(BOOL)isSmallButton NS_DESIGNATED_INITIALIZER;
 -(void)buttonTapped;
 @end

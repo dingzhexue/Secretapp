@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import "ImportFromPC.h"
-#import <sqlite3.h>
 #import "GADHelper.h"
 
 @interface iTunesDataList : GADBannerViewController  <ImportFromPCDelegate>
@@ -18,6 +17,8 @@
     sqlite3 *dbSecret;
     NSString *databasepath,*DateStr,*songToAdd;
     int songToRemove;
+    AppDelegate *app;
+
 }
 @property(nonatomic,retain) IBOutlet UITableView *mytable;
 @property (retain) NSOperationQueue *queue;

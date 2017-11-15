@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <sqlite3.h>
 
 
 @protocol tblSlideShowDelegate
@@ -19,6 +18,8 @@
     sqlite3 *dbSecret;
     NSMutableArray *listOfItems;
     id<tblSlideShowDelegate> _delegate;
+    AppDelegate *app;
+
 }
 
 @property (nonatomic, retain) NSMutableArray *listOfItems;

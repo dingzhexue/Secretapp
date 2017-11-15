@@ -216,7 +216,7 @@ params   = _params;
     if (params) {
         NSMutableArray* pairs = [NSMutableArray array];
         for (NSString* key in params.keyEnumerator) {
-            NSString* value = [params objectForKey:key];
+            NSString* value = params[key];
             NSString* escaped_value = (NSString *)CFURLCreateStringByAddingPercentEscapes(
                                                                                           NULL, /* allocator */
                                                                                           (CFStringRef)value,
@@ -286,7 +286,7 @@ params   = _params;
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 // NSObject
 
-- (id)init {
+- (instancetype)init {
     if ((self = [super initWithFrame:CGRectZero])) {
         _delegate = nil;
         _loadingURL = nil;
@@ -324,7 +324,7 @@ params   = _params;
         | UIViewAutoresizingFlexibleBottomMargin;
         [self addSubview:_closeButton];
         
-        float version = [[[UIDevice currentDevice] systemVersion] floatValue];
+        float version = [UIDevice currentDevice].systemVersion.floatValue;
         
         _spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:
                     UIActivityIndicatorViewStyleGray];
@@ -376,12 +376,12 @@ params   = _params;
     
     if ([url.scheme isEqualToString:@"fbconnect"]) {
         if ([[url.resourceSpecifier substringToIndex:8] isEqualToString:@"//cancel"]) {
-            NSString * errorCode = [self getStringFromUrl:[url absoluteString] needle:@"error_code="];
-            NSString * errorStr = [self getStringFromUrl:[url absoluteString] needle:@"error_msg="];
+            NSString * errorCode = [self getStringFromUrl:url.absoluteString needle:@"error_code="];
+            NSString * errorStr = [self getStringFromUrl:url.absoluteString needle:@"error_msg="];
             if (errorCode) {
-                NSDictionary * errorData = [NSDictionary dictionaryWithObject:errorStr forKey:@"error_msg"];
+                NSDictionary * errorData = @{@"error_msg": errorStr};
                 NSError * error = [NSError errorWithDomain:@"facebookErrDomain"
-                                                      code:[errorCode intValue]
+                                                      code:errorCode.intValue
                                                   userInfo:errorData];
                 [self dismissWithError:error animated:YES];
             } else {
@@ -493,7 +493,7 @@ params   = _params;
     return str;
 }
 
-- (id)initWithURL: (NSString *) serverURL
+- (instancetype)initWithURL: (NSString *) serverURL
            params: (NSMutableDictionary *) params
          delegate: (id <FBDialogDelegate>) delegate {
     
@@ -515,7 +515,7 @@ params   = _params;
     _loadingURL = [[self generateURL:url params:getParams] retain];
     NSMutableURLRequest* request = [NSMutableURLRequest requestWithURL:_loadingURL];
     [_webView loadRequest:request];
-    if([[request.URL absoluteString] rangeOfString:@"feed"].location != NSNotFound)
+    if([(request.URL).absoluteString rangeOfString:@"feed"].location != NSNotFound)
     {
         NSLog(@"Share page");
         /*UIWebView *webView;
@@ -565,7 +565,7 @@ params   = _params;
     
     UIWindow* window = [UIApplication sharedApplication].keyWindow;
     if (!window) {
-        window = [[UIApplication sharedApplication].windows objectAtIndex:0];
+        window = ([UIApplication sharedApplication].windows)[0];
     }
     
     _modalBackgroundView.frame = window.frame;

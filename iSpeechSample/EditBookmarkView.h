@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <sqlite3.h>
 
 @interface EditBookmarkView : UIViewController
 {
@@ -15,6 +14,9 @@
     NSString *selBmID;
     sqlite3 *dbSecret;
     NSString *databasepath;
+    
+    AppDelegate *app;
+
 }
 
 @property(nonatomic,retain) IBOutlet UITextField *bmTitleTxt,*bmURLTxt;

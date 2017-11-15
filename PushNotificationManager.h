@@ -12,10 +12,10 @@
 @class PWLocationTracker;
 
 typedef NS_ENUM(NSInteger, PWSupportedOrientations) {
-	PWOrientationPortrait = 1 << 0,
-	PWOrientationPortraitUpsideDown = 1 << 1,
-	PWOrientationLandscapeLeft = 1 << 2,
-	PWOrientationLandscapeRight = 1 << 3,
+    PWOrientationPortrait = 1 << 0,
+    PWOrientationPortraitUpsideDown = 1 << 1,
+    PWOrientationLandscapeLeft = 1 << 2,
+    PWOrientationLandscapeRight = 1 << 3,
 };
 
 typedef void(^pushwooshGetTagsHandler)(NSDictionary *tags);
@@ -64,13 +64,13 @@ typedef void(^pushwooshErrorHandler)(NSError *error);
  The provider originates it as a JSON-defined dictionary that iOS converts to an NSDictionary object; the dictionary may contain only property-list objects plus NSNull.
  Push dictionary sample:
  
-	 {
-		 aps =     {
-			 alert = "Some text.";
-			 sound = default;
-		 };
-		 p = 1pb;
-	 }
+     {
+         aps =     {
+             alert = "Some text.";
+             sound = default;
+         };
+         p = 1pb;
+     }
  
  */
 - (void) onPushAccepted:(PushNotificationManager *)pushManager withNotification:(NSDictionary *)pushNotification;
@@ -83,13 +83,13 @@ typedef void(^pushwooshErrorHandler)(NSError *error);
  The provider originates it as a JSON-defined dictionary that iOS converts to an NSDictionary object; the dictionary may contain only property-list objects plus NSNull.
  Push dictionary sample:
  
-	 {
-		 aps =     {
-			 alert = "Some text.";
-			 sound = default;
-		 };
-		 p = 1pb;
-	 }
+     {
+         aps =     {
+             alert = "Some text.";
+             sound = default;
+         };
+         p = 1pb;
+     }
  
  @param onStart If the application was not active when the push notification was received, the application will be launched with this parameter equal to `YES`, otherwise the parameter will be `NO`.
  */
@@ -101,10 +101,10 @@ typedef void(^pushwooshErrorHandler)(NSError *error);
  @param tags Dictionary representation of received tags.
  Dictionary example:
  
-	 {
-		 Country = ru;
-		 Language = ru;
-	 }
+     {
+         Country = ru;
+         Language = ru;
+     }
  
  */
 - (void) onTagsReceived:(NSDictionary *)tags;
@@ -128,13 +128,13 @@ typedef void(^pushwooshErrorHandler)(NSError *error);
  
  Example:
  
-	NSDictionary *tags = [NSDictionary dictionaryWithObjectsAndKeys:
-							aliasField.text, @"Alias",
-							[NSNumber numberWithInt:[favNumField.text intValue]], @"FavNumber",
-							[PWTags incrementalTagWithInteger:5], @"price",
-							nil];
+    NSDictionary *tags = [NSDictionary dictionaryWithObjectsAndKeys:
+                            aliasField.text, @"Alias",
+                            [NSNumber numberWithInt:[favNumField.text intValue]], @"FavNumber",
+                            [PWTags incrementalTagWithInteger:5], @"price",
+                            nil];
 
-	[[PushNotificationManager pushManager] setTags:tags];
+    [[PushNotificationManager pushManager] setTags:tags];
  
  @param delta Difference that needs to be applied to the tag's counter.
  
@@ -149,13 +149,13 @@ typedef void(^pushwooshErrorHandler)(NSError *error);
   `PushNotificationManager` class offers access to the singletone-instance of the push manager responsible for registering the device with the APS servers, receiving and processing push notifications.
  */
 @interface PushNotificationManager : NSObject {
-	NSString *appCode;
-	NSString *appName;
+    NSString *appCode;
+    NSString *appName;
 
-	UIWindow *richPushWindow;
-	NSInteger internalIndex;
-	NSMutableDictionary *pushNotifications;
-	NSObject<PushNotificationDelegate> *__unsafe_unretained delegate;
+    UIWindow *richPushWindow;
+    NSInteger internalIndex;
+    NSMutableDictionary *pushNotifications;
+    NSObject<PushNotificationDelegate> *__unsafe_unretained delegate;
 }
 
 /**
@@ -168,21 +168,21 @@ typedef void(^pushwooshErrorHandler)(NSError *error);
 
  Example logic from Pushwoosh SDK Runtime:
  
-	 NSString * appname = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"Pushwoosh_APPNAME"];
-	 if(!appname)
-	 appname = [[NSUserDefaults standardUserDefaults] objectForKey:@"Pushwoosh_APPNAME"];
-	 
-	 if(!appname)
-	 appname = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"];
-	 
-	 if(!appname)
-	 appname = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleName"];
-	 
-	 if(!appname) {
-	 appname = @"";
-	 }
-	 
-	 instance = [[PushNotificationManager alloc] initWithApplicationCode:appid appName:appname ];
+     NSString * appname = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"Pushwoosh_APPNAME"];
+     if(!appname)
+     appname = [[NSUserDefaults standardUserDefaults] objectForKey:@"Pushwoosh_APPNAME"];
+     
+     if(!appname)
+     appname = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"];
+     
+     if(!appname)
+     appname = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleName"];
+     
+     if(!appname) {
+     appname = @"";
+     }
+     
+     instance = [[PushNotificationManager alloc] initWithApplicationCode:appid appName:appname ];
  */
 @property (nonatomic, copy) NSString *appName;
 
@@ -218,7 +218,7 @@ typedef void(^pushwooshErrorHandler)(NSError *error);
 
 + (BOOL) getAPSProductionStatus;
 
-- (id) initWithApplicationCode:(NSString *)appCode appName:(NSString *)appName;
+- (instancetype) initWithApplicationCode:(NSString *)appCode appName:(NSString *)appName NS_DESIGNATED_INITIALIZER;
 - (id) initWithApplicationCode:(NSString *)appCode navController:(UIViewController *) navController appName:(NSString *)appName __attribute__((deprecated));
 - (void) showWebView;
 
@@ -237,14 +237,14 @@ typedef void(^pushwooshErrorHandler)(NSError *error);
  
  Example:
  
-	 NSDictionary *tags = [NSDictionary dictionaryWithObjectsAndKeys:
-							 aliasField.text, @"Alias",
-							 [NSNumber numberWithInt:[favNumField.text intValue]], @"FavNumber",
-							 [PWTags incrementalTagWithInteger:5], @"price",
-							 [NSArray arrayWithObjects:@"Item1", @"Item2", @"Item3", nil], @"List",
-							 nil];
-	
-	 [[PushNotificationManager pushManager] setTags:tags];
+     NSDictionary *tags = [NSDictionary dictionaryWithObjectsAndKeys:
+                             aliasField.text, @"Alias",
+                             [NSNumber numberWithInt:[favNumField.text intValue]], @"FavNumber",
+                             [PWTags incrementalTagWithInteger:5], @"price",
+                             [NSArray arrayWithObjects:@"Item1", @"Item2", @"Item3", nil], @"List",
+                             nil];
+    
+     [[PushNotificationManager pushManager] setTags:tags];
  
  @param tags Dictionary representation of tags to send.
  */
@@ -261,10 +261,10 @@ typedef void(^pushwooshErrorHandler)(NSError *error);
  @param successHandler The block is executed on the successful completion of the request. This block has no return value and takes one argument: the dictionary representation of the recieved tags.
  Example of the dictionary representation of the received tags:
  
-	 {
-		 Country = ru;
-		 Language = ru;
-	 }
+     {
+         Country = ru;
+         Language = ru;
+     }
  
  @param errorHandler The block is executed on the unsuccessful completion of the request. This block has no return value and takes one argument: the error that occurred during the request.
  */
@@ -295,7 +295,7 @@ typedef void(^pushwooshErrorHandler)(NSError *error);
  
  Example:
  
-	[[PushNotificationManager pushManager] recordGoal:@"purchase1"];
+    [[PushNotificationManager pushManager] recordGoal:@"purchase1"];
  
  @param goal Goal string.
  */
@@ -307,7 +307,7 @@ typedef void(^pushwooshErrorHandler)(NSError *error);
  
  Example:
  
-	[[PushNotificationsManager pushManager] recordGoal:@"purchase" withCount:[NSNumber numberWithInt:"10"];
+    [[PushNotificationsManager pushManager] recordGoal:@"purchase" withCount:[NSNumber numberWithInt:"10"];
   
  @param goal Goal string.
  @param count Count parameter. Must be integer value.
@@ -319,7 +319,7 @@ typedef void(^pushwooshErrorHandler)(NSError *error);
  
  @return Current push token. May be nil if no push token is available yet.
  */
-- (NSString *) getPushToken;
+@property (NS_NONATOMIC_IOSONLY, getter=getPushToken, readonly, copy) NSString *pushToken;
 
 //internal
 - (void) unregisterDevice;
@@ -339,27 +339,27 @@ typedef void(^pushwooshErrorHandler)(NSError *error);
  
  Example:
  
-	 - (void) onPushAccepted:(PushNotificationManager *)pushManager withNotification:(NSDictionary *)pushNotification onStart:(BOOL)onStart {
-		NSDictionary * apnPayload = [[PushNotificationsManager pushManager] getApnPayload:pushNotification];
-		NSLog(@"%@", apnPayload);
-	 }
+     - (void) onPushAccepted:(PushNotificationManager *)pushManager withNotification:(NSDictionary *)pushNotification onStart:(BOOL)onStart {
+        NSDictionary * apnPayload = [[PushNotificationsManager pushManager] getApnPayload:pushNotification];
+        NSLog(@"%@", apnPayload);
+     }
 
  For Push dictionary sample:
  
-	 {
-		aps =     {
-			alert = "Some text.";
-			sound = default;
-		};
-		p = 1pb;
-	 }
+     {
+        aps =     {
+            alert = "Some text.";
+            sound = default;
+        };
+        p = 1pb;
+     }
 
  Result is:
  
-	 {
-		alert = "Some text.";
-		sound = default;
-	 };
+     {
+        alert = "Some text.";
+        sound = default;
+     };
 
  @param pushNotification Push notifications dictionary as received in `onPushAccepted: withNotification: onStart:`
  */
@@ -370,10 +370,10 @@ typedef void(^pushwooshErrorHandler)(NSError *error);
  
  Example:
  
-	 - (void) onPushAccepted:(PushNotificationManager *)pushManager withNotification:(NSDictionary *)pushNotification onStart:(BOOL)onStart {
-		NSString * customData = [[PushNotificationsManager pushManager] getCustomPushData:pushNotification];
-		NSLog(@"%@", customData);
-	 }
+     - (void) onPushAccepted:(PushNotificationManager *)pushManager withNotification:(NSDictionary *)pushNotification onStart:(BOOL)onStart {
+        NSString * customData = [[PushNotificationsManager pushManager] getCustomPushData:pushNotification];
+        NSLog(@"%@", customData);
+     }
  
  @param pushNotification Push notifications dictionary as received in `onPushAccepted: withNotification: onStart:`
  */

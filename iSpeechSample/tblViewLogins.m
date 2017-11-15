@@ -7,7 +7,6 @@
 //
 
 #import "tblViewLogins.h"
-#import "AppDelegate.h"
 #import "tblViewLoginCustomCell.h"
 #import "LoginAttemptsCls.h"
 @interface tblViewLogins ()
@@ -18,8 +17,7 @@
 @synthesize delegate = _delegate;
 @synthesize listOfItems;
 @synthesize strIMgPath,strDate,strTime,imgId;
-AppDelegate *app;
-- (id)initWithStyle:(UITableViewStyle)style
+- (instancetype)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
     if (self) {
@@ -39,7 +37,7 @@ AppDelegate *app;
     {
         self.edgesForExtendedLayout = UIRectEdgeNone;
     }
-     app=(AppDelegate *)[[UIApplication sharedApplication] delegate];
+     app=(AppDelegate *)[UIApplication sharedApplication].delegate;
     self.clearsSelectionOnViewWillAppear = NO;
     self.contentSizeForViewInPopover = CGSizeMake(320.0, 600.0);
    
@@ -48,7 +46,7 @@ AppDelegate *app;
 {
     
     self.navigationController.navigationBarHidden=NO;
-    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageWithContentsOfFile:[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"main-bg.png"]]];
+    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle].resourcePath stringByAppendingPathComponent:@"main-bg.png"]]];
     listOfItems = [[NSMutableArray alloc] init];
     [self getImages];
     [self.tableView reloadData];
@@ -74,7 +72,7 @@ AppDelegate *app;
     [listOfItems removeAllObjects];
     databasepath = [app getDBPathNew];
     NSLog( @"DB Path %@ ",databasepath);
-    if (sqlite3_open([databasepath UTF8String], &dbSecret) == SQLITE_OK) {
+    if (sqlite3_open(databasepath.UTF8String, &dbSecret) == SQLITE_OK) {
         
         // NSString *sql = [NSString stringWithFormat:@"select * from AlbumTbl where UserID=%d ORDER BY ImageID ASC",[app.LoginUserID intValue]];
         
@@ -82,20 +80,20 @@ AppDelegate *app;
         NSLog(@"query is %@",sql);
         
         sqlite3_stmt *selectstmt;
-        const char *sel_query=[sql UTF8String];
+        const char *sel_query=sql.UTF8String;
         
         if(sqlite3_prepare(dbSecret, sel_query, -1, &selectstmt, NULL) == SQLITE_OK) {
             
             while(sqlite3_step(selectstmt) == SQLITE_ROW)
             {
                 LoginAttemptsCls *objLAC=[[LoginAttemptsCls alloc]init];
-                objLAC.imgId=[NSString stringWithUTF8String:(char *)sqlite3_column_text(selectstmt, 0)];
+                objLAC.imgId=@((char *)sqlite3_column_text(selectstmt, 0));
                 
-                objLAC.strIMgPath = [NSString stringWithUTF8String:(char *)sqlite3_column_text(selectstmt, 2)];
+                objLAC.strIMgPath = @((char *)sqlite3_column_text(selectstmt, 2));
                 
-                objLAC.strTime=[NSString stringWithUTF8String:(char *)sqlite3_column_text(selectstmt, 5)];
+                objLAC.strTime=@((char *)sqlite3_column_text(selectstmt, 5));
                 
-                objLAC.strDate=[NSString stringWithUTF8String:(char *)sqlite3_column_text(selectstmt, 6)];
+                objLAC.strDate=@((char *)sqlite3_column_text(selectstmt, 6));
                 [listOfItems addObject:objLAC];
                 NSLog(@"Image path %@",objLAC.strIMgPath);
                 [objLAC release];
@@ -108,7 +106,7 @@ AppDelegate *app;
     else
         sqlite3_close(dbSecret);
     
-    NSLog(@"img count::: %d",[listOfItems count]);
+    NSLog(@"img count::: %lu",(unsigned long)listOfItems.count);
     
     
 }
@@ -134,8 +132,8 @@ AppDelegate *app;
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    NSLog(@"bookmark data count:::: %d",[listOfItems count]);
-    return [listOfItems count];
+    NSLog(@"bookmark data count:::: %lu",(unsigned long)listOfItems.count);
+    return listOfItems.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -155,12 +153,12 @@ AppDelegate *app;
                 cell = (tblViewLoginCustomCell *)oneObject;
     }
     
-    [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     
     LoginAttemptsCls *objLACls=[[LoginAttemptsCls alloc]init];
-    objLACls=[listOfItems objectAtIndex:indexPath.row];
-    [cell.imgLoginPhoto    setImage:[UIImage imageWithContentsOfFile:objLACls.strIMgPath]];
+    objLACls=listOfItems[indexPath.row];
+    (cell.imgLoginPhoto).image = [UIImage imageWithContentsOfFile:objLACls.strIMgPath];
     cell.lblTime.text=objLACls.strTime;
     cell.lblDate.text=objLACls.strDate;
     NSLog(@"imapge path is %@",objLACls.strIMgPath);
@@ -195,15 +193,15 @@ AppDelegate *app;
     databasepath=[app getDBPathNew];
     @try 
     {
-        if (sqlite3_open([databasepath UTF8String], &dbSecret) == SQLITE_OK) 
+        if (sqlite3_open(databasepath.UTF8String, &dbSecret) == SQLITE_OK) 
         {
             
-            NSString *selectSql = [NSString stringWithFormat:@"Delete from ViewImageLogtbl  where  isLogin = \"true\" AND UserID=%@",[app LoginUserID]];
+            NSString *selectSql = [NSString stringWithFormat:@"Delete from ViewImageLogtbl  where  isLogin = \"true\" AND UserID=%@",app.LoginUserID];
 //            NSString *selectSql = [NSString stringWithFormat:@"Delete from ViewImageLogtbl where isBreakIn = \"true\" AND UserID=%@",[app LoginUserID]];
             
             NSLog(@"Query : %@",selectSql);
             
-            const char *deleteStmt = [selectSql UTF8String];
+            const char *deleteStmt = selectSql.UTF8String;
             sqlite3_stmt *query_stmt;
             
             if(sqlite3_prepare_v2(dbSecret, deleteStmt, -1, &query_stmt, NULL) == SQLITE_OK)

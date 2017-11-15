@@ -30,8 +30,6 @@
 #import "ABPadLockScreenController.h"
 #import "ABPadLockScreenView_iPad.h"
 #import "ABPadLockScreenView_iPhone.h"
-#import "AppDelegate.h"
-AppDelegate *app;
 
 #define ipadView ((ABPadLockScreenView_iPad *)[self view])
 #define iPhoneView ((ABPadLockScreenView_iPhone *)[self view])
@@ -39,11 +37,11 @@ AppDelegate *app;
 #define kNoAttemptLimit -1
 
 
-typedef enum {
+typedef NS_ENUM(unsigned int, ABLockPadDeviceType) {
     ABLockPadDeviceTypeiPhone = 0,
     ABLockPadDeviceTypeiPad = 1
     
-}ABLockPadDeviceType;
+};
 
 @interface ABPadLockScreenController() <UITextFieldDelegate>
 
@@ -104,7 +102,7 @@ typedef enum {
 
 #pragma mark -
 #pragma mark - init Methods
-- (id)initWithDelegate:(id<ABLockScreenDelegate>)delegate
+- (instancetype)initWithDelegate:(id<ABLockScreenDelegate>)delegate
 {
     self = [super init];
     if (self)
@@ -127,7 +125,7 @@ typedef enum {
     {
         self.edgesForExtendedLayout = UIRectEdgeNone;
     }
-    app=(AppDelegate *)[[UIApplication sharedApplication]delegate];
+    app=(AppDelegate *)[UIApplication sharedApplication].delegate;
     if (self.deviceType == ABLockPadDeviceTypeiPhone)
         self.view = [[ABPadLockScreenView_iPhone alloc] initWithFrame:self.view.frame];
      
@@ -137,7 +135,7 @@ typedef enum {
     if(app.lockcheck==NO)
     {
     UIBarButtonItem *cancelBarButtonitem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelButtonSelected:)];
-    [[self navigationItem] setRightBarButtonItem:cancelBarButtonitem animated:NO];
+    [self.navigationItem setRightBarButtonItem:cancelBarButtonitem animated:NO];
     }
     
     if (self.deviceType == ABLockPadDeviceTypeiPhone)
@@ -236,7 +234,7 @@ typedef enum {
 
 - (ABLockPadDeviceType)deviceType
 {
-    NSString *deviceModel = [[UIDevice currentDevice] model];
+    NSString *deviceModel = [UIDevice currentDevice].model;
     
     if ([deviceModel rangeOfString:@"iPhone"].location != NSNotFound)
         return ABLockPadDeviceTypeiPhone;
@@ -261,7 +259,7 @@ typedef enum {
 {
     UIButton *digitButton = (UIButton *)sender;
     
-    NSString *digitAsString = [NSString stringWithFormat:@"%d", digitButton.tag];
+    NSString *digitAsString = [NSString stringWithFormat:@"%ld", (long)digitButton.tag];
 
     if ([[ipadView viewWithTag:self.currentPin.length + 11] isKindOfClass:[UIImageView class]])
     {
@@ -346,7 +344,7 @@ typedef enum {
 {
     if (self.deviceType == ABLockPadDeviceTypeiPhone)
     {
-        iPhoneView.remainingAttemptsLabel.text = [NSString stringWithFormat:@"%d Attempts Remaining", remainingAttempts];
+        iPhoneView.remainingAttemptsLabel.text = [NSString stringWithFormat:@"%ld Attempts Remaining", (long)remainingAttempts];
         if (iPhoneView.errorbackView.alpha == 0.0f)
         {
             /*[UIView animateWithDuration:0.4f animations:^{
@@ -356,7 +354,7 @@ typedef enum {
     }
     else if (self.deviceType == ABLockPadDeviceTypeiPad)
     {
-        ipadView.remainingAttemptsLabel.text = [NSString stringWithFormat:@"%d Attempts Remaining", remainingAttempts];
+        ipadView.remainingAttemptsLabel.text = [NSString stringWithFormat:@"%ld Attempts Remaining", (long)remainingAttempts];
         if (ipadView.errorbackView.alpha == 0.0f)
         {
             /*[UIView animateWithDuration:0.4f animations:^{
@@ -370,7 +368,7 @@ typedef enum {
 {
     if (self.deviceType == ABLockPadDeviceTypeiPhone)
     {
-        iPhoneView.remainingAttemptsLabel.text = [NSString stringWithFormat:@"%d Failed Passcode Attempts", self.attempts];
+        iPhoneView.remainingAttemptsLabel.text = [NSString stringWithFormat:@"%ld Failed Passcode Attempts", (long)self.attempts];
         if (iPhoneView.errorbackView.alpha == 0.0f)
         {
             if(app.lockcheck==YES)
@@ -383,7 +381,7 @@ typedef enum {
     }
     else if (self.deviceType == ABLockPadDeviceTypeiPad)
     {
-        ipadView.remainingAttemptsLabel.text = [NSString stringWithFormat:@"%d Failed Passcode Attempts", self.attempts];
+        ipadView.remainingAttemptsLabel.text = [NSString stringWithFormat:@"%ld Failed Passcode Attempts", (long)self.attempts];
         if (ipadView.errorbackView.alpha == 0.0f)
         {
             /*[UIView animateWithDuration:0.4f animations:^{

@@ -9,8 +9,6 @@
 #import "WebViewController.h"
 #import "BookmarkView.h"
 #import <QuartzCore/Quartzcore.h>
-#import "AppDelegate.h"
-#import "GlobalFunctions.h"
 #import "DefaultAlbumView.h"
 #import "CustomDownloadView.h"
 //#import "AFHTTPRequestOperation.h"
@@ -29,13 +27,9 @@
 
 @synthesize bookmarkTitle,bookmarkURL;
 
-int pageIndex,files; 
-UILabel *titleLbl;
-UIImageView *imgVw;
 
-AppDelegate *app;
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
@@ -73,10 +67,10 @@ AppDelegate *app;
     if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0"))
     {
         self.edgesForExtendedLayout = UIRectEdgeNone;
-        [toolbar setBarTintColor:[UIColor blackColor]];
+        toolbar.barTintColor = [UIColor blackColor];
     }
 
-    app=(AppDelegate *)[[UIApplication sharedApplication]delegate];
+    app=(AppDelegate *)[UIApplication sharedApplication].delegate;
     webVw.delegate=self;
    
     pageIndex=0;
@@ -126,7 +120,7 @@ AppDelegate *app;
         // ********************** Space between back and add btn ******************************//
         
         UIBarButtonItem *flexibaleSpaceBarButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
-        [flexibaleSpaceBarButton setWidth:192];
+        flexibaleSpaceBarButton.width = 192;
         [buttons addObject:flexibaleSpaceBarButton];
         [flexibaleSpaceBarButton release];
         
@@ -146,7 +140,7 @@ AppDelegate *app;
         // ********************** Space between backurl and next url btn ******************************///
         
         UIBarButtonItem *flexibaleSpaceBarButton11 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
-        [flexibaleSpaceBarButton11 setWidth:192];
+        flexibaleSpaceBarButton11.width = 192;
         [buttons addObject:flexibaleSpaceBarButton11];
         [flexibaleSpaceBarButton11 release];
         
@@ -167,7 +161,7 @@ AppDelegate *app;
         
         // ********************** Space between next url and add bookmark btn **********************//
         UIBarButtonItem *flexibaleSpaceBarButton12 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
-        [flexibaleSpaceBarButton12 setWidth:192];
+        flexibaleSpaceBarButton12.width = 192;
         [buttons addObject:flexibaleSpaceBarButton12];
         [flexibaleSpaceBarButton12 release];
         
@@ -217,7 +211,7 @@ AppDelegate *app;
         [buttons addObject:wwwlayerbtn];
         [wwwlayerbtn release];
         */
-        [toolbar setItems:buttons];
+        toolbar.items = buttons;
         [buttons release];
         
 
@@ -245,7 +239,7 @@ AppDelegate *app;
     // ********************** Space between back and add btn ******************************//
     
     UIBarButtonItem *flexibaleSpaceBarButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
-    [flexibaleSpaceBarButton setWidth:55];
+    flexibaleSpaceBarButton.width = 55;
     [buttons addObject:flexibaleSpaceBarButton];
     [flexibaleSpaceBarButton release];
     
@@ -265,7 +259,7 @@ AppDelegate *app;
     // ********************** Space between backurl and next url btn ******************************///
     
     UIBarButtonItem *flexibaleSpaceBarButton11 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
-    [flexibaleSpaceBarButton11 setWidth:55];
+    flexibaleSpaceBarButton11.width = 55;
     [buttons addObject:flexibaleSpaceBarButton11];
     [flexibaleSpaceBarButton11 release];
     
@@ -286,7 +280,7 @@ AppDelegate *app;
     
     // ********************** Space between next url and add bookmark btn **********************//
     UIBarButtonItem *flexibaleSpaceBarButton12 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
-    [flexibaleSpaceBarButton12 setWidth:45];
+    flexibaleSpaceBarButton12.width = 45;
     [buttons addObject:flexibaleSpaceBarButton12];
     [flexibaleSpaceBarButton12 release];
     
@@ -336,7 +330,7 @@ AppDelegate *app;
     [buttons addObject:wwwlayerbtn];
     [wwwlayerbtn release];
     */
-     [toolbar setItems:buttons];
+     toolbar.items = buttons;
     [buttons release];
     }
     
@@ -371,8 +365,8 @@ AppDelegate *app;
     BOOL validurl = [self validateURL:urlAddress];
     
     NSLog(@" Url validation ===> %@",validurl ? @"Valid":@"Not valid");
-    int strlen=[urlAddress length];
-    NSString *subString, *subString2;
+    int strlen=urlAddress.length;
+    NSString *subString, *subString2 = nil;
   
     if(validurl)
     {
@@ -443,7 +437,7 @@ AppDelegate *app;
     if (error)
         NSLog(@"error");
     
-    NSRange range = [expression rangeOfFirstMatchInString:url options:NSMatchingCompleted range:NSMakeRange(0, [url length])];
+    NSRange range = [expression rangeOfFirstMatchInString:url options:NSMatchingCompleted range:NSMakeRange(0, url.length)];
     if (!NSEqualRanges(range, NSMakeRange(NSNotFound, 0))){
         NSString *match = [url substringWithRange:range];
         NSLog(@"%@", match);
@@ -465,9 +459,9 @@ AppDelegate *app;
    
     if(insertArrFlag)
     {
-        if ([pagesArr count]>0)
+        if (pagesArr.count>0)
         {   
-            if ([[pagesArr objectAtIndex:[pagesArr count]-1] isEqualToString:currentURL]) {
+            if ([pagesArr[pagesArr.count-1] isEqualToString:currentURL]) {
                 NSLog(@"already there..");
             }
             else
@@ -495,7 +489,7 @@ AppDelegate *app;
         }
     }
     
-    NSLog(@"pages arr count=== %d",pagesArr.count);
+    NSLog(@"pages arr count=== %lu",(unsigned long)pagesArr.count);
     NSLog(@"pages arr== %@",pagesArr);
     NSLog(@"page index=== %d",pageIndex);
     
@@ -522,7 +516,7 @@ AppDelegate *app;
     {
         backURLButton.enabled=false;
         
-        NSURL *url = [NSURL URLWithString:[pagesArr objectAtIndex:pageIndex-1]];
+        NSURL *url = [NSURL URLWithString:pagesArr[pageIndex-1]];
         NSLog(@"url=== %@",url);
         NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];
         [webVw loadRequest:requestObj];
@@ -530,7 +524,7 @@ AppDelegate *app;
     }
     else 
     {
-        NSURL *url = [NSURL URLWithString:[pagesArr objectAtIndex:pageIndex-1]];
+        NSURL *url = [NSURL URLWithString:pagesArr[pageIndex-1]];
         NSLog(@"url=== %@",url);
         NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];
         [webVw loadRequest:requestObj];
@@ -546,11 +540,11 @@ AppDelegate *app;
     
     insertArrFlag =false;
     cnt=0;
-    if(pageIndex == [pagesArr count])
+    if(pageIndex == pagesArr.count)
     {
         nexturlButton.enabled=false;
         
-        NSURL *url = [NSURL URLWithString:[pagesArr objectAtIndex:pageIndex-1]];
+        NSURL *url = [NSURL URLWithString:pagesArr[pageIndex-1]];
         NSLog(@"url=== %@",url);
         NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];
         [webVw loadRequest:requestObj];
@@ -559,7 +553,7 @@ AppDelegate *app;
     else 
     {
         nexturlButton.enabled=true;
-        NSURL *url = [NSURL URLWithString:[pagesArr objectAtIndex:pageIndex-1]];
+        NSURL *url = [NSURL URLWithString:pagesArr[pageIndex-1]];
         NSLog(@"url=== %@",url);
         NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];
         [webVw loadRequest:requestObj];
@@ -594,11 +588,11 @@ AppDelegate *app;
         // ************** Get file extension *************** //
         NSString *url = webUrlTxt.text;
         NSArray *parts = [url componentsSeparatedByString:@"/"];
-       imgfilename = [parts objectAtIndex:[parts count]-1];
+       imgfilename = parts[parts.count-1];
        // NSLog(@"file name=== %@",imgfilename);
        
         NSArray *urlComponents = [imgfilename componentsSeparatedByString:@"."];
-        NSString *extension = [urlComponents lastObject];
+        NSString *extension = urlComponents.lastObject;
         NSLog(@"ext== %@",extension);
         
         if([extension isEqualToString:@"gif"] ||[extension isEqualToString:@"jpg"]||[extension isEqualToString:@"jpeg"]||[extension isEqualToString:@"png"])
@@ -637,12 +631,12 @@ AppDelegate *app;
         NSLog(@"url== %@",webUrlTxt.text);
         
         NSArray *parts = [webUrlTxt.text componentsSeparatedByString:@"/"];
-        imgfilename = [parts objectAtIndex:[parts count]-1];
+        imgfilename = parts[parts.count-1];
         NSLog(@"file name again=== %@",imgfilename);
         
         UIImage *image = [[UIImage alloc] initWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:webUrlTxt.text]]];
         
-        NSString *docDir = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+        NSString *docDir = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
         
         NSString *newFilePath = [NSString stringWithFormat:[docDir stringByAppendingPathComponent: @"/%@"],imgfilename];
         self.imgPath=[NSString stringWithFormat:@"%@",newFilePath];
@@ -666,9 +660,10 @@ AppDelegate *app;
         
         NSURLConnection *con=[[NSURLConnection alloc] initWithRequest:req delegate:self startImmediately:YES];
         
-        NSString *fileName = [[webUrlTxt.text lastPathComponent]stringByReplacingOccurrencesOfString:@"%20" withString:@""];
+//        NSString *fileName = [(webUrlTxt.text).lastPathComponentstringByReplacingOccurrencesOfString:@"%20" withString:@""];
+        NSString *newString = [webUrlTxt.text stringByReplacingOccurrencesOfString:@"%20" withString:@""];
+        NSString *fileName = newString.lastPathComponent;
         
-      //  NSString *newString = [fileName stringByReplacingOccurrencesOfString:@"%20" withString:@""];
         fileURL=webUrlTxt.text;
         
         NSLog(@"Filename: %@", fileName);
@@ -684,7 +679,7 @@ AppDelegate *app;
             
             files++;
             
-            NSLog(@" arr count== %d",array1.count);
+            NSLog(@" arr count== %lu",(unsigned long)array1.count);
             
             titleLbl.text=[NSString stringWithFormat:@"%d",files];
             imgVw.hidden=false;
@@ -710,12 +705,12 @@ AppDelegate *app;
 - (IBAction)saveFile :(NSString *) filepath {
         [actVw startAnimating];
     
-        NSString *filenm = [[filepath lastPathComponent] stringByReplacingOccurrencesOfString:@"%20" withString:@""];
+        NSString *filenm = [filepath.lastPathComponent stringByReplacingOccurrencesOfString:@"%20" withString:@""];
         NSLog(@"Filename: %@", filenm);
        
       // NSString *newString = [filenm stringByReplacingOccurrencesOfString:@"%20" withString:@""];
         
-        NSString *docPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+        NSString *docPath = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
         
         NSString *pathToDownloadTo = [NSString stringWithFormat:@"%@/%@", docPath, filenm];
         
@@ -726,7 +721,7 @@ AppDelegate *app;
            
             [tmp writeToFile:pathToDownloadTo options:NSDataWritingAtomic error:&error];
             if (error != nil) {
-                NSLog(@"Failed to save the file: %@", [error description]);
+                NSLog(@"Failed to save the file: %@", error.description);
             } else {
                 
                 [actVw stopAnimating];
@@ -768,15 +763,15 @@ AppDelegate *app;
 {
     sqlite3_stmt *stmt;
     databasepath=[app getDBPathNew];
-    const char *dbpath=[databasepath UTF8String];
+    const char *dbpath=databasepath.UTF8String;
     if(sqlite3_open(dbpath, &dbSecret) == SQLITE_OK)
     {
-        NSLog(@"user id=== %d",[app.LoginUserID intValue]);
-        NSString *insertquery=[NSString stringWithFormat:@"Insert into AlbumTbl(UserID,ImagePath,VideoPath) VALUES(%d,\"%@\",\"%@\")",[app.LoginUserID intValue],imgPath,@""];
+        NSLog(@"user id=== %d",(app.LoginUserID).intValue);
+        NSString *insertquery=[NSString stringWithFormat:@"Insert into AlbumTbl(UserID,ImagePath,VideoPath) VALUES(%d,\"%@\",\"%@\")",(app.LoginUserID).intValue,imgPath,@""];
         
         NSLog(@"insert query== %@",insertquery);
         
-        const char *insert_query=[insertquery UTF8String];
+        const char *insert_query=insertquery.UTF8String;
         sqlite3_prepare(dbSecret, insert_query, -1, &stmt, NULL);
         
         if(sqlite3_step(stmt)== SQLITE_DONE)
@@ -841,15 +836,15 @@ AppDelegate *app;
     // int uid=1;
     sqlite3_stmt *stmt;
     databasepath=[app getDBPathNew];
-    const char *dbpath=[databasepath UTF8String];
+    const char *dbpath=databasepath.UTF8String;
     
     if(sqlite3_open(dbpath, &dbSecret) == SQLITE_OK)
     {
-        NSString *insertquery=[NSString stringWithFormat:@"Insert into BookmarkTbl(UserID,BookmarkTitle,BookmarkURL) VALUES(%d,\"%@\",\"%@\");",[app.LoginUserID intValue],bookmarkTitleTxt.text,webUrlTxt.text];
+        NSString *insertquery=[NSString stringWithFormat:@"Insert into BookmarkTbl(UserID,BookmarkTitle,BookmarkURL) VALUES(%d,\"%@\",\"%@\");",(app.LoginUserID).intValue,bookmarkTitleTxt.text,webUrlTxt.text];
         
         NSLog(@"insert bookmark query== %@",insertquery);
         
-        const char *insert_query=[insertquery UTF8String];
+        const char *insert_query=insertquery.UTF8String;
         sqlite3_prepare(dbSecret, insert_query, -1, &stmt, NULL);
         
         if(sqlite3_step(stmt)== SQLITE_DONE)
@@ -888,11 +883,11 @@ AppDelegate *app;
     [giveTitleToBookmarkView.layer addAnimation:transDown forKey:nil];
     giveTitleToBookmarkView.hidden=YES;
    
-    transDown.duration=0.6;
+    transDown.duration = 0.6;
     transDown.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
-    transDown.delegate=self;
-    transDown.type=kCATransitionReveal;
-    transDown.subtype=kCATransitionFromBottom;
+    transDown.delegate = self;
+    transDown.type = kCATransitionReveal;
+    transDown.subtype = kCATransitionFromBottom;
     [transViewBG.layer addAnimation:transDown forKey:nil];
     transViewBG.hidden=YES;
 
@@ -907,8 +902,8 @@ AppDelegate *app;
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    NSLog(@"downlod data count:::: %d",[array2 count]);
-    return [array2 count];
+    NSLog(@"downlod data count:::: %lu",(unsigned long)array2.count);
+    return array2.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -932,9 +927,9 @@ AppDelegate *app;
                 cell = (CustomDownloadView *)oneObject;
     }
     
-    [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
 
-    cell.filenameLbl.text=[[array2 objectAtIndex:indexPath.row] objectAtIndex:0];
+    cell.filenameLbl.text=array2[indexPath.row][0];
     
    // cell.totalSizeLbl.text=[NSString stringWithFormat:@"%.2f mb",floatFileSize];
     
@@ -947,11 +942,11 @@ AppDelegate *app;
    // cell.progressview.progress=progress;
     progTag=indexPath.row+5;
     
-    [cell.progressview setTag:progTag];
+    (cell.progressview).tag = progTag;
     
     [cell.cancelDLodBtn addTarget:self action:@selector(btnCancelPressed:) forControlEvents:UIControlEventTouchUpInside];
     
-    [cell.cancelDLodBtn setTag:indexPath.row+1000];
+    (cell.cancelDLodBtn).tag = indexPath.row+1000;
 
     return cell;
 }
@@ -962,11 +957,11 @@ AppDelegate *app;
     
     NSLog(@"cancel tag=== %d",tag);
     
-    NSLog(@"file name to cancel== %@",[[array2 objectAtIndex:tag] objectAtIndex:0]);
+    NSLog(@"file name to cancel== %@",array2[tag][0]);
     
     [array2 removeObjectAtIndex:tag];
     
-    NSLog(@"arr count=== %d",array2.count);
+    NSLog(@"arr count=== %lu",(unsigned long)array2.count);
     
     files--;
     
@@ -1029,20 +1024,20 @@ AppDelegate *app;
     [actVw startAnimating];
     receivedLength = 0;
     
-    [myWebData setLength: 0];
+    myWebData.length = 0;
     
-    NSNumber *filesize = [[NSNumber numberWithLong: [response expectedContentLength]] retain];
+    NSNumber *filesize = [[NSNumber numberWithLong: response.expectedContentLength] retain];
 
     NSLog(@"file Size num : %@ ",filesize);
     
-    floatFileSize = [filesize floatValue]/1000000;
+    floatFileSize = filesize.floatValue/1000000;
     
     NSLog(@"file Size : %.2f",floatFileSize);
     
-    [array1 addObject:[NSNumber numberWithFloat:floatFileSize]];
+    [array1 addObject:@(floatFileSize)];
     [array2 addObject:array1];
     
-    NSLog(@"file size from arr=== %@",[[array2 objectAtIndex:files-1] objectAtIndex:2]);
+    NSLog(@"file size from arr=== %@",array2[files-1][2]);
     [array1 release];
 
     sizelbl.text=[NSString stringWithFormat:@"%@",filesize];
@@ -1060,7 +1055,7 @@ AppDelegate *app;
     {
         myWebData=[NSMutableData data];
     }
-    receivedLength = receivedLength + [data length];
+    receivedLength = receivedLength + data.length;
     
     NSLog(@"received lenght======>> %d",receivedLength);
     
@@ -1084,18 +1079,18 @@ AppDelegate *app;
 
 -(void)progressSet:(UIView *) View1{
     
-    for (id View in [View1 subviews]) {
+    for (id View in View1.subviews) {
         if ([View isKindOfClass:[UIProgressView class]] || [View isKindOfClass:[UILabel class]])
         {
             progressView=(UIProgressView *)[View viewWithTag:progTag];
             progressView.progress=progress;
             UILabel *lbl=(UILabel *)[View viewWithTag:totalsizeTag];
             
-            NSLog(@"file size from arr **=== %@",[[array2 objectAtIndex:files-1] objectAtIndex:2]);
+            NSLog(@"file size from arr **=== %@",array2[files-1][2]);
             
-            NSString *tsize=[[array2 objectAtIndex:files-1] objectAtIndex:2];
+            NSString *tsize=array2[files-1][2];
             
-            float previousTotal = [tsize floatValue];
+            float previousTotal = tsize.floatValue;
             
             lbl.text=[NSString stringWithFormat:@"%.2fmb",previousTotal];
         }
@@ -1118,21 +1113,21 @@ AppDelegate *app;
     
     [actVw stopAnimating];
         
-    NSLog(@"arr2 count=== %d",[array2 count]);
+    NSLog(@"arr2 count=== %lu",(unsigned long)array2.count);
     
     if(array2.count > 0)
     {
         for(int i=0;i<array2.count;i++)
         {
-            for(int j=0;j<[[array2 objectAtIndex:i] count];j++)
+            for(int j=0;j<[array2[i] count];j++)
             {
-                NSLog(@"%d %@",i,[[array2 objectAtIndex:i] objectAtIndex:j]);
+                NSLog(@"%d %@",i,array2[i][j]);
             }
             
             self.downlodDetailVw.hidden =true;
             self.webVw.hidden=false;
             
-            [self performSelector:@selector(saveFile:) withObject:[[array2 objectAtIndex:i] objectAtIndex:1]];
+            [self performSelector:@selector(saveFile:) withObject:array2[i][1]];
             files--;
             
             titleLbl.text=[NSString stringWithFormat:@"%d", files]; //[array2 count] - (i+1)];

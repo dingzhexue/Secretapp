@@ -16,6 +16,7 @@
 {
     NSMutableArray *importableDoc;
     id <ImportFromPCDelegate> _delegate;
+    AppDelegate *app;
 
 }
 @property (copy) NSMutableArray *importableDoc;

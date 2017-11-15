@@ -16,7 +16,7 @@
 
 @interface UIDevice(Private)
 
-- (NSString *) macaddress;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSString *macaddress;
 
 @end
 
@@ -81,7 +81,7 @@
 
 - (NSString *) uniqueDeviceIdentifier{
     NSString *macaddress = [[UIDevice currentDevice] macaddress];
-    NSString *bundleIdentifier = [[NSBundle mainBundle] bundleIdentifier];
+    NSString *bundleIdentifier = [NSBundle mainBundle].bundleIdentifier;
     
     NSString *stringToHash = [NSString stringWithFormat:@"%@%@",macaddress,bundleIdentifier];
     NSString *uniqueIdentifier = [stringToHash stringFromMD5];

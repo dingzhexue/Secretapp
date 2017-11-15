@@ -11,10 +11,10 @@
 @property (nonatomic, copy) NSString *appId;
 @property (nonatomic, copy) NSString *hwid;
 
-- (NSString *) methodName;
-- (NSDictionary *) requestDictionary;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSString *methodName;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSDictionary *requestDictionary;
 
-- (NSMutableDictionary *) baseDictionary;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSMutableDictionary *baseDictionary;
 - (void) parseResponse: (NSDictionary *) response;
 
 @end

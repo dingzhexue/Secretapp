@@ -10,6 +10,6 @@
 
 @interface NSString(MD5Addition)
 
-- (NSString *) stringFromMD5;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSString *stringFromMD5;
 
 @end

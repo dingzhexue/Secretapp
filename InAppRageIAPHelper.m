@@ -22,7 +22,7 @@ static InAppRageIAPHelper * _sharedHelper;
     
 }
 
-- (id)init {
+- (instancetype)init {
     
     //1) You can provide number of features here. 
     //2) Give ProductID in reverse domain pattern in itunesconnect .

@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <sqlite3.h>
 #import <AVFoundation/AVFoundation.h>
 #import "GADHelper.h"
 
@@ -30,6 +29,9 @@
     NSTimer	*updateTimer;
     UIBarButtonItem *editdoneButton;
     UIButton *btnBack,*btnBackward,*btnFast,*btnForward;
+    
+    AppDelegate *app;
+    NSInteger intCount;
 }
 
 @property(nonatomic,retain) NSString *selSongID,*selSongPath;

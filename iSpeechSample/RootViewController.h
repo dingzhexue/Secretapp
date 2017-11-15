@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AppDelegate.h"
 #import "MonsterSelectionDelegate.h"
 #import "ColorPickerController.h"
 #import "tablKeyPad.h"
@@ -14,7 +15,7 @@
 #import "Facebook.h"
 #import "FacebookLikeView.h"
 #import "GADHelper.h"
-
+@class AppDelegate;
 @interface RootViewController : UIViewController<UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIPopoverControllerDelegate,UITableViewDataSource,UITableViewDelegate,MonsterSelectionDelegate, UISplitViewControllerDelegate, ColorPickerDelegate,keyPadSelectedDelegte, FBDialogDelegate,FBSessionDelegate,FacebookLikeViewDelegate,FBRequestDelegate,FBLoginDialogDelegate, FacebookLikeViewDelegate,UIAlertViewDelegate>
 {
    // UITableView *menuTbl;
@@ -32,6 +33,9 @@
     //FacebookLikeView *facebookLike;
     
     UIWebView *likeVw;
+    AppDelegate *app;
+    UIView *view;
+
 }
 
 @property(nonatomic,retain)IBOutlet UIButton *closeImgBtn;

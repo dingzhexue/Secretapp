@@ -9,7 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "AVFoundation/AVFoundation.h"
 #import "ColorPickerController.h"
-#import <sqlite3.h>
 #import <MessageUI/MessageUI.h>
 #import <MessageUI/MFMessageComposeViewController.h>
 
@@ -19,6 +18,7 @@
 - (void) setSelectedImager:(UIImage *)capImage;
 @end
 
+@class AppDelegate;
 @interface DrawPatternLockViewController : UIViewController <UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIActionSheetDelegate,UITextFieldDelegate,MFMailComposeViewControllerDelegate,MFMessageComposeViewControllerDelegate>
 {
     NSMutableArray* _paths;
@@ -37,14 +37,24 @@
     sqlite3 *dbSecret;
     bool isUserRegistered;
     
-    
-
-    
+    AppDelegate *app;
+    NSInteger passwordCounter;
+    UIView *camBtnvw;
+    UIButton *capture_btn;
+    UIButton *backbtn;
+    UILabel *lbl;
+    UITextField  *txtName;
+    NSInteger intTickCount;
+    NSTimer *tmrLock;
+    Boolean timerFlag;
+    UIImage *image;
+    AVCaptureConnection *videoConnection;
+    AVCaptureStillImageOutput *output;
 }
 @property (nonatomic,retain) UINavigationController *nav;
 @property(nonatomic,assign)id<addnNewPropertyDelegate> addnewpropertydelegate;
 @property (nonatomic, retain) NSString *loggedinNm,*loggedinPass;
-- (NSString*)getKey;
+@property (NS_NONATOMIC_IOSONLY, getter=getKey, readonly, copy) NSString *key;
 - (void)setTarget:(id)target withAction:(SEL)action;
 
 @end

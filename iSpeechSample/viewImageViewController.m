@@ -7,7 +7,6 @@
 //
 #import "ImportedContCustomCell.h"
 #import "viewImageViewController.h"
-#import "AppDelegate.h"
 @interface viewImageViewController ()
 
 @end
@@ -15,7 +14,6 @@
 @implementation viewImageViewController
 //@synthesize  lblTime,lblDate,imgPhoto,lblTitle;
 @synthesize contactsTable;
-AppDelegate *app;
 - (void)dealloc
 {
 //    [imgPhoto release];
@@ -24,7 +22,7 @@ AppDelegate *app;
 //    [lblTime release];
     [super dealloc];
 }
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
@@ -44,7 +42,7 @@ AppDelegate *app;
 }
 -(void)viewWillAppear:(BOOL)animated
 {
-    app=(AppDelegate *)[[UIApplication sharedApplication]delegate];
+    app=(AppDelegate *)[UIApplication sharedApplication].delegate;
     self.navigationController.navigationBarHidden=NO;
     self.contentSizeForViewInPopover = CGSizeMake(320.0, 600.0);
 }
@@ -90,7 +88,7 @@ AppDelegate *app;
                 ABMultiValueRef multi = ABRecordCopyValue(person, kABPersonPhoneProperty);
                 int count1=ABMultiValueGetCount(multi);
                 NSLog(@"%d",count1);
-                if ([name length]>0 && count1!=0)
+                if (name.length>0 && count1!=0)
                 {
                     NSString *beforenumber = (NSString *)ABMultiValueCopyValueAtIndex(multi, 0);
                     NSLog(@" contacts:::: %@",beforenumber );
@@ -132,7 +130,7 @@ AppDelegate *app;
             ABMultiValueRef multi = ABRecordCopyValue(person, kABPersonPhoneProperty);
             int count1=ABMultiValueGetCount(multi);
             NSLog(@"%d",count1);
-            if ([name length]>0 && count1!=0)
+            if (name.length>0 && count1!=0)
             {
                 NSString *beforenumber = (NSString *)ABMultiValueCopyValueAtIndex(multi, 0);
                 NSLog(@" contacts:::: %@",beforenumber );
@@ -176,8 +174,8 @@ AppDelegate *app;
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    NSLog(@"cont data count:::: %d",[wantedname count]);
-    return [wantedname count];
+    NSLog(@"cont data count:::: %lu",(unsigned long)wantedname.count);
+    return wantedname.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -203,15 +201,15 @@ AppDelegate *app;
                 cell = (ImportedContCustomCell *)oneObject;
     }
     
-    [cell setSelectionStyle:UITableViewCellSelectionStyleGray];
+    cell.selectionStyle = UITableViewCellSelectionStyleGray;
     cell.textLabel.textColor=[UIColor whiteColor];
-    cell.impConNmLbl.text=[wantedname objectAtIndex:indexPath.row];
-    cell.impConPhoneLbl.text=[wantednumber objectAtIndex:indexPath.row];
+    cell.impConNmLbl.text=wantedname[indexPath.row];
+    cell.impConPhoneLbl.text=wantednumber[indexPath.row];
     if(arrSelectedNumber.count>=1){
         Boolean flag=false;
     for(NSInteger i=0;i<arrSelectedNumber.count;i++)
     {
-        if([[arrSelectedNumber objectAtIndex:i] isEqual:[wantednumber objectAtIndex:indexPath.row]])
+        if([arrSelectedNumber[i] isEqual:wantednumber[indexPath.row]])
         {
             flag =true;
             break;
@@ -236,7 +234,7 @@ AppDelegate *app;
         Boolean flag=false;
         for(NSInteger i=0;i<arrSelectedNumber.count;i++)
         {
-        if([[arrSelectedNumber objectAtIndex:i] isEqual:[wantednumber objectAtIndex:indexPath.row]])
+        if([arrSelectedNumber[i] isEqual:wantednumber[indexPath.row]])
         {
             [arrSelectedNumber removeObjectAtIndex:i];
             flag=true;
@@ -245,10 +243,10 @@ AppDelegate *app;
         }
         if(!flag)
         {
-            [arrSelectedNumber addObject: [wantednumber objectAtIndex:indexPath.row]];    
+            [arrSelectedNumber addObject: wantednumber[indexPath.row]];    
         }
     }else{
-            [arrSelectedNumber addObject: [wantednumber objectAtIndex:indexPath.row]];
+            [arrSelectedNumber addObject: wantednumber[indexPath.row]];
     }
         
     [contactsTable reloadData];
@@ -274,13 +272,13 @@ AppDelegate *app;
             ////            toRecipients = [arrSelectedNumber objectAtIndexnnnnnnhggh:i];
             //            [toRecipients indexOfObject:[arrSelectedNumber objectAtIndex:i] ];
             //        }
-            NSLog(@"Recipient Count  %d",toRecipients.count);
+            NSLog(@"Recipient Count  %lu",(unsigned long)toRecipients.count);
 #ifdef LITEVERSION
             [self sendSMS:(NSString *)[NSString stringWithFormat:@"%@",@"Secret Vault"] recipientList:arrSelectedNumber];
 #else
             [self sendSMS:(NSString *)[NSString stringWithFormat:@"%@",@"Secret Vault Pro"] recipientList:arrSelectedNumber];
 #endif
-            NSLog(@"Count  %d",arrSelectedNumber.count);
+            NSLog(@"Count  %lu",(unsigned long)arrSelectedNumber.count);
             
         }else {
             

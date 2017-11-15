@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "sqlite3.h"
 
 #import "ABPadLockScreenController.h"
 #import <MessageUI/MFMessageComposeViewController.h>
@@ -18,11 +17,15 @@
 //- (void)keyPadSelected:(NSString *)color;
 @end
 
+@class AppDelegate;
+
 @interface tblPinCodeLockTap : UITableViewController<UIAlertViewDelegate,ABLockScreenDelegate,MFMailComposeViewControllerDelegate>
 {
     sqlite3 *dbSecret;
     NSMutableArray *listOfItems;
     id<tblPinCodeLockTapDelegate> _delegate;
+    AppDelegate *app;
+
 }
 
 @property (nonatomic, retain) NSMutableArray *listOfItems;

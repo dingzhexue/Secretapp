@@ -8,7 +8,6 @@
 
 #import "iTunesDataList.h"
 #import "iTunesCustomCell.h"
-#import "AppDelegate.h"
 #import "ImportFromPC.h"
 #import "GADBannerView.h"
 #import "GADBannerViewDelegate.h"
@@ -25,9 +24,8 @@
 @synthesize mytable,songToRemove,songToAdd,DateStr;
 @synthesize queue = _queue;
 
-AppDelegate *app;
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
@@ -68,7 +66,7 @@ AppDelegate *app;
     {
         self.edgesForExtendedLayout = UIRectEdgeNone;
     }
-    app = (AppDelegate *) [[UIApplication sharedApplication] delegate];
+    app = (AppDelegate *) [UIApplication sharedApplication].delegate;
 
     // Tap For Tap Adview Starts Here
     if(UI_USER_INTERFACE_IDIOM()==UIUserInterfaceIdiomPad){
@@ -146,26 +144,26 @@ AppDelegate *app;
     app.AddedSongsArray=[[NSMutableArray alloc] init];
     
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *documentsDirectory = paths[0];
     
     NSArray *filePathsArray = [[NSFileManager defaultManager] subpathsOfDirectoryAtPath:documentsDirectory  error:nil];
     NSString *filePath;
     
     for(int i = 0; i < filePathsArray.count; i ++)
     {
-        filePath = [documentsDirectory stringByAppendingPathComponent:[filePathsArray objectAtIndex:i]];
+        filePath = [documentsDirectory stringByAppendingPathComponent:filePathsArray[i]];
         // NSLog(@"files array %@", filePath);
         
         NSArray *array = [filePath componentsSeparatedByString:@"/"];
-        NSLog(@"music== %@", [array objectAtIndex:[array count]-1]);
+        NSLog(@"music== %@", array[array.count-1]);
      
-        if([[[array objectAtIndex:[array count]-1] componentsSeparatedByString:@"."] containsObject:@"mp3"] )
+        if([[array[array.count-1] componentsSeparatedByString:@"."] containsObject:@"mp3"] )
         {
             [listOfImages addObject:filePath];
         }
     }
     
-    NSLog(@"List of images count=== %d",listOfImages.count);
+    NSLog(@"List of images count=== %lu",(unsigned long)listOfImages.count);
     self.queue = [[NSOperationQueue alloc] init];
     
     if(listOfImages.count > 0)
@@ -233,20 +231,20 @@ AppDelegate *app;
             if ([oneObject isKindOfClass:[iTunesCustomCell class]])
                 cell = (iTunesCustomCell *)oneObject;
         
-        [cell setSelectionStyle:UITableViewCellSelectionStyleBlue];
+        cell.selectionStyle = UITableViewCellSelectionStyleBlue;
         
         cell.textLabel.textColor=[UIColor blackColor];
         cell.textLabel.font= [UIFont fontWithName:@"Arial Rounded MT Bold" size:15.0];
         
         [cell.mybtn setHidden:YES];
-        [cell.mybtn setTag:indexPath.row];
+        (cell.mybtn).tag = indexPath.row;
         [cell.mybtn addTarget:self action:@selector(btnExport:) forControlEvents:UIControlEventTouchUpInside];
-        cell.myimg.image = [UIImage imageWithContentsOfFile:[listOfImages objectAtIndex:indexPath.row]];   
+        cell.myimg.image = [UIImage imageWithContentsOfFile:listOfImages[indexPath.row]];   
         
-        NSString *filePath = [listOfImages objectAtIndex:indexPath.row];
+        NSString *filePath = listOfImages[indexPath.row];
         // NSLog(@"files array %@", filePath);
         NSArray *array = [filePath componentsSeparatedByString:@"/"];
-        cell.mylbl.text = [array objectAtIndex:[array count]-1];
+        cell.mylbl.text = array[array.count-1];
     }
     return cell;
 }
@@ -254,10 +252,10 @@ AppDelegate *app;
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     songToRemove=indexPath.row;
-	app.iTuneSongPath = [listOfImages objectAtIndex:indexPath.row];
+    app.iTuneSongPath = listOfImages[indexPath.row];
     NSLog(@"selected song PATH=== %@",app.iTuneSongPath);
     NSArray *array = [app.iTuneSongPath componentsSeparatedByString:@"/"];
-    app.iTuneSongTitle=[array objectAtIndex:[array count]-1];
+    app.iTuneSongTitle=array[array.count-1];
     NSLog(@"selected song title::: %@",app.iTuneSongTitle);
     
     NSLog(@"List of images arr:::: %@",listOfImages);
@@ -265,7 +263,7 @@ AppDelegate *app;
     /* ************************* Add song into library directory ************************** */
         
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES); 
-    NSString *documentsDirectory = [paths objectAtIndex:0]; // Get documents folder
+    NSString *documentsDirectory = paths[0]; // Get documents folder
     NSString *dataPath = [documentsDirectory stringByAppendingPathComponent:@"Songs"];
     if (![[NSFileManager defaultManager] fileExistsAtPath:dataPath])
         [[NSFileManager defaultManager] createDirectoryAtPath:dataPath withIntermediateDirectories:NO attributes:nil error:nil]; 
@@ -274,7 +272,7 @@ AppDelegate *app;
     NSLog(@"song file path=== %@",filePath);
     
     NSData *data1=[NSData dataWithContentsOfFile:app.iTuneSongPath];
-    NSLog(@"data len from sel data-------> %d",[data1 length]);
+    NSLog(@"data len from sel data-------> %lu",(unsigned long)data1.length);
     
     if (data1 != nil)
     {
@@ -285,11 +283,11 @@ AppDelegate *app;
     }
     
     NSError *error;
-    [[NSFileManager defaultManager] removeItemAtPath:[listOfImages objectAtIndex:songToRemove] error: &error];
+    [[NSFileManager defaultManager] removeItemAtPath:listOfImages[songToRemove] error: &error];
     [listOfImages removeObjectAtIndex:songToRemove];
     
-     NSLog(@"List of images count=== %d",listOfImages.count);
-     NSLog(@"List of images count=== %d",[app.AddedSongsArray count]);
+    NSLog(@"List of images count=== %lu",(unsigned long)listOfImages.count);
+    NSLog(@"List of images count=== %lu",(unsigned long)(app.AddedSongsArray).count);
     [mytable reloadData];    
 }
 
@@ -305,7 +303,7 @@ AppDelegate *app;
 {
     NSDate* date = [NSDate date];    
     NSDateFormatter* formatter = [[[NSDateFormatter alloc] init] autorelease];
-    [formatter setDateFormat:@"yyyy-MM-dd HH:MM:SS"];
+    formatter.dateFormat = @"yyyy-MM-dd HH:MM:SS";
     DateStr = [[NSString alloc]initWithFormat:@"%@",[formatter stringFromDate:date]];
     NSLog(@"Date::: %@",DateStr);
 }
@@ -316,17 +314,17 @@ AppDelegate *app;
     
     sqlite3_stmt *stmt;
     databasepath=[app getDBPathNew];
-    const char *dbpath=[databasepath UTF8String];
+    const char *dbpath=databasepath.UTF8String;
     if(sqlite3_open(dbpath, &dbSecret) == SQLITE_OK)
     {
         NSData *data=[NSData dataWithContentsOfFile:app.iTuneSongPath];
-        NSLog(@"data length  from ins qurey ====> %d",[data length]);
+        NSLog(@"data length  from ins qurey ====> %lu",(unsigned long)data.length);
         
-        NSString *insertquery=[NSString stringWithFormat:@"Insert into MusicTbl(UserID,MusicTitle,MusicPath,MusicDate) VALUES(%d,\"%@\",\"%@\",\"%@\");",[app.LoginUserID intValue],app.iTuneSongTitle,songToAdd,DateStr];
+        NSString *insertquery=[NSString stringWithFormat:@"Insert into MusicTbl(UserID,MusicTitle,MusicPath,MusicDate) VALUES(%d,\"%@\",\"%@\",\"%@\");",(app.LoginUserID).intValue,app.iTuneSongTitle,songToAdd,DateStr];
         
         NSLog(@"Query:: %@",insertquery);
         
-        const char *insert_query=[insertquery UTF8String];
+        const char *insert_query=insertquery.UTF8String;
         
         sqlite3_prepare_v2(dbSecret, insert_query, -1, &stmt, NULL);
         
@@ -377,7 +375,7 @@ AppDelegate *app;
 
 -(IBAction)btnExport:(id)sender
 {
-    NSLog(@"TAG: %d" , [sender tag]);
+    NSLog(@"TAG: %ld" , (long)[sender tag]);
     [_queue addOperationWithBlock: ^{
         BOOL exported = [self exportToDiskWithForce:FALSE atIndex:[sender tag]];
         [[NSOperationQueue mainQueue] addOperationWithBlock:^{
@@ -396,7 +394,7 @@ AppDelegate *app;
 
 - (BOOL)exportToDiskWithForce:(BOOL)force atIndex:(NSInteger)atIndex
 {
-    NSString *filename = [listOfImages objectAtIndex:atIndex];
+    NSString *filename = listOfImages[atIndex];
     
     
     // Check if file already exists (unless we force the write)
@@ -406,7 +404,7 @@ AppDelegate *app;
     
     // Export to data buffer
     NSError *error;
-    NSURL *url = [NSURL fileURLWithPath:[listOfImages objectAtIndex:atIndex]];
+    NSURL *url = [NSURL fileURLWithPath:listOfImages[atIndex]];
     NSFileWrapper *dirWrapper = [[[NSFileWrapper alloc] initWithURL:url options:0 error:&error] autorelease];
     if (dirWrapper == nil) {
         NSLog(@"Error creating directory wrapper: %@", error.localizedDescription);
@@ -414,12 +412,12 @@ AppDelegate *app;
     }   
     
     //NSData *dirData = [dirWrapper serializedRepresentation];
-    NSData *data =  [NSData dataWithContentsOfURL:[listOfImages objectAtIndex:atIndex]];  
+    NSData *data =  [NSData dataWithContentsOfURL:listOfImages[atIndex]];  
     if (data == nil) 
         return FALSE;
         
     // Write to disk
-    [data writeToFile:[listOfImages objectAtIndex:atIndex] atomically:YES];
+    [data writeToFile:listOfImages[atIndex] atomically:YES];
     return TRUE;
 }
 
@@ -434,7 +432,7 @@ AppDelegate *app;
     NSData *data = [NSData dataWithContentsOfFile:importPath];
     
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES);
-    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *documentsDirectory = paths[0];
     //documentsDirectory = [documentsDirectory stringByAppendingPathComponent:@"Private Documents"];
     
     NSError *error;

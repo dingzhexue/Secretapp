@@ -7,12 +7,10 @@
 //
 
 #import "ColorPickerController.h"
-#import "AppDelegate.h"
 #import "viewImageViewController.h"
 #import "viewTermsAndConditions.h"
 #import "viewHelp.h"
 #import <QuartzCore/Quartzcore.h>
-#import "RootViewController.h"
 #import "FollowMeButton.h"
 #import "Reachability.h"
 #import "IAPHelper.h"
@@ -27,12 +25,8 @@
 @synthesize Buy_vw;
 @synthesize Info_view;
 static NSString* kAppId = @"145792598897737";
-AppDelegate *app;
-bool isFacebookLike;
-bool isSearching,isFree,isCosume;
 
-bool productPurchased;
-UIView *view;
+
 #pragma mark -
 #pragma mark Initialization
 
@@ -59,11 +53,11 @@ UIView *view;
         self.view.backgroundColor=[UIColor whiteColor];
     }
     facebook = [[Facebook alloc] initWithAppId:@"518705524822537" andDelegate:self];
-    app=(AppDelegate *)[[UIApplication sharedApplication] delegate];
+    app=(AppDelegate *)[UIApplication sharedApplication].delegate;
     self.clearsSelectionOnViewWillAppear = NO;
     self.contentSizeForViewInPopover = CGSizeMake(320.0, 600.0);
     
-    NSLog(@"Product Count Begin. Total Products :: %d",app.Purchase_array.count);   
+    NSLog(@"Product Count Begin. Total Products :: %lu",(unsigned long)app.Purchase_array.count);
     
     Reachability *reach = [Reachability reachabilityForInternetConnection];
     NetworkStatus netStatus = [reach currentReachabilityStatus];
@@ -152,37 +146,37 @@ UIView *view;
      */
     
     //,time,@"Email pin Code"
-    NSArray *itemsArray1 =[NSArray arrayWithObjects:setValue,nil];
-    NSDictionary *itemsDict1 = [NSDictionary dictionaryWithObject:itemsArray1 forKey:@"0"];
+    NSArray *itemsArray1 =@[setValue];
+    NSDictionary *itemsDict1 = @{@"0": itemsArray1};
     [listOfItems addObject:itemsDict1];
     //    ,@"Email Break -in"
-    NSArray *itemsArray3 =[NSArray arrayWithObjects:@"Break-in Attempts",@"View Attempts",@"Take Photo For Login",@"View Logins " ,nil];
-    NSDictionary *itemsDict3 = [NSDictionary dictionaryWithObject:itemsArray3 forKey:@"1"];
+    NSArray *itemsArray3 =@[@"Break-in Attempts",@"View Attempts",@"Take Photo For Login",@"View Logins "];
+    NSDictionary *itemsDict3 = @{@"1": itemsArray3};
     [listOfItems addObject:itemsDict3];
     
     
-    NSArray *itemsArray4 =[NSArray arrayWithObjects:@"Edit Effects, Repeat, Shuffle", nil];
-    NSDictionary *itemsDict4 = [NSDictionary dictionaryWithObject:itemsArray4 forKey:@"2"];
+    NSArray *itemsArray4 =@[@"Edit Effects, Repeat, Shuffle"];
+    NSDictionary *itemsDict4 = @{@"2": itemsArray4};
     [listOfItems addObject:itemsDict4];
     
     
-    NSArray *itemsArray7 =[NSArray arrayWithObjects:@"Share This App", @"Help", @"Terms and Conditions", nil];
-    NSDictionary *itemsDict7 = [NSDictionary dictionaryWithObject:itemsArray7 forKey:@"3"];
+    NSArray *itemsArray7 =@[@"Share This App", @"Help", @"Terms and Conditions"];
+    NSDictionary *itemsDict7 = @{@"3": itemsArray7};
     [listOfItems addObject:itemsDict7];
     
-    NSArray *itemsArray9 =[NSArray arrayWithObjects:@"Like Us On Facebook", @"Follow Us On Twitter", nil];
-    NSDictionary *itemsDict9 = [NSDictionary dictionaryWithObject:itemsArray9 forKey:@"4"];
+    NSArray *itemsArray9 =@[@"Like Us On Facebook", @"Follow Us On Twitter"];
+    NSDictionary *itemsDict9 = @{@"4": itemsArray9};
     [listOfItems addObject:itemsDict9];
 #ifdef LITEVERSION
-    NSArray *itemsArray10 =[NSArray arrayWithObjects:@"Restore Previous Purchase",nil];
-    NSDictionary *itemsDict10 = [NSDictionary dictionaryWithObject:itemsArray10 forKey:@"5"];
+    NSArray *itemsArray10 =@[@"Restore Previous Purchase"];
+    NSDictionary *itemsDict10 = @{@"5": itemsArray10};
     [listOfItems addObject:itemsDict10];
 #else
 #endif
 
 #ifdef LITEVERSION
-    NSArray *itemsArray2 = [NSArray arrayWithObjects:@"Remove All Ads", nil];
-    NSDictionary *itemsDict2 = [NSDictionary dictionaryWithObject:itemsArray2 forKey:@"6"];
+    NSArray *itemsArray2 = @[@"Remove All Ads"];
+    NSDictionary *itemsDict2 = @{@"6": itemsArray2};
     if(![[GlobalFunctions getStringValueFromUserDefaults_ForKey:@"AdPackagePurchased"] isEqualToString:@"YES"])
     {
         [listOfItems addObject:itemsDict2];
@@ -215,7 +209,7 @@ UIView *view;
         }
         else
         {
-            self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageWithContentsOfFile:[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"ipad-background.png"]]];
+            self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle].resourcePath stringByAppendingPathComponent:@"ipad-background.png"]]];
         }
         if(app.isnAvigateFromPattern)
         {
@@ -232,37 +226,37 @@ UIView *view;
 {
      NSString *setValue = @"Dock Lock x9";
     //,time,@"Email pin Code"
-    NSArray *itemsArray1 =[NSArray arrayWithObjects:setValue,nil];
-    NSDictionary *itemsDict1 = [NSDictionary dictionaryWithObject:itemsArray1 forKey:@"0"];
+    NSArray *itemsArray1 =@[setValue];
+    NSDictionary *itemsDict1 = @{@"0": itemsArray1};
     [listOfItems addObject:itemsDict1];
     //    ,@"Email Break -in"
-    NSArray *itemsArray3 =[NSArray arrayWithObjects:@"Break-in Attempts",@"View Attempts",@"Take Photo For Login",@"View Logins " ,nil];
-    NSDictionary *itemsDict3 = [NSDictionary dictionaryWithObject:itemsArray3 forKey:@"1"];
+    NSArray *itemsArray3 =@[@"Break-in Attempts",@"View Attempts",@"Take Photo For Login",@"View Logins "];
+    NSDictionary *itemsDict3 = @{@"1": itemsArray3};
     [listOfItems addObject:itemsDict3];
     
     
-    NSArray *itemsArray4 =[NSArray arrayWithObjects:@"Edit Effects, Repeat, Shuffle", nil];
-    NSDictionary *itemsDict4 = [NSDictionary dictionaryWithObject:itemsArray4 forKey:@"2"];
+    NSArray *itemsArray4 =@[@"Edit Effects, Repeat, Shuffle"];
+    NSDictionary *itemsDict4 = @{@"2": itemsArray4};
     [listOfItems addObject:itemsDict4];
     
     
-    NSArray *itemsArray7 =[NSArray arrayWithObjects:@"Share This App", @"Help", @"Terms and Conditions", nil];
-    NSDictionary *itemsDict7 = [NSDictionary dictionaryWithObject:itemsArray7 forKey:@"3"];
+    NSArray *itemsArray7 =@[@"Share This App", @"Help", @"Terms and Conditions"];
+    NSDictionary *itemsDict7 = @{@"3": itemsArray7};
     [listOfItems addObject:itemsDict7];
     
-    NSArray *itemsArray9 =[NSArray arrayWithObjects:@"Like Us On Facebook", @"Follow Us On Twitter", nil];
-    NSDictionary *itemsDict9 = [NSDictionary dictionaryWithObject:itemsArray9 forKey:@"4"];
+    NSArray *itemsArray9 =@[@"Like Us On Facebook", @"Follow Us On Twitter"];
+    NSDictionary *itemsDict9 = @{@"4": itemsArray9};
     [listOfItems addObject:itemsDict9];
 #ifdef LITEVERSION
-    NSArray *itemsArray10 =[NSArray arrayWithObjects:@"Restore Previous Purchase",nil];
-    NSDictionary *itemsDict10 = [NSDictionary dictionaryWithObject:itemsArray10 forKey:@"5"];
+    NSArray *itemsArray10 =@[@"Restore Previous Purchase"];
+    NSDictionary *itemsDict10 = @{@"5": itemsArray10};
     [listOfItems addObject:itemsDict10];
 #else
 #endif
     
 #ifdef LITEVERSION
-    NSArray *itemsArray2 = [NSArray arrayWithObjects:@"Remove All Ads", nil];
-    NSDictionary *itemsDict2 = [NSDictionary dictionaryWithObject:itemsArray2 forKey:@"6"];
+    NSArray *itemsArray2 = @[@"Remove All Ads"];
+    NSDictionary *itemsDict2 = @{@"6": itemsArray2};
     if(![[GlobalFunctions getStringValueFromUserDefaults_ForKey:@"AdPackagePurchased"] isEqualToString:@"YES"])
     {
         [listOfItems addObject:itemsDict2];
@@ -319,18 +313,18 @@ UIView *view;
 {
      NSLog(@"%@",listOfItems);
     
-    return [listOfItems count];
+    return listOfItems.count;
    
     //return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    NSDictionary *objdict = [listOfItems objectAtIndex:section];
-    NSString *str = [NSString stringWithFormat:@"%i",section];
-    NSArray *objarray = [objdict objectForKey:str];
+    NSDictionary *objdict = listOfItems[section];
+    NSString *str = [NSString stringWithFormat:@"%li",(long)section];
+    NSArray *objarray = objdict[str];
     
-    return [objarray count];
+    return objarray.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -345,9 +339,9 @@ UIView *view;
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.accessoryView = UITableViewCellAccessoryNone;
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    NSDictionary *objdict = [listOfItems objectAtIndex:indexPath.section];
-    NSString *str = [NSString stringWithFormat:@"%i",indexPath.section];
-    NSArray *objarray = [objdict objectForKey:str];
+    NSDictionary *objdict = listOfItems[indexPath.section];
+    NSString *str = [NSString stringWithFormat:@"%li",(long)indexPath.section];
+    NSArray *objarray = objdict[str];
     
     if(indexPath.section == 0 && indexPath.row == 0)
     {
@@ -365,7 +359,7 @@ UIView *view;
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 #endif
         cell.textLabel.textColor = [UIColor  blackColor];
-        cell.textLabel.text = [objarray objectAtIndex:indexPath.row];
+        cell.textLabel.text = objarray[indexPath.row];
         
     }
     else if(indexPath.section == 1 && indexPath.row == 0)
@@ -380,7 +374,7 @@ UIView *view;
             strBreakIn=YES;
         }
         cell.textLabel.textColor = [UIColor blackColor];
-        cell.textLabel.text = [objarray objectAtIndex:indexPath.row];
+        cell.textLabel.text = objarray[indexPath.row];
         
 #ifdef LITEVERSION
         if(![[GlobalFunctions getStringValueFromUserDefaults_ForKey:@"BreakInPackagePurchased"] isEqualToString:@"YES"])
@@ -397,7 +391,7 @@ UIView *view;
         else
         {
             UISwitch* aswitch = [[UISwitch alloc]  initWithFrame:CGRectZero];
-            [aswitch setTag: 1];
+            aswitch.tag = 1;
             [aswitch addTarget:self action:@selector(swtValueChanged:) forControlEvents:UIControlEventValueChanged];
             aswitch.on = strBreakIn; // or NO
             cell.accessoryView = aswitch;
@@ -416,7 +410,7 @@ UIView *view;
     {
 //#ifdef PROVERSION
         cell.textLabel.textColor = [UIColor  blackColor];
-        cell.textLabel.text = [objarray objectAtIndex:indexPath.row];
+        cell.textLabel.text = objarray[indexPath.row];
 //#else
 //        cell.textLabel.text = [objarray objectAtIndex:indexPath.row];
 //        //cell.selectionStyle=UITableViewCellSelectionStyleNone;
@@ -437,43 +431,43 @@ UIView *view;
             swtValue=YES;
         }
         cell.textLabel.textColor = [UIColor  blackColor];
-        cell.textLabel.text = [objarray objectAtIndex:indexPath.row];
+        cell.textLabel.text = objarray[indexPath.row];
         UISwitch* aswitch = [[UISwitch alloc] initWithFrame:CGRectZero];
         aswitch.on = swtValue; // or NO
-        [aswitch setTag: 2];
+        aswitch.tag = 2;
         [aswitch addTarget:self action:@selector(swtValueChanged:) forControlEvents:UIControlEventValueChanged];
         cell.accessoryView = aswitch;
         [aswitch release];
     }else if(indexPath.section == 1 && indexPath.row == 3)
     {
         cell.textLabel.textColor = [UIColor  blackColor];
-        cell.textLabel.text = [objarray objectAtIndex:indexPath.row];
+        cell.textLabel.text = objarray[indexPath.row];
     
     }else if(indexPath.section ==2 && indexPath.row == 0)
     {
         cell.textLabel.textColor = [UIColor  blackColor];
-        cell.textLabel.text = [objarray objectAtIndex:indexPath.row];
+        cell.textLabel.text = objarray[indexPath.row];
         
     }else if(indexPath.section == 3 && indexPath.row == 0)
     {
         cell.textLabel.textColor = [UIColor  blackColor];
-        cell.textLabel.text = [objarray objectAtIndex:indexPath.row];
+        cell.textLabel.text = objarray[indexPath.row];
         
     }else if(indexPath.section == 3 && indexPath.row == 1)
     {
         cell.textLabel.textColor = [UIColor  blackColor];
-        cell.textLabel.text = [objarray objectAtIndex:indexPath.row];
+        cell.textLabel.text = objarray[indexPath.row];
         
     }else if(indexPath.section == 3 && indexPath.row == 2)
     {
         cell.textLabel.textColor = [UIColor  blackColor];
-        cell.textLabel.text = [objarray objectAtIndex:indexPath.row];
+        cell.textLabel.text = objarray[indexPath.row];
         
     }
     else if(indexPath.section == 4 && indexPath.row == 0)
     {
         cell.textLabel.textColor = [UIColor  blackColor];
-        cell.textLabel.text = [objarray objectAtIndex:indexPath.row];
+        cell.textLabel.text = objarray[indexPath.row];
         cell.accessoryView = UITableViewCellAccessoryNone;
         cell.accessoryType = UITableViewCellAccessoryNone;
         self.facebookLikeView=[[FacebookLikeView alloc]initWithFrame:CGRectMake(310, 16,90, 22)];
@@ -491,13 +485,13 @@ UIView *view;
     else if(indexPath.section == 4 && indexPath.row == 1)
     {
         cell.textLabel.textColor = [UIColor  blackColor];
-        cell.textLabel.text = [objarray objectAtIndex:indexPath.row];
+        cell.textLabel.text = objarray[indexPath.row];
         
     }
     else if(indexPath.section == 5 && indexPath.row == 0)
     {
         cell.textLabel.textColor = [UIColor  blackColor];
-        cell.textLabel.text = [objarray objectAtIndex:indexPath.row];
+        cell.textLabel.text = objarray[indexPath.row];
         
     }
 #ifdef LITEVERSION
@@ -517,7 +511,7 @@ UIView *view;
             NSLog(@"Product Button Purchased");
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             cell.textLabel.textColor = [UIColor  blackColor];
-            cell.textLabel.text = [objarray objectAtIndex:indexPath.row];
+            cell.textLabel.text = objarray[indexPath.row];
         }
     }
 #else
@@ -528,7 +522,7 @@ UIView *view;
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-	NSLog(@"section>>>>%d",section);
+    NSLog(@"section>>>>%ld",(long)section);
     
     if(section == 0)
     {
@@ -814,7 +808,7 @@ UIView *view;
     }
     [self.tableView reloadData];
     
-    NSLog(@"%d",value);
+    NSLog(@"%ld",(long)value);
 }
 #pragma mark -
 #pragma mark Memory management
@@ -835,14 +829,14 @@ UIView *view;
 {
     NSString *strReturn=@"false";
     NSString *databasepath=[app getDBPathNew];
-    if (sqlite3_open([databasepath UTF8String], &dbSecret) == SQLITE_OK)
+    if (sqlite3_open(databasepath.UTF8String, &dbSecret) == SQLITE_OK)
     {
         
         
         NSString *selectSql = [NSString stringWithFormat:@"select VoiceAuth from AuthentictionCheckTbl where UserID = %@",app.LoginUserID];
         
         NSLog(@"Query : %@",selectSql);
-        const char *sqlStatement = [selectSql UTF8String];
+        const char *sqlStatement = selectSql.UTF8String;
         sqlite3_stmt *query_stmt;
         
         if(sqlite3_prepare_v2(dbSecret, sqlStatement, -1, &query_stmt, NULL) == SQLITE_OK)
@@ -879,9 +873,9 @@ UIView *view;
 {
     sqlite3_stmt *statement;
     
-    if(sqlite3_open([[app getDBPathNew] UTF8String],&dbTest)== SQLITE_OK)
+    if(sqlite3_open([app getDBPathNew].UTF8String,&dbTest)== SQLITE_OK)
     {
-        NSString *insertquery;
+        NSString *insertquery = nil;
         
         if([strProperty isEqualToString:@"BrekIn"]){
             insertquery=[NSString stringWithFormat:@"UPDATE AutoLogOffTbl SET BrekinPhoto =\"%@\" where UserID=%@",strValue,UserID];
@@ -899,7 +893,7 @@ UIView *view;
         //        insertquery=[NSString stringWithFormat:@"UPDATE AutoLogOffTbl SET BrekinPhoto =\"%@\" where UserID=%@",strValue,UserID];
         NSLog(@"Query::::%@",insertquery);
         
-        const char *insert_query=[insertquery UTF8String];
+        const char *insert_query=insertquery.UTF8String;
         sqlite3_prepare(dbTest,insert_query,-1,&statement,NULL);
         
         if(sqlite3_step(statement) == SQLITE_DONE){
@@ -927,8 +921,8 @@ UIView *view;
 {
     NSString *strReturn=@"false";
     NSString *databasepath=[app getDBPathNew];
-    NSString *selectSql;
-    if (sqlite3_open([databasepath UTF8String], &dbSecret) == SQLITE_OK)
+    NSString *selectSql = nil;
+    if (sqlite3_open(databasepath.UTF8String, &dbSecret) == SQLITE_OK)
     {
         
         if([strProperty isEqualToString:@"Time"])
@@ -946,7 +940,7 @@ UIView *view;
             selectSql = [NSString stringWithFormat:@"select Facebook from AutoLogOffTbl where UserID=%@",app.LoginUserID];
         }
         NSLog(@"Query : %@",selectSql);
-        const char *sqlStatement = [selectSql UTF8String];
+        const char *sqlStatement = selectSql.UTF8String;
         sqlite3_stmt *query_stmt;
         
         if(sqlite3_prepare_v2(dbSecret, sqlStatement, -1, &query_stmt, NULL) == SQLITE_OK)
@@ -991,7 +985,7 @@ UIView *view;
         [mfViewController setMessageBody:someString isHTML:YES];
         [self presentViewController:mfViewController animated:YES completion:nil];
         [mfViewController release];
-	}
+    }
 #else
     if ([MFMailComposeViewController canSendMail])
     {
@@ -1004,14 +998,14 @@ UIView *view;
         [mfViewController setMessageBody:someString isHTML:YES];
         [self presentViewController:mfViewController animated:YES completion:nil];
         [mfViewController release];
-	}
+    }
 
 #endif
     else {
-		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Status:" message:@"Email is not configured." delegate:nil cancelButtonTitle:@"ok" otherButtonTitles:nil];
-		[alert show];
-		[alert release];
-	}
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Status:" message:@"Email is not configured." delegate:nil cancelButtonTitle:@"ok" otherButtonTitles:nil];
+        [alert show];
+        [alert release];
+    }
 }
 
 - (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error
@@ -1047,7 +1041,7 @@ UIView *view;
     MFMessageComposeViewController *picker = [[MFMessageComposeViewController alloc] init];
     picker.messageComposeDelegate = self;
     
-    picker.recipients = [NSArray arrayWithObject:@"123-456-7890"];
+    picker.recipients = @[@"123-456-7890"];
 #ifdef LITEVERSION
     picker.body=@"I like this link now it's you turn https://itunes.apple.com/us/app/secret-app/id569771443?ls=1&mt=8";
 #else
@@ -1093,12 +1087,12 @@ UIView *view;
         [self dismissViewControllerAnimated:YES completion:nil];
     };
     
-    [tweetSheet setCompletionHandler:completionHandler];
+    tweetSheet.completionHandler = completionHandler;
 }
 
 +(BOOL)canSendTweet{
     
-    BOOL _showTweetButton;
+    BOOL _showTweetButton = false;
     /* Checks For Service Availability */
     if ([TWTweetComposeViewController canSendTweet] ) {
         // show my tweet button
@@ -1163,10 +1157,10 @@ UIView *view;
 #pragma mark - ActionSheet Methods
 
 -(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-	
+    
     if (buttonIndex == 0) {
         [self sendMail];
-	}
+    }
     else if(buttonIndex == 1)
     {
         viewImageViewController *defAlVw;
@@ -1247,7 +1241,7 @@ UIView *view;
                                    nil];
 
 #endif
-    [[self facebook] dialog:@"feed" andParams:params andDelegate:self];
+    [self.facebook dialog:@"feed" andParams:params andDelegate:self];
 }
 
 - (IBAction)facebookShareButtonPressed:(id)sender
@@ -1325,75 +1319,75 @@ UIView *view;
 
 - (void) openTwitterAppForFollowingUser:(NSString *)twitterUserName
 {
-	UIApplication *app = [UIApplication sharedApplication];
+    UIApplication *app = [UIApplication sharedApplication];
     
-	// Tweetie: http://developer.atebits.com/tweetie-iphone/protocol-reference/
-	NSURL *tweetieURL = [NSURL URLWithString:[NSString stringWithFormat:@"tweetie://user?screen_name=%@", twitterUserName]];
-	if ([app canOpenURL:tweetieURL])
-	{
-		[app openURL:tweetieURL];
-		return;
-	}
+    // Tweetie: http://developer.atebits.com/tweetie-iphone/protocol-reference/
+    NSURL *tweetieURL = [NSURL URLWithString:[NSString stringWithFormat:@"tweetie://user?screen_name=%@", twitterUserName]];
+    if ([app canOpenURL:tweetieURL])
+    {
+        [app openURL:tweetieURL];
+        return;
+    }
     
-	// Birdfeed: http://birdfeed.tumblr.com/post/172994970/url-scheme
-	NSURL *birdfeedURL = [NSURL URLWithString:[NSString stringWithFormat:@"x-birdfeed://user?screen_name=%@", twitterUserName]];
-	if ([app canOpenURL:birdfeedURL])
-	{
-		[app openURL:birdfeedURL];
-		return;
-	}
+    // Birdfeed: http://birdfeed.tumblr.com/post/172994970/url-scheme
+    NSURL *birdfeedURL = [NSURL URLWithString:[NSString stringWithFormat:@"x-birdfeed://user?screen_name=%@", twitterUserName]];
+    if ([app canOpenURL:birdfeedURL])
+    {
+        [app openURL:birdfeedURL];
+        return;
+    }
     
-	// Twittelator: http://www.stone.com/Twittelator/Twittelator_API.html
-	NSURL *twittelatorURL = [NSURL URLWithString:[NSString stringWithFormat:@"twit:///user?screen_name=%@", twitterUserName]];
-	if ([app canOpenURL:twittelatorURL])
-	{
-		[app openURL:twittelatorURL];
-		return;
-	}
+    // Twittelator: http://www.stone.com/Twittelator/Twittelator_API.html
+    NSURL *twittelatorURL = [NSURL URLWithString:[NSString stringWithFormat:@"twit:///user?screen_name=%@", twitterUserName]];
+    if ([app canOpenURL:twittelatorURL])
+    {
+        [app openURL:twittelatorURL];
+        return;
+    }
     
-	// Icebird: http://icebirdapp.com/developerdocumentation/
-	NSURL *icebirdURL = [NSURL URLWithString:[NSString stringWithFormat:@"icebird://user?screen_name=%@", twitterUserName]];
-	if ([app canOpenURL:icebirdURL])
-	{
-		[app openURL:icebirdURL];
-		return;
-	}
+    // Icebird: http://icebirdapp.com/developerdocumentation/
+    NSURL *icebirdURL = [NSURL URLWithString:[NSString stringWithFormat:@"icebird://user?screen_name=%@", twitterUserName]];
+    if ([app canOpenURL:icebirdURL])
+    {
+        [app openURL:icebirdURL];
+        return;
+    }
     
-	// Fluttr: no docs
-	NSURL *fluttrURL = [NSURL URLWithString:[NSString stringWithFormat:@"fluttr://user/%@", twitterUserName]];
-	if ([app canOpenURL:fluttrURL])
-	{
-		[app openURL:fluttrURL];
-		return;
-	}
+    // Fluttr: no docs
+    NSURL *fluttrURL = [NSURL URLWithString:[NSString stringWithFormat:@"fluttr://user/%@", twitterUserName]];
+    if ([app canOpenURL:fluttrURL])
+    {
+        [app openURL:fluttrURL];
+        return;
+    }
     
-	// SimplyTweet: http://motionobj.com/blog/url-schemes-in-simplytweet-23
-	NSURL *simplytweetURL = [NSURL URLWithString:[NSString stringWithFormat:@"simplytweet:?link=http://twitter.com/%@", twitterUserName]];
-	if ([app canOpenURL:simplytweetURL])
-	{
-		[app openURL:simplytweetURL];
-		return;
-	}
+    // SimplyTweet: http://motionobj.com/blog/url-schemes-in-simplytweet-23
+    NSURL *simplytweetURL = [NSURL URLWithString:[NSString stringWithFormat:@"simplytweet:?link=http://twitter.com/%@", twitterUserName]];
+    if ([app canOpenURL:simplytweetURL])
+    {
+        [app openURL:simplytweetURL];
+        return;
+    }
     
-	// Tweetings: http://tweetings.net/iphone/scheme.html
-	NSURL *tweetingsURL = [NSURL URLWithString:[NSString stringWithFormat:@"tweetings:///user?screen_name=%@", twitterUserName]];
-	if ([app canOpenURL:tweetingsURL])
-	{
-		[app openURL:tweetingsURL];
-		return;
-	}
+    // Tweetings: http://tweetings.net/iphone/scheme.html
+    NSURL *tweetingsURL = [NSURL URLWithString:[NSString stringWithFormat:@"tweetings:///user?screen_name=%@", twitterUserName]];
+    if ([app canOpenURL:tweetingsURL])
+    {
+        [app openURL:tweetingsURL];
+        return;
+    }
     
-	// Echofon: http://echofon.com/twitter/iphone/guide.html
-	NSURL *echofonURL = [NSURL URLWithString:[NSString stringWithFormat:@"echofon:///user_timeline?%@", twitterUserName]];
-	if ([app canOpenURL:echofonURL])
-	{
-		[app openURL:echofonURL];
-		return;
-	}
+    // Echofon: http://echofon.com/twitter/iphone/guide.html
+    NSURL *echofonURL = [NSURL URLWithString:[NSString stringWithFormat:@"echofon:///user_timeline?%@", twitterUserName]];
+    if ([app canOpenURL:echofonURL])
+    {
+        [app openURL:echofonURL];
+        return;
+    }
     
-	// --- Fallback: Mobile Twitter in Safari
-	NSURL *safariURL = [NSURL URLWithString:[NSString stringWithFormat:@"http://mobile.twitter.com/%@", twitterUserName]];
-	[app openURL:safariURL];
+    // --- Fallback: Mobile Twitter in Safari
+    NSURL *safariURL = [NSURL URLWithString:[NSString stringWithFormat:@"http://mobile.twitter.com/%@", twitterUserName]];
+    [app openURL:safariURL];
 }
 
 #pragma mark - FacebookLikeViewDelegate methods
@@ -1401,7 +1395,7 @@ UIView *view;
 - (void)facebookLikeViewRequiresLogin:(FacebookLikeView *)aFacebookLikeView
 {
     isFacebookLike=YES;
-    [facebook authorize:[NSArray array]];
+    [facebook authorize:@[]];
 }
 
 - (void)facebookLikeViewDidRender:(FacebookLikeView *)aFacebookLikeView {
@@ -1458,7 +1452,7 @@ UIView *view;
     _hud.labelText = @"Timeout!";
     _hud.detailsLabelText = @"Please try again later.";
     _hud.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"37x-Checkmark.png"]];
-	_hud.mode = MBProgressHUDModeCustomView;
+    _hud.mode = MBProgressHUDModeCustomView;
     [self performSelector:@selector(dismissHUD:) withObject:nil afterDelay:3.0];
 }
 
@@ -1485,7 +1479,8 @@ UIView *view;
     
     [app.Purchase_array removeAllObjects];
     [[InAppRageIAPHelper alloc]init];
-    NSLog(@"%hhd",[[GlobalFunctions getStringValueFromUserDefaults_ForKey:@"BreakInPackagePurchased"] isEqualToString:@"YES"]);
+    NSLog(@"%c",[[GlobalFunctions getStringValueFromUserDefaults_ForKey:@"BreakInPackagePurchased"] isEqualToString:@"YES"]);
+//    NSLog(@"%hhd",[[GlobalFunctions getStringValueFromUserDefaults_ForKey:@"BreakInPackagePurchased"] isEqualToString:@"YES"]);
 //    if([[GlobalFunctions getStringValueFromUserDefaults_ForKey:@"In-App Purchase"] isEqualToString:@"BreakIn Package"])
 //     {
 //        productPurchased = YES;
@@ -1591,11 +1586,11 @@ UIView *view;
         [subView.layer setMasksToBounds:YES];
         subView.backgroundColor = [UIColor blackColor];
         
-        [subView.layer setCornerRadius:10.0];
+        (subView.layer).cornerRadius = 10.0;
         subView.backgroundColor = [UIColor blackColor];
-        [subView.layer setCornerRadius:10.0];
-        [subView.layer setBorderColor:[[UIColor whiteColor]CGColor]];
-        [subView.layer setBorderWidth:3.0];
+        (subView.layer).cornerRadius = 10.0;
+        (subView.layer).borderColor = [UIColor whiteColor].CGColor;
+        (subView.layer).borderWidth = 3.0;
         [self.view addSubview:view];
     }
     else
@@ -1606,7 +1601,7 @@ UIView *view;
         {
             view.frame=CGRectMake(0,0,self.view.bounds.size.width,self.view.bounds.size.height);
         }
-        CGSize result = [[UIScreen mainScreen] bounds].size;
+        CGSize result = [UIScreen mainScreen].bounds.size;
         UIView *subView;
         if(result.height < 568)
         {
@@ -1660,11 +1655,11 @@ UIView *view;
         [subView.layer setMasksToBounds:YES];
         subView.backgroundColor = [UIColor blackColor];
         
-        [subView.layer setCornerRadius:10.0];
+        (subView.layer).cornerRadius = 10.0;
         subView.backgroundColor = [UIColor blackColor];
-        [subView.layer setCornerRadius:10.0];
-        [subView.layer setBorderColor:[[UIColor whiteColor]CGColor]];
-        [subView.layer setBorderWidth:3.0];
+        (subView.layer).cornerRadius = 10.0;
+        (subView.layer).borderColor = [UIColor whiteColor].CGColor;
+        (subView.layer).borderWidth = 3.0;
 
         [self.view addSubview:view];
     }
@@ -1727,11 +1722,11 @@ UIView *view;
         [subView.layer setMasksToBounds:YES];
         subView.backgroundColor = [UIColor blackColor];
         
-        [subView.layer setCornerRadius:10.0];
+        (subView.layer).cornerRadius = 10.0;
         subView.backgroundColor = [UIColor blackColor];
-        [subView.layer setCornerRadius:10.0];
-        [subView.layer setBorderColor:[[UIColor whiteColor]CGColor]];
-        [subView.layer setBorderWidth:3.0];
+        (subView.layer).cornerRadius = 10.0;
+        (subView.layer).borderColor = [UIColor whiteColor].CGColor;
+        (subView.layer).borderWidth = 3.0;
         
         [self.view addSubview:view];
     }
@@ -1743,7 +1738,7 @@ UIView *view;
         {
             view.frame=CGRectMake(0,0,self.view.bounds.size.width,self.view.bounds.size.height);
         }
-        CGSize result = [[UIScreen mainScreen] bounds].size;
+        CGSize result = [UIScreen mainScreen].bounds.size;
         UIView *subView;
         if(result.height < 568)
         {
@@ -1787,11 +1782,11 @@ UIView *view;
         [subView.layer setMasksToBounds:YES];
         subView.backgroundColor = [UIColor blackColor];
         
-        [subView.layer setCornerRadius:10.0];
+        (subView.layer).cornerRadius = 10.0;
         subView.backgroundColor = [UIColor blackColor];
-        [subView.layer setCornerRadius:10.0];
-        [subView.layer setBorderColor:[[UIColor whiteColor]CGColor]];
-        [subView.layer setBorderWidth:3.0];
+        (subView.layer).cornerRadius = 10.0;
+        (subView.layer).borderColor = [UIColor whiteColor].CGColor;
+        (subView.layer).borderWidth = 3.0;
         
         [self.view addSubview:view];
     }
@@ -1864,11 +1859,11 @@ UIView *view;
         [subView.layer setMasksToBounds:YES];
         subView.backgroundColor = [UIColor blackColor];
         
-        [subView.layer setCornerRadius:10.0];
+        (subView.layer).cornerRadius = 10.0;
         subView.backgroundColor = [UIColor blackColor];
-        [subView.layer setCornerRadius:10.0];
-        [subView.layer setBorderColor:[[UIColor whiteColor]CGColor]];
-        [subView.layer setBorderWidth:3.0];
+        (subView.layer).cornerRadius = 10.0;
+        (subView.layer).borderColor = [UIColor whiteColor].CGColor;
+        (subView.layer).borderWidth = 3.0;
         
         [self.view addSubview:view];
     }
@@ -1880,7 +1875,7 @@ UIView *view;
         {
             view.frame=CGRectMake(0,0,self.view.bounds.size.width,self.view.bounds.size.height);
         }
-        CGSize result = [[UIScreen mainScreen] bounds].size;
+        CGSize result = [UIScreen mainScreen].bounds.size;
         UIView *subView;
         if(result.height < 568)
         {
@@ -1933,11 +1928,11 @@ UIView *view;
         [subView.layer setMasksToBounds:YES];
         subView.backgroundColor = [UIColor blackColor];
         
-        [subView.layer setCornerRadius:10.0];
+        (subView.layer).cornerRadius = 10.0;
         subView.backgroundColor = [UIColor blackColor];
-        [subView.layer setCornerRadius:10.0];
-        [subView.layer setBorderColor:[[UIColor whiteColor]CGColor]];
-        [subView.layer setBorderWidth:3.0];
+        (subView.layer).cornerRadius = 10.0;
+        (subView.layer).borderColor = [UIColor whiteColor].CGColor;
+        (subView.layer).borderWidth = 3.0;
         
 
         [self.view addSubview:view];
@@ -1983,6 +1978,50 @@ UIView *view;
     self.tableView.scrollEnabled = YES;
     
     NSLog(@"Cancel Button Clicked...");
+}
+
+- (void)fbDialogLogin:(NSString *)token expirationDate:(NSDate *)expirationDate {
+    return;
+}
+
+- (void)fbDialogNotLogin:(BOOL)cancelled {
+    return;
+}
+
+- (void)encodeWithCoder:(nonnull NSCoder *)aCoder {
+    return;
+}
+
+- (void)traitCollectionDidChange:(nullable UITraitCollection *)previousTraitCollection {
+    return;
+}
+
+- (void)preferredContentSizeDidChangeForChildContentContainer:(nonnull id<UIContentContainer>)container {
+    return;
+}
+
+- (void)systemLayoutFittingSizeDidChangeForChildContentContainer:(nonnull id<UIContentContainer>)container {
+    return;
+}
+
+- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(nonnull id<UIViewControllerTransitionCoordinator>)coordinator {
+    return;
+}
+
+- (void)willTransitionToTraitCollection:(nonnull UITraitCollection *)newCollection withTransitionCoordinator:(nonnull id<UIViewControllerTransitionCoordinator>)coordinator {
+    return;
+}
+
+- (void)didUpdateFocusInContext:(nonnull UIFocusUpdateContext *)context withAnimationCoordinator:(nonnull UIFocusAnimationCoordinator *)coordinator {
+    return;
+}
+
+- (void)setNeedsFocusUpdate {
+    return;
+}
+
+- (void)updateFocusIfNeeded {
+    return;
 }
 
 @end

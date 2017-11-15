@@ -16,20 +16,20 @@
 @synthesize appId, hwid;
 
 - (NSString *) methodName {
-	return @"";
+    return @"";
 }
 
 //Please note that all values will be processed as strings
 - (NSDictionary *) requestDictionary {
-	return nil;
+    return nil;
 }
 
 - (NSMutableDictionary *) baseDictionary {
-	NSMutableDictionary *dict = [NSMutableDictionary new];
-	[dict setObject:appId forKey:@"application"];
-	[dict setObject:hwid forKey:@"hwid"];
-	[dict setObject:kSDKVersion forKey:@"v"];
-	return dict;
+    NSMutableDictionary *dict = [NSMutableDictionary new];
+    dict[@"application"] = appId;
+    dict[@"hwid"] = hwid;
+    dict[@"v"] = kSDKVersion;
+    return dict;
 }
 
 - (void) parseResponse: (NSDictionary *) response {

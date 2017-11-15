@@ -7,7 +7,6 @@
 //
 
 #import "MusicView.h"
-#import "AppDelegate.h"
 #import "iTunesDataList.h"
 #import "GADBannerView.h"
 #import "GADBannerViewDelegate.h"
@@ -26,11 +25,10 @@
 @synthesize playTimeLbl,totaltimeLbl,playpauseBtn,audioPlayer,progressBar,selSongID,selSongPath;
 @synthesize btnBack,btnBackward,btnFast,btnForward;
 @synthesize lblTitle;
-AppDelegate *app;
-NSInteger intCount;
 int count=0;
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+
+- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
@@ -70,10 +68,10 @@ int count=0;
     if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0"))
     {
         self.edgesForExtendedLayout = UIRectEdgeNone;
-        [toolbar setBarTintColor:[UIColor blackColor]];
+        toolbar.barTintColor = [UIColor blackColor];
     }
 
-    app=(AppDelegate *)[[UIApplication sharedApplication] delegate];
+    app=(AppDelegate *)[UIApplication sharedApplication].delegate;
     musicArr=[[NSMutableArray alloc] init];
     [self.navigationController setNavigationBarHidden:NO];
   /*  
@@ -129,7 +127,7 @@ int count=0;
     }
     [buttons addObject:addButton];
     [addButton release];
-    [toolbar setItems:buttons];
+    toolbar.items = buttons;
     [buttons release];
 }
 
@@ -155,7 +153,7 @@ int count=0;
 
 -(void)viewWillDisappear:(BOOL)animated
 {
-   if([audioPlayer isPlaying])
+   if(audioPlayer.playing)
    {
        [audioPlayer stop];
    }
@@ -184,18 +182,18 @@ int count=0;
     
     
     intCount++;
-    int i= [musicArr count ];
+    int i= musicArr.count ;
     NSLog(@" count %d and i is %d",count,i);
     
     if(intCount <i )
     {
-        MusicView *musicVwObj=[musicArr objectAtIndex:intCount];
+        MusicView *musicVwObj=musicArr[intCount];
         selSongID=musicVwObj.musicID;
         
         selSongPath=musicVwObj.musicPath;
             lblTitle.text=musicVwObj.musicTitle;
         NSData *data=[NSData dataWithContentsOfFile:selSongPath];
-        NSLog(@"data length from music tbl ====> %d",[data length]);
+        NSLog(@"data length from music tbl ====> %lu",(unsigned long)data.length);
         
         flagPlay=NO;
         audioPlayer.currentTime=0.00;
@@ -237,19 +235,19 @@ int count=0;
 -(IBAction)btnbackwardClick:(id)sender
 {
     intCount--;
-    int i= [musicArr count ];
-    NSLog(@" count %d and i is %d",intCount,i);
+    int i= musicArr.count ;
+    NSLog(@" count %ld and i is %d",(long)intCount,i);
     
     if( intCount>=0 )
     {
         
-        MusicView *musicVwObj=[musicArr objectAtIndex:intCount];
+        MusicView *musicVwObj=musicArr[intCount];
         selSongID=musicVwObj.musicID;
             lblTitle.text=musicVwObj.musicTitle;
         selSongPath=musicVwObj.musicPath;
         
         NSData *data=[NSData dataWithContentsOfFile:selSongPath];
-        NSLog(@"data length from music tbl ====> %d",[data length]);
+        NSLog(@"data length from music tbl ====> %lu",(unsigned long)data.length);
         
         flagPlay=NO;
         audioPlayer.currentTime=0.00;
@@ -315,7 +313,7 @@ int count=0;
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // Return the number of rows in the section.
-     NSLog(@"Arr Count : %d",musicArr.count);
+    NSLog(@"Arr Count : %lu",(unsigned long)musicArr.count);
     return musicArr.count;
 }
 
@@ -333,7 +331,7 @@ int count=0;
     [selectedBackgroundViewForCell setBackgroundColor:[UIColor blackColor]];
     cell.selectedBackgroundView = selectedBackgroundViewForCell;*/
     
-    [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     if(SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0"))
     {
         cell.textLabel.textColor=[UIColor blackColor];
@@ -344,7 +342,7 @@ int count=0;
     }
     cell.textLabel.font= [UIFont fontWithName:@"Arial Rounded MT Bold" size:15.0];
 
-    MusicView *musicVwObj=[musicArr objectAtIndex:indexPath.row];
+    MusicView *musicVwObj=musicArr[indexPath.row];
     cell.textLabel.text=musicVwObj.musicTitle;
     
     return cell;
@@ -352,13 +350,13 @@ int count=0;
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    MusicView *musicVwObj=[musicArr objectAtIndex:indexPath.row];
+    MusicView *musicVwObj=musicArr[indexPath.row];
     selSongID=musicVwObj.musicID;
     lblTitle.text=musicVwObj.musicTitle;
     selSongPath=musicVwObj.musicPath;
     
     NSData *data=[NSData dataWithContentsOfFile:selSongPath];
-    NSLog(@"data length from music tbl ====> %d",[data length]);
+    NSLog(@"data length from music tbl ====> %lu",(unsigned long)data.length);
     
     flagPlay=NO;
     audioPlayer.currentTime=0.00;
@@ -413,22 +411,22 @@ int count=0;
 
 - (IBAction) EditMusic:(id)sender{
     
-	if(self.editing)
-	{
-		[super setEditing:NO animated:NO]; 
-		[musicTbl setEditing:NO animated:NO];
-		[musicTbl reloadData];
-		[self.navigationItem.rightBarButtonItem setTitle:@"Edit"];
-		[self.navigationItem.rightBarButtonItem setStyle:UIBarButtonItemStylePlain];
-	}
-	else
-	{
-		[super setEditing:YES animated:YES]; 
-		[musicTbl setEditing:YES animated:YES];
-		[musicTbl reloadData];
-		[self.navigationItem.rightBarButtonItem setTitle:@"Done"];
-		[self.navigationItem.rightBarButtonItem setStyle:UIBarButtonItemStyleDone];
-	}
+    if(self.editing)
+    {
+        [super setEditing:NO animated:NO]; 
+        [musicTbl setEditing:NO animated:NO];
+        [musicTbl reloadData];
+        (self.navigationItem.rightBarButtonItem).title = @"Edit";
+        (self.navigationItem.rightBarButtonItem).style = UIBarButtonItemStylePlain;
+    }
+    else
+    {
+        [super setEditing:YES animated:YES]; 
+        [musicTbl setEditing:YES animated:YES];
+        [musicTbl reloadData];
+        (self.navigationItem.rightBarButtonItem).title = @"Done";
+        (self.navigationItem.rightBarButtonItem).style = UIBarButtonItemStyleDone;
+    }
 }
 
 - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -439,7 +437,7 @@ int count=0;
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath
       toIndexPath:(NSIndexPath *)toIndexPath
 {
-    NSString *item = [[musicArr objectAtIndex:fromIndexPath.row] retain];
+    NSString *item = [musicArr[fromIndexPath.row] retain];
     [musicArr removeObject:item];
     [musicArr insertObject:item atIndex:toIndexPath.row];
     [item release];
@@ -448,12 +446,12 @@ int count=0;
 #pragma mark - Delete Video
 
 - (void)tableView:(UITableView *)aTableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-	
+    
     if (editingStyle == UITableViewCellEditingStyleDelete)
     {
-        MusicView *vdObj=[musicArr objectAtIndex:indexPath.row];
+        MusicView *vdObj=musicArr[indexPath.row];
         selSongID=vdObj.musicID ;
-        NSLog(@"song id=== %d",[selSongID intValue]);
+        NSLog(@"song id=== %d",selSongID.intValue);
         
         UIAlertView *alert =[[UIAlertView alloc] initWithTitle:@"Alert!!" message:@"Are you sure you want to delete the Song?" delegate:self cancelButtonTitle:@"NO" otherButtonTitles:nil];
         
@@ -474,15 +472,15 @@ int count=0;
 }
 
 -(void)deleteSelectedSong{
-    NSLog(@"ID==== %d",[selSongID intValue]);
+    NSLog(@"ID==== %d",selSongID.intValue);
     
     databasepath=[app getDBPathNew];
-    if (sqlite3_open([databasepath UTF8String], &dbSecret) == SQLITE_OK) 
+    if (sqlite3_open(databasepath.UTF8String, &dbSecret) == SQLITE_OK) 
     {
-        NSString *DeleteQuery = [NSString stringWithFormat:@"Delete from MusicTbl Where MusicID=%d",[selSongID intValue]];
+        NSString *DeleteQuery = [NSString stringWithFormat:@"Delete from MusicTbl Where MusicID=%d",selSongID.intValue];
         
         NSLog(@"Query : %@",DeleteQuery);
-        const char *deleteStmt = [DeleteQuery UTF8String];
+        const char *deleteStmt = DeleteQuery.UTF8String;
         sqlite3_stmt *query_stmt;
         
         if(sqlite3_prepare_v2(dbSecret, deleteStmt, -1, &query_stmt, NULL) == SQLITE_OK)
@@ -541,7 +539,7 @@ int count=0;
 
 - (IBAction)progressSliderMoved:(UISlider *)sender
 {
-	[self updateCurrentTimeForPlayer:audioPlayer];
+    [self updateCurrentTimeForPlayer:audioPlayer];
 }
 
 -(void)updateCurrentTimeForPlayer:(AVAudioPlayer *)p
@@ -637,19 +635,19 @@ int count=0;
     [musicArr removeAllObjects];
     databasepath = [app getDBPathNew];
     
-    if (sqlite3_open([databasepath UTF8String], &dbSecret) == SQLITE_OK) {
+    if (sqlite3_open(databasepath.UTF8String, &dbSecret) == SQLITE_OK) {
         
-        NSString *sql =[NSString stringWithFormat:@"select * from MusicTbl where UserID=%d",[app.LoginUserID intValue]];
+        NSString *sql =[NSString stringWithFormat:@"select * from MusicTbl where UserID=%d",(app.LoginUserID).intValue];
         
         sqlite3_stmt *selectstmt;
-        const char *sel_query=[sql UTF8String];
+        const char *sel_query=sql.UTF8String;
         if(sqlite3_prepare(dbSecret, sel_query, -1, &selectstmt, NULL) == SQLITE_OK) {
             
             while(sqlite3_step(selectstmt) == SQLITE_ROW)
             {
                 MusicView *musicObj = [[MusicView alloc] init];
                 
-                musicObj.musicID =[NSString stringWithUTF8String:(char *)sqlite3_column_text(selectstmt, 0)];
+                musicObj.musicID =@((char *)sqlite3_column_text(selectstmt, 0));
                 
                 musicObj.musicTitle=[NSString stringWithFormat:@"%s",sqlite3_column_text(selectstmt, 2)];
                 
@@ -658,7 +656,7 @@ int count=0;
                 [musicArr addObject:musicObj];
                 
                 NSData *data1=[NSData dataWithContentsOfFile:musicObj.musicPath];
-                NSLog(@"data len from sel data-------> %d",[data1 length]);
+                NSLog(@"data len from sel data-------> %lu",(unsigned long)data1.length);
             }
         }
         sqlite3_finalize(selectstmt);
@@ -666,7 +664,7 @@ int count=0;
     else
         sqlite3_close(dbSecret);
     
-    NSLog(@" count::: %d",[musicArr count]);
+    NSLog(@" count::: %lu",(unsigned long)musicArr.count);
     if(musicArr.count == 0)
     {
 #ifdef LITEVERSION

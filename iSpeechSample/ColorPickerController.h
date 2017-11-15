@@ -12,7 +12,6 @@
 #import "tblViewAttempts.h"
 #import "tblSlideShow.h"
 #import "tblViewLogins.h"
-#import <sqlite3.h>
 #import <MessageUI/MessageUI.h>
 #import <Twitter/Twitter.h>
 #import "FBConnect.h"
@@ -26,6 +25,7 @@
 
 
 //MFMailComposeViewControllerDelegate, FBSessionDelegate, FBDialogDelegate, MFMessageComposeViewControllerDelegate, 
+@class AppDelegate;
 
 @interface ColorPickerController : UITableViewController<keyPadSelectedDelegte,UIActionSheetDelegate,tblAutoLogOFFDelegate,tblViewAttemptsDelegate, UITableViewDataSource, UITableViewDelegate,tblSlideShowDelegate,MFMailComposeViewControllerDelegate,MFMessageComposeViewControllerDelegate,FBDialogDelegate,FBSessionDelegate,FacebookLikeViewDelegate,FBRequestDelegate,FBLoginDialogDelegate,FacebookLikeViewDelegate> {
     NSMutableArray *_colors;
@@ -39,6 +39,13 @@
      TWTweetComposeViewController *tweetSheet;
     
     UIView *Buy_vw,*Info_view;
+    AppDelegate *app;
+    
+    bool isFacebookLike;
+    bool isSearching,isFree,isCosume;
+    
+    bool productPurchased;
+    UIView *view;
 }
 
 @property (retain) MBProgressHUD *hud;

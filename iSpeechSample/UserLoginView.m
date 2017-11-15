@@ -7,8 +7,6 @@
 //
 
 #import "UserLoginView.h"
-#import "AppDelegate.h"
-#import "RootViewController.h"
 
 @interface UserLoginView ()
 
@@ -18,9 +16,9 @@
 
 @synthesize btnRecognize,txtUserNm,lblPassword;
 
-AppDelegate *app;
+
 NSString  *loggedinPass,*loggedinNm;
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
@@ -47,8 +45,8 @@ NSString  *loggedinPass,*loggedinNm;
         self.edgesForExtendedLayout = UIRectEdgeNone;
     }
 
-	[self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"ipad-background"]]];
-    app=(AppDelegate *)[[UIApplication sharedApplication]delegate];
+    (self.view).backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"ipad-background"]];
+    app=(AppDelegate *)[UIApplication sharedApplication].delegate;
     
     [self.navigationController setNavigationBarHidden:YES];
     
@@ -75,28 +73,27 @@ NSString  *loggedinPass,*loggedinNm;
 - (IBAction)recognize:(id)sender
 {
         ISSpeechRecognition *recognition = [[ISSpeechRecognition alloc] init];
-	
+
         NSError *err;
-	
+
         [recognition setDelegate:self];
-	
+
         if(![recognition listen:&err])
         {
             NSLog(@"ERROR: %@", err);
         }
 }
 
-AVCaptureConnection *videoConnection;
-AVCaptureStillImageOutput *output;
+
 - (void)recognition:(ISSpeechRecognition *)speechRecognition didGetRecognitionResult:(ISSpeechRecognitionResult *)result {
-	//NSLog(@"Method: %@", NSStringFromSelector(_cmd));
-	NSLog(@"Result: %@", result.text);
-	
-	[lblPassword setText:result.text];
+    //NSLog(@"Method: %@", NSStringFromSelector(_cmd));
+    NSLog(@"Result: %@", result.text);
+    
+    [lblPassword setText:result.text];
     
     loggedinPass = [[NSString alloc]initWithFormat:@"%@",result.text];
     
-	[speechRecognition release];
+    [speechRecognition release];
     [txtUserNm resignFirstResponder];
     
     //[self searchUser];
@@ -115,7 +112,7 @@ if([txtUserNm.text isEqualToString:@""])
         [alert show];
         [alert release];
     }
-    else 
+    else
     {
         if([self getUserName])
         {
@@ -187,9 +184,9 @@ if([txtUserNm.text isEqualToString:@""])
                                        [NSTimer scheduledTimerWithTimeInterval:0.0 target:self selector:@selector(captureImage) userInfo:nil repeats:NO];                             }
                             }
                         }
-                    }           
+                    }
                 }
-                @catch (NSException *exception) 
+                @catch (NSException *exception)
                 {
                     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No Camera" message:@"Camera is not available  " delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil];
                     [alert show];
@@ -207,8 +204,8 @@ if([txtUserNm.text isEqualToString:@""])
                     
                 }
                     //
-                    
-                 
+                
+                
             }else {
                 
                 //Code for Login attempts Photo
@@ -276,14 +273,14 @@ if([txtUserNm.text isEqualToString:@""])
                                                                             }
                                 }
                             }
-                        }           
+                        }
                     }
-                    @catch (NSException *exception) 
+                    @catch (NSException *exception)
                     {
                         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No Camera" message:@"Camera is not available  " delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil];
                         [alert show];
                         // [alert release];
-                    } 
+                    }
                   
                     //
                     UIAlertView *alert = [[UIAlertView alloc]
@@ -296,11 +293,11 @@ if([txtUserNm.text isEqualToString:@""])
                     
                 }
                     //
-                    
-                }     
                 
-                
-                
+                }
+            
+            
+            
             }else {
             NSLog(@"This User is Not registered yet..!!");
             
@@ -325,13 +322,13 @@ if([txtUserNm.text isEqualToString:@""])
             app.capImg=photo;
             
             
-            NSString *docDir = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+            NSString *docDir = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
             // If you go to the folder below, you will find those pictures
             NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init] ;
-            [dateFormat setDateFormat:@"yyyy-MM-dd"];
+            dateFormat.dateFormat = @"yyyy-MM-dd";
             
             NSDateFormatter *timeFormat = [[NSDateFormatter alloc] init];
-            [timeFormat setDateFormat:@"HH.mm.SS"];
+            timeFormat.dateFormat = @"HH.mm.SS";
             
             NSDate *now = [[NSDate alloc] init] ;
             
@@ -389,13 +386,13 @@ if([txtUserNm.text isEqualToString:@""])
             app.capImg=photo;
             
             
-            NSString *docDir = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+            NSString *docDir = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
             // If you go to the folder below, you will find those pictures
             NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init] ;
-            [dateFormat setDateFormat:@"yyyy-MM-dd"];
+            dateFormat.dateFormat = @"yyyy-MM-dd";
             
             NSDateFormatter *timeFormat = [[NSDateFormatter alloc] init];
-            [timeFormat setDateFormat:@"HH.mm.SS"];
+            timeFormat.dateFormat = @"HH.mm.SS";
             
             NSDate *now = [[NSDate alloc] init] ;
             
@@ -424,7 +421,7 @@ if([txtUserNm.text isEqualToString:@""])
     
     sqlite3_stmt *stmt;
     databasepath=[app getDBPathNew];
-    const char *dbpath=[databasepath UTF8String];
+    const char *dbpath=databasepath.UTF8String;
     
     if(sqlite3_open(dbpath, &dbSecret) == SQLITE_OK)
     {
@@ -433,7 +430,7 @@ if([txtUserNm.text isEqualToString:@""])
         
         NSLog(@"insert query== %@",insertquery);
         
-        const char *insert_query=[insertquery UTF8String];
+        const char *insert_query=insertquery.UTF8String;
         sqlite3_prepare(dbSecret, insert_query, -1, &stmt, NULL);
         
         if(sqlite3_step(stmt)== SQLITE_DONE)
@@ -456,7 +453,7 @@ if([txtUserNm.text isEqualToString:@""])
     
     sqlite3_stmt *stmt;
     databasepath=[app getDBPathNew];
-    const char *dbpath=[databasepath UTF8String];
+    const char *dbpath=databasepath.UTF8String;
     
     if(sqlite3_open(dbpath, &dbSecret) == SQLITE_OK)
     {
@@ -465,7 +462,7 @@ if([txtUserNm.text isEqualToString:@""])
         
         NSLog(@"insert query== %@",insertquery);
         
-        const char *insert_query=[insertquery UTF8String];
+        const char *insert_query=insertquery.UTF8String;
         sqlite3_prepare(dbSecret, insert_query, -1, &stmt, NULL);
         
         if(sqlite3_step(stmt)== SQLITE_DONE)
@@ -485,25 +482,25 @@ if([txtUserNm.text isEqualToString:@""])
 }
 
 - (void)recognition:(ISSpeechRecognition *)speechRecognition didFailWithError:(NSError *)error {
-//	NSLog(@"Method: %@", NSStringFromSelector(_cmd));
-	NSLog(@"Error: %@", error);
-	
-	[speechRecognition release];
+//    NSLog(@"Method: %@", NSStringFromSelector(_cmd));
+    NSLog(@"Error: %@", error);
+
+    [speechRecognition release];
 }
 
 - (void)recognitionCancelledByUser:(ISSpeechRecognition *)speechRecognition {
-	//NSLog(@"Method: %@", NSStringFromSelector(_cmd));
-	
-	[speechRecognition release];
+    //NSLog(@"Method: %@", NSStringFromSelector(_cmd));
+
+    [speechRecognition release];
 }
 
 - (void)recognitionDidBeginRecording:(ISSpeechRecognition *)speechRecognition {
-	//NSLog(@"Method: %@", NSStringFromSelector(_cmd));
-   
+    //NSLog(@"Method: %@", NSStringFromSelector(_cmd));
+
 }
 
 - (void)recognitionDidFinishRecording:(ISSpeechRecognition *)speechRecognition {
-	//NSLog(@"Method: %@", NSStringFromSelector(_cmd));
+    //NSLog(@"Method: %@", NSStringFromSelector(_cmd));
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -529,7 +526,7 @@ if([txtUserNm.text isEqualToString:@""])
     {
         loggedinNm=txtUserNm.text;
         databasepath=[app getDBPathNew];
-        if (sqlite3_open([databasepath UTF8String], &dbSecret) == SQLITE_OK) 
+        if (sqlite3_open(databasepath.UTF8String, &dbSecret) == SQLITE_OK) 
         {
             NSLog(@"unm==%@ ",loggedinNm);
             NSLog(@"pass=== %@",loggedinPass);
@@ -537,7 +534,7 @@ if([txtUserNm.text isEqualToString:@""])
             NSString *selectSql = [NSString stringWithFormat:@"select * from VerifyUserTbl Where UserName=\"%@\" AND UserPasswordTxt=\"%@\" ",loggedinNm,loggedinPass];
             
             NSLog(@"Query : %@",selectSql);
-            const char *sqlStatement = [selectSql UTF8String];
+            const char *sqlStatement = selectSql.UTF8String;
             sqlite3_stmt *query_stmt;
             
             if(sqlite3_prepare_v2(dbSecret, sqlStatement, -1, &query_stmt, NULL) == SQLITE_OK)
@@ -596,7 +593,7 @@ if([txtUserNm.text isEqualToString:@""])
 {
     loggedinNm=txtUserNm.text;
     databasepath=[app getDBPathNew];
-    if (sqlite3_open([databasepath UTF8String], &dbSecret) == SQLITE_OK) 
+    if (sqlite3_open(databasepath.UTF8String, &dbSecret) == SQLITE_OK) 
     {
         NSLog(@"unm==%@ ",loggedinNm);
         NSLog(@"pass=== %@",loggedinPass);
@@ -604,7 +601,7 @@ if([txtUserNm.text isEqualToString:@""])
         NSString *selectSql = [NSString stringWithFormat:@"select * from VerifyUserTbl Where UserName=\"%@\" AND UserPasswordTxt=\"%@\" ",loggedinNm,loggedinPass];
         
         NSLog(@"Query : %@",selectSql);
-        const char *sqlStatement = [selectSql UTF8String];
+        const char *sqlStatement = selectSql.UTF8String;
         sqlite3_stmt *query_stmt;
         
         if(sqlite3_prepare_v2(dbSecret, sqlStatement, -1, &query_stmt, NULL) == SQLITE_OK)
@@ -689,17 +686,17 @@ if([txtUserNm.text isEqualToString:@""])
 
 -(Boolean)registerUser
 {
-    Boolean returnValue;
+    Boolean returnValue = '\0';
     sqlite3_stmt *stmt;
     databasepath=[app getDBPathNew];
-    const char *dbpath=[databasepath UTF8String];
+    const char *dbpath=databasepath.UTF8String;
     if(sqlite3_open(dbpath, &dbSecret) == SQLITE_OK)
     {
         NSString *insertquery=[NSString stringWithFormat:@"Insert into VerifyUserTbl(UserName,UserPasswordTxt,UserVoiceTxt) VALUES(\"%@\",\"%@\",\"%@\")",loggedinNm,loggedinPass,@""];
         
         NSLog(@"insert query== %@",insertquery);
         
-        const char *insert_query=[insertquery UTF8String];
+        const char *insert_query=insertquery.UTF8String;
         sqlite3_prepare(dbSecret, insert_query, -1, &stmt, NULL);
         
         if(sqlite3_step(stmt)== SQLITE_DONE)
@@ -729,13 +726,13 @@ if([txtUserNm.text isEqualToString:@""])
     
     
     databasepath=[app getDBPathNew];
-    if (sqlite3_open([databasepath UTF8String], &dbSecret) == SQLITE_OK) 
+    if (sqlite3_open(databasepath.UTF8String, &dbSecret) == SQLITE_OK) 
     {
         NSLog(@"unm==%@ ",loggedinNm);
         NSString *selectSql = [NSString stringWithFormat:@"select * from VerifyUserTbl Where UserName=\"%@\" ",loggedinNm];
         
         NSLog(@"Query : %@",selectSql);
-        const char *sqlStatement = [selectSql UTF8String];
+        const char *sqlStatement = selectSql.UTF8String;
         sqlite3_stmt *query_stmt;
         if(sqlite3_prepare_v2(dbSecret, sqlStatement, -1, &query_stmt, NULL) == SQLITE_OK)
         {
@@ -774,8 +771,8 @@ if([txtUserNm.text isEqualToString:@""])
 {
     NSString *strReturn=@"false";
     databasepath=[app getDBPathNew];
-    NSString *selectSql;
-    if (sqlite3_open([databasepath UTF8String], &dbSecret) == SQLITE_OK) 
+    NSString *selectSql = nil;
+    if (sqlite3_open(databasepath.UTF8String, &dbSecret) == SQLITE_OK) 
     {
         
         if([strProperty isEqualToString:@"BrekIn"]){
@@ -784,7 +781,7 @@ if([txtUserNm.text isEqualToString:@""])
             selectSql = [NSString stringWithFormat:@"select LoginPhoto from AutoLogOffTbl where UserID=%@",app.LoginUserID];
         }
         NSLog(@"Query : %@",selectSql);
-        const char *sqlStatement = [selectSql UTF8String];
+        const char *sqlStatement = selectSql.UTF8String;
         sqlite3_stmt *query_stmt;
         
         if(sqlite3_prepare_v2(dbSecret, sqlStatement, -1, &query_stmt, NULL) == SQLITE_OK)
@@ -814,7 +811,7 @@ if([txtUserNm.text isEqualToString:@""])
     NSLog(@"Log in id is %@ ",app.LoginUserID);
     sqlite3_stmt *stmt;
     databasepath=[app getDBPathNew];
-    const char *dbpath=[databasepath UTF8String];
+    const char *dbpath=databasepath.UTF8String;
     if(sqlite3_open(dbpath, &dbSecret) == SQLITE_OK)
     {
         //(UserID integer,"Time" text,BrekinPhoto boolean,LoginPhoto boolean,HighQuality boolean,Duration text,Transition text,Repeat boolean,Shuffle boolean,UseDeskAgent boolean, Facebook boolean)
@@ -823,7 +820,7 @@ if([txtUserNm.text isEqualToString:@""])
         
         NSLog(@"insert query== %@",insertquery);
         
-        const char *insert_query=[insertquery UTF8String];
+        const char *insert_query=insertquery.UTF8String;
         sqlite3_prepare(dbSecret, insert_query, -1, &stmt, NULL);
         
         if(sqlite3_step(stmt)== SQLITE_DONE)
@@ -846,7 +843,7 @@ if([txtUserNm.text isEqualToString:@""])
     NSLog(@"Log in id is %@ ",app.LoginUserID);
     sqlite3_stmt *stmt;
     databasepath=[app getDBPathNew];
-    const char *dbpath=[databasepath UTF8String];
+    const char *dbpath=databasepath.UTF8String;
     if(sqlite3_open(dbpath, &dbSecret) == SQLITE_OK)
     {
         //(UserID integer,"Time" text,BrekinPhoto boolean,LoginPhoto boolean,HighQuality boolean,Duration text,Transition text,Repeat boolean,Shuffle boolean,UseDeskAgent boolean, Facebook boolean)
@@ -855,7 +852,7 @@ if([txtUserNm.text isEqualToString:@""])
         
         NSLog(@"insert query== %@",insertquery);
         
-        const char *insert_query=[insertquery UTF8String];
+        const char *insert_query=insertquery.UTF8String;
         sqlite3_prepare(dbSecret, insert_query, -1, &stmt, NULL);
         
         if(sqlite3_step(stmt)== SQLITE_DONE)
@@ -876,14 +873,14 @@ if([txtUserNm.text isEqualToString:@""])
 {
     loggedinNm=txtUserNm.text;
     databasepath=[app getDBPathNew];
-    if (sqlite3_open([databasepath UTF8String], &dbSecret) == SQLITE_OK) 
+    if (sqlite3_open(databasepath.UTF8String, &dbSecret) == SQLITE_OK) 
     {
         NSLog(@"unm==%@ ",loggedinNm);
         NSLog(@"pass=== %@",loggedinPass);
         NSString *selectSql = [NSString stringWithFormat:@"select * from VerifyUserTbl Where UserName=\"%@\" ",loggedinNm];
         
         NSLog(@"Query : %@",selectSql);
-        const char *sqlStatement = [selectSql UTF8String];
+        const char *sqlStatement = selectSql.UTF8String;
         sqlite3_stmt *query_stmt;
         if(sqlite3_prepare_v2(dbSecret, sqlStatement, -1, &query_stmt, NULL) == SQLITE_OK)
         {
@@ -910,14 +907,14 @@ if([txtUserNm.text isEqualToString:@""])
 {
     Boolean returnValue;
     databasepath=[app getDBPathNew];
-    if (sqlite3_open([databasepath UTF8String], &dbSecret) == SQLITE_OK) 
+    if (sqlite3_open(databasepath.UTF8String, &dbSecret) == SQLITE_OK) 
     {
         NSLog(@"unm==%@ ",loggedinNm);
         NSLog(@"pass=== %@",strLoggedInPass);
         NSString *selectSql = [NSString stringWithFormat:@"select UserPasswordTxt from VerifyUserTbl Where UserID = %@ ",app.LoginUserID];
         
         NSLog(@"Query : %@",selectSql);
-        const char *sqlStatement = [selectSql UTF8String];
+        const char *sqlStatement = selectSql.UTF8String;
         sqlite3_stmt *query_stmt;
         @try {
             

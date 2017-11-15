@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <sqlite3.h>
 #import "AVFoundation/AVFoundation.h"
 
 @interface PinCodeViewController : UIViewController<UIAlertViewDelegate,UITextFieldDelegate>
@@ -16,7 +15,9 @@
     NSString *databasepath;
     sqlite3 *dbSecret;
     AVCaptureSession *session;
-    
+    AppDelegate *app;
+    AVCaptureConnection *videoConnection;
+    AVCaptureStillImageOutput *output;
 }
 
 @property (nonatomic,retain) IBOutlet UILabel *lbltext;

@@ -11,16 +11,20 @@
 #import "tblDockLockTap.h"
 #import "tblPinCodeLockTap.h"
 
-#import <sqlite3.h>
 @protocol keyPadSelectedDelegte
 //- (void)keyPadSelected:(NSString *)color;
 @end
+
+@class AppDelegate;
+
 @interface tablKeyPad : UITableViewController<tblKeypadTapDelegate,tblDockLockTapDelegate,tblPinCodeLockTapDelegate>
 {
     NSMutableArray *listOfItems;
     id<keyPadSelectedDelegte> _delegate;
     sqlite3 *dbTest;
     sqlite3 *dbSecret;
+    AppDelegate *app;
+
 }
 
 @property (nonatomic, retain) NSMutableArray *listOfItems;

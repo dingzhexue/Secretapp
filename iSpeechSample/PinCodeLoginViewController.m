@@ -7,8 +7,6 @@
 //
 
 #import "PinCodeLoginViewController.h"
-#import "AppDelegate.h"
-#import "RootViewController.h"
 #import "ABPadLockScreenView_iPhone.h"
 
 
@@ -34,10 +32,9 @@
 @implementation PinCodeLoginViewController
 
 @synthesize txtName;
-UIView *vw_Name;
-AppDelegate *app;
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+
+- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
@@ -70,7 +67,7 @@ AppDelegate *app;
         [txtName addTarget:self
                         action:@selector(methodToFire)
               forControlEvents:UIControlEventEditingDidEndOnExit];
-        [txtName setTag:10];
+        txtName.tag = 10;
 
         [self.pinScreen.view addSubview:txtName];
         
@@ -253,7 +250,7 @@ AppDelegate *app;
         NSString *loggedinNm=txtName.text;
         NSString *loggedinPass = self.code;
         databasepath=[app getDBPathNew];
-        if (sqlite3_open([databasepath UTF8String], &dbSecret) == SQLITE_OK)
+        if (sqlite3_open(databasepath.UTF8String, &dbSecret) == SQLITE_OK)
         {
             NSLog(@"unm==%@ ",loggedinNm);
             NSLog(@"pass=== %@",loggedinPass);
@@ -261,7 +258,7 @@ AppDelegate *app;
             NSString *selectSql = [NSString stringWithFormat:@"select * from VerifyUserTbl Where UserName=\"%@\" AND UserPinCodeText=\"%@\" ",loggedinNm,loggedinPass];
             
             NSLog(@"Query : %@",selectSql);
-            const char *sqlStatement = [selectSql UTF8String];
+            const char *sqlStatement = selectSql.UTF8String;
             sqlite3_stmt *query_stmt;
             
             if(sqlite3_prepare_v2(dbSecret, sqlStatement, -1, &query_stmt, NULL) == SQLITE_OK)

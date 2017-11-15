@@ -7,12 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <sqlite3.h>
+#import "UserLoginView.h"
 
 
 @interface SplashScreen : UIViewController
 {
     sqlite3 *dbSecret;
+    AppDelegate *app;
 }
 @property (nonatomic,retain) IBOutlet UIImageView *img;
 @end

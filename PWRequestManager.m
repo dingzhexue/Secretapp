@@ -16,65 +16,65 @@
 //#define NOSSL
 
 + (PWRequestManager *) sharedManager {
-	static PWRequestManager *instance = nil;
-	if (!instance) {
-		instance = [[PWRequestManager alloc] init];
-	}
-	return instance;
+    static PWRequestManager *instance = nil;
+    if (!instance) {
+        instance = [[PWRequestManager alloc] init];
+    }
+    return instance;
 }
 
 - (BOOL) sendRequest: (PWRequest *) request {
-	return [self sendRequest:request error:nil];
+    return [self sendRequest:request error:nil];
 }
 
 - (BOOL) sendRequest: (PWRequest *) request error:(NSError **)retError {
-	NSDictionary *requestDict = [request requestDictionary];
-	   
+    NSDictionary *requestDict = [request requestDictionary];
+       
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:requestDict options:0 error:nil];
     NSString *requestString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
-	NSString *jsonRequestData = [NSString stringWithFormat:@"{\"request\":%@}", requestString];
-	
+    NSString *jsonRequestData = [NSString stringWithFormat:@"{\"request\":%@}", requestString];
+    
 #ifdef NOSSL
-	NSString *requestUrl = [kServiceAddressNoSSL stringByAppendingString:[request methodName]];
+    NSString *requestUrl = [kServiceAddressNoSSL stringByAppendingString:[request methodName]];
 #else
-	NSString *requestUrl = [kServiceAddressSSL stringByAppendingString:[request methodName]];
+    NSString *requestUrl = [kServiceAddressSSL stringByAppendingString:[request methodName]];
 #endif
-	
-	NSLog(@"Sending request: %@", jsonRequestData);
-	NSLog(@"To urL %@", requestUrl);
-	
-	NSMutableURLRequest *urlRequest = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:requestUrl]];
-	[urlRequest setHTTPMethod:@"POST"];
-	[urlRequest addValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-	[urlRequest setHTTPBody:[jsonRequestData dataUsingEncoding:NSUTF8StringEncoding]];
-	
-	//Send data to server
-	NSHTTPURLResponse *response = nil;
-	NSError *error = nil;
-	NSData * responseData = [NSURLConnection sendSynchronousRequest:urlRequest returningResponse:&response error:&error];
-	urlRequest = nil;
-	
-	if(retError)
-		*retError = error;
-	
-	NSString *responseString = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
-	NSLog(@"Response \"%d %@\": string: %@", [response statusCode], [NSHTTPURLResponse localizedStringForStatusCode:[response statusCode]], responseString);
+    
+    NSLog(@"Sending request: %@", jsonRequestData);
+    NSLog(@"To urL %@", requestUrl);
+    
+    NSMutableURLRequest *urlRequest = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:requestUrl]];
+    urlRequest.HTTPMethod = @"POST";
+    [urlRequest addValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    urlRequest.HTTPBody = [jsonRequestData dataUsingEncoding:NSUTF8StringEncoding];
+    
+    //Send data to server
+    NSHTTPURLResponse *response = nil;
+    NSError *error = nil;
+    NSData * responseData = [NSURLConnection sendSynchronousRequest:urlRequest returningResponse:&response error:&error];
+    urlRequest = nil;
+    
+    if(retError)
+        *retError = error;
+    
+    NSString *responseString = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
+    NSLog(@"Response \"%ld %@\": string: %@", (long)response.statusCode, [NSHTTPURLResponse localizedStringForStatusCode:response.statusCode], responseString);
     
     NSDictionary *jsonResult = [NSJSONSerialization JSONObjectWithData:[responseString dataUsingEncoding:NSUTF8StringEncoding] options:0 error:nil];
-	
-	NSInteger pushwooshResult = [[jsonResult objectForKey:@"status_code"] intValue];
+    
+    NSInteger pushwooshResult = [jsonResult[@"status_code"] intValue];
 
-	if (response.statusCode != 200 || pushwooshResult != 200)
-	{
-		if(retError && !error)
-			*retError = [NSError errorWithDomain:@"com.pushwoosh" code:response.statusCode userInfo:jsonResult];
+    if (response.statusCode != 200 || pushwooshResult != 200)
+    {
+        if(retError && !error)
+            *retError = [NSError errorWithDomain:@"com.pushwoosh" code:response.statusCode userInfo:jsonResult];
 
-		return NO;
-	}
-	
-	[request parseResponse:jsonResult];
-	
-	return YES;
+        return NO;
+    }
+    
+    [request parseResponse:jsonResult];
+    
+    return YES;
 }
 
 @end

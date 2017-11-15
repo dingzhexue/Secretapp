@@ -7,7 +7,6 @@
 //
 
 #import "tblPinCodeLockTap.h"
-#import "AppDelegate.h"
 #import "viewVoiceAuthentication.h"
 #import "ABPadLockScreenController.h"
 
@@ -34,8 +33,7 @@
 
 @synthesize code;
 
-AppDelegate *app;
-- (id)initWithStyle:(UITableViewStyle)style
+- (instancetype)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
     if (self) {
@@ -51,14 +49,14 @@ AppDelegate *app;
     {
         self.edgesForExtendedLayout = UIRectEdgeNone;
     }
-    app=(AppDelegate *)[[UIApplication sharedApplication]delegate];
+    app=(AppDelegate *)[UIApplication sharedApplication].delegate;
     self.clearsSelectionOnViewWillAppear = NO;
     self.contentSizeForViewInPopover = CGSizeMake(320.0, 600.0);
     listOfItems = [[NSMutableArray alloc] init];
-    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageWithContentsOfFile:[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"main-bg.png"]]];
+    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle].resourcePath stringByAppendingPathComponent:@"main-bg.png"]]];
     
-    NSArray *itemsArray1 =[NSArray arrayWithObjects:@"Change PinCode ",@"Set as a Lock",nil];
-    NSDictionary *itemsDict1 = [NSDictionary dictionaryWithObject:itemsArray1 forKey:@"0"];
+    NSArray *itemsArray1 =@[@"Change PinCode ",@"Set as a Lock"];
+    NSDictionary *itemsDict1 = @{@"0": itemsArray1};
     
     [listOfItems addObject:itemsDict1];
     
@@ -80,15 +78,15 @@ AppDelegate *app;
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
 
-    return [listOfItems count];;
+    return listOfItems.count;;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    NSDictionary *objdict = [listOfItems objectAtIndex:section];
-    NSString *str = [NSString stringWithFormat:@"%i",section];
-    NSArray *objarray = [objdict objectForKey:str];
-    return [objarray count];
+    NSDictionary *objdict = listOfItems[section];
+    NSString *str = [NSString stringWithFormat:@"%li",(long)section];
+    NSArray *objarray = objdict[str];
+    return objarray.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -101,9 +99,9 @@ AppDelegate *app;
         
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        NSDictionary *objdict = [listOfItems objectAtIndex:indexPath.section];
-        NSString *str = [NSString stringWithFormat:@"%i",indexPath.section];
-        NSArray *objarray = [objdict objectForKey:str];
+        NSDictionary *objdict = listOfItems[indexPath.section];
+        NSString *str = [NSString stringWithFormat:@"%li",(long)indexPath.section];
+        NSArray *objarray = objdict[str];
         //        if(indexPath.section == 0 && indexPath.row == 0)
         //        {
         //            cell.textLabel.textColor = [UIColor  blackColor];
@@ -114,7 +112,7 @@ AppDelegate *app;
         //            [aswitch release];
         //        } else      {
         cell.textLabel.textColor = [UIColor  blackColor];
-        cell.textLabel.text = [objarray objectAtIndex:indexPath.row];
+        cell.textLabel.text = objarray[indexPath.row];
         
         //        }
         
@@ -124,7 +122,7 @@ AppDelegate *app;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-	
+    
     if(section == 0)
     {
         return @"PinCode Authentication settings";
@@ -405,14 +403,14 @@ AppDelegate *app;
 {
     NSString *strReturn=@"false";
     NSString *databasepath=[app getDBPathNew];
-    if (sqlite3_open([databasepath UTF8String], &dbSecret) == SQLITE_OK)
+    if (sqlite3_open(databasepath.UTF8String, &dbSecret) == SQLITE_OK)
     {
         
         
         NSString *selectSql = [NSString stringWithFormat:@"select PinCodeAuth from AuthentictionCheckTbl where UserID = %@",app.LoginUserID];
         
         NSLog(@"Query : %@",selectSql);
-        const char *sqlStatement = [selectSql UTF8String];
+        const char *sqlStatement = selectSql.UTF8String;
         sqlite3_stmt *query_stmt;
         
         if(sqlite3_prepare_v2(dbSecret, sqlStatement, -1, &query_stmt, NULL) == SQLITE_OK)
@@ -468,7 +466,7 @@ AppDelegate *app;
         
         UINavigationController *navCon = [[UINavigationController alloc] initWithRootViewController:self.pinScreen];
         navCon.modalPresentationStyle = UIModalPresentationFormSheet;
-        [navCon.navigationBar setTintColor:[UIColor blackColor]];
+        (navCon.navigationBar).tintColor = [UIColor blackColor];
         
         //[self.navigationController pushViewController:self.pinScreen animated:YES];
         [self presentViewController:navCon animated:YES completion:nil];
@@ -497,7 +495,7 @@ AppDelegate *app;
     
     UINavigationController *navCon = [[UINavigationController alloc] initWithRootViewController:self.pinScreen];
     navCon.modalPresentationStyle = UIModalPresentationFormSheet;
-    [navCon.navigationBar setTintColor:[UIColor blackColor]];
+    (navCon.navigationBar).tintColor = [UIColor blackColor];
     
     //[self.navigationController pushViewController:self.pinScreen animated:YES];
     [self presentViewController:navCon animated:YES completion:nil];
@@ -509,12 +507,12 @@ AppDelegate *app;
     
     NSString *pass = [[NSString alloc]init];
     
-    if (sqlite3_open([[app getDBPathNew] UTF8String],&dbSecret)== SQLITE_OK)
+    if (sqlite3_open([app getDBPathNew].UTF8String,&dbSecret)== SQLITE_OK)
     {
         NSString *selectSql = [NSString stringWithFormat:@"select UserName from VerifyUserTbl where UserID=%@",UserID];
         
         NSLog(@"Query : %@",selectSql);
-        const char *sqlStatement = [selectSql UTF8String];
+        const char *sqlStatement = selectSql.UTF8String;
         sqlite3_stmt *query_stmt;
         @try {
             
@@ -529,7 +527,7 @@ AppDelegate *app;
                     }
                     else
                     {
-                        pass = [NSString stringWithUTF8String:(char *)sqlite3_column_text(query_stmt, 0)];
+                        pass = @((char *)sqlite3_column_text(query_stmt, 0));
                         NSLog(@"Password is === %@",pass);
                     }
                     
@@ -558,12 +556,12 @@ AppDelegate *app;
     
     NSString *pass = [[NSString alloc]init];
 
-    if (sqlite3_open([[app getDBPathNew] UTF8String],&dbSecret)== SQLITE_OK)
+    if (sqlite3_open([app getDBPathNew].UTF8String,&dbSecret)== SQLITE_OK)
     {
         NSString *selectSql = [NSString stringWithFormat:@"select UserPinCodeText from VerifyUserTbl where UserID=%@",UserID];
         
         NSLog(@"Query : %@",selectSql);
-        const char *sqlStatement = [selectSql UTF8String];
+        const char *sqlStatement = selectSql.UTF8String;
         sqlite3_stmt *query_stmt;
         @try {
             
@@ -578,7 +576,7 @@ AppDelegate *app;
                     }
                     else
                     {
-                        pass = [NSString stringWithUTF8String:(char *)sqlite3_column_text(query_stmt, 0)];
+                        pass = @((char *)sqlite3_column_text(query_stmt, 0));
                        NSLog(@"Password is === %@",pass); 
                     }
                     
@@ -636,14 +634,14 @@ AppDelegate *app;
 
 -(Boolean) updatePassword :(NSString *)PinCode :(NSString * )UserID
 {
-    sqlite3_stmt *statement;
+    sqlite3_stmt *statement = NULL;
     
-    if(sqlite3_open([[app getDBPathNew] UTF8String],&dbSecret)== SQLITE_OK)
+    if(sqlite3_open([app getDBPathNew].UTF8String,&dbSecret)== SQLITE_OK)
     {
         NSString *insertquery;
         insertquery=[NSString stringWithFormat:@"UPDATE VerifyUserTbl SET UserPinCodeText =\"%@\" where UserID=%@",PinCode,UserID];
         NSLog(@"Query::::%@",insertquery);
-        const char *insert_query=[insertquery UTF8String];
+        const char *insert_query=insertquery.UTF8String;
         sqlite3_prepare(dbSecret,insert_query,-1,&statement,NULL);
         if(sqlite3_step(statement) == SQLITE_DONE){
             NSLog(@"record updated");
@@ -668,15 +666,15 @@ AppDelegate *app;
 
 -(Boolean) updateLockStyle :(NSString * )UserID
 {
-    sqlite3_stmt *statement;
+    sqlite3_stmt *statement = NULL;
     
-    if(sqlite3_open([[app getDBPathNew] UTF8String],&dbSecret)== SQLITE_OK)
+    if(sqlite3_open([app getDBPathNew].UTF8String,&dbSecret)== SQLITE_OK)
     {
         
         NSString *insertquery;
         insertquery=[NSString stringWithFormat:@"UPDATE AuthentictionCheckTbl SET VoiceAuth =\"%@\" ,PatternAuth =\"%@\",PinCodeAuth =\"%@\"  where UserID=%@",@"false",@"false",@"true",UserID];
         NSLog(@"Query::::%@",insertquery);
-        const char *insert_query=[insertquery UTF8String];
+        const char *insert_query=insertquery.UTF8String;
         sqlite3_prepare(dbSecret,insert_query,-1,&statement,NULL);
         if(sqlite3_step(statement) == SQLITE_DONE){
             NSLog(@"record updated");
@@ -712,7 +710,7 @@ AppDelegate *app;
 #ifdef LITEVERSION
     if ([MFMailComposeViewController canSendMail])
     {
-        NSString *someString;
+        NSString *someString = nil;
         MFMailComposeViewController *mfViewController = [[MFMailComposeViewController alloc] init];
         mfViewController.mailComposeDelegate = self;
         [mfViewController setSubject:@"Secret Vault Passcode"];
@@ -737,7 +735,7 @@ AppDelegate *app;
         //        [mfViewController addAttachmentData:data  mimeType:@"image/jpeg" fileName:@"screenshot.jpg"];
         
         [self presentViewController:mfViewController animated:YES completion:nil];
-	}
+    }
 #else
     //GoProLink
     if ([MFMailComposeViewController canSendMail])
@@ -767,13 +765,13 @@ AppDelegate *app;
         //        [mfViewController addAttachmentData:data  mimeType:@"image/jpeg" fileName:@"screenshot.jpg"];
         
         [self presentModalViewController:mfViewController animated:YES];
-	}
+    }
 
 #endif
     else {
-		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Status:" message:@"Email is not configured." delegate:nil cancelButtonTitle:@"ok" otherButtonTitles:nil];
-		[alert show];
-	}
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Status:" message:@"Email is not configured." delegate:nil cancelButtonTitle:@"ok" otherButtonTitles:nil];
+        [alert show];
+    }
 }
 
 - (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error

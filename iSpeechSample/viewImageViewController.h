@@ -6,7 +6,6 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 #import <AddressBook/AddressBook.h>
-#import <sqlite3.h>
 #import <UIKit/UIKit.h>
 #import <MessageUI/MessageUI.h>
 #import <MessageUI/MFMessageComposeViewController.h>
@@ -23,6 +22,8 @@
 //    UILabel *lblTime,*lblDate,*lblTitle;
 //    UIImageView *imgPhoto;
     UITableView *tblContact;
+    AppDelegate *app;
+
 }
 -(IBAction)btnSendClick:(id)sender;
 //@property (nonatomic,retain)IBOutlet     UILabel *lblTime,*lblDate,*lblTitle;

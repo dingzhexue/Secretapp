@@ -62,13 +62,11 @@ static NSString *const iRateRemindButtonKey = @"iRateRemindButton";
 static NSString *const iRateRateButtonKey = @"iRateRateButton";
 
 
-typedef enum
-{
+typedef NS_ENUM(unsigned int, iRateErrorCode) {
     iRateErrorBundleIdDoesNotMatchAppStore = 1,
     iRateErrorApplicationNotFoundOnAppStore,
     iRateErrorApplicationIsNotLatestVersion
-}
-iRateErrorCode;
+};
 
 
 @protocol iRateDelegate <NSObject>
@@ -76,11 +74,11 @@ iRateErrorCode;
 
 - (void)iRateCouldNotConnectToAppStore:(NSError *)error;
 - (void)iRateDidDetectAppUpdate;
-- (BOOL)iRateShouldPromptForRating;
+@property (NS_NONATOMIC_IOSONLY, readonly) BOOL iRateShouldPromptForRating;
 - (void)iRateUserDidAttemptToRateApp;
 - (void)iRateUserDidDeclineToRateApp;
 - (void)iRateUserDidRequestReminderToRateApp;
-- (BOOL)iRateShouldOpenAppStore;
+@property (NS_NONATOMIC_IOSONLY, readonly) BOOL iRateShouldOpenAppStore;
 - (void)iRateDidPresentStoreKitModal;
 - (void)iRateDidDismissStoreKitModal;
 
@@ -141,9 +139,9 @@ iRateErrorCode;
 @property (nonatomic, weak_delegate) id<iRateDelegate> delegate;
 
 //manually control behaviour
-- (BOOL)shouldPromptForRating;
+@property (NS_NONATOMIC_IOSONLY, readonly) BOOL shouldPromptForRating;
 - (void)promptForRating;
-- (NSInteger)plusPlusLaunchCount;
+@property (NS_NONATOMIC_IOSONLY, readonly) NSInteger plusPlusLaunchCount;
 - (void)promptIfNetworkAvailable;
 - (void)openRatingsPageInAppStore;
 - (void)logEvent:(BOOL)deferPrompt;

@@ -31,12 +31,12 @@
 
 @implementation SBJSON
 
-- (id)init {
+- (instancetype)init {
     self = [super init];
     if (self) {
         jsonWriter = [SBJsonWriter new];
         jsonParser = [SBJsonParser new];
-        [self setMaxDepth:512];
+        self.maxDepth = 512;
 
     }
     return self;
@@ -57,7 +57,7 @@
         return repr;
     
     [errorTrace release];
-    errorTrace = [[jsonWriter errorTrace] mutableCopy];
+    errorTrace = [jsonWriter.errorTrace mutableCopy];
     return nil;
 }
 
@@ -78,10 +78,10 @@
         return json;
 
     [errorTrace release];
-    errorTrace = [[jsonWriter errorTrace] mutableCopy];
+    errorTrace = [jsonWriter.errorTrace mutableCopy];
     
     if (error)
-        *error = [errorTrace lastObject];
+        *error = errorTrace.lastObject;
     return nil;
 }
 
@@ -121,7 +121,7 @@
         return obj;
 
     [errorTrace release];
-    errorTrace = [[jsonParser errorTrace] mutableCopy];
+    errorTrace = [jsonParser.errorTrace mutableCopy];
     
     return nil;
 }
@@ -143,10 +143,10 @@
         return obj;
     
     [errorTrace release];
-    errorTrace = [[jsonParser errorTrace] mutableCopy];
+    errorTrace = [jsonParser.errorTrace mutableCopy];
 
     if (error)
-        *error = [errorTrace lastObject];
+        *error = errorTrace.lastObject;
     return nil;
 }
 

@@ -7,15 +7,18 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "sqlite3.h"
 @protocol tblKeypadTapDelegate
 //- (void)keyPadSelected:(NSString *)color;
 @end
+@class AppDelegate;
+
 @interface tblKepPadTap : UITableViewController<UIAlertViewDelegate>
 {
     sqlite3 *dbSecret;
     NSMutableArray *listOfItems;
     id<tblKeypadTapDelegate> _delegate;
+    AppDelegate *app;
+
 }
 
 @property (nonatomic, retain) NSMutableArray *listOfItems;

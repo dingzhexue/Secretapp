@@ -8,7 +8,6 @@
 
 #import "ImportContactView.h"
 #import "ImportedContCustomCell.h"
-#import "AppDelegate.h"
 #import "GADBannerView.h"
 #import "GADBannerViewDelegate.h"
 #import "GADInterstitial.h"
@@ -24,9 +23,8 @@
 
 @synthesize interstitial;
 
-AppDelegate *app;
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
@@ -50,7 +48,7 @@ AppDelegate *app;
     }
 
     // Do any additional setup after loading the view from its nib.
-    app=(AppDelegate *)[[UIApplication sharedApplication]delegate];
+    app=(AppDelegate *)[UIApplication sharedApplication].delegate;
     
     if(UI_USER_INTERFACE_IDIOM()==UIUserInterfaceIdiomPad){
 #ifdef LITEVERSION
@@ -136,7 +134,7 @@ AppDelegate *app;
                 ABMultiValueRef multi = ABRecordCopyValue(person, kABPersonPhoneProperty);
                 int count1=ABMultiValueGetCount(multi);
                 NSLog(@"%d",count1);
-                if ([name length]>0 && count1!=0)
+                if (name.length>0 && count1!=0)
                 {
                     NSString *beforenumber = (NSString *)ABMultiValueCopyValueAtIndex(multi, 0);
                     NSLog(@" contacts:::: %@",beforenumber );
@@ -178,7 +176,7 @@ AppDelegate *app;
             ABMultiValueRef multi = ABRecordCopyValue(person, kABPersonPhoneProperty);
             int count1=ABMultiValueGetCount(multi);
             NSLog(@"%d",count1);
-            if ([name length]>0 && count1!=0)
+            if (name.length>0 && count1!=0)
             {
                 NSString *beforenumber = (NSString *)ABMultiValueCopyValueAtIndex(multi, 0);
                 NSLog(@" contacts:::: %@",beforenumber );
@@ -229,8 +227,8 @@ AppDelegate *app;
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    NSLog(@"cont data count:::: %d",[wantedname count]);
-    return [wantedname count];
+    NSLog(@"cont data count:::: %lu",(unsigned long)wantedname.count);
+    return wantedname.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -255,29 +253,29 @@ AppDelegate *app;
                 cell = (ImportedContCustomCell *)oneObject;
     }
     
-    [cell setSelectionStyle:UITableViewCellSelectionStyleGray];
+    cell.selectionStyle = UITableViewCellSelectionStyleGray;
     cell.textLabel.textColor=[UIColor whiteColor];
-    cell.impConNmLbl.text=[wantedname objectAtIndex:indexPath.row];
-    cell.impConPhoneLbl.text=[wantednumber objectAtIndex:indexPath.row];
+    cell.impConNmLbl.text=wantedname[indexPath.row];
+    cell.impConPhoneLbl.text=wantednumber[indexPath.row];
     
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath 
 {
-    app.conNm=[wantedname objectAtIndex:indexPath.row];
-    app.conPhone=[wantednumber objectAtIndex:indexPath.row];
+    app.conNm=wantedname[indexPath.row];
+    app.conPhone=wantednumber[indexPath.row];
     
     sqlite3_stmt *stmt;
     databasepath=[app getDBPathNew];
-    const char *dbpath=[databasepath UTF8String];
+    const char *dbpath=databasepath.UTF8String;
     if(sqlite3_open(dbpath, &dbSecret) == SQLITE_OK)
     {
-        NSString *insertquery=[NSString stringWithFormat:@"Insert into ContactTbl (UserID,ContName,ContPhone) VALUES(%d,\"%@\",\"%@\")",[app.LoginUserID intValue],app.conNm,app.conPhone];
+        NSString *insertquery=[NSString stringWithFormat:@"Insert into ContactTbl (UserID,ContName,ContPhone) VALUES(%d,\"%@\",\"%@\")",(app.LoginUserID).intValue,app.conNm,app.conPhone];
         
         NSLog(@"insert Query::::> %@",insertquery);
         
-        const char *insert_query=[insertquery UTF8String];
+        const char *insert_query=insertquery.UTF8String;
         sqlite3_prepare(dbSecret, insert_query, -1, &stmt, NULL);
         
         if(sqlite3_step(stmt)== SQLITE_DONE)

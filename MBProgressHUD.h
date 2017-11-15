@@ -30,21 +30,21 @@
 
 /////////////////////////////////////////////////////////////////////////////////////////////
 
-typedef enum {
+typedef NS_ENUM(unsigned int, MBProgressHUDMode) {
     /** Progress is shown using an UIActivityIndicatorView. This is the default. */
     MBProgressHUDModeIndeterminate,
     /** Progress is shown using a MBRoundProgressView. */
-	MBProgressHUDModeDeterminate,
-	/** Shows a custom view */
-	MBProgressHUDModeCustomView
-} MBProgressHUDMode;
+    MBProgressHUDModeDeterminate,
+    /** Shows a custom view */
+    MBProgressHUDModeCustomView
+};
 
-typedef enum {
+typedef NS_ENUM(unsigned int, MBProgressHUDAnimation) {
     /** Opacity animation */
     MBProgressHUDAnimationFade,
     /** Opacity + scale animation */
     MBProgressHUDAnimationZoom
-} MBProgressHUDAnimation;
+};
 
 /////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -70,7 +70,7 @@ typedef enum {
  * Create a 37 by 37 pixel indicator. 
  * This is the same size as used by the larger UIActivityIndicatorView.
  */
-- (id)initWithDefaultSize;
+- (instancetype)initWithDefaultSize NS_DESIGNATED_INITIALIZER;
 
 @end
 
@@ -95,49 +95,49 @@ typedef enum {
  * - If also the detailsLabelText property is set then another label is placed below the first label.
  */
 @interface MBProgressHUD : UIView {
-	
-	MBProgressHUDMode mode;
+    
+    MBProgressHUDMode mode;
     MBProgressHUDAnimation animationType;
-	
-	SEL methodForExecution;
-	id targetForExecution;
-	id objectForExecution;
-	BOOL useAnimation;
-	
+    
+    SEL methodForExecution;
+    id targetForExecution;
+    id objectForExecution;
+    BOOL useAnimation;
+    
     float yOffset;
     float xOffset;
-	
-	float width;
-	float height;
-	
-	float margin;
-	
-	BOOL taskInProgress;
-	float graceTime;
-	float minShowTime;
-	NSTimer *graceTimer;
-	NSTimer *minShowTimer;
-	NSDate *showStarted;
-	
-	UIView *indicator;
-	UILabel *label;
-	UILabel *detailsLabel;
-	
-	float progress;
-	
-	id<MBProgressHUDDelegate> delegate;
-	NSString *labelText;
-	NSString *detailsLabelText;
-	float opacity;
-	UIFont *labelFont;
-	UIFont *detailsLabelFont;
-	
+    
+    float width;
+    float height;
+    
+    float margin;
+    
+    BOOL taskInProgress;
+    float graceTime;
+    float minShowTime;
+    NSTimer *graceTimer;
+    NSTimer *minShowTimer;
+    NSDate *showStarted;
+    
+    UIView *indicator;
+    UILabel *label;
+    UILabel *detailsLabel;
+    
+    float progress;
+    
+    id<MBProgressHUDDelegate> delegate;
+    NSString *labelText;
+    NSString *detailsLabelText;
+    float opacity;
+    UIFont *labelFont;
+    UIFont *detailsLabelFont;
+    
     BOOL isFinished;
-	BOOL removeFromSuperViewOnHide;
-	
-	UIView *customView;
-	
-	CGAffineTransform rotationTransform;
+    BOOL removeFromSuperViewOnHide;
+    
+    UIView *customView;
+    
+    CGAffineTransform rotationTransform;
 }
 
 /**
@@ -171,7 +171,7 @@ typedef enum {
  * @param window The window instance that will provide the bounds for the HUD. Should probably be the same instance as
  * the HUD's superview (i.e., the window that the HUD will be added to).
  */
-- (id)initWithWindow:(UIWindow *)window;
+- (instancetype)initWithWindow:(UIWindow *)window;
 
 /**
  * A convenience constructor that initializes the HUD with the view's bounds. Calls the designated constructor with
@@ -180,7 +180,7 @@ typedef enum {
  * @param view The view instance that will provide the bounds for the HUD. Should probably be the same instance as
  * the HUD's superview (i.e., the view that the HUD will be added to).
  */
-- (id)initWithView:(UIView *)view;
+- (instancetype)initWithView:(UIView *)view;
 
 /**
  * The UIView (i.g., a UIIMageView) to be shown when the HUD is in MBProgressHUDModeCustomView.

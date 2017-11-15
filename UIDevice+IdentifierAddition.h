@@ -18,7 +18,7 @@
  * of your app.
  */
 
-- (NSString *) uniqueDeviceIdentifier;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSString *uniqueDeviceIdentifier;
 
 /*
  * @method uniqueGlobalDeviceIdentifier
@@ -28,6 +28,6 @@
  * It generates a hash from the MAC-address only.
  */
 
-- (NSString *) uniqueGlobalDeviceIdentifier;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSString *uniqueGlobalDeviceIdentifier;
 
 @end

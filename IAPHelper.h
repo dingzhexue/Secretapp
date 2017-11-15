@@ -18,6 +18,8 @@
     NSArray * _products;
     NSMutableSet * _purchasedProducts;
     SKProductsRequest * _request;
+    AppDelegate *app;
+
 }
 
 @property (retain) NSSet *productIdentifiers;
@@ -26,7 +28,7 @@
 @property (retain) SKProductsRequest *request;
 
 - (void)requestProducts;
-- (id)initWithProductIdentifiers:(NSSet *)productIdentifiers;
+- (instancetype)initWithProductIdentifiers:(NSSet *)productIdentifiers NS_DESIGNATED_INITIALIZER;
 - (void)buyProductIdentifier:(NSString *)productIdentifier;
 
 @end

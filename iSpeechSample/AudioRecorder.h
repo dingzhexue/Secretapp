@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import <AVFoundation/AVFoundation.h>
-#import "sqlite3.h"
 #import <MessageUI/MFMailComposeViewController.h>
 #import "GADHelper.h"
 
@@ -35,6 +34,11 @@
     NSString *selaudioId,*audioToEmail,*audioNmToEmail;
     UIButton *btnBack,*btnBackward,*btnFast,*btnForward;
     
+    AppDelegate *app;
+    UILabel *lbl;
+    UIButton *btn;
+    UIBarButtonItem *editdoneButton;
+    NSInteger count;
 }
 
 @property (nonatomic, retain) IBOutlet	UISlider *progressBar;

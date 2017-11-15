@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "sqlite3.h"
 #import "ABPadLockScreenController.h"
 
 
@@ -15,11 +14,15 @@
 //- (void)keyPadSelected:(NSString *)color;
 @end
 
+@class AppDelegate;
+
 @interface tblDockLockTap : UITableViewController <UIAlertViewDelegate, ABLockScreenDelegate>
 {
     sqlite3 *dbSecret;
     NSMutableArray *listOfItems;
     id<tblDockLockTapDelegate> _delegate;
+    AppDelegate *app;
+
 }
 
 @property (nonatomic, retain) NSMutableArray *listOfItems;

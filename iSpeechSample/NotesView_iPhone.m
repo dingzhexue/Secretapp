@@ -7,7 +7,6 @@
 //
 
 #import "NotesView_iPhone.h"
-#import "AppDelegate.h"
 #import "NotesCustomCell.h"
 #import "GADBannerView.h"
 #import "GADBannerViewDelegate.h"
@@ -29,11 +28,8 @@
 
 @synthesize interstitial;
 
-AppDelegate *app;
 
-UIBarButtonItem *addButton;
-UIButton *delButton;
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
@@ -66,7 +62,7 @@ UIButton *delButton;
         self.edgesForExtendedLayout = UIRectEdgeNone;
     }
     // Do any additional setup after loading the view from its nib.
-    app=(AppDelegate *)[[UIApplication sharedApplication]delegate];
+    app=(AppDelegate *)[UIApplication sharedApplication].delegate;
     notesArr=[[NSMutableArray alloc] init];
     self.title=@"Notes";
     notesDetailView.hidden=true;
@@ -145,8 +141,8 @@ UIButton *delButton;
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    NSLog(@"Notes data count:::: %d",[notesArr count]);
-    return [notesArr count];
+    NSLog(@"Notes data count:::: %lu",(unsigned long)notesArr.count);
+    return notesArr.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -184,8 +180,8 @@ UIButton *delButton;
         for(id oneObject in nib)
             if([oneObject isKindOfClass:[NotesCustomCell class]])
                 cell = (NotesCustomCell *)oneObject;
-        [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
-        NotesView_iPhone *contObj=[notesArr objectAtIndex:indexPath.row];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        NotesView_iPhone *contObj=notesArr[indexPath.row];
         cell.lblNotes.text = contObj.NotesStr;
     }
     
@@ -211,7 +207,7 @@ UIButton *delButton;
     delButton =  [UIButton buttonWithType:UIButtonTypeCustom];
     [delButton setImage:[UIImage imageNamed:@"gnome_delete.png"] forState:UIControlStateNormal];
     [delButton addTarget:self action:@selector(deleteConfirmation) forControlEvents:UIControlEventTouchUpInside];
-    [delButton setFrame:CGRectMake(0, 0, 30, 30)];
+    delButton.frame = CGRectMake(0, 0, 30, 30);
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:delButton];
     
     UIView *parentView = self.view;
@@ -223,9 +219,9 @@ UIButton *delButton;
     [UIView setAnimationDuration:1];
     self.notesDetailView.hidden = NO;
     
-    NotesView_iPhone *obj = [notesArr objectAtIndex:indexPath.row];
+    NotesView_iPhone *obj = notesArr[indexPath.row];
     noteTxt.text=obj.NotesStr;
-    selectedNoteId=[obj.NoteID intValue];
+    selectedNoteId=(obj.NoteID).intValue;
     NSLog(@"Note ID==== %d",selectedNoteId);
     scrlVw.hidden=NO;
     [UIView commitAnimations];
@@ -235,8 +231,8 @@ UIButton *delButton;
     
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         
-        NotesView_iPhone *obj = [notesArr objectAtIndex:indexPath.row];
-        selectedNoteId=[obj.NoteID intValue];
+        NotesView_iPhone *obj = notesArr[indexPath.row];
+        selectedNoteId=(obj.NoteID).intValue;
         
         [self deleteNote];
     }   
@@ -301,21 +297,21 @@ UIButton *delButton;
     [notesArr removeAllObjects];
     databasepath = [app getDBPathNew];
     
-    if (sqlite3_open([databasepath UTF8String], &dbSecret) == SQLITE_OK) {
+    if (sqlite3_open(databasepath.UTF8String, &dbSecret) == SQLITE_OK) {
       
-        NSString *sqlQuery = [NSString stringWithFormat:@"Select NoteID,NoteText from NotesTbl where UserID=%d",[app.LoginUserID intValue]];
+        NSString *sqlQuery = [NSString stringWithFormat:@"Select NoteID,NoteText from NotesTbl where UserID=%d",(app.LoginUserID).intValue];
         
         sqlite3_stmt *selectstmt;
-        const char *sql=[sqlQuery UTF8String];
+        const char *sql=sqlQuery.UTF8String;
         if(sqlite3_prepare(dbSecret, sql, -1, &selectstmt, NULL) == SQLITE_OK) {
             
             while(sqlite3_step(selectstmt) == SQLITE_ROW)
             {
                 NotesView_iPhone *contObj = [[NotesView_iPhone alloc] init];
                 
-                contObj.noteID =[NSString stringWithUTF8String:(char *)sqlite3_column_text(selectstmt, 0)];
+                contObj.NoteID =@((char *)sqlite3_column_text(selectstmt, 0));
                 
-                contObj.NotesStr = [NSString stringWithUTF8String:(char *)sqlite3_column_text(selectstmt, 1)];
+                contObj.NotesStr = @((char *)sqlite3_column_text(selectstmt, 1));
                 
                 [notesArr addObject:contObj];
                 //[contObj release];
@@ -326,7 +322,7 @@ UIButton *delButton;
     else
         sqlite3_close(dbSecret);
     
-    NSLog(@"Notes count::: %d",[notesArr count]);
+    NSLog(@"Notes count::: %lu",(unsigned long)notesArr.count);
     //  NSLog(@"Note Array:::: %@",);
     [notesTbl reloadData];
 }
@@ -335,11 +331,11 @@ UIButton *delButton;
     // int uid=1;
     sqlite3_stmt *stmt;
     databasepath=[app getDBPathNew];
-    const char *dbpath=[databasepath UTF8String];
+    const char *dbpath=databasepath.UTF8String;
     if(sqlite3_open(dbpath, &dbSecret) == SQLITE_OK)
     {
-        NSString *insertquery=[NSString stringWithFormat:@"Insert into NotesTbl(UserID,NoteText) VALUES(%d,\"%@\")",[app.LoginUserID intValue],noteTxt.text];
-        const char *insert_query=[insertquery UTF8String];
+        NSString *insertquery=[NSString stringWithFormat:@"Insert into NotesTbl(UserID,NoteText) VALUES(%d,\"%@\")",(app.LoginUserID).intValue,noteTxt.text];
+        const char *insert_query=insertquery.UTF8String;
         sqlite3_prepare(dbSecret, insert_query, -1, &stmt, NULL);
         
         if(sqlite3_step(stmt)== SQLITE_DONE)
@@ -364,12 +360,12 @@ UIButton *delButton;
 
 -(IBAction) editData{
     databasepath=[app getDBPathNew];
-    if (sqlite3_open([databasepath UTF8String], &dbSecret) == SQLITE_OK) 
+    if (sqlite3_open(databasepath.UTF8String, &dbSecret) == SQLITE_OK) 
     {
         NSString *selectSql = [NSString stringWithFormat:@"Update NotesTbl set NoteText=\"%@\" Where NoteID=%d ;",noteTxt.text,selectedNoteId];
         
         NSLog(@"Query : %@",selectSql);
-        const char *sqlStatement = [selectSql UTF8String];
+        const char *sqlStatement = selectSql.UTF8String;
         sqlite3_stmt *query_stmt;
         sqlite3_prepare(dbSecret, sqlStatement, -1, &query_stmt, NULL);
         
@@ -420,12 +416,12 @@ UIButton *delButton;
 -(IBAction)deleteNote
 {
     databasepath=[app getDBPathNew];
-    if (sqlite3_open([databasepath UTF8String], &dbSecret) == SQLITE_OK) 
+    if (sqlite3_open(databasepath.UTF8String, &dbSecret) == SQLITE_OK) 
     {
         NSString *selectSql = [NSString stringWithFormat:@"Delete from NotesTbl Where NoteID=%d",selectedNoteId];
         
         // NSLog(@"Query : %@",selectSql);
-        const char *deleteStmt = [selectSql UTF8String];
+        const char *deleteStmt = selectSql.UTF8String;
         sqlite3_stmt *query_stmt;
         
         if(sqlite3_prepare_v2(dbSecret, deleteStmt, -1, &query_stmt, NULL) == SQLITE_OK)
@@ -556,7 +552,7 @@ UIButton *delButton;
         noteTxt.inputAccessoryView = accessoryView;    
         self.accessoryView = nil;
     }
-	return YES;
+    return YES;
 }
 
 -(IBAction)goAway:(id)sender

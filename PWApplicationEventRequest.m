@@ -14,18 +14,18 @@
 @synthesize goal, count;
 
 - (NSString *) methodName {
-	return @"applicationEvent";
+    return @"applicationEvent";
 }
 
 - (NSDictionary *) requestDictionary {
-	NSMutableDictionary *dict = [self baseDictionary];
-	
-	[dict setObject:goal forKey:@"goal"];
-	
-	if(count != nil)
-		[dict setObject:count forKey:@"count"];
-	
-	return dict;
+    NSMutableDictionary *dict = [self baseDictionary];
+    
+    dict[@"goal"] = goal;
+    
+    if(count != nil)
+        dict[@"count"] = count;
+    
+    return dict;
 }
 
 @end

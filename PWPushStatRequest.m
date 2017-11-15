@@ -14,16 +14,16 @@
 @synthesize hash;
 
 - (NSString *) methodName {
-	return @"pushStat";
+    return @"pushStat";
 }
 
 - (NSDictionary *) requestDictionary {
-	NSMutableDictionary *dict = [self baseDictionary];
-	
-	if(hash != nil)
-		[dict setObject:hash forKey:@"hash"];
-	
-	return dict;
+    NSMutableDictionary *dict = [self baseDictionary];
+    
+    if(hash != nil)
+        dict[@"hash"] = hash;
+    
+    return dict;
 }
 
 

@@ -14,32 +14,32 @@
 @synthesize tags;
 
 - (NSString *) methodName {
-	return @"setTags";
+    return @"setTags";
 }
 
 - (NSDictionary *) requestDictionary {
-	NSMutableDictionary *dict = [self baseDictionary];
-	NSMutableDictionary *mutableTags = [tags mutableCopy];
-	
-	for (NSString *key in [mutableTags allKeys]) {
-		NSString *valueString = @"";
-		NSObject *value = [mutableTags objectForKey:key];
-		
-		if ([value isKindOfClass:[NSString class]]) {
-			valueString = (NSString *)value;
-			
-			if([valueString hasPrefix:@"#pwinc#"]) {
-				NSString * noPrefixString = [valueString substringFromIndex:7];
-				NSNumber * valueNumber = [NSNumber numberWithDouble:[noPrefixString doubleValue]];
-				
-				NSMutableDictionary *opTag = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"increment", @"operation", valueNumber, @"value", nil];
-				[mutableTags setObject:opTag forKey:key];
-			}
-		}
-	}
+    NSMutableDictionary *dict = [self baseDictionary];
+    NSMutableDictionary *mutableTags = [tags mutableCopy];
+    
+    for (NSString *key in mutableTags.allKeys) {
+        NSString *valueString = @"";
+        NSObject *value = mutableTags[key];
+        
+        if ([value isKindOfClass:[NSString class]]) {
+            valueString = (NSString *)value;
+            
+            if([valueString hasPrefix:@"#pwinc#"]) {
+                NSString * noPrefixString = [valueString substringFromIndex:7];
+                NSNumber * valueNumber = @(noPrefixString.doubleValue);
+                
+                NSMutableDictionary *opTag = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"increment", @"operation", valueNumber, @"value", nil];
+                mutableTags[key] = opTag;
+            }
+        }
+    }
 
-	[dict setObject:mutableTags forKey:@"tags"];
-	return dict;
+    dict[@"tags"] = mutableTags;
+    return dict;
 }
 
 @end

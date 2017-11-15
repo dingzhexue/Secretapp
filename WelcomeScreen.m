@@ -9,15 +9,14 @@
 #import "WelcomeScreen.h"
 #import "DrawPatternLockViewController.h"
 #import "UserLoginView.h"
-#import "AppDelegate.h"
 
 @interface WelcomeScreen ()
 
 @end
-AppDelegate *app;
+
 @implementation WelcomeScreen
 @synthesize btnNext;
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
@@ -34,14 +33,14 @@ AppDelegate *app;
     {
         btnNext.tintColor=[UIColor whiteColor];
         btnNext.layer.borderWidth=1.0f;
-        btnNext.layer.borderColor=[[UIColor whiteColor] CGColor];
+        btnNext.layer.borderColor=[UIColor whiteColor].CGColor;
     }
     else
     {
         [btnNext setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [btnNext setBackgroundColor:[UIColor clearColor]];
+        btnNext.backgroundColor = [UIColor clearColor];
         btnNext.layer.borderWidth=1.0f;
-        btnNext.layer.borderColor=[[UIColor whiteColor] CGColor];
+        btnNext.layer.borderColor=[UIColor whiteColor].CGColor;
     }
     
     if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0"))
@@ -49,7 +48,7 @@ AppDelegate *app;
         self.edgesForExtendedLayout = UIRectEdgeNone;
     }
     self.navigationController.navigationBarHidden=YES;
-    app=(AppDelegate *)[[UIApplication sharedApplication]delegate];
+    app=(AppDelegate *)[UIApplication sharedApplication].delegate;
 //    if (app.isFirstRun)
 //    {
 //        [self performSelector:@selector(splashOver) withObject:self afterDelay:3];
@@ -74,17 +73,17 @@ AppDelegate *app;
 {
     NSString *strReturn=@"false";
     NSString *databasepath=[app getDBPathNew];
-    if (sqlite3_open([databasepath UTF8String], &dbSecret) == SQLITE_OK)
+    if (sqlite3_open(databasepath.UTF8String, &dbSecret) == SQLITE_OK)
     {
         NSString *selectSql = [NSString stringWithFormat:@"select VoiceAuth from AuthentictionCheckTbl where UserID = %@",app.LoginUserID];
         NSLog(@"Query : %@",selectSql);
-        const char *sqlStatement = [selectSql UTF8String];
+        const char *sqlStatement = selectSql.UTF8String;
         sqlite3_stmt *query_stmt;
         if(sqlite3_prepare_v2(dbSecret, sqlStatement, -1, &query_stmt, NULL) == SQLITE_OK)
         {
             if (sqlite3_step(query_stmt) == SQLITE_ROW)
             {
-                NSString *checkValue = [[NSString alloc] initWithUTF8String:(const char *) sqlite3_column_text(query_stmt, 0)];
+                NSString *checkValue = @((const char *) sqlite3_column_text(query_stmt, 0));
                 NSLog(@"User id=== %@",checkValue);
                 if([ checkValue isEqualToString: @"true"])
                 {

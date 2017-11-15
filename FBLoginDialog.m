@@ -27,7 +27,7 @@
 /*
  * initialize the FBLoginDialog with url and parameters
  */
-- (id)initWithURL:(NSString*) loginURL 
+- (instancetype)initWithURL:(NSString*) loginURL 
       loginParams:(NSMutableDictionary*) params 
          delegate:(id <FBLoginDialogDelegate>) delegate{
   
@@ -45,13 +45,13 @@
  * Override FBDialog : to call when the webView Dialog did succeed
  */
 - (void) dialogDidSucceed:(NSURL*)url {
-  NSString *q = [url absoluteString];
+  NSString *q = url.absoluteString;
   NSString *token = [self getStringFromUrl:q needle:@"access_token="];
   NSString *expTime = [self getStringFromUrl:q needle:@"expires_in="];
   NSDate *expirationDate =nil;
   
   if (expTime != nil) {
-    int expVal = [expTime intValue];
+    int expVal = expTime.intValue;
     if (expVal == 0) {
       expirationDate = [NSDate distantFuture];
     } else {

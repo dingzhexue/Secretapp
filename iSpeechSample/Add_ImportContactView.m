@@ -7,7 +7,6 @@
 //
 
 #import "Add_ImportContactView.h"
-#import "AppDelegate.h"
 #import "GADBannerView.h"
 #import "GADBannerViewDelegate.h"
 #import "GADInterstitial.h"
@@ -28,10 +27,7 @@
 @synthesize imgHeader;
 @synthesize contactEmail,contactName,contactNote,contactPhone,contactPic,contactRating;
 
-float rate;
-
-AppDelegate *app;
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
@@ -96,17 +92,17 @@ AppDelegate *app;
         self.edgesForExtendedLayout = UIRectEdgeNone;
     }
     [self.navigationController setNavigationBarHidden:NO];
-    [subAdView setBackgroundColor:[UIColor clearColor]];
+    subAdView.backgroundColor = [UIColor clearColor];
     
      if(UI_USER_INTERFACE_IDIOM()==UIUserInterfaceIdiomPad)
      {
          if (app.EditContactFlag)
          {
-             [imgHeader setImage:[UIImage imageNamed:@"edit-contact.png"]];
+             imgHeader.image = [UIImage imageNamed:@"edit-contact.png"];
          }
          else
          {
-             [imgHeader setImage:[UIImage imageNamed:@"ipad-contact.png"]];
+             imgHeader.image = [UIImage imageNamed:@"ipad-contact.png"];
          }
 
          txtConNote.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"ipad-combg.png"]];
@@ -154,15 +150,15 @@ AppDelegate *app;
     {
         if (app.EditContactFlag)
         {
-            [imgHeader setImage:[UIImage imageNamed:@"iphone-n-edit-contact.png"]];
+            imgHeader.image = [UIImage imageNamed:@"iphone-n-edit-contact.png"];
         }
         else
         {
-            [imgHeader setImage:[UIImage imageNamed:@"ipad-contact.png"]];
+            imgHeader.image = [UIImage imageNamed:@"ipad-contact.png"];
         }
         
         UIToolbar *toolbar = [[[UIToolbar alloc] init] autorelease];
-        [toolbar setBarStyle:UIBarStyleBlackTranslucent];
+        toolbar.barStyle = UIBarStyleBlackTranslucent;
         [toolbar sizeToFit];
         
         UIBarButtonItem *flexButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];
@@ -185,18 +181,18 @@ AppDelegate *app;
         // Tap For Tap Adview Ends Here
 #else
 #endif
-        NSArray *itemsArray = [NSArray arrayWithObjects:flexButton, doneButton, nil];
+        NSArray *itemsArray = @[flexButton, doneButton];
         
         [flexButton release];
         [doneButton release];
-        [toolbar setItems:itemsArray];
+        toolbar.items = itemsArray;
         
-        [txtConNote setInputAccessoryView:toolbar];
+        txtConNote.inputAccessoryView = toolbar;
     }
    
     
     //delegate
-    app=(AppDelegate *)[[UIApplication sharedApplication]delegate];
+    app=(AppDelegate *)[UIApplication sharedApplication].delegate;
     if(app.EditContactFlag){
         
         self.title=@"Edit Contact";
@@ -241,7 +237,7 @@ AppDelegate *app;
         txtConNum.text=app.conPhone;
         txtconEmail.text=app.conEmail;
         txtConNote.text=app.ConNote;
-        NSLog(@" Length %d", app.conImg.length);
+        NSLog(@" Length %lu", (unsigned long)app.conImg.length);
          if(app.conImg.length <=7)
          {
              contImage.image=[UIImage imageNamed:@"ipad-addimage.png"];
@@ -255,7 +251,7 @@ AppDelegate *app;
         self.rateView.notSelectedImage = [UIImage imageNamed:@"star1.png"];
         self.rateView.halfSelectedImage = [UIImage imageNamed:@"half_star.png"];
         self.rateView.fullSelectedImage = [UIImage imageNamed:@"star2.png"];
-        self.rateView.rating = [app.conRate intValue];
+        self.rateView.rating = (app.conRate).intValue;
         self.rateView.editable = YES;
         self.rateView.maxRating = 5;
         self.rateView.delegate = self;
@@ -275,7 +271,7 @@ AppDelegate *app;
         contImage.image=[UIImage imageNamed:@"ipad-addimage.png"];
         //Rating code//
         
-        CGFloat result = self.view.bounds.size.height;
+//        CGFloat result = self.view.bounds.size.height;
         
         self.rateView.notSelectedImage = [UIImage imageNamed:@"star1.png"];
         self.rateView.halfSelectedImage = [UIImage imageNamed:@"half_star.png"];
@@ -341,7 +337,7 @@ AppDelegate *app;
     }
     else if([title isEqualToString:@"SMS"])
     {
-        [self sendSMS:@"SMS Body" recipientList:[NSArray arrayWithObjects:app.conPhone, nil]];
+        [self sendSMS:@"SMS Body" recipientList:@[app.conPhone]];
     }   
 }
 
@@ -396,7 +392,7 @@ AppDelegate *app;
             break;
         default:
             alert.message = @"Message Sending Failed.";
-        break;	}
+        break;    }
     [self dismissViewControllerAnimated:YES completion:nil];
     
     [alert show];
@@ -416,7 +412,7 @@ AppDelegate *app;
         
         [mfViewController setMessageBody:@"Message Body" isHTML:YES];
         
-        NSArray *toRecipients = [NSArray arrayWithObject:app.conNm]; 
+        NSArray *toRecipients = @[app.conNm]; 
         [mfViewController setToRecipients:toRecipients];
         
         [self presentViewController:mfViewController animated:YES completion:nil];
@@ -448,7 +444,7 @@ AppDelegate *app;
             break;
         default:
             alert.message = @"Message Not Sent";
-        break;	}
+        break;    }
    [self dismissViewControllerAnimated:YES completion:nil];
     
     [alert show];
@@ -507,11 +503,11 @@ AppDelegate *app;
             {
                 UIImagePickerController *UserPhotoPicker = [[UIImagePickerController alloc]init];
                 UserPhotoPicker.sourceType=UIImagePickerControllerSourceTypePhotoLibrary;
-                [UserPhotoPicker setDelegate:self];
+                UserPhotoPicker.delegate = self;
                 UserPhotoPicker.navigationBar.tintColor = [UIColor blackColor];
                 
                 app.objPopOverController = [[UIPopoverController alloc] initWithContentViewController:UserPhotoPicker];
-                [app.objPopOverController setDelegate:self];    
+                (app.objPopOverController).delegate = self;    
                 [app.objPopOverController presentPopoverFromRect:CGRectMake(250,400, 1,1) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
             }
             else
@@ -538,14 +534,14 @@ AppDelegate *app;
 {
     NSString *nameofimg=[NSString stringWithFormat:@"%@",image];
     
- 	NSString *substring=[nameofimg substringFromIndex:12];
+     NSString *substring=[nameofimg substringFromIndex:12];
     NSString *new=[substring substringToIndex:7];
     
     NSData * imageData = UIImageJPEGRepresentation(image, 1.0);
     
     NSArray *path=NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     
-    NSString *documentdirectory=[path objectAtIndex:0];
+    NSString *documentdirectory=path[0];
     
     NSString *newFilePath = [NSString stringWithFormat:[documentdirectory stringByAppendingPathComponent: @"/%@.png"],new];
     self.imgpath=[NSString stringWithFormat:@"%@",newFilePath];
@@ -586,12 +582,12 @@ AppDelegate *app;
         NSLog(@"edited Rate:::: %@",streditRate);
         
         databasepath=[app getDBPathNew];
-        if (sqlite3_open([databasepath UTF8String], &dbSecret) == SQLITE_OK)
+        if (sqlite3_open(databasepath.UTF8String, &dbSecret) == SQLITE_OK)
         {
-            NSString *selectSql = [NSString stringWithFormat:@"Update ContactTbl set ContName=\"%@\",ContPhone=\"%@\",ContactEmail=\"%@\",ContactRating=\"%@\",ContNote=\"%@\",ContPic=\"%@\" Where ContactID=%d ;",txtContName.text,txtConNum.text,txtconEmail.text,streditRate,txtConNote.text,app.conImg,[app.conid intValue]];
+            NSString *selectSql = [NSString stringWithFormat:@"Update ContactTbl set ContName=\"%@\",ContPhone=\"%@\",ContactEmail=\"%@\",ContactRating=\"%@\",ContNote=\"%@\",ContPic=\"%@\" Where ContactID=%d ;",txtContName.text,txtConNum.text,txtconEmail.text,streditRate,txtConNote.text,app.conImg,(app.conid).intValue];
             
             NSLog(@"Query : %@",selectSql);
-            const char *sqlStatement = [selectSql UTF8String];
+            const char *sqlStatement = selectSql.UTF8String;
             sqlite3_stmt *query_stmt;
             sqlite3_prepare(dbSecret, sqlStatement, -1, &query_stmt, NULL);
             
@@ -622,16 +618,16 @@ AppDelegate *app;
             NSLog(@"Path from save method==> %@",imgpath);
             sqlite3_stmt *stmt;
             databasepath=[app getDBPathNew];
-            const char *dbpath=[databasepath UTF8String];
+            const char *dbpath=databasepath.UTF8String;
             if(sqlite3_open(dbpath, &dbSecret) == SQLITE_OK)
             {
                 
                 
-                NSString *insertquery=[NSString stringWithFormat:@"Insert into ContactTbl (UserID,ContName,ContPhone,ContactEmail,ContactRating,ContNote,ContPic) VALUES(%d,\"%@\",\"%@\",\"%@\",\"%@\",\"%@\",\"%@\")",[app.LoginUserID intValue],txtContName.text,txtConNum.text,txtconEmail.text,strRate,txtConNote.text,imgpath];
+                NSString *insertquery=[NSString stringWithFormat:@"Insert into ContactTbl (UserID,ContName,ContPhone,ContactEmail,ContactRating,ContNote,ContPic) VALUES(%d,\"%@\",\"%@\",\"%@\",\"%@\",\"%@\",\"%@\")",(app.LoginUserID).intValue,txtContName.text,txtConNum.text,txtconEmail.text,strRate,txtConNote.text,imgpath];
                 
                 NSLog(@"insert Query::::> %@",insertquery);
                 
-                const char *insert_query=[insertquery UTF8String];
+                const char *insert_query=insertquery.UTF8String;
                 sqlite3_prepare(dbSecret, insert_query, -1, &stmt, NULL);
                 
                 if(sqlite3_step(stmt)== SQLITE_DONE)
@@ -664,12 +660,12 @@ AppDelegate *app;
         NSLog(@"edited Rate:::: %@",streditRate);
         
         databasepath=[app getDBPathNew];
-        if (sqlite3_open([databasepath UTF8String], &dbSecret) == SQLITE_OK) 
+        if (sqlite3_open(databasepath.UTF8String, &dbSecret) == SQLITE_OK) 
         {
-            NSString *selectSql = [NSString stringWithFormat:@"Update ContactTbl set ContName=\"%@\",ContPhone=\"%@\",ContactEmail=\"%@\",ContactRating=\"%@\",ContNote=\"%@\",ContPic=\"%@\" Where ContactID=%d ;",txtContName.text,txtConNum.text,txtconEmail.text,streditRate,txtConNote.text,app.conImg,[app.conid intValue]];
+            NSString *selectSql = [NSString stringWithFormat:@"Update ContactTbl set ContName=\"%@\",ContPhone=\"%@\",ContactEmail=\"%@\",ContactRating=\"%@\",ContNote=\"%@\",ContPic=\"%@\" Where ContactID=%d ;",txtContName.text,txtConNum.text,txtconEmail.text,streditRate,txtConNote.text,app.conImg,(app.conid).intValue];
             
             NSLog(@"Query : %@",selectSql);
-            const char *sqlStatement = [selectSql UTF8String];
+            const char *sqlStatement = selectSql.UTF8String;
             sqlite3_stmt *query_stmt;
             sqlite3_prepare(dbSecret, sqlStatement, -1, &query_stmt, NULL);
             
@@ -700,16 +696,16 @@ AppDelegate *app;
             NSLog(@"Path from save method==> %@",imgpath);
             sqlite3_stmt *stmt;
             databasepath=[app getDBPathNew];
-            const char *dbpath=[databasepath UTF8String];
+            const char *dbpath=databasepath.UTF8String;
             if(sqlite3_open(dbpath, &dbSecret) == SQLITE_OK)
             {
                 
                 
-                NSString *insertquery=[NSString stringWithFormat:@"Insert into ContactTbl (UserID,ContName,ContPhone,ContactEmail,ContactRating,ContNote,ContPic) VALUES(%d,\"%@\",\"%@\",\"%@\",\"%@\",\"%@\",\"%@\")",[app.LoginUserID intValue],txtContName.text,txtConNum.text,txtconEmail.text,strRate,txtConNote.text,imgpath];
+                NSString *insertquery=[NSString stringWithFormat:@"Insert into ContactTbl (UserID,ContName,ContPhone,ContactEmail,ContactRating,ContNote,ContPic) VALUES(%d,\"%@\",\"%@\",\"%@\",\"%@\",\"%@\",\"%@\")",(app.LoginUserID).intValue,txtContName.text,txtConNum.text,txtconEmail.text,strRate,txtConNote.text,imgpath];
                 
                 NSLog(@"insert Query::::> %@",insertquery);
                 
-                const char *insert_query=[insertquery UTF8String];
+                const char *insert_query=insertquery.UTF8String;
                 sqlite3_prepare(dbSecret, insert_query, -1, &stmt, NULL);
                 
                 if(sqlite3_step(stmt)== SQLITE_DONE)

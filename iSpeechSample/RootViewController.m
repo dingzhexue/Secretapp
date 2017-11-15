@@ -7,7 +7,7 @@
 //
 
 #import "RootViewController.h"
-#import "AppDelegate.h"
+
 #import "MenuCustomCell_iPhone.h"
 #import "DefaultAlbumView.h"
 #import "NotesView_iPhone.h"
@@ -29,6 +29,7 @@
 
 @property (nonatomic, strong) GADInterstitial *interstitial;
 
+
 @end
 
 @implementation RootViewController
@@ -41,13 +42,12 @@
 @synthesize viewFacebookBar;
 @synthesize btnFacebookLike,likeVw;
 
-AppDelegate *app;
 
-UIView *view;
+
 bool productPurchased,isLiked;
 static NSString* kAppId = @"145792598897737";
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
@@ -90,7 +90,7 @@ static NSString* kAppId = @"145792598897737";
     
     likeVw.hidden=true;
     
-    app=(AppDelegate *)[[UIApplication sharedApplication] delegate];
+    app=(AppDelegate *)[UIApplication sharedApplication].delegate;
     
     //    WelcomeScreen *welcomeScreen;
     //    if(UI_USER_INTERFACE_IDIOM()==UIUserInterfaceIdiomPad)
@@ -110,7 +110,7 @@ static NSString* kAppId = @"145792598897737";
     {
         self.edgesForExtendedLayout = UIRectEdgeNone;
         self.navigationController.navigationBar.tintColor=[UIColor whiteColor];
-        self.navigationController.navigationBar.titleTextAttributes = [NSDictionary dictionaryWithObject:[UIColor whiteColor] forKey:NSForegroundColorAttributeName];
+        self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName: [UIColor whiteColor]};
     }
     self.navigationController.navigationBar.hidden=NO;
     UIBarButtonItem *lefttButton = [[UIBarButtonItem alloc] initWithTitle:@"Settings"
@@ -170,7 +170,7 @@ static NSString* kAppId = @"145792598897737";
     _hud.labelText = @"Timeout!";
     _hud.detailsLabelText = @"Please try again later.";
     _hud.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"37x-Checkmark.png"]];
-	_hud.mode = MBProgressHUDModeCustomView;
+    _hud.mode = MBProgressHUDModeCustomView;
     [self performSelector:@selector(dismissHUD:) withObject:nil afterDelay:3.0];
 }
 
@@ -329,11 +329,11 @@ static NSString* kAppId = @"145792598897737";
         [subView.layer setMasksToBounds:YES];
         subView.backgroundColor = [UIColor blackColor];
         
-        [subView.layer setCornerRadius:10.0];
+        (subView.layer).cornerRadius = 10.0;
         subView.backgroundColor = [UIColor blackColor];
-        [subView.layer setCornerRadius:10.0];
-        [subView.layer setBorderColor:[[UIColor whiteColor]CGColor]];
-        [subView.layer setBorderWidth:3.0];
+        (subView.layer).cornerRadius = 10.0;
+        (subView.layer).borderColor = [UIColor whiteColor].CGColor;
+        (subView.layer).borderWidth = 3.0;
         
         //[self.view addSubview:btnCancel];
         [self.view addSubview:view];
@@ -346,7 +346,7 @@ static NSString* kAppId = @"145792598897737";
         {
             view.frame=CGRectMake(0,0,self.view.bounds.size.width,self.view.bounds.size.height);
         }
-        CGSize result = [[UIScreen mainScreen] bounds].size;
+        CGSize result = [UIScreen mainScreen].bounds.size;
         UIView *subView;
         if(result.height < 568)
         {
@@ -419,11 +419,11 @@ static NSString* kAppId = @"145792598897737";
         [subView.layer setMasksToBounds:YES];
         subView.backgroundColor = [UIColor blackColor];
         
-        [subView.layer setCornerRadius:10.0];
+        (subView.layer).cornerRadius = 10.0;
         subView.backgroundColor = [UIColor blackColor];
-        [subView.layer setCornerRadius:10.0];
-        [subView.layer setBorderColor:[[UIColor whiteColor]CGColor]];
-        [subView.layer setBorderWidth:3.0];
+        (subView.layer).cornerRadius = 10.0;
+        (subView.layer).borderColor = [UIColor whiteColor].CGColor;
+        (subView.layer).borderWidth = 3.0;
         
         //[self.view addSubview:btnCancel];
         [self.view addSubview:view];
@@ -454,7 +454,7 @@ static NSString* kAppId = @"145792598897737";
         x = 80;
         y = 8;
     }
-    if ([self.viewFacebookBar.subviews count]>0)
+    if ((self.viewFacebookBar.subviews).count>0)
     {
         [self.facebookLikeView removeFromSuperview];
     }
@@ -474,7 +474,7 @@ static NSString* kAppId = @"145792598897737";
     
     if (!isLiked)
     {
-        [facebook authorize:[NSArray array]];
+        [facebook authorize:@[]];
         isLiked=YES;
     }
     else
@@ -490,7 +490,7 @@ static NSString* kAppId = @"145792598897737";
 - (void)facebookLikeViewRequiresLogin:(FacebookLikeView *)aFacebookLikeView
 {
     
-    [facebook authorize:[NSArray array]];
+    [facebook authorize:@[]];
 }
 
 - (void)facebookLikeViewDidRender:(FacebookLikeView *)aFacebookLikeView {
@@ -527,7 +527,7 @@ static NSString* kAppId = @"145792598897737";
 #pragma mark - Album Method
 
 -(IBAction)defAlbumClicked:(id)sender{
-    NSLog(@"Tag::: %d",[sender tag]);
+    NSLog(@"Tag::: %ld",(long)[sender tag]);
     // [self OpenPhotoGallery];
     
     DefaultAlbumView *defAlVw;
@@ -545,7 +545,7 @@ static NSString* kAppId = @"145792598897737";
 
 -(IBAction)BookmarkClicked:(id)sender{
     
-    NSLog(@"Tag::: %d",[sender tag]);
+    NSLog(@"Tag::: %ld",(long)[sender tag]);
     
     BookmarkView *bookvw;
     if(UI_USER_INTERFACE_IDIOM()==UIUserInterfaceIdiomPad)
@@ -561,7 +561,7 @@ static NSString* kAppId = @"145792598897737";
 }
 
 -(IBAction)NotesClicked:(id)sender{
-    NSLog(@"Tag::: %d",[sender tag]);
+    NSLog(@"Tag::: %ld",(long)[sender tag]);
     NSLog(@"Notes...");
     
     NotesView_iPhone *notesvw;
@@ -578,7 +578,7 @@ static NSString* kAppId = @"145792598897737";
 }
 
 -(IBAction)AudioRecordClicked:(id)sender{
-    NSLog(@"Tag::: %d",[sender tag]);
+    NSLog(@"Tag::: %ld",(long)[sender tag]);
     
     
     
@@ -598,7 +598,7 @@ static NSString* kAppId = @"145792598897737";
 }
 
 -(IBAction)ContactsClicked:(id)sender{
-    NSLog(@"Tag::: %d",[sender tag]);
+    NSLog(@"Tag::: %ld",(long)[sender tag]);
     
     ContactListView *contvw;
     if(UI_USER_INTERFACE_IDIOM()==UIUserInterfaceIdiomPad)
@@ -616,7 +616,7 @@ static NSString* kAppId = @"145792598897737";
 }
 
 -(IBAction)VideoClicked:(id)sender{
-    NSLog(@"Tag::: %d",[sender tag]);
+    NSLog(@"Tag::: %ld",(long)[sender tag]);
 #ifdef PROVERSION
     VideoView *videoVW;
     if(UI_USER_INTERFACE_IDIOM()==UIUserInterfaceIdiomPad)
@@ -710,11 +710,11 @@ static NSString* kAppId = @"145792598897737";
         [subView.layer setMasksToBounds:YES];
         subView.backgroundColor = [UIColor blackColor];
         
-        [subView.layer setCornerRadius:10.0];
+        (subView.layer).cornerRadius = 10.0;
         subView.backgroundColor = [UIColor blackColor];
-        [subView.layer setCornerRadius:10.0];
-        [subView.layer setBorderColor:[[UIColor whiteColor]CGColor]];
-        [subView.layer setBorderWidth:3.0];
+        (subView.layer).cornerRadius = 10.0;
+        (subView.layer).borderColor = [UIColor whiteColor].CGColor;
+        (subView.layer).borderWidth = 3.0;
         
         //[self.view addSubview:btnCancel];
         [self.view addSubview:view];
@@ -727,7 +727,7 @@ static NSString* kAppId = @"145792598897737";
         {
             view.frame=CGRectMake(0,0,self.view.bounds.size.width,self.view.bounds.size.height);
         }
-        CGSize result = [[UIScreen mainScreen] bounds].size;
+        CGSize result = [UIScreen mainScreen].bounds.size;
         UIView *subView;
         if(result.height < 568)
         {
@@ -800,11 +800,11 @@ static NSString* kAppId = @"145792598897737";
         [subView.layer setMasksToBounds:YES];
         subView.backgroundColor = [UIColor blackColor];
         
-        [subView.layer setCornerRadius:10.0];
+        (subView.layer).cornerRadius = 10.0;
         subView.backgroundColor = [UIColor blackColor];
-        [subView.layer setCornerRadius:10.0];
-        [subView.layer setBorderColor:[[UIColor whiteColor]CGColor]];
-        [subView.layer setBorderWidth:3.0];
+        (subView.layer).cornerRadius = 10.0;
+        (subView.layer).borderColor = [UIColor whiteColor].CGColor;
+        (subView.layer).borderWidth = 3.0;
         
         //[self.view addSubview:btnCancel];
         [self.view addSubview:view];
@@ -820,7 +820,7 @@ static NSString* kAppId = @"145792598897737";
 
 -(IBAction)MusicClicked:(id)sender{
     
-    NSLog(@"Tag::: %d",[sender tag]);
+    NSLog(@"Tag::: %ld",(long)[sender tag]);
     
     MusicView *musicVW;
     if(UI_USER_INTERFACE_IDIOM()==UIUserInterfaceIdiomPad)
@@ -901,7 +901,7 @@ static NSString* kAppId = @"145792598897737";
 
 -(IBAction)btnBackgroundPressed:(id)sender
 {
-    NSLog(@"Button tag::: %d",[sender tag]);
+    NSLog(@"Button tag::: %ld",(long)[sender tag]);
     
     if([sender tag] == 0)
     {
@@ -959,13 +959,13 @@ static NSString* kAppId = @"145792598897737";
     UIButton  *delButton =  [UIButton buttonWithType:UIButtonTypeCustom];
     [delButton setImage:[UIImage imageNamed:@"button_red_close.png"] forState:UIControlStateNormal];
     [delButton addTarget:self action:@selector(closeImgView:) forControlEvents:UIControlEventTouchUpInside];
-    [delButton setFrame:CGRectMake(280, 0, 40, 40)];
+    delButton.frame = CGRectMake(280, 0, 40, 40);
     delButton.showsTouchWhenHighlighted=YES;
     
     // self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:delButton];
     [self.dispImgView addSubview:delButton];
     
-    NSData *dataImage = UIImageJPEGRepresentation([info objectForKey:@"UIImagePickerControllerOriginalImage"],1);
+    NSData *dataImage = UIImageJPEGRepresentation(info[@"UIImagePickerControllerOriginalImage"],1);
     
     img.image = [[UIImage alloc] initWithData:dataImage];
 }
@@ -1094,6 +1094,74 @@ static NSString* kAppId = @"145792598897737";
 - (void)interstitialDidReceiveAd:(GADInterstitial *)interstitial {
     if(self == self.navigationController.topViewController)
         [self.interstitial presentFromRootViewController:self];
+}
+
+- (void)monsterSelectionChanged:(Monster *)curSelection {
+    return;
+}
+
+- (void)fbDidExtendToken:(NSString *)accessToken expiresAt:(NSDate *)expiresAt {
+    return;
+}
+
+- (void)fbDidLogin {
+    return;
+}
+
+- (void)fbDidLogout {
+    return;
+}
+
+- (void)fbDidNotLogin:(BOOL)cancelled {
+    return;
+}
+
+- (void)fbSessionInvalidated {
+    return;
+}
+
+- (void)fbDialogLogin:(NSString *)token expirationDate:(NSDate *)expirationDate {
+    return;
+}
+
+- (void)fbDialogNotLogin:(BOOL)cancelled {
+    return;
+}
+
+- (void)encodeWithCoder:(nonnull NSCoder *)aCoder {
+    return;
+}
+
+- (void)traitCollectionDidChange:(nullable UITraitCollection *)previousTraitCollection {
+    return;
+}
+
+- (void)preferredContentSizeDidChangeForChildContentContainer:(nonnull id<UIContentContainer>)container {
+    return;
+}
+
+- (void)systemLayoutFittingSizeDidChangeForChildContentContainer:(nonnull id<UIContentContainer>)container {
+    return;
+}
+
+- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(nonnull id<UIViewControllerTransitionCoordinator>)coordinator {
+    return;
+}
+
+- (void)willTransitionToTraitCollection:(nonnull UITraitCollection *)newCollection withTransitionCoordinator:(nonnull id<UIViewControllerTransitionCoordinator>)coordinator {
+    return;
+}
+
+- (void)didUpdateFocusInContext:(nonnull UIFocusUpdateContext *)context withAnimationCoordinator:(nonnull UIFocusAnimationCoordinator *)coordinator {
+    return;
+}
+
+- (void)setNeedsFocusUpdate {
+    return;
+}
+
+- (void)updateFocusIfNeeded {
+    return;
 }
 
 @end

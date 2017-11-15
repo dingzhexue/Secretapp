@@ -7,11 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "iSpeechSDK.h"
 #import <MessageUI/MFMessageComposeViewController.h>
 #import <MessageUI/MFMailComposeViewController.h>
 
-#import <sqlite3.h>
 @interface viewVoiceAuthentication : UIViewController <ISSpeechRecognitionDelegate, MFMailComposeViewControllerDelegate>
 {
     UIButton *btnSpeak;
@@ -20,6 +18,7 @@
     NSString *databasepath;
     sqlite3 *dbSecret;
     NSString *strMail;
+    AppDelegate *app;
 
 }
 @property(nonatomic,readwrite)    Boolean isNewPassword,isReEnterPassword;

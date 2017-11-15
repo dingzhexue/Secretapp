@@ -7,7 +7,6 @@
 //
 
 #import "IAPHelper.h"
-#import "AppDelegate.h"
 
 @implementation IAPHelper
 @synthesize productIdentifiers = _productIdentifiers;
@@ -15,11 +14,10 @@
 @synthesize purchasedProducts = _purchasedProducts;
 @synthesize request = _request;
 
-AppDelegate *app;
 
-- (id)initWithProductIdentifiers:(NSSet *)productIdentifiers {
+- (instancetype)initWithProductIdentifiers:(NSSet *)productIdentifiers {
     if ((self = [super init])) {
-        app=(AppDelegate *)[[UIApplication sharedApplication]delegate];
+        app=(AppDelegate *)[UIApplication sharedApplication].delegate;
         // Store product identifiers
         _productIdentifiers = [productIdentifiers retain];
         

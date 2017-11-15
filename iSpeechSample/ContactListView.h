@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <sqlite3.h>
 #import <AddressBook/AddressBook.h>
 #import "GADHelper.h"
 
@@ -24,6 +23,8 @@
     NSMutableArray *wantednumber;
     
     UIImageView *backgroundImg;
+    AppDelegate *app;
+    UIView *popView;
 }
 
 @property(nonatomic,readwrite)  int conid;

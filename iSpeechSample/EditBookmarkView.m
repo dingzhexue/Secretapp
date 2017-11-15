@@ -7,7 +7,6 @@
 //
 
 #import "EditBookmarkView.h"
-#import "AppDelegate.h"
 
 @interface EditBookmarkView ()
 
@@ -17,8 +16,7 @@
 
 @synthesize bmURLTxt,bmTitleTxt;
 
-AppDelegate *app;
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
@@ -42,7 +40,7 @@ AppDelegate *app;
         self.edgesForExtendedLayout = UIRectEdgeNone;
     }
 
-    app=(AppDelegate *)[[UIApplication sharedApplication] delegate];
+    app=(AppDelegate *)[UIApplication sharedApplication].delegate;
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -74,12 +72,12 @@ AppDelegate *app;
 -(void)editBookmark{
     
     databasepath=[app getDBPathNew];
-    if (sqlite3_open([databasepath UTF8String], &dbSecret) == SQLITE_OK) 
+    if (sqlite3_open(databasepath.UTF8String, &dbSecret) == SQLITE_OK) 
     {
         NSString *selectSql = [NSString stringWithFormat:@"Update BookmarkTbl set BookmarkTitle=\"%@\" ,BookmarkURL=\"%@\" Where BookmarkID=%@ ",bmTitleTxt.text,bmURLTxt.text,selBmID];
         
         NSLog(@"Query : %@",selectSql);
-        const char *sqlStatement = [selectSql UTF8String];
+        const char *sqlStatement = selectSql.UTF8String;
         sqlite3_stmt *query_stmt;
         sqlite3_prepare(dbSecret, sqlStatement, -1, &query_stmt, NULL);
         

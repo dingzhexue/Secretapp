@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <sqlite3.h>
 #import "GADHelper.h"
 
 @interface BookmarkView : GADBannerViewController
@@ -21,6 +20,8 @@
     UIBarButtonItem *editdoneButton;
     BOOL editBookmarkflag;
     NSString *bookmarkID,*bookmarkTitle,*bookmarkURL,*selBookID;
+    AppDelegate *app;
+
 }
 @property(nonatomic,retain) NSString *bookmarkID,*bookmarkTitle,*bookmarkURL; 
 @property(nonatomic,retain) IBOutlet NSMutableArray *bookmarkArr; 

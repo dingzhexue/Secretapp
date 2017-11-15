@@ -7,7 +7,6 @@
 //
 
 #import "tblSlideShow.h"
-#import "AppDelegate.h"
 @interface tblSlideShow ()
 
 @end
@@ -15,8 +14,7 @@
 @implementation tblSlideShow
 @synthesize delegate = _delegate;
 @synthesize listOfItems;
-AppDelegate *app;
-- (id)initWithStyle:(UITableViewStyle)style
+- (instancetype)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
     if (self) {
@@ -32,12 +30,12 @@ AppDelegate *app;
     {
         self.edgesForExtendedLayout = UIRectEdgeNone;
     }
-    app=(AppDelegate *)[[UIApplication sharedApplication ]delegate];
+    app=(AppDelegate *)[UIApplication sharedApplication ].delegate;
     self.clearsSelectionOnViewWillAppear = NO;
     self.contentSizeForViewInPopover = CGSizeMake(320.0, 600.0);
     
     
-     self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageWithContentsOfFile:[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"main-bg.png"]]];
+     self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle].resourcePath stringByAppendingPathComponent:@"main-bg.png"]]];
        
  
 }
@@ -45,17 +43,17 @@ AppDelegate *app;
 {
     self.navigationController.navigationBarHidden=NO;
     listOfItems = [[NSMutableArray alloc] init];
-    NSArray *itemsArray1 =[NSArray arrayWithObjects:@"2 Seconds",@" 3 Seconds",@"5 Seconds",@"10 Seconds",@"20 Seconds",nil];
-    NSDictionary *itemsDict1 = [NSDictionary dictionaryWithObject:itemsArray1 forKey:@"0"];
+    NSArray *itemsArray1 =@[@"2 Seconds",@" 3 Seconds",@"5 Seconds",@"10 Seconds",@"20 Seconds"];
+    NSDictionary *itemsDict1 = @{@"0": itemsArray1};
     [listOfItems addObject:itemsDict1];
     
-    NSArray *itemsArray2 =[NSArray arrayWithObjects:@"Flip from left Right",@"Flip from left",@"Curl Up",@"Raandom Effect" ,nil];
-    NSDictionary *itemsDict2 = [NSDictionary dictionaryWithObject:itemsArray2 forKey:@"1"];
+    NSArray *itemsArray2 =@[@"Flip from left Right",@"Flip from left",@"Curl Up",@"Raandom Effect"];
+    NSDictionary *itemsDict2 = @{@"1": itemsArray2};
     
     [listOfItems addObject:itemsDict2];
     
-    NSArray *itemsArray3 =[NSArray arrayWithObjects:@"Repeat",@"Shuffle", nil];
-    NSDictionary *itemsDict3 = [NSDictionary dictionaryWithObject:itemsArray3 forKey:@"2"];
+    NSArray *itemsArray3 =@[@"Repeat",@"Shuffle"];
+    NSDictionary *itemsDict3 = @{@"2": itemsArray3};
     [listOfItems addObject:itemsDict3];
   
 
@@ -81,8 +79,8 @@ AppDelegate *app;
 {
     NSString *strReturn=@"false";
     NSString *databasepath=[app getDBPathNew];
-    NSString *selectSql;
-    if (sqlite3_open([databasepath UTF8String], &dbSecret) == SQLITE_OK) 
+    NSString *selectSql = nil;
+    if (sqlite3_open(databasepath.UTF8String, &dbSecret) == SQLITE_OK) 
     {
         
         if([strProperty isEqualToString:@"Duration"])  
@@ -97,7 +95,7 @@ AppDelegate *app;
         }
         
         NSLog(@"Query : %@",selectSql);
-        const char *sqlStatement = [selectSql UTF8String];
+        const char *sqlStatement = selectSql.UTF8String;
         sqlite3_stmt *query_stmt;
         
         if(sqlite3_prepare_v2(dbSecret, sqlStatement, -1, &query_stmt, NULL) == SQLITE_OK)
@@ -126,17 +124,17 @@ AppDelegate *app;
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     
-    return [listOfItems count];
+    return listOfItems.count;
     //return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     
-    NSDictionary *objdict = [listOfItems objectAtIndex:section];
-    NSString *str = [NSString stringWithFormat:@"%i",section];
-    NSArray *objarray = [objdict objectForKey:str];
-    return [objarray count];
+    NSDictionary *objdict = listOfItems[section];
+    NSString *str = [NSString stringWithFormat:@"%li",(long)section];
+    NSArray *objarray = objdict[str];
+    return objarray.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -150,9 +148,9 @@ AppDelegate *app;
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.accessoryView = UITableViewCellAccessoryNone;
-    NSDictionary *objdict = [listOfItems objectAtIndex:indexPath.section];
-    NSString *str = [NSString stringWithFormat:@"%i",indexPath.section];
-    NSArray *objarray = [objdict objectForKey:str];
+    NSDictionary *objdict = listOfItems[indexPath.section];
+    NSString *str = [NSString stringWithFormat:@"%li",(long)indexPath.section];
+    NSArray *objarray = objdict[str];
     
     if(indexPath.section == 0 && indexPath.row == 0)
     {
@@ -166,7 +164,7 @@ AppDelegate *app;
         }
         
         cell.textLabel.textColor = [UIColor  blackColor];
-        cell.textLabel.text = [objarray objectAtIndex:indexPath.row];
+        cell.textLabel.text = objarray[indexPath.row];
        
     }
     else if(indexPath.section == 0 && indexPath.row == 1)
@@ -181,7 +179,7 @@ AppDelegate *app;
             cell.accessoryType = UITableViewCellAccessoryNone;
         }
         cell.textLabel.textColor = [UIColor  blackColor];
-        cell.textLabel.text = [objarray objectAtIndex:indexPath.row];
+        cell.textLabel.text = objarray[indexPath.row];
      
     }
     else if(indexPath.section == 0 && indexPath.row == 2)
@@ -195,7 +193,7 @@ AppDelegate *app;
             cell.accessoryType = UITableViewCellAccessoryNone;
         }
         cell.textLabel.textColor = [UIColor  blackColor];
-        cell.textLabel.text = [objarray objectAtIndex:indexPath.row];
+        cell.textLabel.text = objarray[indexPath.row];
      
     }
     else if(indexPath.section == 0 && indexPath.row == 3)
@@ -211,7 +209,7 @@ AppDelegate *app;
         }
        // cell.textLabel.textColor = [UIColor colorWithRed:103.0/255.0 green:0.0/255.0 blue:85.0/255.0 alpha:1.0];
         cell.textLabel.textColor = [UIColor  blackColor];
-        cell.textLabel.text = [objarray objectAtIndex:indexPath.row];
+        cell.textLabel.text = objarray[indexPath.row];
     } 
     else if(indexPath.section == 0 && indexPath.row == 4)
     {
@@ -224,7 +222,7 @@ AppDelegate *app;
             cell.accessoryType = UITableViewCellAccessoryNone;
         }
         cell.textLabel.textColor = [UIColor  blackColor];
-        cell.textLabel.text = [objarray objectAtIndex:indexPath.row];
+        cell.textLabel.text = objarray[indexPath.row];
      
     }else  if(indexPath.section == 1 && indexPath.row == 0)
     {
@@ -238,7 +236,7 @@ AppDelegate *app;
             cell.accessoryType = UITableViewCellAccessoryNone;
         }
         cell.textLabel.textColor = [UIColor  blackColor];
-        cell.textLabel.text = [objarray objectAtIndex:indexPath.row];
+        cell.textLabel.text = objarray[indexPath.row];
     }else if(indexPath.section == 1 && indexPath.row == 1)
     {
         NSString *strReturnedValue=[self getProperties:@"Transition"];
@@ -250,7 +248,7 @@ AppDelegate *app;
             cell.accessoryType = UITableViewCellAccessoryNone;
         }
         cell.textLabel.textColor = [UIColor  blackColor];
-        cell.textLabel.text = [objarray objectAtIndex:indexPath.row];
+        cell.textLabel.text = objarray[indexPath.row];
      
     }else if(indexPath.section == 1 && indexPath.row == 2)
     {
@@ -264,7 +262,7 @@ AppDelegate *app;
             cell.accessoryType = UITableViewCellAccessoryNone;
         }
         cell.textLabel.textColor = [UIColor  blackColor];
-        cell.textLabel.text = [objarray objectAtIndex:indexPath.row];
+        cell.textLabel.text = objarray[indexPath.row];
         
     }else if(indexPath.section == 1 && indexPath.row == 3)
     {
@@ -278,12 +276,12 @@ AppDelegate *app;
             cell.accessoryType = UITableViewCellAccessoryNone;
         }
         cell.textLabel.textColor = [UIColor  blackColor];
-        cell.textLabel.text = [objarray objectAtIndex:indexPath.row];
+        cell.textLabel.text = objarray[indexPath.row];
         
     }else if(indexPath.section == 2 && indexPath.row == 0)
     {
         cell.textLabel.textColor = [UIColor  blackColor];
-        cell.textLabel.text = [objarray objectAtIndex:indexPath.row];
+        cell.textLabel.text = objarray[indexPath.row];
         
         Boolean setValue;
         
@@ -300,7 +298,7 @@ AppDelegate *app;
         
         UISwitch* aswitch = [[UISwitch alloc] initWithFrame:CGRectZero];
         aswitch.on = setValue; // or NO
-        [aswitch setTag: 1];
+        aswitch.tag = 1;
         [aswitch addTarget:self action:@selector(swtValueChanged:) forControlEvents:UIControlEventValueChanged];
         cell.accessoryView = aswitch;
         [aswitch release]; 
@@ -308,7 +306,7 @@ AppDelegate *app;
     }else if(indexPath.section ==2 && indexPath.row == 1)
     {
         cell.textLabel.textColor = [UIColor  blackColor];
-        cell.textLabel.text = [objarray objectAtIndex:indexPath.row];
+        cell.textLabel.text = objarray[indexPath.row];
         Boolean setValue;
         NSString *strReturnedValue=[self getProperties:@"Shuffle"];
         if([strReturnedValue isEqualToString:@"true"])
@@ -319,7 +317,7 @@ AppDelegate *app;
         }
         UISwitch* aswitch = [[UISwitch alloc] initWithFrame:CGRectZero];
         aswitch.on = setValue; // or NO
-        [aswitch setTag: 2];
+        aswitch.tag = 2;
         [aswitch addTarget:self action:@selector(swtValueChanged:) forControlEvents:UIControlEventValueChanged];
         cell.accessoryView = aswitch;
         [aswitch release]; 
@@ -335,7 +333,7 @@ AppDelegate *app;
     @try 
     {
 
-        if(sqlite3_open([[app getDBPathNew] UTF8String],&dbSecret)== SQLITE_OK)
+        if(sqlite3_open([app getDBPathNew].UTF8String,&dbSecret)== SQLITE_OK)
         {
             NSString *insertquery;
         
@@ -354,7 +352,7 @@ AppDelegate *app;
         @try 
         {
 
-            const char *insert_query=[insertquery UTF8String];
+            const char *insert_query=insertquery.UTF8String;
             sqlite3_prepare(dbSecret,insert_query,-1,&statement,NULL);
             if(sqlite3_step(statement) == SQLITE_DONE){
                 NSLog(@"record updated");
@@ -415,12 +413,12 @@ AppDelegate *app;
     }
     [self.tableView reloadData];
     
-    NSLog(@"%d",value);
+    NSLog(@"%ld",(long)value);
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-	NSLog(@"section>>>>%d",section);
+    NSLog(@"section>>>> %ld",(long)section);
     if(section == 0)
     {
         return @"Duration";

@@ -72,7 +72,12 @@
  The ABLockScreenController responsible for providing a pin entry screen for the user. Depending on the device type the controller will render an iPhone or iPad based view
  It is designed to be implemented from within a UInavigtaionController. See the example code for more detail.
  */
-@interface ABPadLockScreenController : UIViewController
+
+@class AppDelegate;
+
+@interface ABPadLockScreenController : UIViewController{
+    AppDelegate *app;
+}
 
 /**
  The passcode required to unlock the pin screen
@@ -104,7 +109,7 @@
 /**
  Convenience method to init with a set delegate
  */
-- (id)initWithDelegate:(id<ABLockScreenDelegate>)delegate;
+- (instancetype)initWithDelegate:(id<ABLockScreenDelegate>)delegate NS_DESIGNATED_INITIALIZER;
 
 /**
  Resets the attempts for the controller. If there is no attempt limit this will do nothing

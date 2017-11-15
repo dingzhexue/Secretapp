@@ -49,17 +49,17 @@
 #import <Foundation/Foundation.h>
 #import <SystemConfiguration/SystemConfiguration.h>
 
-typedef enum {
-	NotReachable = 0,
-	ReachableViaWiFi,
-	ReachableViaWWAN
-} NetworkStatus;
+typedef NS_ENUM(unsigned int, NetworkStatus) {
+    NotReachable = 0,
+    ReachableViaWiFi,
+    ReachableViaWWAN
+};
 #define kReachabilityChangedNotification @"kNetworkReachabilityChangedNotification"
 
 @interface Reachability: NSObject
 {
-	BOOL localWiFiRef;
-	SCNetworkReachabilityRef reachabilityRef;
+    BOOL localWiFiRef;
+    SCNetworkReachabilityRef reachabilityRef;
 }
 
 //reachabilityWithHostName- Use to check the reachability of a particular host name. 
@@ -76,13 +76,13 @@ typedef enum {
 + (Reachability*) reachabilityForLocalWiFi;
 
 //Start listening for reachability notifications on the current run loop
-- (BOOL) startNotifier;
+@property (NS_NONATOMIC_IOSONLY, readonly) BOOL startNotifier;
 - (void) stopNotifier;
 
-- (NetworkStatus) currentReachabilityStatus;
+@property (NS_NONATOMIC_IOSONLY, readonly) NetworkStatus currentReachabilityStatus;
 //WWAN may be available, but not active until a connection has been established.
 //WiFi may require a connection for VPN on Demand.
-- (BOOL) connectionRequired;
+@property (NS_NONATOMIC_IOSONLY, readonly) BOOL connectionRequired;
 @end
 
 

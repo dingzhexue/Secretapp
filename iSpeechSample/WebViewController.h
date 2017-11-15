@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <sqlite3.h>
 
 
 @interface WebViewController : UIViewController<UIWebViewDelegate,UITextFieldDelegate,UIGestureRecognizerDelegate>
@@ -43,6 +42,12 @@
     NSMutableArray *array1,*array2;
     
     //AFHTTPRequestOperation *operation;
+    
+    int pageIndex,files;
+    UILabel *titleLbl;
+    UIImageView *imgVw;
+    
+    AppDelegate *app;
     
 }
 @property(nonatomic,retain) NSString *bookmarkTitle, *bookmarkURL;

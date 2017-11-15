@@ -7,11 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <sqlite3.h>
 #import "DrawPatternLockViewController.h"
 #import "PushNotificationManager.h"
 #import "GADBannerView.h"
 #import "GADBannerViewDelegate.h"
+#import "RootViewController.h"
+#import "iSpeechSDK.h"
+
+
 
 @class UserLoginView;
 
@@ -132,9 +135,9 @@
 - (void)hideGADBannerView;
 
 - (void) copyDatabaseIfNeeded;
-- (NSString *) getDBPath;
+@property (NS_NONATOMIC_IOSONLY, getter=getDBPath, readonly, copy) NSString *DBPath;
 - (void) copyDatabaseIfNeededNew;
-- (NSString *) getDBPathNew;
+@property (NS_NONATOMIC_IOSONLY, getter=getDBPathNew, readonly, copy) NSString *DBPathNew;
 +(sqlite3 *) getDBConUserData;
 +(sqlite3 *) getDBConUserDataNew;
 -(void) BackUpOldDB;

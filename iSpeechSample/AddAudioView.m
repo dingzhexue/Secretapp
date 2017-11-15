@@ -7,7 +7,6 @@
 //
 
 #import "AddAudioView.h"
-#import "AppDelegate.h"
 #import <QuartzCore/Quartzcore.h>
 
 #import "GADBannerView.h"
@@ -25,9 +24,8 @@
 @synthesize btnRecord,btnDelete,btnPlay,btnStop,recdelegate,audiopath;
 
 @synthesize addTitleView,titletxt,timeLbl,updateTimer,timeStr,DateStr,transViewBG,transView,audioTitle;
-AppDelegate *app;
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self)
@@ -55,7 +53,7 @@ AppDelegate *app;
 -(void)viewWillAppear:(BOOL)animated
 {
 
-     app=(AppDelegate *)[[UIApplication sharedApplication]delegate];
+     app=(AppDelegate *)[UIApplication sharedApplication].delegate;
     if(UI_USER_INTERFACE_IDIOM()==UIUserInterfaceIdiomPad)
     {
         self.transViewBG.hidden=YES;
@@ -142,10 +140,10 @@ AppDelegate *app;
     if(!flagPause)
     {
         NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-        [dateFormat setDateFormat:@"dd:MM:yy"];
+        dateFormat.dateFormat = @"dd:MM:yy";
         
         NSDateFormatter *timeFormat = [[NSDateFormatter alloc] init];
-        [timeFormat setDateFormat:@"HH:mm:SS"];
+        timeFormat.dateFormat = @"HH:mm:SS";
         
         NSDate *now = [[NSDate alloc] init];
         
@@ -165,12 +163,12 @@ AppDelegate *app;
         NSMutableDictionary *recordSettings = [[NSMutableDictionary alloc] initWithCapacity:10];
         if(recordEncoding == ENC_PCM1)
         {
-            [recordSettings setObject:[NSNumber numberWithInt: kAudioFormatLinearPCM] forKey: AVFormatIDKey];
-            [recordSettings setObject:[NSNumber numberWithFloat:44100.0] forKey: AVSampleRateKey];
-            [recordSettings setObject:[NSNumber numberWithInt:2] forKey:AVNumberOfChannelsKey];
-            [recordSettings setObject:[NSNumber numberWithInt:16] forKey:AVLinearPCMBitDepthKey];
-            [recordSettings setObject:[NSNumber numberWithBool:NO] forKey:AVLinearPCMIsBigEndianKey];
-            [recordSettings setObject:[NSNumber numberWithBool:NO] forKey:AVLinearPCMIsFloatKey];   
+            recordSettings[AVFormatIDKey] = [NSNumber numberWithInt: kAudioFormatLinearPCM];
+            recordSettings[AVSampleRateKey] = @44100.0f;
+            recordSettings[AVNumberOfChannelsKey] = @2;
+            recordSettings[AVLinearPCMBitDepthKey] = @16;
+            recordSettings[AVLinearPCMIsBigEndianKey] = @NO;
+            recordSettings[AVLinearPCMIsFloatKey] = @NO;   
         }
         else
         {
@@ -195,17 +193,17 @@ AppDelegate *app;
                 default:
                     formatObject = [NSNumber numberWithInt: kAudioFormatAppleIMA4];
             }
-            [recordSettings setObject:formatObject forKey: AVFormatIDKey];
-            [recordSettings setObject:[NSNumber numberWithFloat:44100.0] forKey: AVSampleRateKey];
-            [recordSettings setObject:[NSNumber numberWithInt:2] forKey:AVNumberOfChannelsKey];
-            [recordSettings setObject:[NSNumber numberWithInt:12800] forKey:AVEncoderBitRateKey];
-            [recordSettings setObject:[NSNumber numberWithInt:16] forKey:AVLinearPCMBitDepthKey];
-            [recordSettings setObject:[NSNumber numberWithInt: AVAudioQualityHigh] forKey: AVEncoderAudioQualityKey];
+            recordSettings[AVFormatIDKey] = formatObject;
+            recordSettings[AVSampleRateKey] = @44100.0f;
+            recordSettings[AVNumberOfChannelsKey] = @2;
+            recordSettings[AVEncoderBitRateKey] = @12800;
+            recordSettings[AVLinearPCMBitDepthKey] = @16;
+            recordSettings[AVEncoderAudioQualityKey] = [NSNumber numberWithInt: AVAudioQualityHigh];
         }
         
         NSURL *url;
         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES); 
-        NSString *documentsDirectory = [paths objectAtIndex:0]; // Get documents folder
+        NSString *documentsDirectory = paths[0]; // Get documents folder
         NSString *dataPath = [documentsDirectory stringByAppendingPathComponent:@"Recording"];
         if (![[NSFileManager defaultManager] fileExistsAtPath:dataPath])
             [[NSFileManager defaultManager] createDirectoryAtPath:dataPath withIntermediateDirectories:NO attributes:nil error:nil]; 
@@ -253,9 +251,9 @@ AppDelegate *app;
 }
 -(void)updateCurrentTimeForRecorder:(AVAudioRecorder *)p
 {
-	timeLbl.text = [NSString stringWithFormat:@"%d:%02d", (int)p.currentTime / 60, (int)p.currentTime % 60, nil];
+    timeLbl.text = [NSString stringWithFormat:@"%d:%02d", (int)p.currentTime / 60, (int)p.currentTime % 60, nil];
 
-	//progressBar.value = p.currentTime;
+    //progressBar.value = p.currentTime;
 }
 - (void)updateCurrentTime
 {
@@ -300,7 +298,7 @@ AppDelegate *app;
         }
         else
         {   
-            if([updateTimer isValid]||[audioRecorder isRecording])
+            if(updateTimer.valid||audioRecorder.recording)
             {
                 [updateTimer invalidate];
                 [audioRecorder stop];
@@ -347,7 +345,7 @@ AppDelegate *app;
         }
         else
         {   
-            if([updateTimer isValid]||[audioRecorder isRecording])
+            if(updateTimer.valid||audioRecorder.recording)
             {
                 [updateTimer invalidate];
                 [audioRecorder stop];
@@ -385,7 +383,7 @@ AppDelegate *app;
 {
     NSDate* date = [NSDate date];    
     NSDateFormatter* formatter = [[[NSDateFormatter alloc] init] autorelease];
-    [formatter setDateFormat:@"yyyy-MM-dd HH:MM:SS"];
+    formatter.dateFormat = @"yyyy-MM-dd HH:MM:SS";
     DateStr = [[NSString alloc]initWithFormat:@"%@",[formatter stringFromDate:date]];
     NSLog(@"Date::: %@",DateStr);
     //[dateLabel setText:str];
@@ -406,14 +404,14 @@ AppDelegate *app;
         NSLog(@" Date::::== %@", DateStr);
         sqlite3_stmt *stmt;
         databasepath=[app getDBPathNew];
-        const char *dbpath=[databasepath UTF8String];
+        const char *dbpath=databasepath.UTF8String;
         if(sqlite3_open(dbpath, &dbSecret) == SQLITE_OK)
         {
-            NSString *insertquery=[NSString stringWithFormat:@"Insert into AudioTbl(UserID,AudioTitle,AudioPath,AudioTime,AudioDate) VALUES(%d,\"%@\",\"%@\",\"%@\",\"%@\");",[app.LoginUserID intValue],titletxt.text,audiopath,timeStr,DateStr];
+            NSString *insertquery=[NSString stringWithFormat:@"Insert into AudioTbl(UserID,AudioTitle,AudioPath,AudioTime,AudioDate) VALUES(%d,\"%@\",\"%@\",\"%@\",\"%@\");",(app.LoginUserID).intValue,titletxt.text,audiopath,timeStr,DateStr];
             
             NSLog(@"Query:: %@",insertquery);
         
-            const char *insert_query=[insertquery UTF8String];
+            const char *insert_query=insertquery.UTF8String;
             
             sqlite3_prepare_v2(dbSecret, insert_query, -1, &stmt, NULL);
             

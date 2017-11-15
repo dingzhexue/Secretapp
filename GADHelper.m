@@ -7,20 +7,19 @@
 //
 
 #import "GADHelper.h"
-#import "AppDelegate.h"
 
 @implementation GADBannerViewController
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    AppDelegate *app = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
     
     [app showGADBannerView:self];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated]; 
-    AppDelegate *app = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
     
     [app hideGADBannerView];
 }
