@@ -114,6 +114,9 @@
     self.navigationItem.rightBarButtonItem = editdoneButton;
     [editdoneButton release];*/
     NSMutableArray* buttons = [[NSMutableArray alloc] initWithCapacity:3];
+    UIBarButtonItem *flexibaleSpaceBarButton1 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+    [buttons addObject:flexibaleSpaceBarButton1];
+    [flexibaleSpaceBarButton1 release];
     
     UIButton *infoButton = [UIButton buttonWithType: UIButtonTypeCustom];
     [infoButton addTarget:self action:@selector(webBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
@@ -126,6 +129,10 @@
     
     [buttons addObject:doneButton];
     [doneButton release];
+    
+    UIBarButtonItem *flexibaleSpaceBarButton2 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+    [buttons addObject:flexibaleSpaceBarButton2];
+    [flexibaleSpaceBarButton2 release];
     
     toolbar.items = buttons;
     [buttons release];

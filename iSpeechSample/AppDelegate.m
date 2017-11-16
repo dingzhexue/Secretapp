@@ -383,13 +383,13 @@ UINavigationController *navigationController1 ;
                     }
                     else
                     {
-                        DrawPatternLockViewController *drw=[[DrawPatternLockViewController alloc]init];
-                        navigationController1 = [[UINavigationController alloc] initWithRootViewController:drw];
-                        [drw release];
-                        drw = nil;
-                        self.window.rootViewController = navigationController1;
-                        //self.nav.navigationBar.tintColor=[UIColor blackColor];
-                        [self.window makeKeyAndVisible];
+//                        DrawPatternLockViewController *drw=[[DrawPatternLockViewController alloc]init];
+//                        navigationController1 = [[UINavigationController alloc] initWithRootViewController:drw];
+//                        [drw release];
+//                        drw = nil;
+//                        self.window.rootViewController = navigationController1;
+//                        //self.nav.navigationBar.tintColor=[UIColor blackColor];
+//                        [self.window makeKeyAndVisible];
                     }
                 }
 

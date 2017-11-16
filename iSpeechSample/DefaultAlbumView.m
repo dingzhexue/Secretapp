@@ -239,8 +239,8 @@ UIBarButtonItem *addButton;
         addButton.enabled=false;
         [buttons addObject:addButton];
         [addButton release];
-        UIBarButtonItem *flexibaleSpaceBarButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
-        flexibaleSpaceBarButton.width = 130;
+        UIBarButtonItem *flexibaleSpaceBarButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+//        flexibaleSpaceBarButton.width = 130;
         flexibaleSpaceBarButton.tintColor = [UIColor whiteColor];
         [buttons addObject:flexibaleSpaceBarButton];
         [flexibaleSpaceBarButton release];
@@ -257,8 +257,8 @@ UIBarButtonItem *addButton;
         [buttons addObject:doneButton];
         [doneButton release];
         
-        UIBarButtonItem *flexibaleSpaceBarButton1 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
-        flexibaleSpaceBarButton1.width = 130;
+        UIBarButtonItem *flexibaleSpaceBarButton1 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+//        flexibaleSpaceBarButton1.width = 130;
         flexibaleSpaceBarButton1.tintColor = [UIColor whiteColor];
         [buttons addObject:flexibaleSpaceBarButton1];
         [flexibaleSpaceBarButton1 release];
@@ -274,8 +274,8 @@ UIBarButtonItem *addButton;
         [buttons addObject:wwwlayerbtn];
         [wwwlayerbtn release];
         
-        UIBarButtonItem *flexibaleSpaceBarButton2 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
-        flexibaleSpaceBarButton2.width = 130;
+        UIBarButtonItem *flexibaleSpaceBarButton2 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+//        flexibaleSpaceBarButton2.width = 130;
         flexibaleSpaceBarButton2.tintColor = [UIColor whiteColor];
         [buttons addObject:flexibaleSpaceBarButton2];
         [flexibaleSpaceBarButton2 release];
@@ -291,8 +291,8 @@ UIBarButtonItem *addButton;
         [buttons addObject:sslayerbtn];
         [sslayerbtn release];
         
-        UIBarButtonItem *flexibaleSpaceBarButton3 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
-        flexibaleSpaceBarButton3.width = 140;
+        UIBarButtonItem *flexibaleSpaceBarButton3 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+//        flexibaleSpaceBarButton3.width = 140;
         flexibaleSpaceBarButton3.tintColor = [UIColor whiteColor];
         [buttons addObject:flexibaleSpaceBarButton3];
         [flexibaleSpaceBarButton3 release];
@@ -351,12 +351,11 @@ UIBarButtonItem *addButton;
         {
             addButton.tintColor=[UIColor whiteColor];
         }
-        
         [buttons addObject:addButton];
         [addButton release];
         
-        UIBarButtonItem *flexibaleSpaceBarButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
-        flexibaleSpaceBarButton.width = 25;
+        UIBarButtonItem *flexibaleSpaceBarButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+//        flexibaleSpaceBarButton.width = 35;
         flexibaleSpaceBarButton.tintColor = [UIColor whiteColor];
         [buttons addObject:flexibaleSpaceBarButton];
         [flexibaleSpaceBarButton release];
@@ -367,14 +366,15 @@ UIBarButtonItem *addButton;
         [addvideoButton setBackgroundImage:[UIImage imageNamed:@"videoadd4.png"] forState:UIControlStateNormal];
         [self.view addSubview:addvideoButton];
         
+        
         UIBarButtonItem *doneButton =[[UIBarButtonItem alloc]initWithCustomView:addvideoButton];
         doneButton.style = UIBarButtonItemStyleBordered;
         
         [buttons addObject:doneButton];
         [doneButton release];
         
-        UIBarButtonItem *flexibaleSpaceBarButton1 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
-        flexibaleSpaceBarButton1.width = 25;
+        UIBarButtonItem *flexibaleSpaceBarButton1 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+//        flexibaleSpaceBarButton1.width = 35;
         [buttons addObject:flexibaleSpaceBarButton1];
         [flexibaleSpaceBarButton1 release];
         
@@ -389,8 +389,8 @@ UIBarButtonItem *addButton;
         [buttons addObject:wwwlayerbtn];
         [wwwlayerbtn release];
         
-        UIBarButtonItem *flexibaleSpaceBarButton2 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
-        flexibaleSpaceBarButton2.width = 25;
+        UIBarButtonItem *flexibaleSpaceBarButton2 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+//        flexibaleSpaceBarButton2.width = 35;
         [buttons addObject:flexibaleSpaceBarButton2];
         [flexibaleSpaceBarButton2 release];
         
@@ -405,8 +405,8 @@ UIBarButtonItem *addButton;
         [buttons addObject:sslayerbtn];
         [sslayerbtn release];
         
-        UIBarButtonItem *flexibaleSpaceBarButton3 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
-        flexibaleSpaceBarButton3.width = 25;
+        UIBarButtonItem *flexibaleSpaceBarButton3 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+//        flexibaleSpaceBarButton3.width = 35;
         [buttons addObject:flexibaleSpaceBarButton3];
         [flexibaleSpaceBarButton3 release];
         

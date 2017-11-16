@@ -119,8 +119,8 @@
         
         // ********************** Space between back and add btn ******************************//
         
-        UIBarButtonItem *flexibaleSpaceBarButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
-        flexibaleSpaceBarButton.width = 192;
+        UIBarButtonItem *flexibaleSpaceBarButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+//        flexibaleSpaceBarButton.width = 192;
         [buttons addObject:flexibaleSpaceBarButton];
         [flexibaleSpaceBarButton release];
         
@@ -139,8 +139,8 @@
         
         // ********************** Space between backurl and next url btn ******************************///
         
-        UIBarButtonItem *flexibaleSpaceBarButton11 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
-        flexibaleSpaceBarButton11.width = 192;
+        UIBarButtonItem *flexibaleSpaceBarButton11 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+//        flexibaleSpaceBarButton11.width = 192;
         [buttons addObject:flexibaleSpaceBarButton11];
         [flexibaleSpaceBarButton11 release];
         
@@ -160,8 +160,8 @@
         
         
         // ********************** Space between next url and add bookmark btn **********************//
-        UIBarButtonItem *flexibaleSpaceBarButton12 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
-        flexibaleSpaceBarButton12.width = 192;
+        UIBarButtonItem *flexibaleSpaceBarButton12 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+//        flexibaleSpaceBarButton12.width = 192;
         [buttons addObject:flexibaleSpaceBarButton12];
         [flexibaleSpaceBarButton12 release];
         
@@ -221,80 +221,80 @@
     
     // //******************** array to add buttons in toolbar //******************** //
     
-    NSMutableArray* buttons = [[NSMutableArray alloc] initWithCapacity:5];
+        NSMutableArray* buttons = [[NSMutableArray alloc] initWithCapacity:5];
     
     //******************** Back button ********************//
     
-    UIButton *contBtn = [UIButton buttonWithType: UIButtonTypeCustom];
-    [contBtn addTarget:self action:@selector(backBtnClicked) forControlEvents:UIControlEventTouchUpInside];
-    contBtn.frame = CGRectMake(330.00, 300.0, 30.0, 30.0);
-    [contBtn setBackgroundImage:[UIImage imageNamed:@"go-back.png"] forState:UIControlStateNormal];
-    [self.view addSubview:contBtn];
+        UIButton *contBtn = [UIButton buttonWithType: UIButtonTypeCustom];
+        [contBtn addTarget:self action:@selector(backBtnClicked) forControlEvents:UIControlEventTouchUpInside];
+        contBtn.frame = CGRectMake(330.00, 300.0, 30.0, 30.0);
+        [contBtn setBackgroundImage:[UIImage imageNamed:@"go-back.png"] forState:UIControlStateNormal];
+        [self.view addSubview:contBtn];
     
-    UIBarButtonItem *contlayerbtn =[[UIBarButtonItem alloc]initWithCustomView:contBtn];
-    contlayerbtn.style = UIBarButtonItemStyleBordered;
-    [buttons addObject:contlayerbtn];
-    [contlayerbtn release];
+        UIBarButtonItem *contlayerbtn =[[UIBarButtonItem alloc]initWithCustomView:contBtn];
+        contlayerbtn.style = UIBarButtonItemStyleBordered;
+        [buttons addObject:contlayerbtn];
+        [contlayerbtn release];
     
     // ********************** Space between back and add btn ******************************//
     
-    UIBarButtonItem *flexibaleSpaceBarButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
-    flexibaleSpaceBarButton.width = 55;
-    [buttons addObject:flexibaleSpaceBarButton];
-    [flexibaleSpaceBarButton release];
+        UIBarButtonItem *flexibaleSpaceBarButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+//        flexibaleSpaceBarButton.width = 55;
+        [buttons addObject:flexibaleSpaceBarButton];
+        [flexibaleSpaceBarButton release];
     
     //****************************** Add back url button ******************************// 
     
-    backURLButton = [UIButton buttonWithType: UIButtonTypeCustom];
-    [backURLButton addTarget:self action:@selector(backURL:) forControlEvents:UIControlEventTouchUpInside];
-    backURLButton.frame = CGRectMake(330.00, 300.0, 30.0, 30.0);
-    [backURLButton setBackgroundImage:[UIImage imageNamed:@"backbtn1.png"] forState:UIControlStateNormal];
-    [self.view addSubview:backURLButton];
+        backURLButton = [UIButton buttonWithType: UIButtonTypeCustom];
+        [backURLButton addTarget:self action:@selector(backURL:) forControlEvents:UIControlEventTouchUpInside];
+        backURLButton.frame = CGRectMake(330.00, 300.0, 30.0, 30.0);
+        [backURLButton setBackgroundImage:[UIImage imageNamed:@"backbtn1.png"] forState:UIControlStateNormal];
+        [self.view addSubview:backURLButton];
     
-    UIBarButtonItem *backBtn =[[UIBarButtonItem alloc]initWithCustomView:backURLButton];
-    backBtn.style = UIBarButtonItemStyleBordered;
-    [buttons addObject:backBtn];
-    [backBtn release];    
+        UIBarButtonItem *backBtn =[[UIBarButtonItem alloc]initWithCustomView:backURLButton];
+        backBtn.style = UIBarButtonItemStyleBordered;
+        [buttons addObject:backBtn];
+        [backBtn release];
     
     // ********************** Space between backurl and next url btn ******************************///
     
-    UIBarButtonItem *flexibaleSpaceBarButton11 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
-    flexibaleSpaceBarButton11.width = 55;
-    [buttons addObject:flexibaleSpaceBarButton11];
-    [flexibaleSpaceBarButton11 release];
+        UIBarButtonItem *flexibaleSpaceBarButton11 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+//    flexibaleSpaceBarButton11.width = 55;
+        [buttons addObject:flexibaleSpaceBarButton11];
+        [flexibaleSpaceBarButton11 release];
     
     
     //****************************** Add next url button ******************************// 
     
-     nexturlButton = [UIButton buttonWithType: UIButtonTypeCustom];
-    [nexturlButton addTarget:self action:@selector(nextURL:) forControlEvents:UIControlEventTouchUpInside];
-    nexturlButton.frame = CGRectMake(330.00, 300.0, 30.0, 30.0);
-    [nexturlButton setBackgroundImage:[UIImage imageNamed:@"nextbtn1.png"] forState:UIControlStateNormal];
-    [self.view addSubview:nexturlButton];
+        nexturlButton = [UIButton buttonWithType: UIButtonTypeCustom];
+        [nexturlButton addTarget:self action:@selector(nextURL:) forControlEvents:UIControlEventTouchUpInside];
+        nexturlButton.frame = CGRectMake(330.00, 300.0, 30.0, 30.0);
+        [nexturlButton setBackgroundImage:[UIImage imageNamed:@"nextbtn1.png"] forState:UIControlStateNormal];
+        [self.view addSubview:nexturlButton];
     
-    UIBarButtonItem *nextBtn =[[UIBarButtonItem alloc]initWithCustomView:nexturlButton];
-    nextBtn.style = UIBarButtonItemStyleBordered;
-    [buttons addObject:nextBtn];
-    [nextBtn release];
+        UIBarButtonItem *nextBtn =[[UIBarButtonItem alloc]initWithCustomView:nexturlButton];
+        nextBtn.style = UIBarButtonItemStyleBordered;
+        [buttons addObject:nextBtn];
+        [nextBtn release];
 
     
     // ********************** Space between next url and add bookmark btn **********************//
-    UIBarButtonItem *flexibaleSpaceBarButton12 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
-    flexibaleSpaceBarButton12.width = 45;
-    [buttons addObject:flexibaleSpaceBarButton12];
-    [flexibaleSpaceBarButton12 release];
+        UIBarButtonItem *flexibaleSpaceBarButton12 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+//       flexibaleSpaceBarButton12.width = 45;
+        [buttons addObject:flexibaleSpaceBarButton12];
+        [flexibaleSpaceBarButton12 release];
     
     //****************************** Add bookmark button ******************************// 
     
-    UIBarButtonItem *addButton = [[UIBarButtonItem alloc]
+        UIBarButtonItem *addButton = [[UIBarButtonItem alloc]
                                  initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addBookmarkClicked)];
-    addButton.style = UIBarButtonItemStyleBordered;
-    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0"))
-    {
-        addButton.tintColor=[UIColor whiteColor];
-    }
-    [buttons addObject:addButton];
-    [addButton release];
+        addButton.style = UIBarButtonItemStyleBordered;
+        if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0"))
+        {
+            addButton.tintColor=[UIColor whiteColor];
+        }
+        [buttons addObject:addButton];
+        [addButton release];
     
     // **************************Space between add bookmark and download **********************//
     /*
@@ -330,8 +330,8 @@
     [buttons addObject:wwwlayerbtn];
     [wwwlayerbtn release];
     */
-     toolbar.items = buttons;
-    [buttons release];
+        toolbar.items = buttons;
+        [buttons release];
     }
     
     //

@@ -125,46 +125,48 @@
     //Priyank Change
     
     if (ABAddressBookGetAuthorizationStatus() == kABAuthorizationStatusNotDetermined) {
-        ABAddressBookRequestAccessWithCompletion(addressBook, ^(bool granted, CFErrorRef error) {
-            // First time access has been granted, add the contact
-            ABRecordRef source = ABAddressBookCopyDefaultSource(addressBook);
-            NSArray *thePeople = (NSArray*)ABAddressBookCopyArrayOfAllPeopleInSourceWithSortOrdering(addressBook, source, kABPersonSortByLastName);
-            
-            NSString *name;
-            for (id person in thePeople)
-            {
-                name = (NSString *)ABRecordCopyValue(person, kABPersonFirstNameProperty);
-                NSLog(@" name ---> %@",name);
-                ABMultiValueRef multi = ABRecordCopyValue(person, kABPersonPhoneProperty);
-                int count1=ABMultiValueGetCount(multi);
-                NSLog(@"%d",count1);
-                if (name.length>0 && count1!=0)
-                {
-                    NSString *beforenumber = (NSString *)ABMultiValueCopyValueAtIndex(multi, 0);
-                    NSLog(@" contacts:::: %@",beforenumber );
-                    NSString* removed1=[beforenumber stringByReplacingOccurrencesOfString:@"-"withString:@""];
-                    NSString* removed2=[removed1 stringByReplacingOccurrencesOfString:@")"withString:@""];
-                    NSString* removed3=[removed2 stringByReplacingOccurrencesOfString:@" "withString:@""];
-                    NSString* removed4=[removed3 stringByReplacingOccurrencesOfString:@"("withString:@""];
-                    NSString* removed5=[removed4 stringByReplacingOccurrencesOfString:@"+"withString:@""];
-                    [wantedname addObject:name];
-                    [wantednumber addObject:removed5];
-                    // CFRelease(beforenumber);
-                    [beforenumber release];
-                    //CFRelease(name);
-                }
-                //CFRelease(name);
-                [name release];
-                CFRelease(multi);
-            }
-            
-            CFRelease(addressBook);
-            CFRelease(thePeople);
-            
-            
-            
-            [contactsTable reloadData];
-        });
+//        ABAddressBookRequestAccessWithCompletion(addressBook, ^(bool granted, CFErrorRef error) {
+//            // First time access has been granted, add the contact
+//            ABRecordRef source = ABAddressBookCopyDefaultSource(addressBook);
+//            NSArray *thePeople = (NSArray*)ABAddressBookCopyArrayOfAllPeopleInSourceWithSortOrdering(addressBook, source, kABPersonSortByLastName);
+//
+//            NSString *name;
+//            for (id person in thePeople)
+//            {
+//                name = (NSString *)ABRecordCopyValue(person, kABPersonFirstNameProperty);
+//                NSLog(@" name ---> %@",name);
+//                ABMultiValueRef multi = ABRecordCopyValue(person, kABPersonPhoneProperty);
+//                int count1=ABMultiValueGetCount(multi);
+//                NSLog(@"%d",count1);
+//                if (name.length>0 && count1!=0)
+//                {
+//                    NSString *beforenumber = (NSString *)ABMultiValueCopyValueAtIndex(multi, 0);
+//                    NSLog(@" contacts:::: %@",beforenumber );
+//                    NSString* removed1=[beforenumber stringByReplacingOccurrencesOfString:@"-"withString:@""];
+//                    NSString* removed2=[removed1 stringByReplacingOccurrencesOfString:@")"withString:@""];
+//                    NSString* removed3=[removed2 stringByReplacingOccurrencesOfString:@" "withString:@""];
+//                    NSString* removed4=[removed3 stringByReplacingOccurrencesOfString:@"("withString:@""];
+//                    NSString* removed5=[removed4 stringByReplacingOccurrencesOfString:@"+"withString:@""];
+//                    [wantedname addObject:name];
+//                    [wantednumber addObject:removed5];
+//                    // CFRelease(beforenumber);
+//                    [beforenumber release];
+//                    //CFRelease(name);
+//                }
+//                //CFRelease(name);
+//                [name release];
+//                CFRelease(multi);
+//            }
+//
+//            CFRelease(addressBook);
+//            CFRelease(thePeople);
+//
+//
+//            [contactsTable performSelectorOnMainThread:@selector(reloadData)
+//                                            withObject:nil
+//                                         waitUntilDone:NO];
+////            [contactsTable reloadData];
+//        });
     }
     else if (ABAddressBookGetAuthorizationStatus() == kABAuthorizationStatusAuthorized) {
         // The user has previously given access, add the contact
@@ -205,7 +207,10 @@
         contactsTable.delegate = self;
         contactsTable.dataSource = self;
         
-        [contactsTable reloadData];
+                    [contactsTable performSelectorOnMainThread:@selector(reloadData)
+                                                    withObject:nil
+                                                 waitUntilDone:NO];
+//        [contactsTable reloadData];
     }
     else {
         UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Error" message:@"Please Update permissions for Contects in Settings" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
