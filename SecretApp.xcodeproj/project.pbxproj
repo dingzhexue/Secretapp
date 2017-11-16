@@ -3855,11 +3855,9 @@
 				TargetAttributes = {
 					B9826BC418C5DCD300D99C46 = {
 						DevelopmentTeam = 75GGG7SP74;
-						ProvisioningStyle = Automatic;
 					};
 					C314697614BF954900E4135F = {
 						DevelopmentTeam = 75GGG7SP74;
-						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -5309,9 +5307,7 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Julia Lavine (L68Q36PB2N)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Julia Lavine (L68Q36PB2N)";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iSpeechSample/iSpeechSample-Prefix.pch";
@@ -5344,7 +5340,6 @@
 				PRODUCT_NAME = "Secret Vault Pro";
 				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
@@ -5356,9 +5351,7 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "iOS Distribution: sublime applications pty limited/";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iOS Distribution: sublime applications pty limited/";
 				EXCLUDED_SOURCE_FILE_NAMES = "";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -5390,9 +5383,8 @@
 				OTHER_CFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.sublime.SecretAppPro;
 				PRODUCT_NAME = "Secret Vault Pro";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "dc3d0b28-3ea9-40c6-bc41-17e94d6ab7b5";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "dc3d0b28-3ea9-40c6-bc41-17e94d6ab7b5";
-				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
@@ -5405,9 +5397,7 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: sublime applications pty limited  (75GGG7SP74)";
 				"CODE_SIGN_IDENTITY[sdk=*]" = "iPhone Distribution: sublime applications pty limited  (75GGG7SP74)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: sublime applications pty limited  (75GGG7SP74)";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iSpeechSample/iSpeechSample-Prefix.pch";
@@ -5438,10 +5428,9 @@
 				OTHER_CFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.sublime.SecretAppPro;
 				PRODUCT_NAME = "Secret Vault Pro";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "9C504C91-2206-4ABE-98DC-49B5584A14E3";
 				"PROVISIONING_PROFILE[sdk=*]" = "9C504C91-2206-4ABE-98DC-49B5584A14E3";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "9C504C91-2206-4ABE-98DC-49B5584A14E3";
-				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
@@ -5557,10 +5546,7 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
-				ENABLE_BITCODE = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iSpeechSample/iSpeechSample-Prefix.pch";
@@ -5580,7 +5566,6 @@
 				PRODUCT_NAME = "Secret Vault";
 				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
@@ -5592,10 +5577,7 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "iOS Distribution: sublime applications pty limited/";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
-				ENABLE_BITCODE = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iOS Distribution: sublime applications pty limited/";
 				EXCLUDED_SOURCE_FILE_NAMES = "";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -5614,9 +5596,8 @@
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.sublime.SecretApp;
 				PRODUCT_NAME = "Secret Vault";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "d2220482-764d-4811-821e-2ee99a2a0438";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "d2220482-764d-4811-821e-2ee99a2a0438";
-				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
@@ -5681,10 +5662,7 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: sublime applications pty limited  (75GGG7SP74)";
 				"CODE_SIGN_IDENTITY[sdk=*]" = "iPhone Distribution: sublime applications pty limited  (75GGG7SP74)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
-				ENABLE_BITCODE = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: sublime applications pty limited  (75GGG7SP74)";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iSpeechSample/iSpeechSample-Prefix.pch";
@@ -5702,10 +5680,9 @@
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.sublime.SecretApp;
 				PRODUCT_NAME = "Secret Vault";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "26345460-7327-4F0A-A381-2DABA483FC01";
 				"PROVISIONING_PROFILE[sdk=*]" = "26345460-7327-4F0A-A381-2DABA483FC01";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "26345460-7327-4F0A-A381-2DABA483FC01";
-				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
