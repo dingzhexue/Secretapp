@@ -2001,7 +2001,7 @@
             sqlite3_finalize(query_stmt);
             sqlite3_close(dbSecret);
         }
-        sqlite3_finalize(query_stmt);
+//        sqlite3_finalize(query_stmt);
     }else {
         pass = @"";
     }

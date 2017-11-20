@@ -7,7 +7,6 @@
 //
 
 #import "AppDelegate.h"
-#import "UIDevice+IdentifierAddition.h"
 #import "UserLoginView.h"
 #import "InAppRageIAPHelper.h"
 #import "SplashScreen.h"
@@ -154,12 +153,6 @@ UINavigationController *navigationController1 ;
         [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
     }
     
-    
-#define TESTING 1
-#ifdef TESTING
-    [TestFlight setDeviceIdentifier:[[UIDevice currentDevice] uniqueDeviceIdentifier]];
-#endif
-    [TestFlight takeOff:@"2938ac4be82f329ffe60347427061424_MTI5NzMzMjAxMi0wOS0xMSAwNDo0Mjo0Ni40NjEzMjg"];
     
     [self copyDatabaseIfNeeded];
     [self copyDatabaseIfNeededNew];

@@ -198,6 +198,9 @@
 		8485CE9D1A36937C00E5B5D9 /* EventKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F526F221A359B5100ED4A3E /* EventKitUI.framework */; };
 		8485CE9E1A3693F400E5B5D9 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F51AD30716BB946300534870 /* AdSupport.framework */; };
 		8485CE9F1A36943800E5B5D9 /* GADHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F526EF91A358EF300ED4A3E /* GADHelper.m */; };
+		84AC0B851FBDC32500CC6AB5 /* SecretApp copy-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 84AC0B841FBDC32500CC6AB5 /* SecretApp copy-Info.plist */; };
+		84AC0B8B1FBDCB4B00CC6AB5 /* ImagesPro.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 84AC0B891FBDCB0E00CC6AB5 /* ImagesPro.xcassets */; };
+		84AC0B8C1FBDCB4E00CC6AB5 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8493E6401FBD99BC0003657A /* Images.xcassets */; };
 		938E9E191914C94400444EC4 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C31469A014BF9BC500E4135F /* SystemConfiguration.framework */; };
 		93F3738B1629201200BD4A94 /* 57.png in Resources */ = {isa = PBXBuildFile; fileRef = 93F3738A1629201200BD4A94 /* 57.png */; };
 		93F3738D1629201B00BD4A94 /* 114.png in Resources */ = {isa = PBXBuildFile; fileRef = 93F3738C1629201B00BD4A94 /* 114.png */; };
@@ -311,8 +314,6 @@
 		A3527F3D16D4DBB900EE2DC3 /* chooseText.png in Resources */ = {isa = PBXBuildFile; fileRef = A3527F3C16D4DBB600EE2DC3 /* chooseText.png */; };
 		A3527F3F16D4F1FB00EE2DC3 /* record-audio.png in Resources */ = {isa = PBXBuildFile; fileRef = A3527F3E16D4F1F100EE2DC3 /* record-audio.png */; };
 		A9910C4C18EED22000BA426D /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9910C4B18EED22000BA426D /* ImageIO.framework */; };
-		A9987D3318F8F16800942C80 /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A996E38918EA78940052C0E8 /* libTestFlight.a */; };
-		A9987D3618F8F1B800942C80 /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A996E38918EA78940052C0E8 /* libTestFlight.a */; };
 		B91AC3B818D2FAC900B4EA80 /* iphone_upgrade.png in Resources */ = {isa = PBXBuildFile; fileRef = B91AC3B618D2FAC900B4EA80 /* iphone_upgrade.png */; };
 		B91AC3B918D2FAC900B4EA80 /* iphone_upgrade.png in Resources */ = {isa = PBXBuildFile; fileRef = B91AC3B618D2FAC900B4EA80 /* iphone_upgrade.png */; };
 		B91AC3BA18D2FAC900B4EA80 /* iphone_upgrade@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B91AC3B718D2FAC900B4EA80 /* iphone_upgrade@2x.png */; };
@@ -352,8 +353,6 @@
 		B9826BE418C5DCD300D99C46 /* iTunesDataList.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A094BB15F9AF7E008CB390 /* iTunesDataList.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		B9826BE518C5DCD300D99C46 /* iTunesCustomCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A094BE15F9AF7F008CB390 /* iTunesCustomCell.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		B9826BE618C5DCD300D99C46 /* ImportFromPC.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A094D915FA1458008CB390 /* ImportFromPC.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		B9826BE718C5DCD300D99C46 /* NSString+MD5Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = F110881315FF1CD80089BA44 /* NSString+MD5Addition.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		B9826BE818C5DCD300D99C46 /* UIDevice+IdentifierAddition.m in Sources */ = {isa = PBXBuildFile; fileRef = F110881515FF1CD80089BA44 /* UIDevice+IdentifierAddition.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		B9826BE918C5DCD300D99C46 /* UserLoginNew.m in Sources */ = {isa = PBXBuildFile; fileRef = F1C69104160325FA00E5453F /* UserLoginNew.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		B9826BEA18C5DCD300D99C46 /* ColorPickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = F1C6FEC51604369F00AA0318 /* ColorPickerController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		B9826BEB18C5DCD300D99C46 /* tablKeyPad.m in Sources */ = {isa = PBXBuildFile; fileRef = F1C6FEDB1604648E00AA0318 /* tablKeyPad.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -1118,8 +1117,6 @@
 		F110880A15FF06F40089BA44 /* EditBookmarkView_Ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = F110880915FF06F40089BA44 /* EditBookmarkView_Ipad.xib */; };
 		F110880C15FF0C940089BA44 /* ImportContactView_ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = F110880B15FF0C940089BA44 /* ImportContactView_ipad.xib */; };
 		F110880E15FF0D480089BA44 /* Add_ImportContactView_Ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = F110880D15FF0D470089BA44 /* Add_ImportContactView_Ipad.xib */; };
-		F110881715FF1CD80089BA44 /* NSString+MD5Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = F110881315FF1CD80089BA44 /* NSString+MD5Addition.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		F110881815FF1CD80089BA44 /* UIDevice+IdentifierAddition.m in Sources */ = {isa = PBXBuildFile; fileRef = F110881515FF1CD80089BA44 /* UIDevice+IdentifierAddition.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		F110881F15FF204D0089BA44 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F110881E15FF204C0089BA44 /* CoreFoundation.framework */; };
 		F110882115FF20620089BA44 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F110882015FF20610089BA44 /* AVFoundation.framework */; };
 		F110882915FF31E10089BA44 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F110882815FF31E00089BA44 /* MediaPlayer.framework */; };
@@ -1694,10 +1691,11 @@
 		35F95D7A16E0C734006F79AC /* SplashScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SplashScreen.h; path = iSpeechSample/SplashScreen.h; sourceTree = "<group>"; };
 		35F95D7B16E0C735006F79AC /* SplashScreen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SplashScreen.m; path = iSpeechSample/SplashScreen.m; sourceTree = "<group>"; };
 		35F95D7C16E0C736006F79AC /* SplashScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SplashScreen.xib; path = iSpeechSample/SplashScreen.xib; sourceTree = "<group>"; };
-		84AD93EC1A3550B200BC163F /* libTestFlight.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libTestFlight.a; sourceTree = SOURCE_ROOT; };
-		84AD93ED1A3550B200BC163F /* TestFlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFlight.h; sourceTree = SOURCE_ROOT; };
-		84AD93EE1A3550B200BC163F /* TestFlight+AsyncLogging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TestFlight+AsyncLogging.h"; sourceTree = SOURCE_ROOT; };
-		84AD93EF1A3550B200BC163F /* TestFlight+ManualSessions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TestFlight+ManualSessions.h"; sourceTree = SOURCE_ROOT; };
+		8493E6401FBD99BC0003657A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = SecretAppPro/Images.xcassets; sourceTree = "<group>"; };
+		8493E6421FBDB5710003657A /* Secret Vault Pro.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = "Secret Vault Pro.entitlements"; path = "SecretAppPro/Secret Vault Pro.entitlements"; sourceTree = "<group>"; };
+		84AC0B841FBDC32500CC6AB5 /* SecretApp copy-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "SecretApp copy-Info.plist"; sourceTree = SOURCE_ROOT; };
+		84AC0B861FBDC3A700CC6AB5 /* Secret Vault.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Secret Vault.entitlements"; sourceTree = "<group>"; };
+		84AC0B891FBDCB0E00CC6AB5 /* ImagesPro.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = ImagesPro.xcassets; path = SecretAppPro/ImagesPro.xcassets; sourceTree = "<group>"; };
 		93F3738A1629201200BD4A94 /* 57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = 57.png; path = ../57.png; sourceTree = "<group>"; };
 		93F3738C1629201B00BD4A94 /* 114.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = 114.png; path = ../114.png; sourceTree = "<group>"; };
 		93F3738E162920A300BD4A94 /* 74.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = 74.png; path = ../74.png; sourceTree = "<group>"; };
@@ -1812,14 +1810,9 @@
 		A3527F3C16D4DBB600EE2DC3 /* chooseText.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chooseText.png; sourceTree = "<group>"; };
 		A3527F3E16D4F1F100EE2DC3 /* record-audio.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "record-audio.png"; sourceTree = "<group>"; };
 		A9910C4B18EED22000BA426D /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
-		A996E38618EA78870052C0E8 /* TestFlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFlight.h; sourceTree = "<group>"; };
-		A996E38718EA78870052C0E8 /* TestFlight+AsyncLogging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TestFlight+AsyncLogging.h"; sourceTree = "<group>"; };
-		A996E38818EA78870052C0E8 /* TestFlight+ManualSessions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TestFlight+ManualSessions.h"; sourceTree = "<group>"; };
-		A996E38918EA78940052C0E8 /* libTestFlight.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libTestFlight.a; sourceTree = "<group>"; };
 		B91AC3B618D2FAC900B4EA80 /* iphone_upgrade.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iphone_upgrade.png; sourceTree = "<group>"; };
 		B91AC3B718D2FAC900B4EA80 /* iphone_upgrade@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iphone_upgrade@2x.png"; sourceTree = "<group>"; };
 		B929719018CDB6A100F6DFC5 /* SecretAppDBNew.sqlite3 */ = {isa = PBXFileReference; lastKnownFileType = file; path = SecretAppDBNew.sqlite3; sourceTree = "<group>"; };
-		B9826BC318C5C8A200D99C46 /* SecretApp copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "SecretApp copy-Info.plist"; path = "/Volumes/DATA/SecretApp Details/SecretappFinalSubmitted_09_07_2013/SecretApp copy-Info.plist"; sourceTree = "<absolute>"; };
 		B9826E5E18C5DCD300D99C46 /* Secret Vault Pro.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Secret Vault Pro.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B98D98AF18C82CAA0060F792 /* iSpeechSample-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "iSpeechSample-Info.plist"; sourceTree = "<group>"; };
 		B98D98B218C82D4B0060F792 /* SecretApp copy2-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "SecretApp copy2-Info.plist"; path = "../SecretApp copy2-Info.plist"; sourceTree = "<group>"; };
@@ -1957,10 +1950,6 @@
 		F110880915FF06F40089BA44 /* EditBookmarkView_Ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = EditBookmarkView_Ipad.xib; path = iSpeechSample/EditBookmarkView_Ipad.xib; sourceTree = "<group>"; };
 		F110880B15FF0C940089BA44 /* ImportContactView_ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ImportContactView_ipad.xib; path = iSpeechSample/ImportContactView_ipad.xib; sourceTree = "<group>"; };
 		F110880D15FF0D470089BA44 /* Add_ImportContactView_Ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = Add_ImportContactView_Ipad.xib; path = iSpeechSample/Add_ImportContactView_Ipad.xib; sourceTree = "<group>"; };
-		F110881315FF1CD80089BA44 /* NSString+MD5Addition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+MD5Addition.m"; sourceTree = "<group>"; };
-		F110881415FF1CD80089BA44 /* NSString+MD5Addition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+MD5Addition.h"; sourceTree = "<group>"; };
-		F110881515FF1CD80089BA44 /* UIDevice+IdentifierAddition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIDevice+IdentifierAddition.m"; sourceTree = "<group>"; };
-		F110881615FF1CD80089BA44 /* UIDevice+IdentifierAddition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIDevice+IdentifierAddition.h"; sourceTree = "<group>"; };
 		F110881E15FF204C0089BA44 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		F110882015FF20610089BA44 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		F110882815FF31E00089BA44 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
@@ -2328,7 +2317,6 @@
 				8485CE9D1A36937C00E5B5D9 /* EventKitUI.framework in Frameworks */,
 				8485CE9B1A36937200E5B5D9 /* CoreTelephony.framework in Frameworks */,
 				938E9E191914C94400444EC4 /* SystemConfiguration.framework in Frameworks */,
-				A9987D3618F8F1B800942C80 /* libTestFlight.a in Frameworks */,
 				B99503DA18D97D3400E2FFFD /* CoreLocation.framework in Frameworks */,
 				B9826C1718C5DCD300D99C46 /* StoreKit.framework in Frameworks */,
 				B9826C1A18C5DCD300D99C46 /* libz.1.2.5.dylib in Frameworks */,
@@ -2367,7 +2355,6 @@
 				F588A57C16C52159006D29D7 /* StoreKit.framework in Frameworks */,
 				F110882B15FF31E80089BA44 /* MessageUI.framework in Frameworks */,
 				0F526F201A359ABC00ED4A3E /* CoreTelephony.framework in Frameworks */,
-				A9987D3318F8F16800942C80 /* libTestFlight.a in Frameworks */,
 				A9910C4C18EED22000BA426D /* ImageIO.framework in Frameworks */,
 				B9966AE618D40AC7008472F8 /* CoreLocation.framework in Frameworks */,
 				C31469A114BF9BC500E4135F /* SystemConfiguration.framework in Frameworks */,
@@ -2711,18 +2698,6 @@
 			name = Root;
 			sourceTree = "<group>";
 		};
-		A996E38C18EA78B90052C0E8 /* TestFlightSDK3 */ = {
-			isa = PBXGroup;
-			children = (
-				84AD93EC1A3550B200BC163F /* libTestFlight.a */,
-				84AD93ED1A3550B200BC163F /* TestFlight.h */,
-				84AD93EE1A3550B200BC163F /* TestFlight+AsyncLogging.h */,
-				84AD93EF1A3550B200BC163F /* TestFlight+ManualSessions.h */,
-			);
-			name = TestFlightSDK3;
-			path = ../../../../Users/c45/Downloads/TestFlightSDK3;
-			sourceTree = "<group>";
-		};
 		B9205D6B18DAE2B600D32C1A /* Locks */ = {
 			isa = PBXGroup;
 			children = (
@@ -2778,7 +2753,6 @@
 				B990214418C4860700FF3FBD /* CustomCells */,
 				B990214218C4857D00FF3FBD /* YOUTube */,
 				B990213818C4824800FF3FBD /* TextInputAlertView */,
-				F110881115FF1CBF0089BA44 /* TestFlight */,
 				B990213618C480D100FF3FBD /* IAPHelper */,
 				F592539016C26DB90064A9A8 /* Tweeter */,
 				C98C4A43161019F7002B5A91 /* FBConnect */,
@@ -3328,6 +3302,10 @@
 		C314696C14BF954900E4135F = {
 			isa = PBXGroup;
 			children = (
+				84AC0B891FBDCB0E00CC6AB5 /* ImagesPro.xcassets */,
+				84AC0B861FBDC3A700CC6AB5 /* Secret Vault.entitlements */,
+				8493E6421FBDB5710003657A /* Secret Vault Pro.entitlements */,
+				8493E6401FBD99BC0003657A /* Images.xcassets */,
 				0F526EF71A358ECB00ED4A3E /* GADHelper */,
 				B990213018C47DB400FF3FBD /* Database */,
 				B990212F18C47DAD00FF3FBD /* AppDelegate */,
@@ -3356,7 +3334,6 @@
 				0F526F221A359B5100ED4A3E /* EventKitUI.framework */,
 				0F526F1F1A359ABC00ED4A3E /* CoreTelephony.framework */,
 				A9910C4B18EED22000BA426D /* ImageIO.framework */,
-				A996E38C18EA78B90052C0E8 /* TestFlightSDK3 */,
 				B9966AE518D40AC7008472F8 /* CoreLocation.framework */,
 				93F373961629396300BD4A94 /* libz.1.2.5.dylib */,
 				F588A57B16C52158006D29D7 /* StoreKit.framework */,
@@ -3389,9 +3366,9 @@
 		C314698214BF954900E4135F /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				84AC0B841FBDC32500CC6AB5 /* SecretApp copy-Info.plist */,
 				EC265D301FBBB40E00AB5613 /* iSpeechSDK.bundle */,
 				B98D98B218C82D4B0060F792 /* SecretApp copy2-Info.plist */,
-				B9826BC318C5C8A200D99C46 /* SecretApp copy-Info.plist */,
 				B98D98AF18C82CAA0060F792 /* iSpeechSample-Info.plist */,
 				C314698414BF954900E4135F /* InfoPlist.strings */,
 				C314698714BF954900E4135F /* main.m */,
@@ -3460,21 +3437,6 @@
 				EC265D281FBBAFCF00AB5613 /* ISSpeechSynthesisVoices.h */,
 			);
 			name = iSpeechHeaders;
-			sourceTree = "<group>";
-		};
-		F110881115FF1CBF0089BA44 /* TestFlight */ = {
-			isa = PBXGroup;
-			children = (
-				A996E38918EA78940052C0E8 /* libTestFlight.a */,
-				A996E38618EA78870052C0E8 /* TestFlight.h */,
-				A996E38718EA78870052C0E8 /* TestFlight+AsyncLogging.h */,
-				A996E38818EA78870052C0E8 /* TestFlight+ManualSessions.h */,
-				F110881315FF1CD80089BA44 /* NSString+MD5Addition.m */,
-				F110881415FF1CD80089BA44 /* NSString+MD5Addition.h */,
-				F110881515FF1CD80089BA44 /* UIDevice+IdentifierAddition.m */,
-				F110881615FF1CD80089BA44 /* UIDevice+IdentifierAddition.h */,
-			);
-			name = TestFlight;
 			sourceTree = "<group>";
 		};
 		F1BF59E91601E8470051DAF4 /* Ipad New Images */ = {
@@ -3855,9 +3817,21 @@
 				TargetAttributes = {
 					B9826BC418C5DCD300D99C46 = {
 						DevelopmentTeam = 75GGG7SP74;
+						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 					C314697614BF954900E4135F = {
 						DevelopmentTeam = 75GGG7SP74;
+						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -4389,6 +4363,7 @@
 				B9826E0618C5DCD300D99C46 /* iphone-p-line.png in Resources */,
 				B9826E0718C5DCD300D99C46 /* iphone-p-line2.png in Resources */,
 				B9826E0818C5DCD300D99C46 /* iphone-p-pause.png in Resources */,
+				84AC0B8B1FBDCB4B00CC6AB5 /* ImagesPro.xcassets in Resources */,
 				B9826E0918C5DCD300D99C46 /* iphone-p-pause2.png in Resources */,
 				B9826E0A18C5DCD300D99C46 /* iphone-p-play.png in Resources */,
 				B9826E0B18C5DCD300D99C46 /* iphone-p-play2.png in Resources */,
@@ -4761,6 +4736,7 @@
 				F5B37C5616C23A3F001061CF /* 1-selected.png in Resources */,
 				F5B37C5716C23A3F001061CF /* 1-selected@2x.png in Resources */,
 				F5B37C5816C23A3F001061CF /* 1.png in Resources */,
+				84AC0B8C1FBDCB4E00CC6AB5 /* Images.xcassets in Resources */,
 				F5B37C5916C23A3F001061CF /* 1@2x.png in Resources */,
 				F5B37C5A16C23A3F001061CF /* 2-selected.png in Resources */,
 				F5B37C5B16C23A3F001061CF /* 2-selected@2x.png in Resources */,
@@ -4878,6 +4854,7 @@
 				A3527F3616D4CB5B00EE2DC3 /* edit-contact.png in Resources */,
 				A3527F3D16D4DBB900EE2DC3 /* chooseText.png in Resources */,
 				A3527F3F16D4F1FB00EE2DC3 /* record-audio.png in Resources */,
+				84AC0B851FBDC32500CC6AB5 /* SecretApp copy-Info.plist in Resources */,
 				A335003416D5D92F002426B0 /* NotesCustomCell_iPad.xib in Resources */,
 				A338FAC616D5DC5200760579 /* secrete-for-iphone.png in Resources */,
 				A338FAC716D5DC5200760579 /* secrete-for-iphone2.png in Resources */,
@@ -5129,8 +5106,6 @@
 				B9826BE418C5DCD300D99C46 /* iTunesDataList.m in Sources */,
 				B9826BE518C5DCD300D99C46 /* iTunesCustomCell.m in Sources */,
 				B9826BE618C5DCD300D99C46 /* ImportFromPC.m in Sources */,
-				B9826BE718C5DCD300D99C46 /* NSString+MD5Addition.m in Sources */,
-				B9826BE818C5DCD300D99C46 /* UIDevice+IdentifierAddition.m in Sources */,
 				B9826BE918C5DCD300D99C46 /* UserLoginNew.m in Sources */,
 				B9826BEA18C5DCD300D99C46 /* ColorPickerController.m in Sources */,
 				B9826BEB18C5DCD300D99C46 /* tablKeyPad.m in Sources */,
@@ -5233,8 +5208,6 @@
 				11A094C315F9AF81008CB390 /* iTunesDataList.m in Sources */,
 				11A094C515F9AF81008CB390 /* iTunesCustomCell.m in Sources */,
 				11A094DB15FA145B008CB390 /* ImportFromPC.m in Sources */,
-				F110881715FF1CD80089BA44 /* NSString+MD5Addition.m in Sources */,
-				F110881815FF1CD80089BA44 /* UIDevice+IdentifierAddition.m in Sources */,
 				F1C69105160325FC00E5453F /* UserLoginNew.m in Sources */,
 				F1C6FEC61604369F00AA0318 /* ColorPickerController.m in Sources */,
 				F1C6FEDC1604648E00AA0318 /* tablKeyPad.m in Sources */,
@@ -5305,9 +5278,14 @@
 		B9826E5B18C5DCD300D99C46 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-Pro";
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-Pro";
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_ENTITLEMENTS = "SecretAppPro/Secret Vault Pro.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer: Julia Lavine (L68Q36PB2N)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Julia Lavine (L68Q36PB2N)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iSpeechSample/iSpeechSample-Prefix.pch";
@@ -5340,6 +5318,7 @@
 				PRODUCT_NAME = "Secret Vault Pro";
 				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
@@ -5349,9 +5328,14 @@
 		B9826E5C18C5DCD300D99C46 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-Pro";
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-Pro";
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_ENTITLEMENTS = "SecretAppPro/Secret Vault Pro.entitlements";
 				CODE_SIGN_IDENTITY = "iOS Distribution: sublime applications pty limited/";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iOS Distribution: sublime applications pty limited/";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = "";
 				EXCLUDED_SOURCE_FILE_NAMES = "";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -5383,8 +5367,9 @@
 				OTHER_CFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.sublime.SecretAppPro;
 				PRODUCT_NAME = "Secret Vault Pro";
-				PROVISIONING_PROFILE = "dc3d0b28-3ea9-40c6-bc41-17e94d6ab7b5";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "dc3d0b28-3ea9-40c6-bc41-17e94d6ab7b5";
+				PROVISIONING_PROFILE = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
@@ -5394,10 +5379,15 @@
 		B9826E5D18C5DCD300D99C46 /* Beta */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-Pro";
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-Pro";
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_ENTITLEMENTS = "SecretAppPro/Secret Vault Pro.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Distribution: sublime applications pty limited  (75GGG7SP74)";
 				"CODE_SIGN_IDENTITY[sdk=*]" = "iPhone Distribution: sublime applications pty limited  (75GGG7SP74)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: sublime applications pty limited  (75GGG7SP74)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iSpeechSample/iSpeechSample-Prefix.pch";
@@ -5428,9 +5418,10 @@
 				OTHER_CFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.sublime.SecretAppPro;
 				PRODUCT_NAME = "Secret Vault Pro";
-				PROVISIONING_PROFILE = "9C504C91-2206-4ABE-98DC-49B5584A14E3";
-				"PROVISIONING_PROFILE[sdk=*]" = "9C504C91-2206-4ABE-98DC-49B5584A14E3";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "9C504C91-2206-4ABE-98DC-49B5584A14E3";
+				PROVISIONING_PROFILE = "";
+				"PROVISIONING_PROFILE[sdk=*]" = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
@@ -5544,16 +5535,21 @@
 		C314699614BF954900E4135F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_ENTITLEMENTS = "Secret Vault.entitlements";
 				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iSpeechSample/iSpeechSample-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = LITEVERSION;
 				GCC_THUMB_SUPPORT = NO;
 				"GCC_THUMB_SUPPORT[arch=armv6]" = YES;
-				INFOPLIST_FILE = "iSpeechSample/iSpeechSample-Info.plist";
+				INFOPLIST_FILE = "SecretApp copy-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -5566,6 +5562,7 @@
 				PRODUCT_NAME = "Secret Vault";
 				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
@@ -5575,9 +5572,14 @@
 		C314699714BF954900E4135F /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_ENTITLEMENTS = "Secret Vault.entitlements";
 				CODE_SIGN_IDENTITY = "iOS Distribution: sublime applications pty limited/";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iOS Distribution: sublime applications pty limited/";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = "";
 				EXCLUDED_SOURCE_FILE_NAMES = "";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -5585,7 +5587,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS = LITEVERSION;
 				GCC_THUMB_SUPPORT = NO;
 				"GCC_THUMB_SUPPORT[arch=armv6]" = YES;
-				INFOPLIST_FILE = "iSpeechSample/iSpeechSample-Info.plist";
+				INFOPLIST_FILE = "SecretApp copy-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -5596,8 +5598,9 @@
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.sublime.SecretApp;
 				PRODUCT_NAME = "Secret Vault";
-				PROVISIONING_PROFILE = "d2220482-764d-4811-821e-2ee99a2a0438";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "d2220482-764d-4811-821e-2ee99a2a0438";
+				PROVISIONING_PROFILE = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
@@ -5659,17 +5662,22 @@
 		F110883315FF34C90089BA44 /* Beta */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_ENTITLEMENTS = "Secret Vault.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Distribution: sublime applications pty limited  (75GGG7SP74)";
 				"CODE_SIGN_IDENTITY[sdk=*]" = "iPhone Distribution: sublime applications pty limited  (75GGG7SP74)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: sublime applications pty limited  (75GGG7SP74)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iSpeechSample/iSpeechSample-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = LITEVERSION;
 				GCC_THUMB_SUPPORT = NO;
 				"GCC_THUMB_SUPPORT[arch=armv6]" = YES;
-				INFOPLIST_FILE = "iSpeechSample/iSpeechSample-Info.plist";
+				INFOPLIST_FILE = "SecretApp copy-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -5680,9 +5688,10 @@
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.sublime.SecretApp;
 				PRODUCT_NAME = "Secret Vault";
-				PROVISIONING_PROFILE = "26345460-7327-4F0A-A381-2DABA483FC01";
-				"PROVISIONING_PROFILE[sdk=*]" = "26345460-7327-4F0A-A381-2DABA483FC01";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "26345460-7327-4F0A-A381-2DABA483FC01";
+				PROVISIONING_PROFILE = "";
+				"PROVISIONING_PROFILE[sdk=*]" = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
